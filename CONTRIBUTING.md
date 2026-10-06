@@ -35,7 +35,7 @@ pnpm preview
 - `scripts/`: builds, schemas, notices, consumer checks and benchmarks.
 - `docs/`: API guides, implementation limits and architecture decisions.
 
-The main package remains `opensheet`; scoped packages use `@opensheetjs/*`. No package is currently published to npm. Use workspace dependencies or built archives when integrating locally. Do not introduce DOM, network or billing dependencies into the core.
+The main package is published as `opensheet`; scoped packages use `@opensheetjs/*`. Version 0.1.0 is a development preview. Use workspace dependencies for local development. Do not introduce DOM, network or billing dependencies into the core.
 
 ## Making changes
 

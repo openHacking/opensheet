@@ -40,4 +40,4 @@ Formula parsing limits expression length, tokens and depth; evaluation limits ra
 
 See [verification](verification.md) and [Contributing](../CONTRIBUTING.md) for checks. Firefox, native input/screen-reader acceptance, real Excel/WPS/LibreOffice fidelity, full framework-host E2E, leak profiles and repeated browser performance matrices remain incomplete.
 
-Prioritize calculation isolation and incremental indexing, real input/accessibility checks and host tests before expanding persistence or plugin interfaces. Stable v1 requires API diffs, backward-compatibility fixtures, performance baselines and actual integration evidence. Packages are not published to npm.
+Prioritize calculation isolation and incremental indexing, real input/accessibility checks and host tests before expanding persistence or plugin interfaces. Stable v1 requires API diffs, backward-compatibility fixtures, performance baselines and actual integration evidence. Version 0.1.0 is an npm development preview.

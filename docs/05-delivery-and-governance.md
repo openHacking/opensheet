@@ -4,7 +4,7 @@
 
 ## Release principles
 
-The current release is a development preview, not stable v1. Public claims must reflect tested behavior. Packages are not published to npm. Source publication and Pages deployment are separate from registry publication.
+The current release is a development preview, not stable v1. Public claims must reflect tested behavior. Version 0.1.0 is published to npm; source publication and Pages deployment are separate from registry publication.
 
 Keep the core usable independently of UI or hosted infrastructure. Public features use the same validated model and command semantics. Maintain dependency licenses and notices in distributed bundles.
 
@@ -26,4 +26,4 @@ Prioritize correctness, calculation isolation/incremental indexing, accessibilit
 
 ## Repository operations
 
-Use protected review and validation practices as maintainer access permits. Pages deploys only tested main-branch artifacts through GitHub Actions. Development workflows belong in CONTRIBUTING.md. Registry publication, signing and registry ownership are future tasks and are not part of the current publication.
+Use protected review and validation practices as maintainer access permits. Pages deploys only tested main-branch artifacts through GitHub Actions. Development workflows belong in CONTRIBUTING.md. The initial npm release is published manually; no automated registry publication or signing workflow is configured.

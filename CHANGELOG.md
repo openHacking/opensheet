@@ -17,4 +17,4 @@
 
 - Scoped packages now use `@opensheetjs/*`. The main package remains `opensheet` and its stylesheet remains `opensheet/style.css`.
 
-Packages have not been published to npm. The API and supported behavior may change before v1.0.
+The ten packages are published to npm as version 0.1.0. The API and supported behavior may change before v1.0.

@@ -34,7 +34,7 @@ Files are processed in your browser. No account, uploads or telemetry. Download 
 
 ## Usage
 
-**Version 0.1.0 is a development preview. Packages are not published to npm yet.** The example below applies when consuming the workspace or built package archives; see [Contributing](CONTRIBUTING.md) for setup.
+**Version 0.1.0 is a development preview.** Install the browser package with `npm install opensheet`, or use `@opensheetjs/core` for headless workbooks. See [Contributing](CONTRIBUTING.md) for workspace setup.
 
 ```ts
 import { createOpenSheet } from 'opensheet';

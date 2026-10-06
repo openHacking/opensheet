@@ -11,7 +11,7 @@ The original local validation used macOS x64, Node.js 24.11.1 and pnpm 10.22.0. 
 | Playwright                       | 11 tests each in Chromium and WebKit                                    |
 | Production build                 | Ten ESM packages, declarations and demo                                 |
 | Package consumption              | Headless imports and NodeNext declarations                              |
-| Package archives                 | Main package includes JS, types, CSS, README and license; not published |
+| Package archives                 | Main package includes JS, types, CSS, README and license                |
 | Dependency audit                 | No reported issues in that scan; not a security guarantee               |
 
 Coverage included initialization, formulas, edits and history, sheets, read-only mode, rectangular paste, synthetic composition events, real Worker XLSX imports, downloads, hostile JSON rejection, snapshot restoration, plugin cleanup, accessible table view, narrow layouts and distant-cell navigation.
