@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/assets/logo.svg" width="280" alt="OpenSheet" /></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.svg" /><img src="docs/assets/logo.svg" width="280" alt="OpenSheet" /></picture></p>
 <p align="center"><strong>An open spreadsheet. A simple API.</strong></p>
 <p align="center">Embed an editable spreadsheet in your app. Work with formulas, extend it with plugins, and turn cells into code.</p>
 <p align="center">
