@@ -79,7 +79,9 @@ export function createScene(id: Exclude<SceneId, 'budget'>): WorkbookSnapshot {
       sheet.range('B2:B6').setStyle({ numberFormat: '0.0%' });
       sheet.range('A6:D6').setStyle({ bold: true, background: '#e4f6ed' });
     }
-    sheet.range('A1:E1').setStyle({ bold: true, color: '#235b42', background: '#eef7f1' });
+    sheet
+      .range(id === 'code' ? 'A1:D1' : 'A1:E1')
+      .setStyle({ bold: true, color: '#235b42', background: '#eef7f1' });
     sheet.setColumnWidth(0, 210);
     for (let column = 1; column < 5; column++) sheet.setColumnWidth(column, 155);
     sheet.setRowHeight(0, 36);

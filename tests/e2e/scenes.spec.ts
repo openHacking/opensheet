@@ -59,6 +59,7 @@ test('planner timeline follows dates and completion', async ({ page }) => {
 test('table code updates and downloads a complete export', async ({ page }) => {
   await page.goto('/#code');
   await expect(page.locator('#source')).toContainText('Baseline');
+  await expect(page.locator('#source')).toContainText('\\begin{tabular}{llll}');
   await page.evaluate(() =>
     window.opensheet
       .getWorkbook()
