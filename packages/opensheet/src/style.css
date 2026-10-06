@@ -1,0 +1,244 @@
+.opensheet {
+  --os-green: #168462;
+  --os-border: #e4eae6;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background: #fff;
+  color: #263b31;
+  font:
+    13px Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  overflow: hidden;
+  border: 1px solid var(--os-border);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+.opensheet * {
+  box-sizing: border-box;
+}
+.opensheet button,
+.opensheet input,
+.opensheet select {
+  font: inherit;
+}
+.opensheet button {
+  cursor: pointer;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  border-radius: 5px;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+.opensheet button:hover {
+  background: #edf3ef;
+}
+.opensheet button:focus-visible,
+.opensheet select:focus-visible {
+  outline: 2px solid var(--os-green);
+  outline-offset: -2px;
+}
+.os-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 49px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--os-border);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.os-toolbar[hidden] {
+  display: none;
+}
+.os-tool-group {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  border-right: 1px solid var(--os-border);
+  padding-right: 9px;
+  margin-right: 4px;
+}
+.os-toolbar select {
+  background: #fff;
+  border: 0;
+  padding: 6px;
+  color: #40564a;
+  max-width: 120px;
+}
+.os-toolbar input[type='color'] {
+  width: 25px;
+  height: 25px;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.os-plugin-toolbar {
+  display: flex;
+  gap: 4px;
+}
+.os-formula-bar {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 38px;
+  border-bottom: 1px solid var(--os-border);
+}
+.os-namebox {
+  width: 98px;
+  flex-shrink: 0;
+  border: 0;
+  border-right: 1px solid var(--os-border);
+  height: 37px;
+  padding: 0 12px;
+  outline: none;
+  color: #40574b;
+}
+.os-formula-bar span {
+  padding: 0 16px;
+  color: #98a99e;
+  font:
+    italic 17px Georgia,
+    serif;
+}
+.os-formula-input {
+  width: 100%;
+  height: 37px;
+  padding: 0 12px 0 0;
+  outline: none;
+  border: 0;
+  color: #40574b;
+  background: #fff;
+}
+.os-formula-input::placeholder {
+  color: #a0aca4;
+  font-size: 12px;
+}
+.os-viewport {
+  flex: 1;
+  min-height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+.os-grid {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  outline: none;
+}
+.os-grid:focus-visible {
+  box-shadow: inset 0 0 0 1px #168462;
+}
+.os-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccd8d0 #f7f9f7;
+}
+.os-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+.os-cell-editor {
+  position: absolute;
+  z-index: 3;
+  resize: none;
+  background: #fff;
+  border: 2px solid var(--os-green);
+  padding: 5px 8px;
+  outline: none;
+  box-shadow: 0 2px 6px #0001;
+  white-space: pre;
+  font:
+    13px Inter,
+    sans-serif;
+  color: #263b31;
+}
+.os-cell-editor[hidden] {
+  display: none;
+}
+.os-footer {
+  height: 43px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--os-border);
+  flex-shrink: 0;
+  background: #fafcfb;
+}
+.os-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  height: 100%;
+  padding-left: 10px;
+}
+.os-tabs button {
+  height: 100%;
+  border-radius: 0;
+  padding: 10px 18px;
+  font-size: 12px;
+  border-bottom: 2px solid transparent;
+}
+.os-tabs button[aria-selected='true'] {
+  color: #168462;
+  background: #edf5f0;
+  border-bottom-color: #168462;
+  font-weight: 600;
+}
+.os-status {
+  font-size: 11px;
+  color: #7f9085;
+  white-space: nowrap;
+  padding: 0 16px;
+}
+.os-toast {
+  position: absolute;
+  bottom: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  background: #203e30;
+  color: white;
+  border-radius: 8px;
+  padding: 11px 16px;
+  box-shadow: 0 6px 24px #0002;
+  z-index: 10;
+}
+.os-toast[hidden] {
+  display: none;
+}
+.os-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 700px) {
+  .os-status {
+    display: none;
+  }
+  .os-toolbar {
+    padding-left: 5px;
+  }
+  .os-tabs button {
+    padding: 10px 12px;
+  }
+}

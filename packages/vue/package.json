@@ -1,0 +1,35 @@
+{
+  "name": "@opensheetjs/vue",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "opensheet": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openHacking/opensheet.git",
+    "directory": "packages/vue"
+  },
+  "homepage": "https://github.com/openHacking/opensheet#readme",
+  "bugs": {
+    "url": "https://github.com/openHacking/opensheet/issues"
+  }
+}

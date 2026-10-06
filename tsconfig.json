@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "opensheet": ["packages/opensheet/src/index.ts"],
+      "@opensheetjs/core": ["packages/core/src/index.ts"],
+      "@opensheetjs/formula": ["packages/formula/src/index.ts"],
+      "@opensheetjs/renderer": ["packages/renderer/src/index.ts"],
+      "@opensheetjs/plugin-sdk": ["packages/plugin-sdk/src/index.ts"],
+      "@opensheetjs/adapter-sheetjs": ["packages/adapter-sheetjs/src/index.ts"],
+      "@opensheetjs/formats": ["packages/formats/src/index.ts"],
+      "@opensheetjs/react": ["packages/react/src/index.ts"],
+      "@opensheetjs/vue": ["packages/vue/src/index.ts"],
+      "@opensheetjs/testing": ["packages/testing/src/index.ts"]
+    }
+  },
+  "include": ["packages", "apps", "tests", "examples", "*.ts"]
+}

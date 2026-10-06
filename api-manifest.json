@@ -1,0 +1,67 @@
+{
+  "version": "0.1.0",
+  "schemaVersion": 1,
+  "pluginApiVersion": "0.1.0",
+  "entrypoints": {
+    "opensheet": [
+      "createOpenSheet",
+      "OpenSheet"
+    ],
+    "@opensheetjs/core": [
+      "createWorkbook",
+      "Workbook",
+      "snapshotSchema",
+      "commandSchemas"
+    ],
+    "@opensheetjs/adapter-sheetjs": [
+      "fromSheetJS",
+      "toSheetJS"
+    ],
+    "@opensheetjs/formats": [
+      "exportRange",
+      "parseDelimited",
+      "stringifyDelimited"
+    ],
+    "@opensheetjs/plugin-sdk": [
+      "definePlugin",
+      "PluginRegistry"
+    ]
+  },
+  "commands": [
+    "core.cells.set",
+    "core.cells.style",
+    "core.cells.clear",
+    "core.cells.merge",
+    "core.cells.unmerge",
+    "core.cells.copy",
+    "core.cells.fillDown",
+    "core.axis.insert",
+    "core.axis.delete",
+    "core.axis.meta",
+    "core.sheet.add",
+    "core.sheet.remove",
+    "core.sheet.rename",
+    "core.sheet.freeze",
+    "core.sheet.filter",
+    "core.sheet.sort"
+  ],
+  "errors": [
+    "INVALID_ARGUMENT",
+    "INVALID_RANGE",
+    "READ_ONLY",
+    "LIMIT_EXCEEDED",
+    "UNSUPPORTED_FEATURE",
+    "REVISION_CONFLICT",
+    "PLUGIN_CONFLICT",
+    "DISPOSED"
+  ],
+  "docs": [
+    "docs/api.md",
+    "docs/plugins.md",
+    "docs/implementation-status.md"
+  ],
+  "schemas": [
+    "schemas/workbook.schema.json",
+    "schemas/commands.schema.json"
+  ]
+}

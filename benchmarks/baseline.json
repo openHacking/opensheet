@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-05",
+  "node": "v24.11.1",
+  "platform": "darwin",
+  "arch": "x64",
+  "cells": 10000,
+  "measurements": {
+    "write_10000_cells_ms": 234.35,
+    "single_edit_ms": 22.57,
+    "undo_ms": 10.35,
+    "serialize_ms": 29.94,
+    "to_sheetjs_ms": 108.13,
+    "from_sheetjs_ms": 119.67
+  },
+  "heapMiB": 33,
+  "note": "Single-run headless diagnostic. This is not a browser p95 benchmark or performance guarantee. Reproduce with pnpm benchmark after pnpm build."
+}

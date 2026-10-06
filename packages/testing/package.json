@@ -1,0 +1,32 @@
+{
+  "name": "@opensheetjs/testing",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@opensheetjs/core": "workspace:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openHacking/opensheet.git",
+    "directory": "packages/testing"
+  },
+  "homepage": "https://github.com/openHacking/opensheet#readme",
+  "bugs": {
+    "url": "https://github.com/openHacking/opensheet/issues"
+  }
+}

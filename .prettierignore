@@ -1,0 +1,8 @@
+node_modules
+dist
+pnpm-lock.yaml
+test-results
+playwright-report
+docs/0*.md
+
+api-manifest.json

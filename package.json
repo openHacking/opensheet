@@ -1,0 +1,40 @@
+{
+  "name": "opensheet-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.22.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite --config apps/playground/vite.config.ts --host 127.0.0.1",
+    "build": "node scripts/build.mjs && pnpm schema && pnpm smoke && node scripts/notices.mjs && vite build --config apps/playground/vite.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check": "pnpm format:check && pnpm typecheck && pnpm test && pnpm build",
+    "preview": "vite preview --config apps/playground/vite.config.ts --host 127.0.0.1",
+    "format": "prettier --write packages apps tests scripts examples *.ts *.json",
+    "format:check": "prettier --check packages apps tests scripts examples *.ts *.json",
+    "schema": "node scripts/schema.mjs",
+    "benchmark": "node scripts/benchmark.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "test:pages": "node scripts/pages-check.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "22.19.0",
+    "@types/react": "19.2.2",
+    "esbuild": "0.25.12",
+    "fast-check": "4.3.0",
+    "prettier": "3.6.2",
+    "react": "19.2.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vitest": "4.1.11",
+    "vue": "3.5.24",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}

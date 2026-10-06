@@ -1,0 +1,16 @@
+# OpenSheet 0.1
+
+Open-source TypeScript spreadsheet. Current implementation docs take precedence over numbered design documents. Packages are not published to npm.
+
+- README.md: project overview, demos and package map
+- CONTRIBUTING.md: local setup, development, validation and deployment
+- docs/api.md: public APIs and examples
+- docs/plugins.md: plugin lifecycle and capabilities
+- docs/implementation-status.md: supported behavior and limits
+- schemas/workbook.schema.json: native snapshot schema
+- schemas/commands.schema.json: local command schemas
+- api-manifest.json: entry points, commands and errors
+- examples/headless.ts: compile-checked headless usage
+- examples/plugin.ts: compile-checked plugin
+
+Main entry: opensheet; stylesheet: opensheet/style.css. Scoped packages: @opensheetjs/*. Use setValues for literal data and setFormulas for formulas. All writes go through commands. Transactions are synchronous. Numeric range ends are exclusive. Never mutate sheetData or claim full Excel compatibility. Dispose instances on unmount.
