@@ -1,12 +1,18 @@
 import { assert, OpenSheetError } from './types.js';
-export const BLOCK_ROWS = 64;
-export const BLOCK_COLUMNS = 32;
+export { BLOCK_ROWS, BLOCK_COLUMNS } from './block-layout.js';
 export const encodedBytes = (value: unknown) =>
-  new TextEncoder().encode(JSON.stringify(value)).byteLength;
+  value instanceof Uint8Array
+    ? value.byteLength + 1
+    : new TextEncoder().encode(JSON.stringify(value)).byteLength;
+export const recordBytes = (id: IDBValidKey, value: unknown) =>
+  value instanceof Uint8Array ? value.byteLength + 1 : encodedBytes([id, value]) + 1;
 export class ByteCache<T> {
   private entries = new Map<string, { value: T; bytes: number }>();
   bytes = 0;
-  constructor(readonly budget: number) {}
+  constructor(
+    readonly budget: number,
+    private onDelete?: (id: string) => void,
+  ) {}
   get(id: string): T | undefined {
     const entry = this.entries.get(id);
     if (!entry) return;
@@ -25,8 +31,10 @@ export class ByteCache<T> {
     const entry = this.entries.get(id);
     if (entry) this.bytes -= entry.bytes;
     this.entries.delete(id);
+    if (entry) this.onDelete?.(id);
   }
   clear() {
+    for (const id of this.entries.keys()) this.onDelete?.(id);
     this.entries.clear();
     this.bytes = 0;
   }
@@ -44,16 +52,25 @@ export function completed(tx: IDBTransaction) {
     tx.onerror = () => {}; // onabort carries the final result
   });
 }
-const encode = (id: IDBValidKey, value: unknown) =>
-  new TextEncoder().encode(JSON.stringify([id, value]));
+const encode = (id: IDBValidKey, value: unknown) => {
+  const data =
+    value instanceof Uint8Array ? value : new TextEncoder().encode(JSON.stringify([id, value]));
+  const result = new Uint8Array(data.length + 1);
+  result[0] = value instanceof Uint8Array ? 1 : 0;
+  result.set(data, 1);
+  return result;
+};
 const decode = <T>(value: unknown): T | undefined => {
   if (value === undefined) return undefined;
   assert(value instanceof Uint8Array, 'CORRUPT_STORAGE', 'Invalid encoded storage record');
-  return JSON.parse(new TextDecoder().decode(value))[1] as T;
+  assert(value[0] === 0 || value[0] === 1, 'CORRUPT_STORAGE', 'Unsupported storage format');
+  return value[0] === 1
+    ? (value.subarray(1) as T)
+    : (JSON.parse(new TextDecoder().decode(value.subarray(1)))[1] as T);
 };
 export class Database {
   private constructor(readonly db: IDBDatabase) {}
-  static async open(name = 'opensheet-v4') {
+  static async open(name = 'opensheet') {
     assert(typeof indexedDB !== 'undefined', 'STORAGE_UNAVAILABLE', 'IndexedDB is required');
     const req = indexedDB.open(name, 1);
     req.onupgradeneeded = () => {
@@ -88,7 +105,7 @@ export class Database {
       }
       for (const [id, value] of puts) {
         target.put(encode(id, value), id);
-        ledger?.put(encode(id, encodedBytes([id, value])), id);
+        ledger?.put(encode(id, recordBytes(id, value)), id);
       }
       await done;
     } catch (error) {

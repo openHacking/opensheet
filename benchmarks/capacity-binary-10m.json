@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "engineFormat": "binary-pages-schema3",
+  "mode": "single",
+  "status": "finished",
+  "protocol": {
+    "rounds": 3,
+    "editWarmups": 5,
+    "editSamples": 100,
+    "scrollWarmups": 30,
+    "scrollSamples": 300,
+    "blockRows": 64,
+    "blockColumns": 32,
+    "workerCacheBudgetBytes": 67108864,
+    "viewportCacheBudgetBytes": 8388608
+  },
+  "date": "2026-10-07T14:41:26.189Z",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+  "hardwareConcurrency": 10,
+  "deviceMemoryGiB": 16,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "workload": {
+    "columns": 100,
+    "seed": "LCG-1664525-1013904223",
+    "numbers": 0.6,
+    "text": 0.3,
+    "textBytes": 32,
+    "booleans": 0.1
+  },
+  "budgetMiB": 256,
+  "thresholds": {
+    "editP95Ms": 100,
+    "scrollP95Ms": 33,
+    "restoreMs": 10000
+  },
+  "quota": {
+    "quota": 3351207936,
+    "usage": 129982464,
+    "usageDetails": {
+      "indexedDB": 129982464
+    }
+  },
+  "memoryScope": "mainHeapBytes covers the main document where supported; workerCacheBytes and viewportCacheBytes are conservative encoded-byte reservations, not total process heap",
+  "largestPassed": 0,
+  "smallestFailed": 10000000,
+  "results": [
+    {
+      "cells": 10000000,
+      "passed": false,
+      "rounds": [
+        {
+          "restoreMs": 216.70000000298023,
+          "verifyMs": 38337,
+          "editP95Ms": 197,
+          "scrollP95Ms": 52.800000005954644,
+          "bytes": 123611155,
+          "mainHeapBytes": 18200000,
+          "workerCacheBytes": 60799296,
+          "viewportCacheBytes": 7280400
+        }
+      ],
+      "failure": "Interaction threshold exceeded",
+      "elapsedMs": 97228.79999999702
+    }
+  ],
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.19.0",
+  "headless": true,
+  "browserVersion": "153.0.8010.12"
+}

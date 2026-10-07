@@ -22,6 +22,6 @@ Custom editors, formula functions, shortcut registries, persistence providers an
 
 ## Framework integration
 
-React and Vue wrappers manage editor lifecycle and expose the same workbook APIs. initialSnapshot is mount-time input; later replacements use app.load. Components need an explicit height and disposal at unmount. Host integrations should test their framework's lifecycle behavior and remounts.
+React and Vue wrappers manage editor lifecycle and expose the same workbook APIs. initialFile is mount-time input; later replacements use app.load. Components need an explicit height and disposal at unmount. Host integrations should test their framework's lifecycle behavior and remounts.
 
 Changes to public contracts need a design note, compatibility explanation, consumer type checks and a changelog entry. Stable v1 guarantees require broader integration and backward-compatibility fixtures.

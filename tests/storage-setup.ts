@@ -17,8 +17,8 @@ class TestWorker {
   constructor() {
     serveWorker(this.scope);
   }
-  postMessage(value: Message) {
-    const data = structuredClone(value);
+  postMessage(value: Message, transfer: Transferable[] = []) {
+    const data = structuredClone(value, { transfer });
     queueMicrotask(() => {
       if (this.alive) this.scope.onmessage?.({ data } as MessageEvent<Message>);
     });

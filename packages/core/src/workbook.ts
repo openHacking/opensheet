@@ -1,4 +1,12 @@
 import { freeze } from 'immer';
+import {
+  encodeWorkbookFile,
+  encodeFileCells,
+  decodeFileMetadata,
+  type WorkbookFile,
+} from './file-codec.js';
+import { decodeBlock, encodeBlock, type EncodedBlock } from './block-codec.js';
+import { writeBinary } from './binary-file.js';
 import { validateCommand } from './commands.js';
 import { createSheet, createSnapshot, checkBounds } from './model.js';
 import { Sheet } from './sheet.js';
@@ -10,6 +18,8 @@ import {
   OpenSheetError,
   uid,
   type CellRecord,
+  type CellInput,
+  type CellStyle,
   type CellValue,
   type Command,
   type CommandEnvelope,
@@ -35,6 +45,19 @@ export type RangeData = {
   display: Record<string, string>;
   revision: number;
 };
+export type CellField = 'input' | 'value' | 'display' | 'style' | 'numberFormat' | 'note' | 'link';
+export type CellData = {
+  row: number;
+  column: number;
+  input?: CellInput;
+  value?: CellValue;
+  display?: string;
+  style?: CellStyle;
+  numberFormat?: string;
+  note?: string;
+  link?: CellRecord['link'];
+};
+export type CellCursor = { revision: number; sheetId: string; address: string; offset: number };
 export class Workbook {
   private worker: Worker;
   private initial: Promise<this>;
@@ -55,6 +78,7 @@ export class Workbook {
   private dataListeners = new Set<() => void>();
   private batch?: Command[];
   private transactionRunning = false;
+  private importRunning = false;
   private poisoned = false;
   private expired = false;
   private transactionCancelled = false;
@@ -64,7 +88,7 @@ export class Workbook {
   private seen: ByteCache<{ signature: string; commit?: Commit }>;
   readonly id: string;
   constructor(
-    snapshot?: WorkbookSnapshot,
+    snapshot?: WorkbookFile,
     private options: WorkbookOptions = {},
     id = snapshot?.workbookId ?? uid('wb'),
   ) {
@@ -95,7 +119,31 @@ export class Workbook {
       new Worker(new URL('./engine.worker.js', import.meta.url), { type: 'module' });
     this.worker.onmessage = (event) => {
       const message = event.data;
+      if (message.storage) {
+        if (this.view) {
+          this.view.bytes = message.storage.bytes;
+          this.view.cacheBytes = message.storage.cacheBytes;
+        }
+        return;
+      }
       if (message.progress) {
+        const task = this.pending.get(message.requestId);
+        if (task) {
+          clearTimeout(task.timer);
+          task.timer = setTimeout(() => {
+            this.pending.delete(message.requestId);
+            task.reject(
+              new OpenSheetError('WORKER_TIMEOUT', 'Worker stopped reporting import progress'),
+            );
+            this.worker.terminate();
+            this.fail(
+              new OpenSheetError(
+                'WORKER_FAILED',
+                'Worker stopped responding; reopen the last committed workbook',
+              ),
+            );
+          }, this.options.operationTimeoutMs ?? 60000);
+        }
         options.onProgress?.(message.progress);
         return;
       }
@@ -123,11 +171,9 @@ export class Workbook {
       .then(({ view, writer }) => {
         if (this.disposed)
           throw new OpenSheetError('DISPOSED', 'Workbook closed during initialization');
-        this.view = { ...view, snapshot: freeze(view.snapshot, true) };
+        this.adopt(view);
         this.writer = writer;
-        this.channel = new BroadcastChannel(
-          `opensheet:${options.database ?? 'opensheet-v4'}:${id}`,
-        );
+        this.channel = new BroadcastChannel(`opensheet:${options.database ?? 'opensheet'}:${id}`);
         this.channel.onmessage = () => {
           if (!this.writer)
             void this.rpc('reload')
@@ -161,7 +207,7 @@ export class Workbook {
     }
     this.pending.clear();
   }
-  private rpc(method: string, args: unknown[] = []): Promise<any> {
+  private rpc(method: string, args: unknown[] = [], transfer: Transferable[] = []): Promise<any> {
     assert(!this.disposed, 'DISPOSED', 'Workbook is disposed');
     if (this.failure) return Promise.reject(this.failure);
     const id = ++this.nextId;
@@ -181,7 +227,7 @@ export class Workbook {
       }, this.options.operationTimeoutMs ?? 60000);
       this.pending.set(id, { resolve, reject, timer });
       try {
-        this.worker.postMessage({ id, method, args });
+        this.worker.postMessage({ id, method, args }, transfer);
       } catch (error) {
         this.pending.delete(id);
         clearTimeout(timer);
@@ -365,6 +411,40 @@ export class Workbook {
     assert(data.revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during read');
     return data;
   }
+  async readCells(sheetId: string, range: Rect, options: { fields?: CellField[] } = {}) {
+    checkBounds(this.sheetData(sheetId), range);
+    const fields = options.fields ?? ['input', 'value'];
+    assert(
+      fields.every((field) =>
+        ['input', 'value', 'display', 'style', 'numberFormat', 'note', 'link'].includes(field),
+      ),
+      'INVALID_ARGUMENT',
+      'Unknown cell field',
+    );
+    const data: { revision: number; sheetId: string; range: Rect; cells: CellData[] } =
+      await this.rpc('readCells', [sheetId, range, fields]);
+    assert(data.revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during read');
+    return data;
+  }
+  async scanCells(
+    sheetId: string,
+    options: { cursor?: CellCursor; limit?: number; fields?: CellField[] } = {},
+  ) {
+    const fields = options.fields ?? ['input'];
+    assert(
+      fields.every((field) =>
+        ['input', 'value', 'display', 'style', 'numberFormat', 'note', 'link'].includes(field),
+      ),
+      'INVALID_ARGUMENT',
+      'Unknown cell field',
+    );
+    const result: { revision: number; cells: CellData[]; cursor?: CellCursor } = await this.rpc(
+      'scanCells',
+      [sheetId, { ...options, fields }],
+    );
+    assert(result.revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during read');
+    return result;
+  }
   async *streamRange(
     sheet: string,
     range: Rect,
@@ -395,7 +475,14 @@ export class Workbook {
     }
   }
   private adopt(view: EngineView) {
-    this.view = { ...view, snapshot: freeze(view.snapshot, true) };
+    const wire = view as EngineView & { file?: WorkbookFile; styleIds?: string[] };
+    const snapshot = wire.file ? decodeFileMetadata(wire.file) : this.view?.snapshot;
+    assert(snapshot, 'CORRUPT_STORAGE', 'Missing workbook metadata');
+    if (wire.file && wire.styleIds)
+      snapshot.styles = Object.fromEntries(
+        wire.styleIds.map((id, i) => [id, wire.file!.styles[i]]),
+      );
+    this.view = { ...view, snapshot: freeze({ ...snapshot, revision: view.revision }, true) };
     this.cache.clear();
     this.loading.clear();
   }
@@ -430,6 +517,7 @@ export class Workbook {
     return result.commit;
   }
   async execute(input: Command | CommandEnvelope): Promise<Commit | undefined> {
+    assert(!this.importRunning, 'BUSY', 'Import is running');
     assert(!this.isReadOnly, 'READ_ONLY', 'Workbook is read only');
     if (this.batch) {
       try {
@@ -533,43 +621,207 @@ export class Workbook {
     this.adopt(await this.rpc('generate', [count, budget]));
     this.channel?.postMessage({ revision: this.revision });
   }
-  async toJSON(range?: Selection): Promise<WorkbookSnapshot> {
-    const snapshot = structuredClone(this.metadata);
-    const revision = this.revision;
-    for (const sh of snapshot.sheets) {
-      if (range && sh.id !== range.sheetId) continue;
-      const rect = range ?? this.usedRange(sh.id);
-      for await (const data of this.streamRange(sh.id, rect, { values: false }))
-        Object.assign(sh.cells, data.cells);
+  getMetadata() {
+    return {
+      workbookId: this.id,
+      revision: this.revision,
+      dateSystem: this.metadata.dateSystem,
+      sheets: this.getSheets().map((sh) => ({
+        id: sh.id,
+        name: sh.name,
+        rows: sh.rowCount,
+        columns: sh.columnCount,
+        usedRange: this.usedRange(sh.id),
+      })),
+    };
+  }
+  getAxes(sheetId: string, axis: 'row' | 'column', start: number, count: number) {
+    const sh = this.sheetData(sheetId),
+      ids = axis === 'row' ? sh.rowOrder : sh.columnOrder;
+    assert(
+      Number.isInteger(start) &&
+        Number.isInteger(count) &&
+        start >= 0 &&
+        count >= 0 &&
+        count <= 16384 &&
+        start + count <= ids.length,
+      'INVALID_RANGE',
+      'Invalid axis window',
+    );
+    return { revision: this.revision, start, ids: ids.slice(start, start + count) };
+  }
+  async importJSON(
+    input: WorkbookFile | string | Blob | ReadableStream<Uint8Array>,
+    options: { signal?: AbortSignal } = {},
+  ) {
+    assert(!this.isReadOnly, 'READ_ONLY', 'Workbook is read only');
+    assert(
+      !this.importRunning && !this.transactionRunning,
+      'BUSY',
+      'Another write operation is running',
+    );
+    options.signal?.throwIfAborted();
+    this.importRunning = true;
+    const cancel = () => this.cancel();
+    options.signal?.addEventListener('abort', cancel, { once: true });
+    try {
+      this.adopt(
+        await this.rpc('importJSON', [input], input instanceof ReadableStream ? [input] : []),
+      );
+      this.channel?.postMessage({ revision: this.revision });
+    } finally {
+      this.importRunning = false;
+      options.signal?.removeEventListener('abort', cancel);
     }
-    assert(revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
-    return snapshot;
+  }
+  private async *filePages(revision: number, signal?: AbortSignal) {
+    let after: string | undefined;
+    while (true) {
+      assert(!signal?.aborted, 'ABORTED', 'Export aborted');
+      assert(this.revision === revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+      const addresses: string[] = await this.rpc('exportIndex', [revision, after, 32]);
+      if (!addresses.length) break;
+      for (const address of addresses) {
+        assert(!signal?.aborted, 'ABORTED', 'Export aborted');
+        const encoded: EncodedBlock = await this.rpc('exportBlock', [address, revision]);
+        const block = decodeBlock(encoded);
+        yield { address, block, encoded };
+      }
+      after = addresses.at(-1);
+    }
+    assert(this.revision === revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+  }
+  private async exportMetadata(revision: number) {
+    const ids: string[] = await this.rpc('exportStyles', [revision]);
+    assert(this.revision === revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    const file = encodeWorkbookFile(this.metadata);
+    file.styles = ids.map((id) => this.metadata.styles[id]);
+    return { file, ids };
+  }
+  async toJSON(options: { signal?: AbortSignal } = {}): Promise<WorkbookFile> {
+    const revision = this.revision,
+      { file, ids } = await this.exportMetadata(revision);
+    const styles = new Map(ids.map((id, i) => [id, i]));
+    const sheets = new Map(file.sheets.map((sh) => [sh.id, sh]));
+    for await (const { address, block } of this.filePages(revision, options.signal)) {
+      const [id, row, column] = address.split('/');
+      sheets.get(id)!.blocks.push({
+        row: +row,
+        column: +column,
+        data: encodeFileCells(
+          Object.values(block.cells),
+          styles,
+          this.view.importRevision === revision,
+        ),
+      });
+    }
+    for (const sheet of file.sheets)
+      sheet.blocks.sort((a, b) => a.row - b.row || a.column - b.column);
+    return file;
   }
   async *streamJSON(options: { signal?: AbortSignal } = {}): AsyncGenerator<string> {
     const revision = this.revision,
-      meta = this.metadata;
-    const { sheets: _sheets, ...header } = meta;
+      { file, ids } = await this.exportMetadata(revision);
+    const styles = new Map(ids.map((id, i) => [id, i]));
+    const { sheets, ...header } = file;
+    const check = () => {
+      assert(!options.signal?.aborted, 'ABORTED', 'Export aborted');
+      assert(revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    };
+    check();
     yield JSON.stringify(header).slice(0, -1) + ',"sheets":[';
-    for (let i = 0; i < meta.sheets.length; i++) {
-      const sh = meta.sheets[i],
-        { cells: _cells, ...sheet } = sh;
-      yield (i ? ',' : '') + JSON.stringify(sheet).slice(0, -1) + ',"cells":{';
-      let first = true;
-      for await (const data of this.streamRange(sh.id, this.usedRange(sh.id), {
-        ...options,
-        values: false,
-      })) {
-        const parts: string[] = [];
-        for (const [k, c] of Object.entries(data.cells)) {
-          parts.push((first ? '' : ',') + JSON.stringify(k) + ':' + JSON.stringify(c));
+    for (let i = 0; i < sheets.length; i++) {
+      check();
+      const { blocks, ...meta } = sheets[i];
+      yield (i ? ',' : '') + JSON.stringify(meta).slice(0, -1) + ',"blocks":[';
+      let first = true,
+        after: string | undefined;
+      while (true) {
+        check();
+        const addresses: string[] = await this.rpc('exportIndex', [revision, after, 32, meta.id]);
+        if (!addresses.length) break;
+        for (const address of addresses) {
+          check();
+          const block = decodeBlock(await this.rpc('exportBlock', [address, revision]));
+          check();
+          const [, row, column] = address.split('/');
+          yield (first ? '' : ',') +
+            JSON.stringify({
+              row: +row,
+              column: +column,
+              data: encodeFileCells(
+                Object.values(block.cells),
+                styles,
+                this.view.importRevision === revision,
+              ),
+            });
           first = false;
         }
-        yield parts.join('');
+        after = addresses.at(-1);
       }
-      yield '}}';
+      yield ']}';
     }
-    assert(revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    check();
     yield ']}';
+  }
+  async *streamBinary(options: { signal?: AbortSignal } = {}) {
+    const revision = this.revision,
+      { file: metadata, ids } = await this.exportMetadata(revision),
+      book = this;
+    const styles = new Map(ids.map((id, i) => [id, `s${i}`]));
+    async function* pages() {
+      for (let sheet = 0; sheet < metadata.sheets.length; sheet++) {
+        const id = metadata.sheets[sheet].id;
+        let after: string | undefined;
+        while (true) {
+          assert(!options.signal?.aborted, 'ABORTED', 'Export aborted');
+          const addresses: string[] = await book.rpc('exportIndex', [revision, after, 32, id]);
+          if (!addresses.length) break;
+          for (const address of addresses) {
+            const page = decodeBlock(await book.rpc('exportBlock', [address, revision])),
+              cells = page.cells;
+            for (const cell of Object.values(cells)) {
+              if (cell.styleId !== undefined) cell.styleId = styles.get(cell.styleId)!;
+              if (book.view.importRevision !== revision) delete cell.cached;
+            }
+            yield {
+              sheet,
+              row: page.row,
+              column: page.column,
+              bytes: encodeBlock(cells, [], [], {}),
+            };
+          }
+          after = addresses.at(-1);
+        }
+      }
+      assert(book.revision === revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    }
+    yield* writeBinary(metadata, pages(), options.signal);
+    assert(this.revision === revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+  }
+  async importBinary(
+    input: Blob | Uint8Array | ReadableStream<Uint8Array>,
+    options: { signal?: AbortSignal } = {},
+  ) {
+    assert(!this.isReadOnly, 'READ_ONLY', 'Workbook is read only');
+    assert(
+      !this.importRunning && !this.transactionRunning,
+      'BUSY',
+      'Another write operation is running',
+    );
+    options.signal?.throwIfAborted();
+    this.importRunning = true;
+    const cancel = () => this.cancel();
+    options.signal?.addEventListener('abort', cancel, { once: true });
+    try {
+      this.adopt(
+        await this.rpc('importBinary', [input], input instanceof ReadableStream ? [input] : []),
+      );
+      this.channel?.postMessage({ revision: this.revision });
+    } finally {
+      this.importRunning = false;
+      options.signal?.removeEventListener('abort', cancel);
+    }
   }
   cancel() {
     this.transactionCancelled = true;
@@ -612,7 +864,7 @@ export async function createWorkbook(
   options: Parameters<typeof createSnapshot>[0] = {},
   storage: WorkbookOptions = {},
 ) {
-  return new Workbook(createSnapshot(options), storage).ready();
+  return new Workbook(encodeWorkbookFile(createSnapshot(options)), storage).ready();
 }
 export async function openWorkbook(id: string, options: WorkbookOptions = {}) {
   return new Workbook(undefined, options, id).ready();

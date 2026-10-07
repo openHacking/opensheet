@@ -17,7 +17,11 @@ export function createPluginContext(
       },
     },
     workbook: {
-      getSnapshot() {
+      getMetadata() {
+        require('workbook.read');
+        return host.getWorkbook().getMetadata();
+      },
+      toJSON() {
         require('workbook.read');
         return host.getWorkbook().toJSON();
       },

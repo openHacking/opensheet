@@ -1,5 +1,5 @@
 import { toSheetJS, type CompatibilityReport } from '@opensheetjs/adapter-sheetjs';
-import type { OpenSheet, WorkbookSnapshot } from 'opensheet';
+import type { OpenSheet, WorkbookFile } from 'opensheet';
 import { createBindings } from './bindings.js';
 import { $ } from './dom.js';
 import type { Feedback } from './feedback.js';
@@ -31,6 +31,17 @@ export function createFileActions(
   function name() {
     return $<HTMLInputElement>('document-name').value.trim() || 'workbook';
   }
+  bindings.on($('save-native'), 'click', async () => {
+    try {
+      const parts: BlobPart[] = [];
+      for await (const chunk of app.getWorkbook().streamBinary()) parts.push(chunk as BlobPart);
+      download(new Blob(parts), `${name()}.opensheet`, 'application/octet-stream');
+      state.dirty = false;
+      $('save-state').textContent = 'Workbook downloaded · Continue editing locally';
+    } catch (error) {
+      notice(String(error));
+    }
+  });
   bindings.on($('save-json'), 'click', async () => {
     const parts: string[] = [];
     for await (const chunk of app.getWorkbook().streamJSON()) parts.push(chunk);
@@ -90,11 +101,14 @@ export function createFileActions(
     }
   });
   bindings.on($('import'), 'click', () => $<HTMLInputElement>('file').click());
+  let nativeImport: AbortController | undefined;
   let importWorker: Worker | undefined;
   let importTimer: ReturnType<typeof setTimeout> | undefined;
   let generation = 0;
   function cancelImport() {
     generation++;
+    nativeImport?.abort();
+    nativeImport = undefined;
     importWorker?.terminate();
     importWorker = undefined;
     clearTimeout(importTimer);
@@ -107,11 +121,42 @@ export function createFileActions(
   bindings.on($<HTMLInputElement>('file'), 'change', async () => {
     const file = $<HTMLInputElement>('file').files?.[0];
     if (!file) return;
-    if (file.size > 20 * 1024 * 1024) {
+    if (!/\.(json|opensheet)$/i.test(file.name) && file.size > 20 * 1024 * 1024) {
       notice('Files must be smaller than 20 MiB');
       return;
     }
     cancelImport();
+    if (/\.(json|opensheet)$/i.test(file.name)) {
+      const controller = new AbortController(),
+        request = generation;
+      nativeImport = controller;
+      importButton.disabled = true;
+      importButton.textContent = 'Reading…';
+      const active = () => nativeImport === controller && request === generation && !disposed;
+      try {
+        if (/\.json$/i.test(file.name)) await app.loadJSON(file, { signal: controller.signal });
+        else await app.loadBinary(file, { signal: controller.signal });
+        if (!active()) return;
+        state.dirty = true;
+        state.importedWorkbook = true;
+        $<HTMLInputElement>('document-name').value = file.name.replace(
+          /\.(opensheet\.json|opensheet|json)$/i,
+          '',
+        );
+        $('save-state').textContent = 'Imported locally · Original file unchanged';
+        refresh();
+        await app.getGrid()?.ready();
+      } catch (error) {
+        if (active()) notice(String(error));
+      } finally {
+        if (active()) {
+          nativeImport = undefined;
+          importButton.disabled = false;
+          importButton.innerHTML = importLabel;
+        }
+      }
+      return;
+    }
     const request = generation;
     const worker = new Worker(new URL('./file.worker.ts', import.meta.url), { type: 'module' });
     importWorker = worker;
@@ -143,7 +188,7 @@ export function createFileActions(
     worker.onmessage = async (
       event: MessageEvent<{
         error?: string;
-        snapshot: WorkbookSnapshot;
+        file: WorkbookFile;
         report?: CompatibilityReport;
       }>,
     ) => {
@@ -154,7 +199,7 @@ export function createFileActions(
         return;
       }
       try {
-        await app.load(event.data.snapshot);
+        await app.load(event.data.file);
         if (request !== generation || disposed) return;
         state.dirty = true;
         state.importedWorkbook = true;

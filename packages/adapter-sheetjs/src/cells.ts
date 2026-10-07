@@ -3,7 +3,7 @@ import {
   type CellRecord,
   OpenSheetError,
   type Scalar,
-  type WorkbookSnapshot,
+  type CellStyle,
 } from '@opensheetjs/core';
 import { add } from './report.js';
 import type { CompatibilityReport, Issue } from './types.js';
@@ -45,7 +45,6 @@ export function importCell(
   c: any,
   row: number,
   col: number,
-  sh: { rowOrder: string[]; columnOrder: string[] },
   dateSystem: '1900' | '1904',
   issue: CellIssue,
 ) {
@@ -84,8 +83,8 @@ export function importCell(
       value = c.v === undefined ? { type: 'blank' } : { type: 'string', value: String(c.v) };
   }
   const record: CellRecord = {
-    rowId: sh.rowOrder[row],
-    columnId: sh.columnOrder[col],
+    rowId: row,
+    columnId: col,
     input: c.f ? { type: 'formula', expression: String(c.f) } : value,
   };
   if (c.f && c.v !== undefined) record.cached = value;
@@ -118,7 +117,7 @@ export function importCell(
 
 export function exportCell(
   c: CellRecord,
-  styles: WorkbookSnapshot['styles'],
+  styles: Record<string, CellStyle>,
   r: CompatibilityReport,
   id: string,
   row: number,

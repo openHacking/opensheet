@@ -41,16 +41,7 @@ export const commandSchemas = {
     ...base,
     axis: z.enum(['row', 'column']),
     index: z.number().int().nonnegative(),
-    ids: z
-      .array(
-        z
-          .string()
-          .max(100)
-          .regex(/^[\w-]+$/)
-          .refine((value) => !['__proto__', 'constructor', 'prototype'].includes(value)),
-      )
-      .min(1)
-      .max(LIMITS.rows),
+    ids: z.array(z.number().int().min(0).max(0xffffffff)).min(1).max(LIMITS.rows),
   }),
   'core.axis.delete': z.object({
     ...base,

@@ -1,3 +1,4 @@
+import { decodeWorkbookFile } from '../packages/core/src/file-codec.js';
 import { describe, it, expect } from 'vitest';
 import * as XLSX from 'xlsx';
 import { fromSheetJS, toSheetJS } from '@opensheetjs/adapter-sheetjs';
@@ -9,12 +10,12 @@ describe('SheetJS', () => {
       SheetNames: ['Data'],
       Sheets: { Data: { A1: { t: 'n', f: '1+2' } } },
     });
-    const exported = toSheetJS(original.snapshot);
-    const restored = await new Workbook(fromSheetJS(exported.workbook).snapshot).ready();
+    const exported = toSheetJS(original.file);
+    const restored = await new Workbook(fromSheetJS(exported.workbook).file).ready();
     expect(await restored.getSheets()[0].range('A1').getValues()).toEqual([[3]]);
     const bytes = XLSX.write(exported.workbook, { type: 'array', bookType: 'xlsx' });
     const binary = await new Workbook(
-      fromSheetJS(XLSX.read(bytes, { type: 'array', sheetStubs: true })).snapshot,
+      fromSheetJS(XLSX.read(bytes, { type: 'array', sheetStubs: true })).file,
     ).ready();
     expect(await binary.getSheets()[0].range('A1').getValues()).toEqual([[3]]);
   });
@@ -32,7 +33,7 @@ describe('SheetJS', () => {
     const imported = fromSheetJS(
       XLSX.read(bytes, { type: 'array', cellNF: true, sheetStubs: true }),
     );
-    const restored = await new Workbook(imported.snapshot).ready();
+    const restored = await new Workbook(imported.file).ready();
     expect(restored.getSheets().map((s) => s.name)).toEqual(['Data', 'Other']);
     expect(await restored.getSheets()[0].range('A1:D2').getValues()).toEqual([
       ['0001', 42, false, null],
@@ -41,7 +42,7 @@ describe('SheetJS', () => {
     expect((await restored.getCell(restored.getSheets()[0].id, 1, 1))?.numberFormat).toBe(
       'yyyy-mm-dd',
     );
-    expect(imported.snapshot.sheets[0].merges).toHaveLength(1);
+    expect(decodeWorkbookFile(imported.file).sheets[0].merges).toHaveLength(1);
   });
   it('reads dense and sparse layouts identically', async () => {
     const bytes = XLSX.write(
@@ -57,10 +58,7 @@ describe('SheetJS', () => {
     for (const dense of [true, false]) {
       const imported = fromSheetJS(XLSX.read(bytes, { type: 'array', dense }));
       expect(
-        await (await new Workbook(imported.snapshot).ready())
-          .getSheets()[0]
-          .range('A1:C2')
-          .getValues(),
+        await (await new Workbook(imported.file).ready()).getSheets()[0].range('A1:C2').getValues(),
       ).toEqual([
         [1, 'text', false],
         ['', null, 2],
@@ -72,7 +70,7 @@ describe('SheetJS', () => {
       SheetNames: ['Data'],
       Sheets: { Data: { '!ref': 'A1:XFD1048576', A1: { t: 'n', v: 1 } } },
     });
-    expect(data.snapshot.sheets[0].rowOrder).toHaveLength(100);
+    expect(decodeWorkbookFile(data.file).sheets[0].rowOrder).toHaveLength(100);
     expect(() =>
       fromSheetJS({ SheetNames: ['Data'], Sheets: { Data: { A100001: { t: 'n', v: 1 } } } }),
     ).toThrow();
@@ -83,7 +81,7 @@ describe('SheetJS', () => {
       Sheets: { Data: { A1: { t: 'n', v: 0, z: 'yyyy-mm-dd' } } },
       Workbook: { WBProps: { date1904: true } },
     });
-    const b = await new Workbook(result.snapshot).ready();
+    const b = await new Workbook(result.file).ready();
     expect(await b.getSheets()[0].range('A1').getDisplayValues()).toEqual([['1904-01-01']]);
   });
   it('surfaces loss and supports strict mode', () => {
@@ -101,7 +99,7 @@ describe('SheetJS', () => {
     ).not.toThrow();
   });
   it('enforces read-only for array formula imports', async () => {
-    const { snapshot } = fromSheetJS({
+    const { file: snapshot } = fromSheetJS({
       SheetNames: ['Data'],
       Sheets: { Data: { A1: { t: 'n', v: 2, f: 'SUM(A2:A3)', F: 'A1:A1' } } },
     });
@@ -116,7 +114,7 @@ describe('SheetJS', () => {
     ).rejects.toThrow(/read only/);
   });
   it('does not propagate stale formula caches', async () => {
-    const { snapshot } = fromSheetJS({
+    const { file: snapshot } = fromSheetJS({
       SheetNames: ['Data'],
       Sheets: { Data: { A1: { t: 'n', v: 123, f: 'UNSUPPORTED(1)' } } },
     });
@@ -163,7 +161,11 @@ describe('formats', () => {
       format: 'html',
     }).text;
     expect(html).toContain('rowspan="2" colspan="2"');
-    const tex = exportRange(await b.toJSON(), { sheetId: s.id, range: 'A1:C3', format: 'latex' });
+    const tex = exportRange(await b.toJSON(), {
+      sheetId: s.id,
+      range: 'A1:C3',
+      format: 'latex',
+    });
     expect(tex.text).toContain('\\multicolumn{2}{c}{\\multirow{2}{*}{Group}}');
   });
   it('protects CSV formula injection without corrupting numeric negatives', () => {

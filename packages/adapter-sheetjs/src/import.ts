@@ -1,12 +1,12 @@
 import {
-  createSheet,
-  createSnapshot,
-  key,
+  createWorkbookFile,
   LIMITS,
   OpenSheetError,
   parseAddress,
-  validateSnapshot,
-  type WorkbookSnapshot,
+  validateWorkbookFile,
+  encodeFileCells,
+  type CellRecord,
+  type WorkbookFile,
 } from '@opensheetjs/core';
 import { importCell } from './cells.js';
 import { add, finish, report } from './report.js';
@@ -14,7 +14,7 @@ import type { AdapterOptions, CompatibilityReport, Issue, SheetJSWorkbook } from
 export function fromSheetJS(
   input: SheetJSWorkbook,
   options: AdapterOptions = {},
-): { snapshot: WorkbookSnapshot; report: CompatibilityReport } {
+): { file: WorkbookFile; report: CompatibilityReport } {
   if (
     !input ||
     !Array.isArray(input.SheetNames) ||
@@ -22,9 +22,8 @@ export function fromSheetJS(
     input.SheetNames.length > LIMITS.sheets
   )
     throw new OpenSheetError('LIMIT_EXCEEDED', 'Invalid number of sheets');
-  const snapshot = createSnapshot();
+  const snapshot = createWorkbookFile();
   snapshot.sheets = [];
-  snapshot.sheetOrder = [];
   snapshot.dateSystem = input.Workbook?.WBProps?.date1904 ? '1904' : '1900';
   const r = report();
   let total = 0;
@@ -70,10 +69,12 @@ export function fromSheetJS(
       colMeta = ws['!cols'] ?? [];
     maxRow = Math.max(maxRow, rowMeta.length);
     maxCol = Math.max(maxCol, colMeta.length);
-    const sh = createSheet(name, Math.max(100, maxRow), Math.max(26, maxCol));
+    const sh = createWorkbookFile({
+      sheets: [{ name, rows: Math.max(100, maxRow), columns: Math.max(26, maxCol) }],
+    }).sheets[0];
     sh.hidden = !!input.Workbook?.Sheets?.[index]?.Hidden;
     snapshot.sheets.push(sh);
-    snapshot.sheetOrder.push(sh.id);
+    const blocks = new Map<string, CellRecord[]>();
     const issue = (
       code: string,
       feature: string,
@@ -91,11 +92,17 @@ export function fromSheetJS(
         address: a,
       });
     for (const [row, col, c] of entries) {
-      const { record, readOnly } = importCell(c, row, col, sh, snapshot.dateSystem, issue);
+      const { record, readOnly } = importCell(c, row, col, snapshot.dateSystem, issue);
       if (readOnly) snapshot.extensions['opensheet.readOnly'] = true;
-      sh.cells[key(record.rowId, record.columnId)] = record;
+      const address = `${Math.floor(row / 64)}/${Math.floor(col / 32)}`;
+      if (!blocks.has(address)) blocks.set(address, []);
+      blocks.get(address)!.push(record);
       r.summary.exact++;
     }
+    sh.blocks = [...blocks].map(([address, cells]) => {
+      const [row, column] = address.split('/').map(Number);
+      return { row, column, data: encodeFileCells(cells, new Map()) };
+    });
     sh.merges = merges.map((m: any) => ({
       startRow: m.s.r,
       startColumn: m.s.c,
@@ -104,14 +111,14 @@ export function fromSheetJS(
     }));
     rowMeta.forEach((m: any, i: number) => {
       if (m)
-        sh.rows[sh.rowOrder[i]] = {
+        (sh.rows.meta ??= {})[i] = {
           ...(m.hpx ? { size: m.hpx } : m.hpt ? { size: (m.hpt * 96) / 72 } : {}),
           ...(m.hidden ? { hidden: true } : {}),
         };
     });
     colMeta.forEach((m: any, i: number) => {
       if (m) {
-        sh.columns[sh.columnOrder[i]] = {
+        (sh.columns.meta ??= {})[i] = {
           ...(m.wpx ? { size: m.wpx } : m.wch ? { size: m.wch * 7 + 5 } : {}),
           ...(m.hidden ? { hidden: true } : {}),
         };
@@ -154,5 +161,5 @@ export function fromSheetJS(
   });
   snapshot.extensions['opensheet.importReport'] = JSON.parse(JSON.stringify(r));
   finish(r, options);
-  return { snapshot: validateSnapshot(snapshot), report: r };
+  return { file: validateWorkbookFile(snapshot), report: r };
 }

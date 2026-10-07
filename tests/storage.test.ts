@@ -1,14 +1,10 @@
+import { encodeWorkbookFile, decodeWorkbookFile } from '../packages/core/src/file-codec.js';
+import { createSnapshot } from '../packages/core/src/model.js';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import {
-  createWorkbook,
-  openWorkbook,
-  createSnapshot,
-  key,
-  type Workbook,
-} from '@opensheetjs/core';
+import { createWorkbook, openWorkbook, key, type Workbook } from '@opensheetjs/core';
 import { AsyncCalculation } from '../packages/core/src/async-calculation.js';
 import { Engine } from '../packages/core/src/engine.js';
-import { ByteCache, Database, encodedBytes } from '../packages/core/src/storage.js';
+import { ByteCache, Database, encodedBytes, recordBytes } from '../packages/core/src/storage.js';
 import { streamExport } from '@opensheetjs/formats';
 import {
   probeCapacity,
@@ -275,15 +271,15 @@ describe('paged storage contracts', () => {
     });
     expect(engine.view().snapshot.revision).toBe(0);
     expect(engine.view().bytes).toBe(initial);
-    let actual = encodedBytes([snapshot.workbookId, await db.get('heads', snapshot.workbookId)]);
+    let actual = recordBytes(snapshot.workbookId, await db.get('heads', snapshot.workbookId));
     for await (const batch of db.scan(
       'records',
       IDBKeyRange.bound(`${snapshot.workbookId}/`, `${snapshot.workbookId}/\uffff`),
     ))
       for (const entry of batch) {
-        actual += encodedBytes(entry);
+        actual += recordBytes(entry[0], entry[1]);
         const size = await db.get<number>('sizes', entry[0]);
-        actual += encodedBytes([entry[0], size]);
+        actual += recordBytes(entry[0], size);
       }
     expect(engine.view().bytes).toBe(actual);
     engine.close();
@@ -331,7 +327,8 @@ describe('paged storage contracts', () => {
           ? book.streamJSON()
           : streamExport(book, { sheetId: sheet.id, format, range: 'A1:CV300' });
       for await (const chunk of stream) text += chunk;
-      if (format === 'json') expect(Object.values(JSON.parse(text).sheets[0].cells).length).toBe(2);
+      if (format === 'json')
+        expect(Object.values(decodeWorkbookFile(JSON.parse(text)).sheets[0].cells).length).toBe(2);
       else expect(text).toContain('0');
       if (format === 'html') {
         expect(text.match(/<table>/g)?.length).toBe(1);
@@ -407,7 +404,10 @@ describe('paged storage contracts', () => {
     } as unknown as Worker;
     const { Workbook } = await import('@opensheetjs/core');
     await expect(
-      new Workbook(createSnapshot(), { workerFactory: () => dead, operationTimeoutMs: 5 }).ready(),
+      new Workbook(encodeWorkbookFile(createSnapshot()), {
+        workerFactory: () => dead,
+        operationTimeoutMs: 5,
+      }).ready(),
     ).rejects.toMatchObject({ code: 'WORKER_TIMEOUT' });
     expect(terminated).toBe(true);
   });

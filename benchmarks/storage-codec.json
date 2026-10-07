@@ -1,0 +1,40 @@
+{
+  "workload": "100 columns; deterministic 60% numbers, 30% 32-byte text, 10% booleans; no formulas/history",
+  "scenarios": [
+    {
+      "cells": 40,
+      "oldFileBytes": 19337,
+      "newFileBytes": 1397,
+      "oldGzipBytes": 1772,
+      "newGzipBytes": 927,
+      "oldBlockPayloadBytes": 9701,
+      "newBlockPayloadBytes": 2213,
+      "encodeMs": 0.3,
+      "decodeAndValidateMs": 3.99
+    },
+    {
+      "cells": 100000,
+      "oldFileBytes": 25341716,
+      "newFileBytes": 2668211,
+      "oldGzipBytes": 2086963,
+      "newGzipBytes": 1534100,
+      "oldBlockPayloadBytes": 2925884,
+      "newBlockPayloadBytes": 2707484,
+      "encodeMs": 36.76,
+      "decodeAndValidateMs": 271.68
+    },
+    {
+      "cells": 1000000,
+      "oldFileBytes": 255384365,
+      "newFileBytes": 26694295,
+      "oldGzipBytes": 20837419,
+      "newGzipBytes": 15342813,
+      "oldBlockPayloadBytes": 29299953,
+      "newBlockPayloadBytes": 27127653,
+      "encodeMs": 477.93,
+      "decodeAndValidateMs": 3704.06
+    }
+  ],
+  "emptyMaxDimensionsFileBytes": 387,
+  "notes": "Old file/block payloads reconstruct the previous identity representation, not a historical engine run. Block bytes exclude record keys, metadata, history, ledger and physical IndexedDB overhead. Timings are single-run diagnostics, not latency acceptance measurements."
+}

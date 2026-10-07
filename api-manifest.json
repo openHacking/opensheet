@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "schemaVersion": 1,
+  "schemaVersion": 3,
   "pluginApiVersion": "0.1.0",
   "entrypoints": {
     "opensheet": [
@@ -11,7 +11,11 @@
       "createWorkbook",
       "openWorkbook",
       "Workbook",
-      "snapshotSchema",
+      "workbookFileSchema",
+      "createWorkbookFile",
+      "validateWorkbookFile",
+      "FileReader",
+      "BinaryReader",
       "commandSchemas"
     ],
     "@opensheetjs/adapter-sheetjs": [
@@ -29,6 +33,19 @@
       "PluginRegistry"
     ]
   },
+  "workbookMethods": [
+    "getMetadata",
+    "getAxes",
+    "readCells",
+    "scanCells",
+    "execute",
+    "transaction",
+    "importJSON",
+    "importBinary",
+    "toJSON",
+    "streamJSON",
+    "streamBinary"
+  ],
   "commands": [
     "core.cells.replace",
     "core.cells.set",
@@ -70,7 +87,8 @@
   "docs": [
     "docs/api.md",
     "docs/plugins.md",
-    "docs/implementation-status.md"
+    "docs/implementation-status.md",
+    "docs/storage-format.md"
   ],
   "schemas": [
     "schemas/workbook.schema.json",

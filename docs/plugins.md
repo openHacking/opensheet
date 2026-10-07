@@ -1,4 +1,4 @@
-> Workbook reads/commands are asynchronous. Await `readRange`, `getSnapshot` and `execute`; toolbar actions may return promises. `getSnapshot` materializes data, so use bounded range reads during ordinary interaction.
+> Workbook reads/commands are asynchronous. Await `readRange`, `toJSON` and `execute`; toolbar actions may return promises. `toJSON` returns a complete WorkbookFile; `getMetadata` is lightweight, so use bounded range reads during ordinary interaction.
 
 # Writing OpenSheet plugins
 
@@ -36,7 +36,7 @@ app.use(sumPlugin);
 | Capability     | Available operations                              |
 | -------------- | ------------------------------------------------- |
 | selection.read | ctx.selection.get                                 |
-| workbook.read  | ctx.workbook.getSnapshot / readRange              |
+| workbook.read  | ctx.workbook.getMetadata / toJSON / readRange     |
 | workbook.write | ctx.workbook.execute using standard core commands |
 | ui.toolbar     | ctx.ui.toolbar.add / notify                       |
 | events         | ctx.onCommit                                      |

@@ -2,11 +2,31 @@ import { parseRange } from './address.js';
 import { FormulaCalculation } from './calculation.js';
 import { formatValue } from './format.js';
 import { checkBounds } from './model.js';
-import { key, type Rect, type WorkbookSnapshot } from './types.js';
+import { ByteCache } from './storage.js';
+import {
+  decodeFileMetadata,
+  decodeFileCells,
+  type WorkbookFile,
+  type FileBlock,
+} from './file-codec.js';
+import { key, type CellRecord, type Rect, type WorkbookSnapshot } from './types.js';
 /** Explicit materialized snapshot reader for file adapters; never backs an editor. */
-export class SnapshotReader {
+export type WorkbookMetadata = Omit<WorkbookSnapshot, 'sheets'> & {
+  sheets: Array<Omit<WorkbookSnapshot['sheets'][number], 'cells'>>;
+};
+export class RangeReader {
   private calculator: FormulaCalculation;
-  constructor(private snapshot: WorkbookSnapshot) {
+  protected snapshot: WorkbookSnapshot;
+  constructor(
+    metadata: WorkbookMetadata,
+    sheetId?: string,
+    cells: Record<string, CellRecord> = {},
+  ) {
+    const snapshot: WorkbookSnapshot = {
+      ...metadata,
+      sheets: metadata.sheets.map((sh) => ({ ...sh, cells: sh.id === sheetId ? cells : {} })),
+    };
+    this.snapshot = snapshot;
     this.calculator = new FormulaCalculation(
       (id) => this.sheetData(id),
       (name) => snapshot.sheets.find((s) => s.name.toLowerCase() === name.toLowerCase())?.id,
@@ -75,5 +95,78 @@ export class SnapshotReader {
   }
   dispose() {
     this.calculator.clear();
+  }
+}
+
+/** Reads the sole public JSON format, expanding at most a bounded page cache. */
+export class FileReader extends RangeReader {
+  private pages = new Map<string, FileBlock>();
+  private cache = new ByteCache<Record<string, CellRecord>>(4 * 1024 * 1024);
+  constructor(readonly file: WorkbookFile) {
+    const metadata = decodeFileMetadata({
+      ...file,
+      sheets: file.sheets.map((sh) => ({ ...sh, blocks: [] })),
+    });
+    super(metadata);
+    const styleIds = Object.keys(metadata.styles);
+    for (let i = 0; i < file.sheets.length; i++) {
+      const sh = this.snapshot.sheets[i],
+        rows = new Set(sh.rowOrder),
+        columns = new Set(sh.columnOrder);
+      for (const page of file.sheets[i].blocks) {
+        const address = `${sh.id}/${page.row}/${page.column}`;
+        if (this.pages.has(address)) throw new Error('Duplicate page');
+        decodeFileCells(page, styleIds, rows, columns);
+        this.pages.set(address, page);
+      }
+      sh.cells = new Proxy(Object.create(null), {
+        get: (_target, k) => {
+          if (typeof k !== 'string' || !/^\d+:\d+$/.test(k)) return;
+          const [row, column] = k.split(':').map(Number);
+          return this.page(`${sh.id}/${Math.floor(row / 64)}/${Math.floor(column / 32)}`)?.[k];
+        },
+      });
+    }
+  }
+  private page(address: string) {
+    const page = this.pages.get(address);
+    if (!page) return;
+    let cells = this.cache.get(address);
+    if (!cells) {
+      cells = decodeFileCells(page, Object.keys(this.snapshot.styles));
+      this.cache.set(address, cells);
+    }
+    return cells;
+  }
+  *cells(sheetId: string) {
+    for (const address of this.pages.keys())
+      if (address.startsWith(`${sheetId}/`)) yield* Object.values(this.page(address)!);
+  }
+  override getSheetById(id: string) {
+    const sheet = super.getSheetById(id);
+    if (!sheet) return;
+    return {
+      ...sheet,
+      getUsedRange: () => {
+        const sh = this.sheetData(id),
+          rows = new Map(sh.rowOrder.map((id, i) => [id, i])),
+          cols = new Map(sh.columnOrder.map((id, i) => [id, i]));
+        let endRow = 1,
+          endColumn = 1;
+        for (const cell of this.cells(id)) {
+          endRow = Math.max(endRow, rows.get(cell.rowId)! + 1);
+          endColumn = Math.max(endColumn, cols.get(cell.columnId)! + 1);
+        }
+        for (const m of sh.merges) {
+          endRow = Math.max(endRow, m.endRow);
+          endColumn = Math.max(endColumn, m.endColumn);
+        }
+        return sheet.range({ startRow: 0, startColumn: 0, endRow, endColumn });
+      },
+    };
+  }
+  override dispose() {
+    super.dispose();
+    this.cache.clear();
   }
 }

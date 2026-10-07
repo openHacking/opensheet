@@ -1,5 +1,5 @@
-import { createWorkbook, type WorkbookSnapshot } from 'opensheet';
-export async function sample(): Promise<WorkbookSnapshot> {
+import { createWorkbook, type WorkbookFile } from 'opensheet';
+export async function sample(): Promise<WorkbookFile> {
   const b = await createWorkbook({
     sheets: [
       { name: 'Launch budget', rows: 100, columns: 12 },

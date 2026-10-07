@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-07T14:35:57.139Z",
+  "browser": "153.0.8010.12",
+  "url": "http://127.0.0.1:4174/",
+  "fixture": "deterministic 100-column mixed workload; complete JSON materialization and JSON Blob/binary Blob round trips; count plus all-cell order-independent input checksum",
+  "result": {
+    "cells": 1000000,
+    "toJSONMs": 2161.7999999970198,
+    "jsonBytes": 22772617,
+    "streamJSONBytes": 22772617,
+    "importJSONMs": 4461.79999999702,
+    "binaryBytes": 12219984,
+    "streamBinaryMs": 3392.6000000089407,
+    "importBinaryMs": 6017.399999991059,
+    "verifiedCellsAfterEachImport": 1000000,
+    "verificationHash": 3813076585,
+    "storage": {
+      "bytes": 16515588,
+      "cacheBytes": 19149872,
+      "budgetBytes": 268435456,
+      "viewportCacheBytes": 0
+    }
+  }
+}

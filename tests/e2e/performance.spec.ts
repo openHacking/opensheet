@@ -103,7 +103,7 @@ test('worker interruption recovers the previous head and reclaims uncommitted bl
     } catch (error) {
       code = (error as { code: string }).code;
     }
-    await app.open(id, { database: 'opensheet-performance-v4' });
+    await app.open(id, { database: 'opensheet-performance' });
     const restored = app.getWorkbook();
     return {
       code,

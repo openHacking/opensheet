@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-07T14:21:31.581Z",
+  "node": "v22.19.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "browser": "153.0.8010.12",
+  "headless": true,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "fixture": "paged: 100 columns, fixed seed, 60% numbers / 30% 32-byte ASCII / 10% booleans; IndexedDB, Worker and bounded caches; scroll samples include viewport loading and painting",
+  "scenarios": {
+    "100000": {
+      "generateMs": 308,
+      "loadP50Ms": 50,
+      "loadP95Ms": 50,
+      "editP50Ms": 17,
+      "editP95Ms": 20,
+      "selectP95Ms": 21,
+      "scrollFrameP95Ms": 23.5,
+      "encodedMiB": 3.56,
+      "workerCacheReservationMiB": 5.39,
+      "viewportCacheReservationMiB": 6.75,
+      "mainHeapBeforeGcMiB": 29,
+      "mainHeapRetainedMiB": 10,
+      "originUsageMiB": 3.88
+    },
+    "1000000": {
+      "generateMs": 2646,
+      "loadP50Ms": 84,
+      "loadP95Ms": 85,
+      "editP50Ms": 17,
+      "editP95Ms": 19,
+      "selectP95Ms": 35,
+      "scrollFrameP95Ms": 36.1,
+      "encodedMiB": 14.19,
+      "workerCacheReservationMiB": 11.69,
+      "viewportCacheReservationMiB": 6.94,
+      "mainHeapBeforeGcMiB": 10,
+      "mainHeapRetainedMiB": 10,
+      "originUsageMiB": 15.11
+    },
+    "10000000": {
+      "generateMs": 27587,
+      "loadP50Ms": 232,
+      "loadP95Ms": 234,
+      "editP50Ms": 17,
+      "editP95Ms": 19,
+      "selectP95Ms": 33,
+      "scrollFrameP95Ms": 36.3,
+      "encodedMiB": 150.24,
+      "workerCacheReservationMiB": 11.69,
+      "viewportCacheReservationMiB": 6.94,
+      "mainHeapBeforeGcMiB": 30,
+      "mainHeapRetainedMiB": 11,
+      "originUsageMiB": 154.61
+    }
+  }
+}

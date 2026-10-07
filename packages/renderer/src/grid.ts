@@ -31,7 +31,7 @@ export class CanvasGrid {
   private resize: ResizeObserver;
   private stop: () => void;
   private stopData: () => void;
-  private fetching = false;
+  private fetching?: Promise<void>;
   private fetchError?: unknown;
   private disposed = false;
   private zoom = 1;
@@ -338,22 +338,24 @@ export class CanvasGrid {
       });
     return ranges;
   }
-  private async prepareViewport() {
-    if (this.fetching || this.disposed) return;
-    this.fetching = true;
-    try {
-      for (const range of this.viewportRanges()) await this.book.prefetch(range.sheetId, range);
-    } catch (error) {
-      this.fetchError = error;
-      this.options.onError?.(error);
-    } finally {
-      this.fetching = false;
-    }
+  private prepareViewport(): Promise<void> {
+    if (this.fetching) return this.fetching;
+    if (this.disposed) return Promise.resolve();
+    this.fetching = (async () => {
+      try {
+        for (const range of this.viewportRanges()) await this.book.prefetch(range.sheetId, range);
+      } catch (error) {
+        this.fetchError = error;
+        this.options.onError?.(error);
+      } finally {
+        this.fetching = undefined;
+      }
+    })();
+    return this.fetching;
   }
   async ready() {
     if (this.layoutState.dirty) this.layout();
-    while (this.fetching)
-      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    while (this.fetching) await this.fetching;
     if (this.fetchError) {
       const error = this.fetchError;
       this.fetchError = undefined;

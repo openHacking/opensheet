@@ -1,6 +1,6 @@
-import { contains, intersects, OpenSheetError, SnapshotReader } from '@opensheetjs/core';
+import { contains, intersects, OpenSheetError, RangeReader } from '@opensheetjs/core';
 import type { ExportOptions } from './types.js';
-export function prepareRange(book: SnapshotReader, config: ExportOptions) {
+export function prepareRange(book: RangeReader, config: ExportOptions) {
   const sheet = book.getSheetById(config.sheetId);
   if (!sheet) throw new Error('Unknown sheet');
   const range = config.range ? sheet.range(config.range) : sheet.getUsedRange();

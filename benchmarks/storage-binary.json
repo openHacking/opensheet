@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-07T14:15:52.616Z",
+  "runtime": "v22.19.0",
+  "fixture": "100 columns; fixed seed; 60% Float64 numbers, 30% 32-byte ASCII strings, 10% booleans; no history; one page generated/validated at a time",
+  "measurements": {
+    "100000": {
+      "pages": 64,
+      "jsonBytes": 2276190,
+      "rawPageBytes": 1629200,
+      "binaryFileBytes": 1223590,
+      "encodeMs": 42.73,
+      "decodeValidateMs": 236.66,
+      "binaryEncodeCompressionAndVerificationMs": 386.64
+    },
+    "1000000": {
+      "pages": 628,
+      "jsonBytes": 22772634,
+      "rawPageBytes": 16280720,
+      "binaryFileBytes": 12220001,
+      "encodeMs": 397.78,
+      "decodeValidateMs": 2209.47,
+      "binaryEncodeCompressionAndVerificationMs": 3540.05
+    }
+  },
+  "emptyMaxDimensionsJSONBytes": 385
+}

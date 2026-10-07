@@ -12,7 +12,7 @@ This document describes future transport integration requirements. OpenSheet 0.1
 
 A future transport should explicitly negotiate coreVersion, schemaVersion, commandProtocolVersion, formulaVersion and supported capabilities. Reject incompatible writable clients; read-only loading also requires a schema the client can interpret. Unknown commands must not be silently skipped.
 
-Future snapshot migrations should use additive changes, explicit migrations and retained old fixtures. No historical migration framework is implemented for schemaVersion=1.
+WorkbookFile (schema 3) is the sole public JSON document and can be passed directly to app.load/new Workbook. Binary native files carry equivalent data; old JSON and persisted engine formats are rejected. No historical migration framework is implemented. Hosts should use semantic metadata, field-selected range reads, revision-bound cursors and validated command envelopes for agent operations; see [API](api.md) and [format](storage-format.md).
 
 ## Transport responsibilities
 

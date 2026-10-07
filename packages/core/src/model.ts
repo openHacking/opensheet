@@ -24,8 +24,10 @@ export function createSheet(name: string, rows = 100, columns = 26): SheetSnapsh
   return {
     id,
     name,
-    rowOrder: Array.from({ length: rows }, (_, i) => `${id}_r${i}`),
-    columnOrder: Array.from({ length: columns }, (_, i) => `${id}_c${i}`),
+    rowOrder: Array.from({ length: rows }, (_, i) => i),
+    columnOrder: Array.from({ length: columns }, (_, i) => i),
+    nextRowId: rows,
+    nextColumnId: columns,
     cells: {},
     rows: {},
     columns: {},
@@ -42,7 +44,7 @@ export function createSnapshot(
     createSheet(s.name, s.rows, s.columns),
   );
   return validateSnapshot({
-    schemaVersion: 1,
+    schemaVersion: 3,
     workbookId: uid('wb'),
     revision: 0,
     dateSystem: '1900',
@@ -52,7 +54,7 @@ export function createSnapshot(
     extensions: {},
   });
 }
-export function validateSnapshot(input: unknown): WorkbookSnapshot {
+export function validateJSONValue(input: unknown): void {
   // Validate hostile JSON before recursive schemas or object merges.
   const walk = (v: unknown, depth: number) => {
     assert(depth < 32, 'LIMIT_EXCEEDED', 'Snapshot is too complex');
@@ -68,6 +70,9 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
     }
   };
   walk(input, 0);
+}
+export function validateSnapshot(input: unknown): WorkbookSnapshot {
+  validateJSONValue(input);
   const parsed = snapshotSchema.safeParse(input);
   assert(parsed.success, 'INVALID_ARGUMENT', 'Invalid workbook snapshot');
   const s = parsed.data;
@@ -97,6 +102,12 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
       'INVALID_ARGUMENT',
       'Duplicate row/column identity',
     );
+    assert(
+      sh.rowOrder.every((id) => id < sh.nextRowId) &&
+        sh.columnOrder.every((id) => id < sh.nextColumnId),
+      'INVALID_ARGUMENT',
+      'Invalid next axis identity',
+    );
     for (const [k, c] of Object.entries(sh.cells)) {
       assert(
         rows.has(c.rowId) && cols.has(c.columnId) && k === key(c.rowId, c.columnId),
@@ -106,9 +117,9 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
       assert(!c.styleId || !!s.styles[c.styleId], 'INVALID_ARGUMENT', 'Unknown style');
     }
     for (const id of Object.keys(sh.rows))
-      assert(rows.has(id), 'INVALID_ARGUMENT', 'Unknown row metadata');
+      assert(rows.has(+id), 'INVALID_ARGUMENT', 'Unknown row metadata');
     for (const id of Object.keys(sh.columns))
-      assert(cols.has(id), 'INVALID_ARGUMENT', 'Unknown column metadata');
+      assert(cols.has(+id), 'INVALID_ARGUMENT', 'Unknown column metadata');
     assert(
       sh.freeze.rows <= sh.rowOrder.length && sh.freeze.columns <= sh.columnOrder.length,
       'INVALID_ARGUMENT',

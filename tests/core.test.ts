@@ -1,10 +1,9 @@
+import { createSnapshot, validateSnapshot } from '../packages/core/src/model.js';
 import { describe, it, expect, vi } from 'vitest';
 import fc from 'fast-check';
 import {
   createWorkbook,
   Workbook,
-  createSnapshot,
-  validateSnapshot,
   address,
   parseRange,
   formatValue,
@@ -101,7 +100,7 @@ describe('workbook contracts', () => {
   it('does not expose mutable model data', async () => {
     const b = await createWorkbook(),
       s = b.getSheets()[0];
-    expect(() => b.sheetData(s.id).rowOrder.push('evil')).toThrow();
+    expect(() => b.sheetData(s.id).rowOrder.push(0xffffffff)).toThrow();
     const snap = await b.toJSON();
     snap.sheets[0].name = 'Changed';
     expect(s.name).toBe('Sheet1');
@@ -222,7 +221,7 @@ describe('workbook contracts', () => {
     const copy = structuredClone(snapshot);
     copy.sheets[0].rowOrder[1] = copy.sheets[0].rowOrder[0];
     expect(() => validateSnapshot(copy)).toThrow(/Duplicate/);
-    expect(() => validateSnapshot({ ...snapshot, schemaVersion: 2 })).toThrow();
+    expect(() => validateSnapshot({ ...snapshot, schemaVersion: 1 })).toThrow();
   });
   it('invalidates handles on deletion and disposal', async () => {
     const b = await createWorkbook(),

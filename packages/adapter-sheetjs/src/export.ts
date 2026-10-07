@@ -1,12 +1,18 @@
-import { address, validateSnapshot, type WorkbookSnapshot } from '@opensheetjs/core';
+import { address, FileReader, type WorkbookFile } from '@opensheetjs/core';
 import { exportCell } from './cells.js';
 import { add, finish, report } from './report.js';
 import type { AdapterOptions, CompatibilityReport, SheetJSWorkbook } from './types.js';
 export function toSheetJS(
-  input: WorkbookSnapshot,
+  input: WorkbookFile,
   options: AdapterOptions = {},
 ): { workbook: SheetJSWorkbook; report: CompatibilityReport } {
-  const snapshot = validateSnapshot(input),
+  const reader = new FileReader(input),
+    snapshot = {
+      ...input,
+      sheets: input.sheets.map((sh) => reader.sheetData(sh.id)),
+      sheetOrder: input.sheets.map((sh) => sh.id),
+      styles: Object.fromEntries(input.styles.map((style, i) => [`s${i}`, style])),
+    },
     r = report();
   const workbook: SheetJSWorkbook = {
     SheetNames: [],
@@ -24,7 +30,7 @@ export function toSheetJS(
       maxCol = 0;
     const rows = new Map(sh.rowOrder.map((id, i) => [id, i])),
       cols = new Map(sh.columnOrder.map((id, i) => [id, i]));
-    for (const c of Object.values(sh.cells)) {
+    for (const c of reader.cells(id)) {
       const row = rows.get(c.rowId)!,
         col = cols.get(c.columnId)!;
       maxRow = Math.max(maxRow, row);
@@ -67,5 +73,6 @@ export function toSheetJS(
   if (prior?.issues)
     for (const issue of prior.issues) if (issue.action !== 'preserved') add(r, issue);
   finish(r, options);
+  reader.dispose();
   return { workbook, report: r };
 }

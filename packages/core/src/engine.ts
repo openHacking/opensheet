@@ -1,11 +1,29 @@
+import { AxisIndex } from './axis-index.js';
+import { overlay } from './copy-on-write.js';
 import { intersects } from './address.js';
 import { parseFormula, offsetFormula, type AST } from '@opensheetjs/formula';
-import { decodeBlock, encodeBlock, type EncodedBlock } from './block-codec.js';
+import { decodeBlock, encodeBlock, ColumnPage, type EncodedBlock } from './block-codec.js';
+import {
+  decodeFileMetadata,
+  encodeWorkbookFile,
+  decodeFileCells,
+  encodeFileCells,
+  type WorkbookFile,
+} from './file-codec.js';
+import { crc32, gzipPage, unpackPage, readBinary } from './binary-file.js';
+import { parseWorkbookJSON, type JSONSource } from './json-stream.js';
 import { AsyncCalculation } from './async-calculation.js';
 import { reduceCommand, validateCommand } from './commands.js';
 import { formatValue } from './format.js';
 import { checkBounds, validateSnapshot } from './model.js';
-import { BLOCK_ROWS, BLOCK_COLUMNS, ByteCache, Database, encodedBytes } from './storage.js';
+import {
+  BLOCK_ROWS,
+  BLOCK_COLUMNS,
+  ByteCache,
+  Database,
+  encodedBytes,
+  recordBytes,
+} from './storage.js';
 import {
   assert,
   key,
@@ -27,8 +45,13 @@ export type Pointer = {
   count: number;
   endRow: number;
   endColumn: number;
+  formulas?: string[];
+  styles?: string[];
+  rowMask?: string;
+  columnMask?: number;
 };
 type Head = {
+  directory?: Record<string, string>;
   meta: string;
   blocks: Record<string, Pointer>;
   revision: number;
@@ -42,6 +65,12 @@ type Metadata = {
   snapshot: WorkbookSnapshot;
   filtered: Record<string, number[]>;
 };
+type StoredMetadata = Omit<Metadata, 'snapshot'> & { snapshot: WorkbookFile; styleIds: string[] };
+const encodeMetadata = (metadata: Metadata): StoredMetadata => ({
+  ...metadata,
+  snapshot: encodeWorkbookFile(metadata.snapshot),
+  styleIds: Object.keys(metadata.snapshot.styles),
+});
 type History = {
   before: string;
   after: string;
@@ -50,6 +79,9 @@ type History = {
   ranges: Selection[];
 };
 export type EngineView = {
+  metadataId: string;
+  revision: number;
+  importRevision?: number;
   snapshot: WorkbookSnapshot;
   filtered: Record<string, number[]>;
   used: Record<string, Rect>;
@@ -71,9 +103,25 @@ export class Engine {
   private allocated = new Set<string>();
   private stagingBytes = 0;
   private pins = new Set<string>();
-  private indices = new WeakMap<object, { rows: Map<string, number>; cols: Map<string, number> }>();
+  private axes = new WeakMap<number[], AxisIndex>();
+  private axis(ids: number[]) {
+    let index = this.axes.get(ids);
+    if (!index) {
+      index = new AxisIndex(ids);
+      this.axes.set(ids, index);
+    }
+    return index;
+  }
+  private indices = new WeakMap<object, { rows: AxisIndex; cols: AxisIndex }>();
+  private exportAddresses: string[] | undefined;
+  private compressionQueue = new Set<string>();
+  private directoryEntries = new Map<string, Record<string, Pointer>>();
+  private changed = new Set<string>();
+  private references = new Map<string, number>();
+  private histories = new Map<string, History>();
+  private used: Record<string, Rect> = {};
   private sizes = new Map<string, number>();
-  private cache: ByteCache<Block>;
+  private cache: ByteCache<ColumnPage>;
   private cancelled = false;
   private writer = false;
   private release?: () => void;
@@ -96,9 +144,15 @@ export class Engine {
       calculationBytes,
       async (sheet, row, column) => {
         const sh = this.metadata.snapshot.sheets.find((s) => s.id === sheet)!;
-        return (await this.block(blockAddress(sheet, row, column))).dependencies[
-          key(sh.rowOrder[row], sh.columnOrder[column])
-        ] as AST | null | undefined;
+        return (
+          await this.block(
+            blockAddress(
+              sheet,
+              this.metadata.snapshot.sheets.find((s) => s.id === sheet)!.rowOrder[row],
+              this.metadata.snapshot.sheets.find((s) => s.id === sheet)!.columnOrder[column],
+            ),
+          )
+        ).dependencies[key(sh.rowOrder[row], sh.columnOrder[column])] as AST | null | undefined;
       },
     );
   }
@@ -135,20 +189,32 @@ export class Engine {
   cancel() {
     this.cancelled = true;
   }
-  async open(snapshot?: WorkbookSnapshot, budget = 256 * 1024 * 1024) {
+  async open(input?: WorkbookSnapshot | WorkbookFile, budget = 256 * 1024 * 1024) {
     assert(
       Number.isSafeInteger(budget) && budget > 0,
       'INVALID_ARGUMENT',
       'Storage budget must be a positive integer',
     );
+    const snapshot =
+      input &&
+      ('sheetOrder' in input
+        ? input
+        : decodeFileMetadata({
+            ...input,
+            sheets: input.sheets.map((s) => ({ ...s, blocks: [] })),
+          }));
     await this.lock();
-    const existing = await this.db.get<Head>('heads', this.id);
+    const storedHead = await this.db.get<Head>('heads', this.id);
+    const existing = storedHead ? await this.restoreHead(storedHead) : undefined;
     if (existing) {
       this.head = existing;
-      this.metadata = (await this.db.get<Metadata>('records', this.head.meta))!;
+      this.metadata = await this.readMetadata(this.head.meta);
       assert(this.metadata, 'CORRUPT_STORAGE', 'Workbook metadata is missing');
       if (this.writer) await this.recover();
-      else this.usedBytes = await this.liveBytes();
+      else {
+        this.usedBytes = await this.liveBytes();
+        await this.initializeReferences();
+      }
     } else {
       assert(snapshot && this.writer, 'INVALID_ARGUMENT', 'Workbook does not exist or is locked');
       // A worker can die during initial creation before any head exists.
@@ -163,12 +229,13 @@ export class Engine {
         historyBytes: 0,
         budget,
       };
-      this.usedBytes = encodedBytes([this.id, this.head]);
+      this.usedBytes = recordBytes(this.id, this.storedHead(this.head));
       this.metadata = {
         snapshot: { ...snapshot, sheets: snapshot.sheets.map((s) => ({ ...s, cells: {} })) },
         filtered: {},
       };
-      await this.replace(snapshot, budget);
+      if (input && !('sheetOrder' in input)) await this.importJSON(input, budget);
+      else await this.replace(snapshot, budget);
     }
     return this.view();
   }
@@ -176,6 +243,7 @@ export class Engine {
     const ids = new Set([
       head.meta,
       ...Object.values(head.blocks).map((p) => p.id),
+      ...Object.values(head.directory ?? {}),
       ...head.past,
       ...head.future,
     ]);
@@ -192,16 +260,47 @@ export class Engine {
     return ids;
   }
   private async liveBytes() {
-    let total = encodedBytes([this.id, this.head]);
+    let total = recordBytes(this.id, this.storedHead(this.head));
     for (const id of await this.liveIds()) {
       const bytes = await this.db.get<number>('sizes', id);
-      if (bytes !== undefined) total += bytes + encodedBytes([id, bytes]);
+      if (bytes !== undefined) total += bytes + recordBytes(id, bytes);
     }
     return total;
   }
+  private retain(id: string, delta: number) {
+    if (!id) return;
+    const count = (this.references.get(id) ?? 0) + delta;
+    assert(count >= 0, 'CORRUPT_STORAGE', 'Negative record reference count');
+    if (count) this.references.set(id, count);
+    else this.references.delete(id);
+  }
+  private retainHistory(id: string, h: History, delta: number) {
+    this.retain(id, delta);
+    this.retain(h.before, delta);
+    this.retain(h.after, delta);
+    for (const [, a, b] of h.changes) {
+      if (a) this.retain(a.id, delta);
+      if (b) this.retain(b.id, delta);
+    }
+  }
+  private async initializeReferences() {
+    this.references.clear();
+    this.histories.clear();
+    this.retain(this.head.meta, 1);
+    for (const id of Object.values(this.head.directory ?? {})) this.retain(id, 1);
+    for (const p of Object.values(this.head.blocks)) this.retain(p.id, 1);
+    for (const id of [...this.head.past, ...this.head.future]) {
+      const h = await this.db.get<History>('records', id);
+      assert(h, 'CORRUPT_STORAGE', 'Missing history');
+      this.histories.set(id, h);
+      this.retainHistory(id, h, 1);
+    }
+  }
   private async recover() {
+    await this.initializeReferences();
+    for (const id of this.references.keys()) this.compressionQueue.add(id);
     const live = await this.liveIds();
-    this.usedBytes = encodedBytes([this.id, this.head]);
+    this.usedBytes = recordBytes(this.id, this.storedHead(this.head));
     this.sizes.clear();
     for await (const batch of this.db.scan<number>('sizes', prefixRange(this.id))) {
       const dead: string[] = [];
@@ -209,7 +308,7 @@ export class Engine {
         const id = String(k);
         if (!live.has(id)) dead.push(id);
         else {
-          const bytes = v + encodedBytes([id, v]);
+          const bytes = v + recordBytes(id, v);
           this.usedBytes += bytes;
           this.sizes.set(id, bytes);
         }
@@ -219,18 +318,21 @@ export class Engine {
     await this.db.write('scratch', [], [prefixRange(this.id)]);
   }
   async reload() {
-    this.head = (await this.db.get<Head>('heads', this.id))!;
-    this.metadata = (await this.db.get<Metadata>('records', this.head.meta))!;
+    this.head = await this.restoreHead((await this.db.get<Head>('heads', this.id))!);
+    this.metadata = await this.readMetadata(this.head.meta);
+    this.exportAddresses = undefined;
     this.cache.clear();
     this.calculator.clear();
     this.usedBytes = await this.liveBytes();
+    await this.initializeReferences();
+    this.used = {};
     return this.view();
   }
   private async allocate(value: unknown, budget = this.head.budget) {
     this.check();
     const id = `${this.id}/${uid('record')}`;
-    const rawBytes = encodedBytes([id, value]);
-    const bytes = rawBytes + encodedBytes([id, rawBytes]);
+    const rawBytes = recordBytes(id, value);
+    const bytes = rawBytes + recordBytes(id, rawBytes);
     assert(
       this.usedBytes + this.stagingBytes + bytes <= budget,
       'STORAGE_BUDGET',
@@ -243,9 +345,125 @@ export class Engine {
     this.allocated.add(id);
     return id;
   }
+  private async readMetadata(id: string): Promise<Metadata> {
+    const stored = await this.db.get<StoredMetadata>('records', id);
+    assert(stored, 'CORRUPT_STORAGE', 'Workbook metadata is missing');
+    const snapshot = decodeFileMetadata(stored.snapshot);
+    assert(
+      Array.isArray(stored.styleIds) &&
+        stored.styleIds.length === stored.snapshot.styles.length &&
+        new Set(stored.styleIds).size === stored.styleIds.length &&
+        stored.styleIds.every(
+          (id) => /^[-\w]+$/.test(id) && !['__proto__', 'prototype', 'constructor'].includes(id),
+        ),
+      'CORRUPT_STORAGE',
+      'Invalid stored style identities',
+    );
+    snapshot.styles = Object.fromEntries(
+      stored.styleIds.map((id, i) => [id, stored.snapshot.styles[i]]),
+    );
+    const { styleIds, ...metadata } = stored;
+    return { ...metadata, snapshot };
+  }
+  private compareAddress(a: string, b: string) {
+    const [sa, ra, ca] = a.split('/'),
+      [sb, rb, cb] = b.split('/');
+    return sa < sb ? -1 : sa > sb ? 1 : +ra - +rb || +ca - +cb;
+  }
+  exportIndex(revision: number, after?: string, count = 32, sheetId?: string): string[] {
+    assert(revision === this.head.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    assert(
+      Number.isInteger(count) && count > 0 && count <= 64,
+      'INVALID_ARGUMENT',
+      'Invalid page batch',
+    );
+    const addresses = (this.exportAddresses ??= Object.keys(this.head.blocks).sort((a, b) =>
+      this.compareAddress(a, b),
+    ));
+    let low = 0,
+      high = addresses.length;
+    const before = (address: string) =>
+      after
+        ? this.compareAddress(address, after) <= 0
+        : sheetId
+          ? address.split('/')[0] < sheetId
+          : false;
+    while (low < high) {
+      const mid = (low + high) >>> 1;
+      if (before(addresses[mid])) low = mid + 1;
+      else high = mid;
+    }
+    const output: string[] = [];
+    for (let i = low; i < addresses.length && output.length < count; i++) {
+      const address = addresses[i];
+      if (sheetId && !address.startsWith(`${sheetId}/`)) break;
+      output.push(address);
+    }
+    return output;
+  }
+  exportStyles(revision: number) {
+    assert(revision === this.head.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    const used = new Set(
+      Object.values(this.head.blocks).flatMap((pointer) => pointer.styles ?? []),
+    );
+    return Object.keys(this.metadata.snapshot.styles).filter((id) => used.has(id));
+  }
+  async exportBlock(address: string, revision: number): Promise<EncodedBlock> {
+    assert(revision === this.head.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    const pointer = this.head.blocks[address];
+    assert(pointer, 'INVALID_ARGUMENT', 'Unknown export block');
+    const encoded = await this.db.get<EncodedBlock>('records', pointer.id);
+    this.check();
+    assert(encoded, 'CORRUPT_STORAGE', 'Export block is missing');
+    assert(revision === this.head.revision, 'REVISION_CONFLICT', 'Workbook changed during export');
+    return this.inflate(encoded);
+  }
+  private async inflate(bytes: Uint8Array) {
+    if (bytes[0] !== 79 || bytes[1] !== 83 || bytes[2] !== 71) return bytes;
+    assert(bytes.length >= 12 && bytes[3] === 3, 'CORRUPT_STORAGE', 'Invalid compressed page');
+    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const page = await unpackPage(bytes.subarray(12), 1, view.getUint32(4, true));
+    assert(
+      crc32(page) === view.getUint32(8, true),
+      'CORRUPT_STORAGE',
+      'Stored page checksum differs',
+    );
+    return page;
+  }
+  get hasPendingCompaction() {
+    return this.compressionQueue.size > 0;
+  }
+  async compact(count = 8) {
+    if (!this.writer) return;
+    for (const id of [...this.compressionQueue].slice(0, count)) {
+      this.compressionQueue.delete(id);
+      if (!this.references.has(id)) continue;
+      const bytes = await this.db.get<unknown>('records', id);
+      if (!(bytes instanceof Uint8Array) || bytes.length < 512 || bytes[2] !== 80) continue;
+      const compressed = await gzipPage(bytes);
+      if (compressed.codec === 0 || compressed.bytes.length + 12 > bytes.length * 0.9) continue;
+      const record = new Uint8Array(compressed.bytes.length + 12),
+        view = new DataView(record.buffer);
+      record.set([79, 83, 71, 3]);
+      view.setUint32(4, bytes.length, true);
+      view.setUint32(8, crc32(bytes), true);
+      record.set(compressed.bytes, 12);
+      const raw = recordBytes(id, record),
+        size = raw + recordBytes(id, raw),
+        old = this.sizes.get(id)!;
+      // Include replacement staging before the atomic record/ledger transaction.
+      if (this.usedBytes + size > this.head.budget) continue;
+      await this.db.write('records', [[id, record]]);
+      this.sizes.set(id, size);
+      this.usedBytes += size - old;
+    }
+    return {
+      bytes: this.usedBytes,
+      cacheBytes: this.cache.bytes + this.calculator.cacheBytes + this.seen.bytes,
+    };
+  }
   private async collect(candidates: Iterable<string>) {
-    const live = await this.liveIds();
-    const dead = [...new Set(candidates)].filter((id) => !live.has(id));
+    const dead = [...new Set(candidates)].filter((id) => !this.references.has(id));
     if (dead.length) await this.db.write('records', [], dead);
     for (const id of dead) {
       this.usedBytes -= this.sizes.get(id) ?? 0;
@@ -261,26 +479,145 @@ export class Engine {
       /* Keep unreclaimed bytes charged. */
     }
   }
-  private async publish(next: Head, metadata: Metadata) {
+  private bucket(address: string) {
+    let hash = 2166136261;
+    for (const c of address) hash = Math.imul(hash ^ c.charCodeAt(0), 16777619);
+    return String((hash >>> 0) % 256);
+  }
+  private storedHead(head: Head) {
+    const { blocks, ...rest } = head;
+    return { ...rest, directory: head.directory ?? {} };
+  }
+  private async restoreHead(head: Head) {
+    assert(
+      head.directory && !Object.hasOwn(head, 'blocks'),
+      'CORRUPT_STORAGE',
+      'Unsupported workbook database format',
+    );
+    const blocks: Record<string, Pointer> = {};
+    this.directoryEntries.clear();
+    for (const [bucket, id] of Object.entries(head.directory)) {
+      const entries = await this.db.get<Record<string, Pointer>>('records', id);
+      assert(entries, 'CORRUPT_STORAGE', 'Missing block directory');
+      this.directoryEntries.set(bucket, entries);
+      Object.assign(blocks, entries);
+    }
+    return { ...head, blocks };
+  }
+  private async publish(next: Head, metadata: Metadata, ranges?: Selection[]) {
     this.check();
+    const previousDirectory = this.head.directory ?? {};
+    const directory = { ...previousDirectory },
+      dirty = new Map<string, Record<string, Pointer>>();
+    for (const address of this.changed) {
+      const bucket = this.bucket(address);
+      if (!dirty.has(bucket)) dirty.set(bucket, { ...this.directoryEntries.get(bucket) });
+      const entries = dirty.get(bucket)!;
+      if (next.blocks[address]) entries[address] = next.blocks[address];
+      else delete entries[address];
+    }
+    const oldDirectoryIds: string[] = [];
+    for (const [bucket, entries] of dirty) {
+      if (directory[bucket]) oldDirectoryIds.push(directory[bucket]);
+      if (Object.keys(entries).length)
+        directory[bucket] = await this.allocate(entries, next.budget);
+      else delete directory[bucket];
+    }
+    next.directory = directory;
     const bytes =
-      this.usedBytes - encodedBytes([this.id, this.head]) + encodedBytes([this.id, next]);
+      this.usedBytes -
+      recordBytes(this.id, this.storedHead(this.head)) +
+      recordBytes(this.id, this.storedHead(next));
     assert(bytes <= next.budget, 'STORAGE_BUDGET', 'Application storage budget exceeded');
-    await this.db.write('heads', [[this.id, next]]);
+    await this.db.write('heads', [[this.id, this.storedHead(next)]]);
+    const old = this.head;
+    if ([...this.changed].some((a) => !!old.blocks[a] !== !!next.blocks[a]))
+      this.exportAddresses = undefined;
+    for (const id of Object.values(directory))
+      if (!Object.values(previousDirectory).includes(id)) this.retain(id, 1);
+    for (const id of oldDirectoryIds) this.retain(id, -1);
+    for (const [bucket, entries] of dirty) {
+      if (Object.keys(entries).length) this.directoryEntries.set(bucket, entries);
+      else this.directoryEntries.delete(bucket);
+    }
+    const full = next.blocks !== old.blocks && !this.changed.size;
+    if (full) {
+      for (const p of Object.values(next.blocks)) this.retain(p.id, 1);
+      for (const p of Object.values(old.blocks)) this.retain(p.id, -1);
+    } else
+      for (const address of this.changed) {
+        const a = old.blocks[address],
+          b = next.blocks[address];
+        if (a?.id === b?.id) continue;
+        if (b) this.retain(b.id, 1);
+        if (a) this.retain(a.id, -1);
+      }
+    if (next.meta !== old.meta) {
+      this.retain(next.meta, 1);
+      this.retain(old.meta, -1);
+    }
+    const oldHistory = new Set([...old.past, ...old.future]),
+      newHistory = new Set([...next.past, ...next.future]);
+    for (const id of newHistory)
+      if (!oldHistory.has(id)) {
+        const h = this.histories.get(id) ?? (await this.db.get<History>('records', id));
+        assert(h, 'CORRUPT_STORAGE', 'Missing new history');
+        this.histories.set(id, h);
+        this.retainHistory(id, h, 1);
+      }
+    for (const id of oldHistory)
+      if (!newHistory.has(id)) {
+        const h = this.histories.get(id)!;
+        this.retainHistory(id, h, -1);
+        this.histories.delete(id);
+      }
+    const priorSheets = new Map(this.metadata.snapshot.sheets.map((sh) => [sh.id, sh]));
     this.head = next;
     this.metadata = metadata;
+    if (old.meta !== next.meta) {
+      for (const sh of metadata.snapshot.sheets) {
+        const prior = priorSheets.get(sh.id);
+        // Compare identity order only when metadata changes; scalar commits skip this work.
+        if (
+          !prior ||
+          prior.merges !== sh.merges ||
+          prior.rowOrder.length !== sh.rowOrder.length ||
+          prior.columnOrder.length !== sh.columnOrder.length ||
+          prior.rowOrder.some((id, i) => id !== sh.rowOrder[i]) ||
+          prior.columnOrder.some((id, i) => id !== sh.columnOrder[i])
+        )
+          delete this.used[sh.id];
+      }
+    }
+    for (const a of this.changed)
+      if (
+        old.blocks[a]?.rowMask !== next.blocks[a]?.rowMask ||
+        old.blocks[a]?.columnMask !== next.blocks[a]?.columnMask
+      )
+        delete this.used[a.split('/')[0]];
     this.usedBytes = bytes;
-    this.calculator.clear();
+    if (ranges) this.calculator.invalidate(ranges);
+    else this.calculator.clear();
+    await this.cleanup(oldDirectoryIds);
   }
   view(): EngineView {
-    const used: Record<string, Rect> = {};
+    const used = this.used;
     for (const s of this.metadata.snapshot.sheets) {
+      if (used[s.id]) continue;
       let endRow = 1,
         endColumn = 1;
+      const rows = this.axis(s.rowOrder),
+        cols = this.axis(s.columnOrder);
       for (const [address, p] of Object.entries(this.head.blocks))
         if (address.startsWith(`${s.id}/`)) {
-          endRow = Math.max(endRow, p.endRow);
-          endColumn = Math.max(endColumn, p.endColumn);
+          const [, br, bc] = address.split('/'),
+            mask = BigInt('0x' + (p.rowMask ?? '0'));
+          for (let i = 0; i < 64; i++)
+            if (mask & (1n << BigInt(i)))
+              endRow = Math.max(endRow, (rows.get(+br * 64 + i) ?? -1) + 1);
+          for (let i = 0; i < 32; i++)
+            if ((p.columnMask ?? 0) & (1 << i))
+              endColumn = Math.max(endColumn, (cols.get(+bc * 32 + i) ?? -1) + 1);
         }
       for (const m of s.merges) {
         endRow = Math.max(endRow, m.endRow);
@@ -290,6 +627,9 @@ export class Engine {
     }
     return {
       snapshot: { ...this.metadata.snapshot, revision: this.head.revision },
+      metadataId: this.head.meta,
+      revision: this.head.revision,
+      importRevision: this.metadata.importRevision,
       filtered: this.metadata.filtered,
       used,
       canUndo: !!this.head.past.length,
@@ -299,15 +639,15 @@ export class Engine {
       budget: this.head.budget,
     };
   }
-  private async block(address: string, head = this.head): Promise<Block> {
+  private async block(address: string, head = this.head): Promise<ColumnPage> {
     const p = head.blocks[address];
-    if (!p) return { cells: {}, dependencies: {} };
+    if (!p) return decodeBlock(encodeBlock({}, [], [], {}));
     const cached = this.cache.get(p.id);
     if (cached) return cached;
     const encoded = await this.db.get<EncodedBlock>('records', p.id);
     assert(encoded, 'CORRUPT_STORAGE', 'Data block is missing');
-    const block = decodeBlock(encoded);
-    this.cache.set(p.id, block);
+    const block = decodeBlock(await this.inflate(encoded));
+    this.cache.set(p.id, block, block.bytes);
     return block;
   }
   async cell(sheet: string, row: number, column: number): Promise<CellRecord | undefined> {
@@ -320,12 +660,12 @@ export class Engine {
       row >= sh.rowOrder.length ||
       column >= sh.columnOrder.length
     )
-      return { rowId: '', columnId: '', input: { type: 'error', code: '#REF!' } };
-    return (await this.block(blockAddress(sheet, row, column))).cells[
-      key(sh.rowOrder[row], sh.columnOrder[column])
-    ];
+      return { rowId: 0, columnId: 0, input: { type: 'error', code: '#REF!' } };
+    return (await this.block(blockAddress(sheet, sh.rowOrder[row], sh.columnOrder[column]))).cell(
+      (sh.rowOrder[row] % 64) * 32 + (sh.columnOrder[column] % 32),
+    );
   }
-  async read(sheetId: string, range: Rect, values = true) {
+  async read(sheetId: string, range: Rect, values = true, render = true) {
     const sh = this.metadata.snapshot.sheets.find((s) => s.id === sheetId);
     assert(sh, 'INVALID_ARGUMENT', 'Unknown sheet');
     checkBounds(sh, range);
@@ -354,25 +694,160 @@ export class Engine {
         if (values) {
           const v = await this.calculator.value(sheetId, row, column);
           calculated[k] = v;
-          display[k] =
-            v &&
-            typeof v === 'object' &&
-            cell?.cached &&
-            this.head.revision === this.metadata.importRevision
-              ? formatValue(
-                  scalarValue(cell.cached),
-                  cell.numberFormat,
-                  this.metadata.snapshot.dateSystem,
-                ) + ' †'
-              : formatValue(
-                  v,
-                  cell?.numberFormat ??
-                    this.metadata.snapshot.styles[cell?.styleId ?? '']?.numberFormat,
-                  this.metadata.snapshot.dateSystem,
-                );
+          if (render)
+            display[k] =
+              v &&
+              typeof v === 'object' &&
+              cell?.cached &&
+              this.head.revision === this.metadata.importRevision
+                ? formatValue(
+                    scalarValue(cell.cached),
+                    cell.numberFormat,
+                    this.metadata.snapshot.dateSystem,
+                  ) + ' †'
+                : formatValue(
+                    v,
+                    cell?.numberFormat ??
+                      this.metadata.snapshot.styles[cell?.styleId ?? '']?.numberFormat,
+                    this.metadata.snapshot.dateSystem,
+                  );
         }
       }
     return { sheetId, range, cells, calculated, display, revision: this.head.revision };
+  }
+  async readCells(sheetId: string, range: Rect, fields: import('./workbook.js').CellField[]) {
+    const values = fields.includes('value') || fields.includes('display');
+    const data = await this.read(sheetId, range, values, fields.includes('display'));
+    const sh = this.metadata.snapshot.sheets.find((s) => s.id === sheetId)!;
+    const cells: import('./workbook.js').CellData[] = [];
+    for (let row = range.startRow; row < range.endRow; row++)
+      for (let column = range.startColumn; column < range.endColumn; column++) {
+        const k = key(sh.rowOrder[row], sh.columnOrder[column]),
+          cell = data.cells[k];
+        cells.push(this.selectCell(row, column, cell, fields, data.calculated[k], data.display[k]));
+      }
+    return { revision: this.head.revision, sheetId, range, cells };
+  }
+  private selectCell(
+    row: number,
+    column: number,
+    cell: CellRecord | undefined,
+    fields: import('./workbook.js').CellField[],
+    value?: CellValue,
+    display?: string,
+  ) {
+    const output: import('./workbook.js').CellData = { row, column };
+    for (const field of fields) {
+      if (field === 'input') output.input = cell?.input ?? { type: 'blank' };
+      else if (field === 'value') output.value = value ?? null;
+      else if (field === 'display') output.display = display ?? '';
+      else if (field === 'style')
+        output.style = cell?.styleId ? this.metadata.snapshot.styles[cell.styleId] : {};
+      else if (field === 'numberFormat')
+        output.numberFormat =
+          cell?.numberFormat ?? this.metadata.snapshot.styles[cell?.styleId ?? '']?.numberFormat;
+      else if (field === 'note') output.note = cell?.note;
+      else if (field === 'link') output.link = cell?.link;
+    }
+    return output;
+  }
+  async scanCells(
+    sheetId: string,
+    options: {
+      cursor?: import('./workbook.js').CellCursor;
+      limit?: number;
+      fields?: import('./workbook.js').CellField[];
+    },
+  ) {
+    const sh = this.metadata.snapshot.sheets.find((s) => s.id === sheetId);
+    assert(sh, 'INVALID_ARGUMENT', 'Unknown sheet');
+    const revision = this.head.revision,
+      limit = options.limit ?? 1024,
+      fields = options.fields ?? ['input'];
+    assert(
+      Number.isInteger(limit) && limit > 0 && limit <= 2048,
+      'INVALID_ARGUMENT',
+      'Cell page limit must be 1..2048',
+    );
+    const cursor = options.cursor;
+    if (cursor)
+      assert(
+        cursor.revision === revision && cursor.sheetId === sheetId,
+        'REVISION_CONFLICT',
+        'Cell cursor expired',
+      );
+    if (cursor)
+      assert(
+        Number.isInteger(cursor.offset) &&
+          cursor.offset >= 0 &&
+          !!this.head.blocks[cursor.address] &&
+          cursor.address.startsWith(`${sheetId}/`),
+        'INVALID_ARGUMENT',
+        'Invalid cell cursor',
+      );
+    const address = cursor?.address ?? this.exportIndex(revision, undefined, 1, sheetId)[0];
+    if (!address) return { revision, cells: [] };
+    const page = await this.block(address),
+      source = Object.values(page.cells).sort(
+        (a, b) => a.rowId - b.rowId || a.columnId - b.columnId,
+      ),
+      start = cursor?.offset ?? 0;
+    assert(start <= source.length, 'INVALID_ARGUMENT', 'Invalid cell cursor offset');
+    const cells: import('./workbook.js').CellData[] = [];
+    for (const cell of source.slice(start, start + limit)) {
+      this.check();
+      const row = this.axis(sh.rowOrder).get(cell.rowId)!,
+        column = this.axis(sh.columnOrder).get(cell.columnId)!;
+      const value =
+        fields.includes('value') || fields.includes('display')
+          ? await this.calculator.value(sheetId, row, column)
+          : undefined;
+      cells.push(
+        this.selectCell(
+          row,
+          column,
+          cell,
+          fields,
+          value,
+          fields.includes('display')
+            ? formatValue(
+                value &&
+                  typeof value === 'object' &&
+                  cell.cached &&
+                  this.head.revision === this.metadata.importRevision
+                  ? scalarValue(cell.cached)
+                  : (value ?? null),
+                cell.numberFormat ??
+                  this.metadata.snapshot.styles[cell.styleId ?? '']?.numberFormat,
+                this.metadata.snapshot.dateSystem,
+              ) +
+                (value &&
+                typeof value === 'object' &&
+                cell.cached &&
+                this.head.revision === this.metadata.importRevision
+                  ? ' †'
+                  : '')
+            : undefined,
+        ),
+      );
+    }
+    const offset = start + cells.length,
+      nextAddress =
+        offset < source.length ? address : this.exportIndex(revision, address, 1, sheetId)[0];
+    return {
+      revision,
+      cells,
+      ...(nextAddress
+        ? {
+            cursor: {
+              revision,
+              sheetId,
+              address: nextAddress,
+              offset: nextAddress === address ? offset : 0,
+            },
+          }
+        : {}),
+    };
   }
   private async storeBlock(
     address: string,
@@ -385,12 +860,13 @@ export class Engine {
     let index = this.indices.get(sh);
     if (!index) {
       index = {
-        rows: new Map(sh.rowOrder.map((id, i) => [id, i])),
-        cols: new Map(sh.columnOrder.map((id, i) => [id, i])),
+        rows: this.axis(sh.rowOrder),
+        cols: this.axis(sh.columnOrder),
       };
       this.indices.set(sh, index);
     }
     const { rows, cols } = index;
+    this.changed.add(address);
     const previous = head.blocks[address];
     const discardPrevious = async () => {
       if (previous && this.allocated.has(previous.id) && !this.pins.has(previous.id)) {
@@ -430,19 +906,63 @@ export class Engine {
     const [, br, bc] = address.split('/');
     const encoded = encodeBlock(
       cells,
-      sh.rowOrder.slice(+br * BLOCK_ROWS, (+br + 1) * BLOCK_ROWS),
-      sh.columnOrder.slice(+bc * BLOCK_COLUMNS, (+bc + 1) * BLOCK_COLUMNS),
+      Object.values(cells).map((c) => c.rowId),
+      Object.values(cells).map((c) => c.columnId),
       dependencies,
     );
     const id = await this.allocate(encoded, head.budget);
-    head.blocks[address] = { id, bytes: this.sizes.get(id)!, count, endRow, endColumn };
-    this.cache.set(id, block);
+    this.compressionQueue.add(id);
+    let rowMask = 0n,
+      columnMask = 0;
+    const formulas = new Set<string>();
+    for (const cell of Object.values(cells)) {
+      rowMask |= 1n << BigInt(cell.rowId % 64);
+      columnMask |= 1 << cell.columnId % 32;
+      if (cell.input.type === 'formula') {
+        const ast = dependencies[key(cell.rowId, cell.columnId)] as AST | null;
+        const visit = (node: AST) => {
+          if (node.kind === 'ref') formulas.add(node.sheet ?? sh.name);
+          else if (node.kind === 'range') {
+            formulas.add(node.start.sheet ?? sh.name);
+            formulas.add(node.end.sheet ?? sh.name);
+          } else if (node.kind === 'unary') visit(node.value);
+          else if (node.kind === 'binary') {
+            visit(node.left);
+            visit(node.right);
+          } else if (node.kind === 'call') node.args.forEach(visit);
+        };
+        if (ast) visit(ast);
+        else formulas.add('*');
+      }
+    }
+    head.blocks[address] = {
+      id,
+      bytes: this.sizes.get(id)!,
+      count,
+      endRow,
+      endColumn,
+      rowMask: rowMask.toString(16),
+      columnMask: columnMask >>> 0,
+      ...(formulas.size ? { formulas: [...formulas] } : {}),
+      ...(Object.values(cells).some((c) => c.styleId !== undefined)
+        ? {
+            styles: [
+              ...new Set(
+                Object.values(cells).flatMap((c) => (c.styleId === undefined ? [] : [c.styleId])),
+              ),
+            ],
+          }
+        : {}),
+    };
+    const page = decodeBlock(encoded);
+    this.cache.set(id, page, page.bytes);
     await discardPrevious();
   }
   async replace(snapshot: WorkbookSnapshot, budget = this.head.budget) {
     assert(this.writer, 'READ_ONLY', 'Workbook is open in another tab');
     this.cancelled = false;
     this.allocations = [];
+    this.changed.clear();
     this.allocated.clear();
     this.pins.clear();
     // Validate metadata separately; each cell is validated by the importer in bounded batches.
@@ -464,6 +984,7 @@ export class Engine {
       budget,
     };
     const old = await this.liveIds();
+    for (const address of Object.keys(this.head.blocks)) this.changed.add(address);
     try {
       for (const sh of snapshot.sheets) {
         const rows = new Map(sh.rowOrder.map((id, i) => [id, i])),
@@ -478,7 +999,7 @@ export class Engine {
             'INVALID_ARGUMENT',
             'Invalid cell identity',
           );
-          const a = blockAddress(sh.id, r, col);
+          const a = blockAddress(sh.id, c.rowId, c.columnId);
           if (!grouped.has(a)) grouped.set(a, {});
           grouped.get(a)![k] = c;
         }
@@ -493,7 +1014,7 @@ export class Engine {
         }
       }
       await this.filters(next, metadata);
-      next.meta = await this.allocate(metadata, budget);
+      next.meta = await this.allocate(encodeMetadata(metadata), budget);
       await this.publish(next, metadata);
       await this.cleanup([...old, ...this.allocations]);
       return this.view();
@@ -501,6 +1022,132 @@ export class Engine {
       await this.collect(this.allocations);
       throw error;
     }
+  }
+  async importJSON(input: WorkbookFile | JSONSource, budget = this.head.budget) {
+    assert(this.writer, 'READ_ONLY', 'Workbook is open in another tab');
+    this.allocations = [];
+    this.changed.clear();
+    this.allocated.clear();
+    this.pins.clear();
+    const old = await this.liveIds();
+    for (const address of Object.keys(this.head.blocks)) this.changed.add(address);
+    let file: WorkbookFile | undefined,
+      staged = 0,
+      published = false;
+    const scratch = `${this.id}/import`;
+    const stage = async (sheet: number, block: unknown) => {
+      this.check();
+      const record: [IDBValidKey, unknown] = [
+        `${scratch}/${String(staged++).padStart(10, '0')}`,
+        { sheet, block },
+      ];
+      this.stagingBytes += recordBytes(record[0], record[1]);
+      assert(
+        this.usedBytes + this.stagingBytes <= budget,
+        'STORAGE_BUDGET',
+        'Import staging exceeds storage budget',
+      );
+      await this.db.write('scratch', [record]);
+      this.progress({ phase: 'import-parse', completed: staged });
+    };
+    try {
+      if (input && typeof input === 'object' && 'binary' in input) {
+        for await (const item of readBinary(
+          (input as unknown as { binary: Blob | Uint8Array | ReadableStream<Uint8Array> }).binary,
+        )) {
+          if ('metadata' in item) file = item.metadata;
+          else {
+            const page = decodeBlock(item.bytes);
+            assert(
+              page.row === item.row && page.column === item.column,
+              'INVALID_ARGUMENT',
+              'Binary page coordinates differ',
+            );
+            const styles = new Map(file!.styles.map((_, i) => [`s${i}`, i]));
+            await stage(item.sheet, {
+              row: item.row,
+              column: item.column,
+              data: encodeFileCells(Object.values(page.cells), styles),
+            });
+          }
+        }
+      } else if (
+        typeof input === 'string' ||
+        input instanceof Blob ||
+        input instanceof ReadableStream
+      ) {
+        for await (const item of parseWorkbookJSON(input)) {
+          if ('block' in item) await stage(item.sheet, item.block);
+          else file = item.metadata;
+        }
+      } else {
+        assert(input && Array.isArray(input.sheets), 'INVALID_ARGUMENT', 'Invalid workbook file');
+        file = { ...input, sheets: input.sheets.map((sh) => ({ ...sh, blocks: [] })) };
+        for (let i = 0; i < input.sheets.length; i++)
+          for (const block of input.sheets[i].blocks) await stage(i, block);
+      }
+      this.check();
+      assert(file, 'INVALID_ARGUMENT', 'Missing workbook metadata');
+      const snapshot = decodeFileMetadata(file);
+      snapshot.workbookId = this.id;
+      // Import is a logical change even if the source revision is older.
+      snapshot.revision = this.head.meta ? this.head.revision + 1 : file.revision;
+      const metadata: Metadata = { snapshot, importRevision: snapshot.revision, filtered: {} };
+      const next: Head = {
+        meta: '',
+        blocks: {},
+        revision: snapshot.revision,
+        past: [],
+        future: [],
+        historyBytes: 0,
+        budget,
+      };
+      const styles = Object.keys(snapshot.styles),
+        rows = snapshot.sheets.map((sh) => new Set(sh.rowOrder)),
+        columns = snapshot.sheets.map((sh) => new Set(sh.columnOrder));
+      let completed = 0;
+      const seen = new Set<string>();
+      for await (const batch of this.db.scan<{
+        sheet: number;
+        block: import('./file-codec.js').FileBlock;
+      }>('scratch', prefixRange(scratch), 1)) {
+        const [id, item] = batch[0];
+        this.check();
+        assert(
+          Number.isInteger(item.sheet) && !!snapshot.sheets[item.sheet],
+          'INVALID_ARGUMENT',
+          'Unknown imported sheet',
+        );
+        const sh = snapshot.sheets[item.sheet],
+          address = `${sh.id}/${item.block.row}/${item.block.column}`;
+        assert(!seen.has(address), 'INVALID_ARGUMENT', 'Duplicate imported block');
+        seen.add(address);
+        const cells = decodeFileCells(item.block, styles, rows[item.sheet], columns[item.sheet]);
+        await this.storeBlock(address, cells, next, metadata);
+        await this.db.write('scratch', [], [id]);
+        this.stagingBytes -= recordBytes(id, item);
+        this.progress({ phase: 'import-store', completed: ++completed, total: staged });
+      }
+      await this.filters(next, metadata);
+      next.meta = await this.allocate(encodeMetadata(metadata), budget);
+      await this.publish(next, metadata);
+      published = true;
+      await this.cleanup([...old, ...this.allocations]);
+      return this.view();
+    } catch (error) {
+      await this.collect(this.allocations);
+      throw error;
+    } finally {
+      try {
+        await this.db.write('scratch', [], [prefixRange(scratch)]);
+      } catch (error) {
+        if (!published) throw error;
+      }
+      this.stagingBytes = 0;
+    }
+  }
+  importBinary(input: Blob | Uint8Array | ReadableStream<Uint8Array>) {
+    return this.importJSON({ binary: input } as unknown as WorkbookFile);
   }
   async generate(count: number, budget: number) {
     assert(this.writer, 'READ_ONLY', 'Workbook is open in another tab');
@@ -511,12 +1158,15 @@ export class Engine {
     );
     this.cancelled = false;
     this.allocations = [];
+    this.changed.clear();
     this.allocated.clear();
     this.pins.clear();
     const metadata: Metadata = structuredClone(this.metadata);
     const sh = metadata.snapshot.sheets[0];
-    sh.rowOrder = Array.from({ length: Math.ceil(count / 100) }, (_, i) => `${sh.id}_r${i}`);
-    sh.columnOrder = Array.from({ length: 100 }, (_, i) => `${sh.id}_c${i}`);
+    sh.rowOrder = Array.from({ length: Math.ceil(count / 100) }, (_, i) => i);
+    sh.columnOrder = Array.from({ length: 100 }, (_, i) => i);
+    sh.nextRowId = sh.rowOrder.length;
+    sh.nextColumnId = sh.columnOrder.length;
     sh.cells = {};
     sh.rows = {};
     sh.columns = {};
@@ -537,6 +1187,7 @@ export class Engine {
       budget,
     };
     const old = await this.liveIds();
+    for (const address of Object.keys(this.head.blocks)) this.changed.add(address);
     try {
       for (let r = 0; r < sh.rowOrder.length; r += BLOCK_ROWS)
         for (let c = 0; c < 100; c += BLOCK_COLUMNS) {
@@ -564,7 +1215,7 @@ export class Engine {
             total: count,
           });
         }
-      next.meta = await this.allocate(metadata, budget);
+      next.meta = await this.allocate(encodeMetadata(metadata), budget);
       await this.publish(next, metadata);
       await this.cleanup([...old, ...this.allocations]);
       return this.view();
@@ -610,18 +1261,17 @@ export class Engine {
       }
   }
   private addresses(sheetId: string, range: Rect) {
+    const sh = this.metadata.snapshot.sheets.find((s) => s.id === sheetId)!;
+    const rows = new Set(
+      sh.rowOrder.slice(range.startRow, range.endRow).map((id) => Math.floor(id / BLOCK_ROWS)),
+    );
+    const columns = new Set(
+      sh.columnOrder
+        .slice(range.startColumn, range.endColumn)
+        .map((id) => Math.floor(id / BLOCK_COLUMNS)),
+    );
     const out: string[] = [];
-    for (
-      let r = Math.floor(range.startRow / BLOCK_ROWS);
-      r < Math.ceil(range.endRow / BLOCK_ROWS);
-      r++
-    )
-      for (
-        let c = Math.floor(range.startColumn / BLOCK_COLUMNS);
-        c < Math.ceil(range.endColumn / BLOCK_COLUMNS);
-        c++
-      )
-        out.push(`${sheetId}/${r}/${c}`);
+    for (const r of rows) for (const c of columns) out.push(`${sheetId}/${r}/${c}`);
     return out;
   }
   private async applyLocal(command: Command, head: Head, metadata: Metadata) {
@@ -642,7 +1292,9 @@ export class Engine {
     );
     const addresses = new Set<string>();
     if (sh) {
-      if (p.cells) for (const c of p.cells) addresses.add(blockAddress(sh.id, c.row, c.column));
+      if (p.cells)
+        for (const c of p.cells)
+          addresses.add(blockAddress(sh.id, sh.rowOrder[c.row], sh.columnOrder[c.column]));
       for (const range of [p.range, p.target])
         if (range) {
           checkBounds(sh, range);
@@ -650,7 +1302,23 @@ export class Engine {
         }
     }
     let bytes = 0;
-    const snapshot = structuredClone(metadata.snapshot);
+    const snapshot: WorkbookSnapshot = {
+      ...metadata.snapshot,
+      sheetOrder: [...metadata.snapshot.sheetOrder],
+      styles:
+        command.type === 'core.cells.style'
+          ? { ...metadata.snapshot.styles }
+          : metadata.snapshot.styles,
+      sheets: metadata.snapshot.sheets.map((s) => ({
+        ...s,
+        cells: {},
+        rows: command.type === 'core.axis.meta' ? { ...s.rows } : s.rows,
+        columns: command.type === 'core.axis.meta' ? { ...s.columns } : s.columns,
+        merges: command.type === 'core.cells.merge' ? s.merges.map((m) => ({ ...m })) : s.merges,
+        freeze: s.freeze,
+        filter: s.filter,
+      })),
+    };
     const target = snapshot.sheets.find((s) => s.id === p.sheetId);
     for (const address of addresses) {
       const block = await this.block(address, head);
@@ -666,19 +1334,9 @@ export class Engine {
     for (const address of addresses) {
       const [, br, bc] = address.split('/');
       const cells: Record<string, CellRecord> = {};
-      for (
-        let r = +br * BLOCK_ROWS;
-        r < Math.min((+br + 1) * BLOCK_ROWS, target!.rowOrder.length);
-        r++
-      )
-        for (
-          let c = +bc * BLOCK_COLUMNS;
-          c < Math.min((+bc + 1) * BLOCK_COLUMNS, target!.columnOrder.length);
-          c++
-        ) {
-          const k = key(target!.rowOrder[r], target!.columnOrder[c]);
-          if (target!.cells[k]) cells[k] = target!.cells[k];
-        }
+      for (const cell of Object.values(target!.cells))
+        if (Math.floor(cell.rowId / 64) === +br && Math.floor(cell.columnId / 32) === +bc)
+          cells[key(cell.rowId, cell.columnId)] = cell;
       await this.storeBlock(address, cells, head, metadata);
     }
     for (const s of snapshot.sheets) s.cells = {};
@@ -688,6 +1346,7 @@ export class Engine {
     assert(this.writer, 'READ_ONLY', 'Workbook is open in another tab');
     this.cancelled = false;
     this.allocations = [];
+    this.changed.clear();
     this.allocated.clear();
     this.pins.clear();
     const envelope =
@@ -715,16 +1374,48 @@ export class Engine {
     }
     const commands = inputs.map(validateCommand),
       old = this.head,
-      metadata = structuredClone(this.metadata),
-      next = structuredClone(old);
-    const candidates = await this.liveIds();
+      metadata: Metadata = {
+        ...this.metadata,
+        snapshot: {
+          ...this.metadata.snapshot,
+          sheetOrder: [...this.metadata.snapshot.sheetOrder],
+          styles: this.metadata.snapshot.styles,
+          sheets: this.metadata.snapshot.sheets.map((sh) => ({
+            ...sh,
+            cells: {},
+            rows: sh.rows,
+            columns: sh.columns,
+            merges: sh.merges,
+            freeze: sh.freeze,
+            filter: sh.filter,
+          })),
+        },
+      },
+      transaction = overlay(old.blocks),
+      next: Head = {
+        ...old,
+        blocks: transaction.record,
+        past: [...old.past],
+        future: [...old.future],
+      };
+    const candidates = new Set<string>(this.allocations);
+    let metadataDirty = false;
     const ranges: Selection[] = [];
     try {
       for (const command of commands) {
         this.check();
+        metadataDirty ||= ![
+          'core.cells.set',
+          'core.cells.copy',
+          'core.cells.fillDown',
+          'core.cells.clear',
+          'core.cells.replace',
+          'core.sheet.sort',
+        ].includes(command.type);
         const p = command.payload as any;
         if (p.sheetId) {
           const sh = metadata.snapshot.sheets.find((s) => s.id === p.sheetId)!;
+          if (p.target) ranges.push({ sheetId: p.sheetId, ...p.target });
           if (p.range) ranges.push({ sheetId: p.sheetId, ...p.range });
           else if (p.cells?.length)
             ranges.push({
@@ -759,17 +1450,16 @@ export class Engine {
       }
       await this.filters(next, metadata);
       next.revision++;
-      next.meta =
-        JSON.stringify(metadata) === JSON.stringify(this.metadata)
-          ? old.meta
-          : await this.allocate(metadata);
+      next.meta = !metadataDirty ? old.meta : await this.allocate(encodeMetadata(metadata));
       const changes: History['changes'] = [];
-      for (const a of new Set([...Object.keys(old.blocks), ...Object.keys(next.blocks)]))
-        if (old.blocks[a]?.id !== next.blocks[a]?.id)
+      for (const a of this.changed)
+        if (old.blocks[a] !== next.blocks[a])
           changes.push([a, old.blocks[a] ?? null, next.blocks[a] ?? null]);
       const bytes =
         changes.reduce((n, [, a, b]) => n + (a?.bytes ?? 0) + (b?.bytes ?? 0), 0) +
-        (next.meta === old.meta ? 0 : encodedBytes(metadata) + encodedBytes(this.metadata));
+        (next.meta === old.meta
+          ? 0
+          : encodedBytes(encodeMetadata(metadata)) + encodedBytes(encodeMetadata(this.metadata)));
       assert(
         bytes <= 32 * 1024 * 1024,
         'LIMIT_EXCEEDED',
@@ -777,16 +1467,37 @@ export class Engine {
       );
       const history: History = { before: old.meta, after: next.meta, changes, bytes, ranges };
       next.past.push(await this.allocate(history));
+      for (const id of old.future) {
+        const h = this.histories.get(id)!;
+        candidates.add(id);
+        candidates.add(h.before);
+        candidates.add(h.after);
+        for (const [, a, b] of h.changes) {
+          if (a) candidates.add(a.id);
+          if (b) candidates.add(b.id);
+        }
+      }
       next.future = [];
-      next.historyBytes = bytes;
-      for (const id of old.past)
-        next.historyBytes += (await this.db.get<History>('records', id))!.bytes;
+      next.historyBytes = old.historyBytes + bytes;
       while (next.past.length > 100 || next.historyBytes > 32 * 1024 * 1024) {
         const expired = next.past.shift()!;
-        next.historyBytes -= (await this.db.get<History>('records', expired))!.bytes;
+        const h = this.histories.get(expired)!;
+        next.historyBytes -= h.bytes;
+        candidates.add(expired);
+        candidates.add(h.before);
+        candidates.add(h.after);
+        for (const [, a, b] of h.changes) {
+          if (a) candidates.add(a.id);
+          if (b) candidates.add(b.id);
+        }
       }
-      await this.publish(next, metadata);
+      await this.publish(next, metadata, metadataDirty ? undefined : ranges);
       await this.cleanup([...candidates, ...this.allocations]);
+      for (const [address, pointer] of transaction.changed) {
+        if (pointer) old.blocks[address] = pointer;
+        else delete old.blocks[address];
+      }
+      this.head.blocks = old.blocks;
       const commit: Commit = {
         commandId: envelope?.commandId ?? uid('cmd'),
         previousRevision: old.revision,
@@ -818,42 +1529,71 @@ export class Engine {
       }
   }
   private async structural(command: Command, next: Head, metadata: Metadata) {
-    const original = structuredClone(metadata.snapshot);
-    const sourceHead = structuredClone(next);
-    for (const p of Object.values(sourceHead.blocks)) this.pins.add(p.id);
+    const original = metadata.snapshot;
     const transformed = structuredClone(original);
+    // Axes are copied only for a structural operation. Stable identity pages stay in place.
     reduceCommand(transformed, command);
-    next.blocks = {};
-    const rows = new Map<string, Map<string, number>>(),
-      cols = new Map<string, Map<string, number>>();
-    for (const s of transformed.sheets) {
-      rows.set(s.id, new Map(s.rowOrder.map((id, i) => [id, i])));
-      cols.set(s.id, new Map(s.columnOrder.map((id, i) => [id, i])));
+    const axisPayload = command.payload as any;
+    if (command.type === 'core.axis.insert' || command.type === 'core.axis.delete') {
+      const before = original.sheets.find((s) => s.id === axisPayload.sheetId)!,
+        after = transformed.sheets.find((s) => s.id === axisPayload.sheetId)!;
+      const field = axisPayload.axis === 'row' ? 'rowOrder' : 'columnOrder',
+        index = this.axis(before[field]).clone();
+      index.splice(
+        axisPayload.index,
+        command.type === 'core.axis.delete' ? axisPayload.count : 0,
+        command.type === 'core.axis.insert' ? axisPayload.ids : [],
+      );
+      assert(
+        index.toArray().every((id, i) => id === after[field][i]),
+        'CORRUPT_STORAGE',
+        'Axis sequence differs',
+      );
+      this.axes.set(after[field], index);
     }
+    const payload = command.payload as any,
+      sourceSheet = original.sheets.find((s) => s.id === payload.sheetId)!;
+    const deleted =
+      command.type === 'core.axis.delete'
+        ? new Set(
+            (payload.axis === 'row' ? sourceSheet.rowOrder : sourceSheet.columnOrder).slice(
+              payload.index,
+              payload.index + payload.count,
+            ),
+          )
+        : new Set<number>();
+    const deletedBuckets = new Set(
+      [...deleted].map((id) => Math.floor(id / (payload.axis === 'row' ? 64 : 32))),
+    );
     metadata.snapshot = transformed;
-    for (const [address] of Object.entries(sourceHead.blocks)) {
+    for (const [address, pointer] of Object.entries(next.blocks)) {
       this.check();
-      const sheetId = address.split('/')[0];
-      const working = structuredClone(original);
-      const source = working.sheets.find((s) => s.id === sheetId)!;
-      source.cells = structuredClone((await this.block(address, sourceHead)).cells);
-      reduceCommand(working, command);
-      const output = working.sheets.find((s) => s.id === sheetId);
-      if (!output) continue;
-      const grouped = new Map<string, Record<string, CellRecord>>();
-      for (const [k, cell] of Object.entries(output.cells)) {
-        const r = rows.get(sheetId)!.get(cell.rowId)!,
-          c = cols.get(sheetId)!.get(cell.columnId)!;
-        const a = blockAddress(sheetId, r, c);
-        if (!grouped.has(a)) grouped.set(a, structuredClone((await this.block(a, next)).cells));
-        grouped.get(a)![k] = cell;
+      const [sheetId, br, bc] = address.split('/');
+      const removedSheet = command.type === 'core.sheet.remove' && sheetId === sourceSheet.id;
+      const deletion =
+        sheetId === sourceSheet.id && deletedBuckets.has(payload.axis === 'row' ? +br : +bc);
+      const formula = pointer.formulas?.some(
+        (name) => name === '*' || name.toLowerCase() === sourceSheet.name.toLowerCase(),
+      );
+      if (removedSheet) {
+        this.changed.add(address);
+        delete next.blocks[address];
+        continue;
       }
-      for (const [a, cells] of grouped) await this.storeBlock(a, cells, next, metadata);
-      this.progress({
-        phase: 'structure',
-        completed: Object.keys(next.blocks).length,
-        total: Object.keys(sourceHead.blocks).length,
-      });
+      if (!deletion && !formula) continue;
+      const working = {
+        ...original,
+        sheets: original.sheets.map((sh) => ({
+          ...structuredClone(sh),
+          cells: sh.id === sheetId ? structuredClone({} as Record<string, CellRecord>) : {},
+        })),
+      };
+      working.sheets.find((sh) => sh.id === sheetId)!.cells = structuredClone(
+        (await this.block(address, next)).cells,
+      );
+      reduceCommand(working, command);
+      const output = working.sheets.find((sh) => sh.id === sheetId);
+      if (output) await this.storeBlock(address, output.cells, next, metadata);
     }
   }
   private async sort(command: Command, next: Head, metadata: Metadata) {
@@ -871,7 +1611,7 @@ export class Engine {
       'INVALID_RANGE',
       'Unmerge before sorting',
     );
-    const source = structuredClone(next);
+    const source = { ...next, blocks: { ...next.blocks } };
     for (const block of Object.values(source.blocks)) this.pins.add(block.id);
     let runs: Array<{ id: string; count: number; bytes: number }> = [];
     let scratchBytes = 0;
@@ -904,9 +1644,8 @@ export class Engine {
           const cells: Array<CellRecord | null> = [];
           for (let c = p.range.startColumn; c < p.range.endColumn; c++) {
             const cell =
-              (await this.block(blockAddress(sh.id, r, c), source)).cells[
-                key(sh.rowOrder[r], sh.columnOrder[c])
-              ] ?? null;
+              (await this.block(blockAddress(sh.id, sh.rowOrder[r], sh.columnOrder[c]), source))
+                .cells[key(sh.rowOrder[r], sh.columnOrder[c])] ?? null;
             workingBytes += encodedBytes(cell) * 4;
             assert(
               workingBytes <= 32 * 1024 * 1024,
@@ -1015,7 +1754,7 @@ export class Engine {
         ))!;
         const grouped = new Map<string, Record<string, CellRecord>>();
         for (let c = p.range.startColumn; c < p.range.endColumn; c++) {
-          const a = blockAddress(sh.id, row, c);
+          const a = blockAddress(sh.id, sh.rowOrder[row], sh.columnOrder[c]);
           if (!grouped.has(a)) grouped.set(a, structuredClone((await this.block(a, next)).cells));
           const k = key(sh.rowOrder[row], sh.columnOrder[c]);
           const cell = entry.cells[c - p.range.startColumn];
@@ -1040,13 +1779,21 @@ export class Engine {
   async history(redo: boolean) {
     assert(this.writer, 'READ_ONLY', 'Workbook is open in another tab');
     this.cancelled = false;
-    const next = structuredClone(this.head),
+    this.changed.clear();
+    const next = {
+        ...this.head,
+        blocks: { ...this.head.blocks },
+        past: [...this.head.past],
+        future: [...this.head.future],
+      },
       from = redo ? next.future : next.past,
       to = redo ? next.past : next.future;
     const id = from.pop();
     if (!id) return { view: this.view(), commit: undefined };
-    const h = (await this.db.get<History>('records', id))!;
+    const h = this.histories.get(id) ?? (await this.db.get<History>('records', id));
+    assert(h, 'CORRUPT_STORAGE', 'Missing history');
     for (const [a, before, after] of h.changes) {
+      this.changed.add(a);
       const p = redo ? after : before;
       if (p) next.blocks[a] = p;
       else delete next.blocks[a];
@@ -1054,8 +1801,10 @@ export class Engine {
     next.meta = redo ? h.after : h.before;
     next.revision++;
     to.push(id);
-    const metadata = (await this.db.get<Metadata>('records', next.meta))!;
-    await this.publish(next, metadata);
+    next.historyBytes += redo ? h.bytes : -h.bytes;
+    const metadata =
+      next.meta === this.head.meta ? this.metadata : await this.readMetadata(next.meta);
+    await this.publish(next, metadata, next.meta === this.head.meta ? h.ranges : undefined);
     return {
       view: this.view(),
       commit: {

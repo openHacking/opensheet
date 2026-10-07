@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-07T08:28:47.258Z",
+  "node": "v22.19.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "browser": "153.0.8010.12",
+  "headless": true,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "fixture": "paged-v5: 100 columns, fixed seed, 60% numbers / 30% 32-byte ASCII / 10% booleans; IndexedDB, Worker and bounded caches; scroll samples include viewport loading and painting",
+  "scenarios": {
+    "10000": {
+      "generateMs": 23,
+      "loadP50Ms": 34,
+      "loadP95Ms": 34,
+      "editP50Ms": 17,
+      "editP95Ms": 34,
+      "selectP95Ms": 17,
+      "scrollFrameP95Ms": 20.3,
+      "encodedMiB": 5.56,
+      "workerCacheReservationMiB": 57.28,
+      "viewportCacheReservationMiB": 5.82,
+      "mainHeapBeforeGcMiB": 12,
+      "mainHeapRetainedMiB": 9,
+      "originUsageMiB": 4.59
+    },
+    "100000": {
+      "generateMs": 124,
+      "loadP50Ms": 35,
+      "loadP95Ms": 48,
+      "editP50Ms": 17,
+      "editP95Ms": 34,
+      "selectP95Ms": 18,
+      "scrollFrameP95Ms": 19.8,
+      "encodedMiB": 7.9,
+      "workerCacheReservationMiB": 57.87,
+      "viewportCacheReservationMiB": 7.32,
+      "mainHeapBeforeGcMiB": 37,
+      "mainHeapRetainedMiB": 10,
+      "originUsageMiB": 6.45
+    }
+  }
+}

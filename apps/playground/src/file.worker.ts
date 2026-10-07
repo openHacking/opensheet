@@ -1,13 +1,13 @@
 import * as XLSX from 'xlsx';
 import { fromSheetJS } from '@opensheetjs/adapter-sheetjs';
-import { validateSnapshot } from '@opensheetjs/core';
+import { workbookFileSchema } from '@opensheetjs/core';
 self.onmessage = (event: MessageEvent<{ buffer: ArrayBuffer; name: string }>) => {
   try {
     const { buffer, name } = event.data;
     if (buffer.byteLength > 20 * 1024 * 1024) throw new Error('Files are limited to 20 MiB.');
     if (/\.json$/i.test(name)) {
-      const snapshot = validateSnapshot(JSON.parse(new TextDecoder().decode(buffer)));
-      self.postMessage({ snapshot, report: null });
+      const file = workbookFileSchema.parse(JSON.parse(new TextDecoder().decode(buffer)));
+      self.postMessage({ file, report: null });
       return;
     }
     if (/\.xlsx$/i.test(name)) {

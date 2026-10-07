@@ -22,6 +22,16 @@ export function axisCommand(s: WorkbookSnapshot, command: Command): void {
         'LIMIT_EXCEEDED',
         'Invalid sheet size',
       );
+      if (insert) {
+        const next = row ? 'nextRowId' : 'nextColumnId';
+        assert(
+          p.ids.every((id: number, i: number) => id === sh[next] + i) &&
+            sh[next] + count <= 0x100000000,
+          'INVALID_ARGUMENT',
+          'Axis IDs must be allocated monotonically',
+        );
+        sh[next] += count;
+      }
       if (insert)
         assert(
           new Set([...order, ...p.ids]).size === order.length + count,

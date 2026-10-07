@@ -678,9 +678,9 @@
               "maxItems": 100000,
               "type": "array",
               "items": {
-                "type": "string",
-                "maxLength": 100,
-                "pattern": "^[\\w-]+$"
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
               }
             }
           },
@@ -823,10 +823,9 @@
                   "maxItems": 100000,
                   "type": "array",
                   "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100,
-                    "pattern": "^[\\w-]+$"
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
                   }
                 },
                 "columnOrder": {
@@ -834,11 +833,20 @@
                   "maxItems": 1000,
                   "type": "array",
                   "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100,
-                    "pattern": "^[\\w-]+$"
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
                   }
+                },
+                "nextRowId": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4294967296
+                },
+                "nextColumnId": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4294967296
                 },
                 "cells": {
                   "type": "object",
@@ -849,16 +857,14 @@
                     "type": "object",
                     "properties": {
                       "rowId": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100,
-                        "pattern": "^[\\w-]+$"
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
                       },
                       "columnId": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100,
-                        "pattern": "^[\\w-]+$"
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
                       },
                       "input": {
                         "anyOf": [
@@ -1228,6 +1234,8 @@
                 "name",
                 "rowOrder",
                 "columnOrder",
+                "nextRowId",
+                "nextColumnId",
                 "cells",
                 "rows",
                 "columns",

@@ -48,8 +48,8 @@ export const rectSchema = z.object({
   endColumn: z.number().int().positive(),
 });
 export const cellSchema = z.object({
-  rowId: id,
-  columnId: id,
+  rowId: z.number().int().min(0).max(0xffffffff),
+  columnId: z.number().int().min(0).max(0xffffffff),
   input: inputSchema,
   styleId: id.optional(),
   numberFormat: z.string().max(200).optional(),
@@ -66,8 +66,10 @@ export const sheetSchema = z.object({
     .min(1)
     .max(31)
     .regex(/^[^\\/?*\[\]:]+$/),
-  rowOrder: z.array(id).min(1).max(LIMITS.rows),
-  columnOrder: z.array(id).min(1).max(LIMITS.columns),
+  rowOrder: z.array(z.number().int().min(0).max(0xffffffff)).min(1).max(LIMITS.rows),
+  columnOrder: z.array(z.number().int().min(0).max(0xffffffff)).min(1).max(LIMITS.columns),
+  nextRowId: z.number().int().min(1).max(0x100000000),
+  nextColumnId: z.number().int().min(1).max(0x100000000),
   cells: z.record(z.string(), cellSchema),
   rows: z.record(
     z.string(),
@@ -83,7 +85,7 @@ export const sheetSchema = z.object({
   hidden: z.boolean(),
 });
 export const snapshotSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(3),
   workbookId: id,
   revision: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
   dateSystem: z.enum(['1900', '1904']),
@@ -130,7 +132,7 @@ export class OpenSheetError extends Error {
 export function assert(condition: unknown, code: string, message: string): asserts condition {
   if (!condition) throw new OpenSheetError(code, message);
 }
-export const key = (rowId: string, columnId: string) => `${rowId}:${columnId}`;
+export const key = (rowId: number, columnId: number) => `${rowId}:${columnId}`;
 export const uid = (prefix = 'id') =>
   `${prefix}_${globalThis.crypto.randomUUID().replaceAll('-', '')}`;
 export function toInput(v: Primitive): Scalar {

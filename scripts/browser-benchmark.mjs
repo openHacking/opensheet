@@ -35,7 +35,7 @@ try {
     headless: true,
     viewport: { width: 1280, height: 800 },
     fixture:
-      'paged-v4: 100 columns, fixed seed, 60% numbers / 30% 32-byte ASCII / 10% booleans; IndexedDB, Worker and bounded caches; scroll samples include viewport loading and painting',
+      'paged: 100 columns, fixed seed, 60% numbers / 30% 32-byte ASCII / 10% booleans; IndexedDB, Worker and bounded caches; scroll samples include viewport loading and painting',
     scenarios: {},
   };
   for (const count of sizes) {
@@ -57,7 +57,7 @@ try {
         scrollMs = [];
       for (let i = 0; i < 3; i++) {
         const start = performance.now();
-        await app.open(id, { database: 'opensheet-performance-v4' });
+        await app.open(id, { database: 'opensheet-performance' });
         loadMs.push(performance.now() - start);
       }
       const book = app.getWorkbook(),

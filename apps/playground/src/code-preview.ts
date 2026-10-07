@@ -34,10 +34,13 @@ export function createCodePreview(
           endRow: Math.min(range.endRow, range.startRow + 200),
           endColumn: Math.min(range.endColumn, range.startColumn + 32),
         };
-        const result = exportRange(await app.getWorkbook().toJSON(previewRange), {
+        let text = '';
+        for await (const chunk of streamExport(app.getWorkbook(), {
           ...config,
           range: previewRange,
-        });
+        }))
+          text += chunk;
+        const result = { text, report: [] as string[] };
         if (request !== generation) return;
         sourceText = result.text;
         $('source').textContent =

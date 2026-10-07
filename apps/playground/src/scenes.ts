@@ -1,4 +1,4 @@
-import { createWorkbook, type WorkbookSnapshot } from 'opensheet';
+import { createWorkbook, type WorkbookFile } from 'opensheet';
 export type SceneId = 'budget' | 'sales' | 'planner' | 'code' | 'performance';
 export const scenes: Record<
   SceneId,
@@ -40,7 +40,7 @@ export const scenes: Record<
     icon: '〈〉',
   },
 };
-export async function createScene(id: Exclude<SceneId, 'budget'>): Promise<WorkbookSnapshot> {
+export async function createScene(id: Exclude<SceneId, 'budget'>): Promise<WorkbookFile> {
   const book = await createWorkbook({
     sheets: [{ name: scenes[id].title, rows: 100, columns: 12 }],
   });

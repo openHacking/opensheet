@@ -2,14 +2,14 @@ import {
   OpenSheetError,
   Workbook,
   commandSchemas,
-  createSnapshot,
+  createWorkbookFile,
   openWorkbook,
   uid,
   type WorkbookOptions,
   type Command,
   type CommandEnvelope,
   type Selection,
-  type WorkbookSnapshot,
+  type WorkbookFile,
 } from '@opensheetjs/core';
 import { PluginRegistry, type Plugin } from '@opensheetjs/plugin-sdk';
 import { CanvasGrid } from '@opensheetjs/renderer';
@@ -98,13 +98,13 @@ export class OpenSheet {
     return this.grid?.ready() ?? Promise.resolve();
   }
   async createWorkbook(
-    options: Parameters<typeof createSnapshot>[0] = {},
+    options: Parameters<typeof createWorkbookFile>[0] = {},
     storage: WorkbookOptions = {},
   ) {
     this.active();
     if (this.book)
       throw new OpenSheetError('INVALID_ARGUMENT', 'Use load() to replace an existing workbook');
-    const next = await new Workbook(createSnapshot(options), storage).ready();
+    const next = await new Workbook(createWorkbookFile(options), storage).ready();
     if (this.disposed) {
       next.dispose();
       throw new OpenSheetError('DISPOSED', 'Editor closed during initialization');
@@ -113,7 +113,7 @@ export class OpenSheet {
     await this.grid!.ready();
     return this.book!;
   }
-  async load(snapshot: WorkbookSnapshot) {
+  async load(snapshot: WorkbookFile) {
     this.active();
     const next = await new Workbook({ ...snapshot, workbookId: uid('wb') }).ready();
     if (this.disposed) {
@@ -129,6 +129,26 @@ export class OpenSheet {
     this.attach(next);
     if (defs.length) this.use(defs);
     await this.grid!.ready();
+  }
+  async loadJSON(
+    input: WorkbookFile | string | Blob | ReadableStream<Uint8Array>,
+    options: { signal?: AbortSignal } = {},
+  ) {
+    this.active();
+    const book = this.getWorkbook();
+    await book.importJSON(input, options);
+    options.signal?.throwIfAborted();
+    await this.attachWorkbook(book);
+  }
+  async loadBinary(
+    input: Blob | Uint8Array | ReadableStream<Uint8Array>,
+    options: { signal?: AbortSignal } = {},
+  ) {
+    this.active();
+    const book = this.getWorkbook();
+    await book.importBinary(input, options);
+    options.signal?.throwIfAborted();
+    await this.attachWorkbook(book);
   }
   async open(id: string, storage: WorkbookOptions = {}) {
     this.active();

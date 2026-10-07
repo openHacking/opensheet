@@ -1,7 +1,7 @@
 import { createElement, useEffect, useRef, type ReactElement, type CSSProperties } from 'react';
-import { createOpenSheet, type OpenSheet, type Commit, type WorkbookSnapshot } from 'opensheet';
+import { createOpenSheet, type OpenSheet, type Commit, type WorkbookFile } from 'opensheet';
 export interface OpenSheetProps {
-  initialSnapshot?: WorkbookSnapshot;
+  initialFile?: WorkbookFile;
   readOnly?: boolean;
   className?: string;
   style?: CSSProperties;
@@ -9,7 +9,7 @@ export interface OpenSheetProps {
   onReady?: (app: OpenSheet) => void;
   onChange?: (commit: Commit) => void;
 }
-/** initialSnapshot is read once. Use the instance API to load another workbook. */
+/** initialFile is read once. Use the instance API to load another workbook. */
 export function OpenSheetView(props: OpenSheetProps): ReactElement {
   const host = useRef<HTMLDivElement>(null),
     app = useRef<OpenSheet | null>(null),
@@ -24,7 +24,7 @@ export function OpenSheetView(props: OpenSheetProps): ReactElement {
     app.current = instance;
     let active = true;
     const start = async () => {
-      if (callbacks.current.initialSnapshot) await instance.load(callbacks.current.initialSnapshot);
+      if (callbacks.current.initialFile) await instance.load(callbacks.current.initialFile);
       else await instance.createWorkbook();
       if (!active) return;
       instance.on('workbook:committed', (commit) => callbacks.current.onChange?.(commit));

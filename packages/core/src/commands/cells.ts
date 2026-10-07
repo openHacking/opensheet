@@ -52,7 +52,7 @@ export function cellsCommand(s: WorkbookSnapshot, command: Command): void {
       const original = new Map<string, CellRecord>();
       iterate(sh, source, (r, c) => {
         const value = sh.cells[key(sh.rowOrder[r], sh.columnOrder[c])];
-        if (value) original.set(`${r}:${c}`, JSON.parse(JSON.stringify(value)));
+        if (value) original.set(`${r}:${c}`, structuredClone(value));
       });
       iterate(sh, target, (r, c) => {
         if (fill && r === source.startRow) return;
@@ -64,7 +64,7 @@ export function cellsCommand(s: WorkbookSnapshot, command: Command): void {
           delete sh.cells[k];
           return;
         }
-        const value = JSON.parse(JSON.stringify(stored)) as CellRecord;
+        const value = structuredClone(stored) as CellRecord;
         value.rowId = sh.rowOrder[r];
         value.columnId = sh.columnOrder[c];
         if (value.input.type === 'formula')
@@ -104,7 +104,8 @@ export function cellsCommand(s: WorkbookSnapshot, command: Command): void {
       iterate(sh, p.range, (r, c) => {
         const x = cell(sh, r, c);
         x.styleId = styleId(s, { ...(x.styleId ? s.styles[x.styleId] : {}), ...p.style });
-        if (p.style.numberFormat !== undefined) x.numberFormat = p.style.numberFormat;
+        // Style formats live in the shared style table, not in every cell.
+        if (p.style.numberFormat !== undefined) delete x.numberFormat;
       });
       break;
     case 'core.cells.clear':

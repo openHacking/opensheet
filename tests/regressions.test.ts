@@ -1,13 +1,6 @@
+import { createSnapshot, createSheet } from '../packages/core/src/model.js';
 import { it, expect } from 'vitest';
-import {
-  createWorkbook,
-  createSheet,
-  createSnapshot,
-  Workbook,
-  key,
-  LIMITS,
-  type Selection,
-} from '@opensheetjs/core';
+import { createWorkbook, Workbook, key, LIMITS, type Selection } from '@opensheetjs/core';
 import { exportRange } from '@opensheetjs/formats';
 it('accepts a Selection as a Rect without letting metadata enter the bounds', async () => {
   const b = await createWorkbook(),

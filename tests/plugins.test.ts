@@ -86,7 +86,7 @@ describe('plugins', () => {
           apiVersion: '^0.1.0',
           capabilities: [],
           setup(ctx) {
-            ctx.workbook.getSnapshot();
+            ctx.workbook.toJSON();
           },
         }),
       ]),

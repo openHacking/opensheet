@@ -4,9 +4,9 @@
 
 ## Model and identity
 
-A workbook snapshot is serializable, validated data, without DOM nodes, functions, plugin instances, credentials or network objects. Runtime indexes may use Maps; snapshots use arrays and plain objects. Model schema, command protocol and package versions are distinct.
+A WorkbookFile is serializable, validated data, without DOM nodes, functions, plugin instances, credentials or network objects. Runtime indexes use typed arrays and sequence/interval trees; native JSON uses homogeneous page columns, axis runs and sparse metadata objects. Model schema, command protocol and package versions are distinct.
 
-Rows and columns have stable IDs and independently ordered positions. A1 addresses map to current positions; numeric ranges use zero-based, exclusive ends. Sparse storage retains nonempty cells and supported metadata. Blank, empty string, zero and false are distinct. Numbers must be finite; long identifiers and unsafe integers should be text. Spreadsheet dates preserve date-system semantics rather than silently becoming UTC timestamps.
+Rows and columns have stable sheet-local uint32 IDs and independently ordered positions. A1 addresses map to current positions; numeric ranges use zero-based, exclusive ends. Sparse storage retains nonempty cells and supported metadata. Blank, empty string, zero and false are distinct. Numbers must be finite; long identifiers and unsafe integers should be text. Spreadsheet dates preserve date-system semantics rather than silently becoming UTC timestamps.
 
 Formula text is separate from derived calculation results. Imported cached results have provenance and expire after edits. Viewport and transient selection belong to UI session state rather than the business snapshot. Snapshot reads are defensive or frozen; internal mutation is prohibited.
 
@@ -32,4 +32,4 @@ The current event contract is documented in [API](api.md). Commit events are not
 
 ## Persistence and migration
 
-IndexedDB holds the editor source of truth; native JSON is the interchange snapshot. Validate size, schema and unsafe object keys before loading. Current snapshots use schemaVersion=1; no historical migrations are implemented. Future migrations must be pure, versioned and covered by retained fixtures. Unknown newer schemas must not be accepted as writable data. Remote durability requires an explicit host acknowledgement before showing a saved state.
+IndexedDB holds the editor source of truth; native JSON is a separate compact interchange document. Validate size, schema and unsafe object keys before loading. The sole public JSON document is WorkbookFile, schemaVersion=3. It encodes occupied 64 × 32 physical-ID pages, named homogeneous value columns, numeric style references, sparse ID-keyed metadata and fixed axis runs. Binary pages are the persistent representation; binary native files carry equivalent lossless data. There is no public expanded snapshot export. See [format](storage-format.md). The default database is opensheet; old files and databases are not migrated. Unknown newer schemas must not be accepted as writable data. Remote durability requires an explicit host acknowledgement before showing a saved state.

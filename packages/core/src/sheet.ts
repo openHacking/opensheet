@@ -1,7 +1,7 @@
 import { parseRange } from './address.js';
 import { checkBounds } from './model.js';
 import { Range } from './range.js';
-import { assert, uid, type Rect, type SheetSnapshot } from './types.js';
+import { assert, type Rect, type SheetSnapshot } from './types.js';
 import type { Workbook } from './workbook.js';
 
 export class Sheet {
@@ -50,7 +50,17 @@ export class Sheet {
         sheetId: this.id,
         axis,
         index,
-        ...(insert ? { ids: Array.from({ length: count }, () => uid(axis)) } : { count }),
+        ...(insert
+          ? {
+              ids: Array.from(
+                { length: count },
+                (_, i) =>
+                  (axis === 'row'
+                    ? this.workbook.sheetData(this.id).nextRowId
+                    : this.workbook.sheetData(this.id).nextColumnId) + i,
+              ),
+            }
+          : { count }),
       },
     });
   }

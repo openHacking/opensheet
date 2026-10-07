@@ -1,8 +1,8 @@
 import { defineComponent, h, onMounted, onBeforeUnmount, watch, ref, type PropType } from 'vue';
-import { createOpenSheet, type OpenSheet, type Commit, type WorkbookSnapshot } from 'opensheet';
+import { createOpenSheet, type OpenSheet, type Commit, type WorkbookFile } from 'opensheet';
 export const OpenSheetView = defineComponent({
   name: 'OpenSheetView',
-  props: { initialSnapshot: Object as PropType<WorkbookSnapshot>, readOnly: Boolean },
+  props: { initialFile: Object as PropType<WorkbookFile>, readOnly: Boolean },
   emits: ['ready', 'change', 'error'],
   setup(props, { emit, expose }) {
     const host = ref<HTMLElement>();
@@ -15,7 +15,7 @@ export const OpenSheetView = defineComponent({
           mode: props.readOnly ? 'read' : 'edit',
           onError: (error) => emit('error', error),
         });
-        if (props.initialSnapshot) await app.load(props.initialSnapshot);
+        if (props.initialFile) await app.load(props.initialFile);
         else await app.createWorkbook();
         if (!active) return;
         app.on('workbook:committed', (commit) => emit('change', commit));

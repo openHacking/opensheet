@@ -1,8 +1,11 @@
 import { evaluateFormula, parseFormula, type AST, type Reference } from '@opensheetjs/formula';
 import { type CellValue, scalarValue, type CellRecord } from './types.js';
+import { ReferenceIndex } from './reference-index.js';
+import type { Selection, Rect } from './types.js';
 import { ByteCache } from './storage.js';
 export class AsyncCalculation {
   private cache: ByteCache<CellValue>;
+  private dependencies = new ReferenceIndex();
   get cacheBytes() {
     return this.cache.bytes;
   }
@@ -16,10 +19,31 @@ export class AsyncCalculation {
       column: number,
     ) => Promise<AST | null | undefined>,
   ) {
-    this.cache = new ByteCache(budget);
+    this.cache = new ByteCache(budget, (id) => this.dependencies.delete(id));
   }
   clear() {
     this.cache.clear();
+    this.dependencies.clear();
+  }
+  invalidate(ranges: Selection[]) {
+    const queue = [...ranges],
+      seen = new Set<string>();
+    while (queue.length) {
+      const range = queue.pop()!;
+      for (const id of this.dependencies.query(range.sheetId, range)) {
+        if (seen.has(id)) continue;
+        seen.add(id);
+        this.cache.delete(id);
+        const [sheetId, row, column] = id.split(':');
+        queue.push({
+          sheetId,
+          startRow: +row,
+          endRow: +row + 1,
+          startColumn: +column,
+          endColumn: +column + 1,
+        });
+      }
+    }
   }
   async value(
     sheet: string,
@@ -137,16 +161,48 @@ export class AsyncCalculation {
       return evaluateFormula({ ...ast, args }, () => null);
     };
     let result: CellValue;
+    let ast: AST | undefined;
     try {
       const persisted = await this.persistedAST?.(sheet, row, column);
-      result = await run(persisted ?? parseFormula(cell.input.expression));
+      ast = persisted ?? parseFormula(cell.input.expression);
+      result = await run(ast);
     } catch (error) {
       if ((error as { code?: string }).code === 'ABORTED') throw error;
       result = { error: error instanceof Error ? error.message : '#VALUE!' };
     } finally {
       stack.delete(id);
     }
-    this.cache.set(id, result);
+    const refs: Array<{ sheet: string; range: Rect }> = [];
+    const add = (ref: Reference, end = ref) => {
+      const target = ref.sheet ? this.find(ref.sheet) : sheet;
+      if (target)
+        refs.push({
+          sheet: target,
+          range: {
+            startRow: Math.min(ref.row, end.row),
+            endRow: Math.max(ref.row, end.row) + 1,
+            startColumn: Math.min(ref.column, end.column),
+            endColumn: Math.max(ref.column, end.column) + 1,
+          },
+        });
+    };
+    const visit = (node: AST) => {
+      if (node.kind === 'ref') add(node);
+      else if (node.kind === 'range') add(node.start, node.end);
+      else if (node.kind === 'unary') visit(node.value);
+      else if (node.kind === 'binary') {
+        visit(node.left);
+        visit(node.right);
+      } else if (node.kind === 'call') node.args.forEach(visit);
+    };
+    if (ast) visit(ast);
+    refs.push({
+      sheet,
+      range: { startRow: row, endRow: row + 1, startColumn: column, endColumn: column + 1 },
+    });
+    const bytes = 64 + JSON.stringify(refs).length * 2 + JSON.stringify(result).length * 2;
+    this.cache.set(id, result, bytes);
+    if (bytes <= this.cache.budget) this.dependencies.add(id, refs);
     return result;
   }
 }

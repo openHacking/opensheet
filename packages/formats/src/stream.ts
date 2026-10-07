@@ -1,5 +1,5 @@
 import {
-  SnapshotReader,
+  RangeReader,
   contains,
   intersects,
   key,
@@ -37,7 +37,7 @@ export async function* streamExport(
         s.id === sheet.id ? { ...s, cells: batch.cells } : s,
       ),
     };
-    const reader = new SnapshotReader(snapshot),
+    const reader = new RangeReader(book.metadata, sheet.id, batch.cells),
       source = reader.getSheetById(sheet.id)!;
     const rows: string[][] = [],
       raw = [];

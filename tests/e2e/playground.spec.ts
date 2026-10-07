@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 import * as XLSX from 'xlsx';
 import type { OpenSheet } from 'opensheet';
 declare global {
@@ -224,10 +225,18 @@ test('provides an accessible data table and a functional plugin', async ({ page 
 });
 test('loads saved JSON and cleans up old plugin UI', async ({ page }) => {
   const snapshot = await page.evaluate(async () => await window.opensheet.getWorkbook().toJSON());
+  const downloading = page.waitForEvent('download');
+  await page.locator('#save-json').click();
+  const downloaded = await downloading;
+  const buffer = await readFile((await downloaded.path())!);
+  const file = JSON.parse(buffer.toString('utf8'));
+  expect(file).toEqual(snapshot);
+  expect(file.schemaVersion).toBe(3);
+  expect(file.sheets[0]).not.toHaveProperty('cells');
   await page.locator('#file').setInputFiles({
     name: 'saved.json',
     mimeType: 'application/json',
-    buffer: Buffer.from(JSON.stringify(snapshot)),
+    buffer,
   });
   await expect(page.locator('#save-state')).toContainText('Imported locally');
   await expect(
@@ -685,9 +694,9 @@ test('cancels imports on scene changes and ignores previously queued Worker resu
     } as unknown as typeof Worker;
   });
   await page.locator('#file').setInputFiles({
-    name: 'pending.json',
-    mimeType: 'application/json',
-    buffer: Buffer.from('{}'),
+    name: 'pending.csv',
+    mimeType: 'text/csv',
+    buffer: Buffer.from('a,b\n1,2'),
   });
   await expect(page.getByRole('button', { name: 'Reading…' })).toBeDisabled();
   await expect
@@ -697,7 +706,7 @@ test('cancels imports on scene changes and ignores previously queued Worker resu
   await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
   await page.evaluate(async () => {
     const testWindow = window as any;
-    await testWindow.testWorkers[0].deliver({ data: { snapshot: testWindow.staleSnapshot } });
+    await testWindow.testWorkers[0].deliver({ data: { file: testWindow.staleSnapshot } });
   });
   await expect(page.getByRole('tab', { name: 'Sales Dashboard', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
@@ -728,4 +737,68 @@ test('sheet switches expand selection using the target sheet merges after remova
   };
   expect(selection.afterSwitch).toEqual(expected);
   expect(selection.afterRemoval).toEqual(expected);
+});
+
+test('downloads and reimports binary native files in the real storage worker', async ({ page }) => {
+  await page.evaluate(async () => {
+    await window.opensheet
+      .getWorkbook()
+      .getSheets()[0]
+      .range('A1')
+      .setValues([['native round trip']]);
+  });
+  const download = page.waitForEvent('download');
+  await page.locator('#save-native').click();
+  const file = await download;
+  const path = await file.path();
+  expect(file.suggestedFilename()).toMatch(/\.opensheet$/);
+  await page.evaluate(async () => {
+    await window.opensheet
+      .getWorkbook()
+      .getSheets()[0]
+      .range('A1')
+      .setValues([['changed']]);
+  });
+  await page.locator('#file').setInputFiles({
+    name: file.suggestedFilename(),
+    mimeType: 'application/octet-stream',
+    buffer: await readFile(path!),
+  });
+  await expect
+    .poll(() =>
+      page.evaluate(
+        async () => await window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
+      ),
+    )
+    .toEqual([['native round trip']]);
+  await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
+});
+test('scene changes abort pending native imports before they can reattach the prior workbook', async ({
+  page,
+}) => {
+  await page.evaluate(() => {
+    const book = window.opensheet.getWorkbook();
+    Object.assign(window, { nativeAborted: false });
+    book.importJSON = async (_input, options = {}) =>
+      await new Promise((_resolve, reject) =>
+        options.signal!.addEventListener(
+          'abort',
+          () => {
+            (window as any).nativeAborted = true;
+            reject(new Error('cancelled'));
+          },
+          { once: true },
+        ),
+      );
+  });
+  await page.locator('#file').setInputFiles({
+    name: 'pending.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from('{}'),
+  });
+  await expect(page.getByRole('button', { name: 'Reading…' })).toBeDisabled();
+  await page.getByRole('combobox', { name: 'Choose demo' }).selectOption('sales');
+  await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
+  expect(await page.evaluate(() => (window as any).nativeAborted)).toBe(true);
+  await expect(page.getByRole('tab', { name: 'Sales Dashboard', exact: true })).toBeVisible();
 });

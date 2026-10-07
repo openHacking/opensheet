@@ -1,11 +1,11 @@
 import { createRequire } from 'node:module';
 import { writeFileSync, mkdirSync } from 'node:fs';
-import { snapshotSchema, commandSchemas } from '../packages/core/dist/index.js';
+import { workbookFileSchema, commandSchemas } from '../packages/core/dist/index.js';
 const { z } = createRequire(new URL('../packages/core/package.json', import.meta.url))('zod');
 mkdirSync('schemas', { recursive: true });
 writeFileSync(
   'schemas/workbook.schema.json',
-  JSON.stringify(z.toJSONSchema(snapshotSchema), null, 2) + '\n',
+  JSON.stringify(z.toJSONSchema(workbookFileSchema), null, 2) + '\n',
 );
 writeFileSync(
   'schemas/commands.schema.json',
@@ -29,7 +29,7 @@ writeFileSync(
   JSON.stringify(
     {
       version: '0.1.0',
-      schemaVersion: 1,
+      schemaVersion: 3,
       pluginApiVersion: '0.1.0',
       entrypoints: {
         opensheet: ['createOpenSheet', 'OpenSheet'],
@@ -37,7 +37,11 @@ writeFileSync(
           'createWorkbook',
           'openWorkbook',
           'Workbook',
-          'snapshotSchema',
+          'workbookFileSchema',
+          'createWorkbookFile',
+          'validateWorkbookFile',
+          'FileReader',
+          'BinaryReader',
           'commandSchemas',
         ],
         '@opensheetjs/adapter-sheetjs': ['fromSheetJS', 'toSheetJS'],
@@ -49,6 +53,19 @@ writeFileSync(
         ],
         '@opensheetjs/plugin-sdk': ['definePlugin', 'PluginRegistry'],
       },
+      workbookMethods: [
+        'getMetadata',
+        'getAxes',
+        'readCells',
+        'scanCells',
+        'execute',
+        'transaction',
+        'importJSON',
+        'importBinary',
+        'toJSON',
+        'streamJSON',
+        'streamBinary',
+      ],
       commands: Object.keys(commandSchemas),
       errors: [
         'INVALID_ARGUMENT',
@@ -69,7 +86,12 @@ writeFileSync(
         'WORKER_TIMEOUT',
         'QuotaExceededError',
       ],
-      docs: ['docs/api.md', 'docs/plugins.md', 'docs/implementation-status.md'],
+      docs: [
+        'docs/api.md',
+        'docs/plugins.md',
+        'docs/implementation-status.md',
+        'docs/storage-format.md',
+      ],
       schemas: ['schemas/workbook.schema.json', 'schemas/commands.schema.json'],
     },
     null,

@@ -38,7 +38,7 @@ try {
       arch: arch(),
       node: process.version,
       headless: true,
-      engineFormat: 'paged-v4',
+      engineFormat: 'binary-pages-schema3',
       browserVersion: browser.version(),
     });
     mkdirSync(dirname(output), { recursive: true });
@@ -46,7 +46,14 @@ try {
     renameSync(output + '.tmp', output);
     return result;
   };
-  await page.locator('#perf-probe').click();
+  const cells = option('cells', '');
+  if (cells) {
+    const count = Number(cells);
+    if (!Number.isSafeInteger(count) || count < 10000 || count > 10000000 || count % 10000)
+      throw new Error('Invalid cell count');
+    await page.locator('#perf-cells').fill(cells);
+  }
+  await page.locator(cells ? '#perf-run' : '#perf-probe').click();
   interval = setInterval(() => {
     saved = saved
       .then(async () => {

@@ -1,6 +1,6 @@
 import {
   Workbook,
-  createSnapshot,
+  createWorkbookFile,
   fixtureValue,
   type OpenSheet,
   type WorkbookOptions,
@@ -17,7 +17,7 @@ import {
 } from './performance-model.js';
 import type { PlaygroundState } from './state.js';
 const ID = 'performance-workbook';
-const DATABASE = 'opensheet-performance-v4';
+const DATABASE = 'opensheet-performance';
 const mib = (n: number) => (n / 1048576).toFixed(2);
 const frame = () => new Promise<number>((resolve) => requestAnimationFrame(resolve));
 export function createPerformance(
@@ -111,7 +111,9 @@ export function createPerformance(
         /* Database may not exist yet. */
       }
     }
-    const snapshot = createSnapshot({ sheets: [{ name: 'Performance', rows: 100, columns: 100 }] });
+    const snapshot = createWorkbookFile({
+      sheets: [{ name: 'Performance', rows: 100, columns: 100 }],
+    });
     snapshot.workbookId = ID;
     lastBook = await new Workbook(snapshot, options()).ready();
     await app.attachWorkbook(lastBook);
@@ -356,7 +358,7 @@ export function createPerformance(
         JSON.stringify(
           {
             schemaVersion: 1,
-            engineFormat: 'paged-v4',
+            engineFormat: 'paged',
             mode,
             status: running
               ? 'running'

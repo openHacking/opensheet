@@ -14,7 +14,8 @@ export type Capability =
 export interface PluginContext {
   selection: { get(): Selection | null };
   workbook: {
-    getSnapshot(): ReturnType<Workbook['toJSON']>;
+    toJSON(): ReturnType<Workbook['toJSON']>;
+    getMetadata(): ReturnType<Workbook['getMetadata']>;
     readRange(selection: Selection): Promise<{ values: CellValue[][] }>;
     execute(command: Command): Promise<Commit | undefined>;
   };
