@@ -5,7 +5,7 @@ export interface InputActions {
   selection(): Selection;
   select(selection: Selection): void;
   selectBetween(a: CellPosition, b: CellPosition): void;
-  hit(event: PointerEvent): CellPosition | null;
+  hit(event: MouseEvent): CellPosition | null;
   move(rows: number, columns: number, extend?: boolean): void;
   focus(): void;
   run(action: () => unknown): void;
@@ -46,7 +46,7 @@ export class GridInput {
     element.addEventListener(
       'dblclick',
       (e) => {
-        if (e.target !== editor.element) editor.start();
+        if (e.target !== editor.element && actions.hit(e)) editor.start();
       },
       { signal },
     );

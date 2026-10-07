@@ -202,10 +202,44 @@
 }
 .os-scroll {
   position: absolute;
-  inset: 0;
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #ccd8d0 #f7f9f7;
+  inset: 0 12px 12px 0;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+.os-scroll::-webkit-scrollbar {
+  display: none;
+}
+.os-scrollbar {
+  position: absolute;
+  background: #f7f9f7;
+  touch-action: none;
+  outline: none;
+}
+.os-scrollbar-horizontal {
+  left: 0;
+  right: 12px;
+  bottom: 0;
+  height: 12px;
+}
+.os-scrollbar-vertical {
+  top: 0;
+  bottom: 12px;
+  right: 0;
+  width: 12px;
+}
+.os-scrollbar-thumb {
+  position: absolute;
+  inset: 2px;
+  background: #ccd8d0;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.os-scrollbar:hover .os-scrollbar-thumb,
+.os-scrollbar:focus-visible .os-scrollbar-thumb {
+  background: #a7bdb0;
+}
+.os-scrollbar[aria-disabled='true'] .os-scrollbar-thumb {
+  display: none;
 }
 .os-canvas {
   position: absolute;

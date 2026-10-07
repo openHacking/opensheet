@@ -33,6 +33,49 @@ test('renders the local workbook, formula totals and source preview', async ({ p
   });
   expect(errors).toEqual([]);
 });
+test('keeps both scrollbar tracks visible and usable beside the canvas', async ({ page }) => {
+  const scroller = page.locator('.os-scroll');
+  const bounds = await scroller.evaluate((element) => {
+    const rect = element.parentElement!.getBoundingClientRect();
+    const canvas = document.querySelector('.os-canvas')!.getBoundingClientRect();
+    return {
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+      clientWidth: element.clientWidth,
+      clientHeight: element.clientHeight,
+      canvasWidth: canvas.width,
+      canvasHeight: canvas.height,
+      scrollWidth: element.scrollWidth,
+      scrollHeight: element.scrollHeight,
+    };
+  });
+  expect(bounds.width - bounds.clientWidth).toBeGreaterThanOrEqual(12);
+  expect(bounds.height - bounds.clientHeight).toBeGreaterThanOrEqual(12);
+  expect(bounds.canvasWidth).toBe(bounds.clientWidth);
+  expect(bounds.canvasHeight).toBe(bounds.clientHeight);
+  expect(bounds.scrollWidth).toBeGreaterThan(bounds.clientWidth);
+  expect(bounds.scrollHeight).toBeGreaterThan(bounds.clientHeight);
+  const selection = await page.evaluate(() => window.opensheet.selection.get());
+  await page.mouse.click(bounds.left + bounds.clientWidth - 20, bounds.top + bounds.height - 6);
+  await expect.poll(() => scroller.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await page.mouse.click(bounds.left + bounds.width - 6, bounds.top + bounds.clientHeight - 20);
+  await expect.poll(() => scroller.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => window.opensheet.selection.get())).toEqual(selection);
+  const horizontal = page.getByRole('scrollbar', { name: 'Horizontal scroll' });
+  await horizontal.press('Home');
+  await expect.poll(() => scroller.evaluate((element) => element.scrollLeft)).toBe(0);
+  const thumb = await horizontal.locator('.os-scrollbar-thumb').boundingBox();
+  await page.mouse.move(thumb!.x + thumb!.width / 2, thumb!.y + thumb!.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(thumb!.x + thumb!.width / 2 + 50, thumb!.y + thumb!.height / 2);
+  await page.mouse.up();
+  await expect.poll(() => scroller.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => window.opensheet.selection.get())).toEqual(selection);
+  await horizontal.dblclick();
+  await expect(page.getByRole('textbox', { name: 'Edit cell', exact: true })).toBeHidden();
+});
 test('edits with the DOM editor, recalculates, undoes and redoes', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Cell address', exact: true }).fill('D2');
   await page.getByRole('textbox', { name: 'Cell address', exact: true }).press('Enter');

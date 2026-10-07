@@ -46,15 +46,21 @@ export class GridLayout {
     return Math.min(lo, offsets.length - 2);
   }
   hit(
-    e: PointerEvent,
+    e: MouseEvent,
     element: HTMLElement,
     freeze: { rows: number; columns: number },
-    scroll: { scrollLeft: number; scrollTop: number },
+    scroll: { scrollLeft: number; scrollTop: number; clientWidth: number; clientHeight: number },
   ) {
     const rect = element.getBoundingClientRect(),
       x = e.clientX - rect.left - LEFT,
       y = e.clientY - rect.top - TOP;
-    if (x < 0 || y < 0 || e.clientX > rect.right || e.clientY > rect.bottom) return null;
+    if (
+      x < 0 ||
+      y < 0 ||
+      e.clientX >= rect.left + scroll.clientWidth ||
+      e.clientY >= rect.top + scroll.clientHeight
+    )
+      return null;
     const f = freeze;
     return {
       row: this.index(this.rowOffsets, y + (y >= this.rowOffsets[f.rows] ? scroll.scrollTop : 0)),

@@ -6,11 +6,13 @@ import { GridInput } from './input.js';
 import { GridLayout } from './layout.js';
 import { paintGrid } from './paint.js';
 import { GridSelection } from './selection.js';
+import { GridScrollbars } from './scrollbars.js';
 import type { GridOptions } from './types.js';
 export class CanvasGrid {
   readonly element: HTMLDivElement;
   readonly scroller: HTMLDivElement;
   private spacer: HTMLDivElement;
+  private scrollbars: GridScrollbars;
   private canvas: HTMLCanvasElement;
   private cellEditor: CellEditor;
   private input: GridInput;
@@ -50,6 +52,7 @@ export class CanvasGrid {
     this.element.setAttribute('aria-label', 'Spreadsheet');
     this.scroller = document.createElement('div');
     this.scroller.className = 'os-scroll';
+    this.scroller.id = `os-scroll-${crypto.randomUUID()}`;
     this.spacer = document.createElement('div');
     this.scroller.append(this.spacer);
     this.canvas = document.createElement('canvas');
@@ -64,7 +67,7 @@ export class CanvasGrid {
       () => {
         if (this.layoutState.dirty) this.layout();
       },
-      this.element,
+      this.scroller,
       this.scroller,
       () => !!this.options.readOnly,
       (error) => this.options.onError?.(error),
@@ -81,6 +84,7 @@ export class CanvasGrid {
     this.element.setAttribute('aria-readonly', String(!!this.options.readOnly));
     container.append(this.element);
     const signal = this.abort.signal;
+    this.scrollbars = new GridScrollbars(this.element, this.scroller, signal);
     this.scroller.addEventListener(
       'scroll',
       () => {
@@ -196,8 +200,8 @@ export class CanvasGrid {
           0,
           this.layoutState.rowOffsets[selected.startRow] - this.layoutState.rowOffsets[f.rows],
         );
-      else if (p.y + 30 > this.element.clientHeight)
-        this.scroller.scrollTop += p.y + 30 - this.element.clientHeight;
+      else if (p.y + 30 > this.scroller.clientHeight)
+        this.scroller.scrollTop += p.y + 30 - this.scroller.clientHeight;
     }
     if (selected.startColumn >= f.columns) {
       if (p.x < LEFT + this.layoutState.columnOffsets[f.columns])
@@ -206,8 +210,8 @@ export class CanvasGrid {
           this.layoutState.columnOffsets[selected.startColumn] -
             this.layoutState.columnOffsets[f.columns],
         );
-      else if (p.x + 80 > this.element.clientWidth)
-        this.scroller.scrollLeft += p.x + 80 - this.element.clientWidth;
+      else if (p.x + 80 > this.scroller.clientWidth)
+        this.scroller.scrollLeft += p.x + 80 - this.scroller.clientWidth;
     }
     this.options.onSelection?.(this.selection);
     this.schedule();
@@ -251,7 +255,7 @@ export class CanvasGrid {
       this.scroller,
     );
   }
-  private hit(e: PointerEvent) {
+  private hit(e: MouseEvent) {
     if (this.layoutState.dirty) this.layout();
     return this.layoutState.hit(
       e,
@@ -270,6 +274,7 @@ export class CanvasGrid {
   private draw() {
     if (this.disposed) return;
     if (this.layoutState.dirty) this.layout();
+    this.scrollbars.update();
     void this.prepareViewport();
     paintGrid(
       this.book,
@@ -295,7 +300,7 @@ export class CanvasGrid {
         sh.rowOrder.length,
         this.layoutState.index(
           this.layoutState.rowOffsets,
-          this.scroller.scrollTop + this.element.clientHeight,
+          this.scroller.scrollTop + this.scroller.clientHeight,
         ) + 9,
       ),
       startColumn: Math.max(0, col - 2),
@@ -303,17 +308,17 @@ export class CanvasGrid {
         sh.columnOrder.length,
         this.layoutState.index(
           this.layoutState.columnOffsets,
-          this.scroller.scrollLeft + this.element.clientWidth,
+          this.scroller.scrollLeft + this.scroller.clientWidth,
         ) + 3,
       ),
     };
     const frozenRows = Math.min(
       sh.freeze.rows,
-      this.layoutState.index(this.layoutState.rowOffsets, this.element.clientHeight) + 1,
+      this.layoutState.index(this.layoutState.rowOffsets, this.scroller.clientHeight) + 1,
     );
     const frozenColumns = Math.min(
       sh.freeze.columns,
-      this.layoutState.index(this.layoutState.columnOffsets, this.element.clientWidth) + 1,
+      this.layoutState.index(this.layoutState.columnOffsets, this.scroller.clientWidth) + 1,
     );
     const ranges = [range];
     if (sh.freeze.rows) ranges.push({ ...range, startRow: 0, endRow: frozenRows });
@@ -421,11 +426,11 @@ export class CanvasGrid {
     });
     const p = this.position(row, column);
     if (p.y < TOP) this.scroller.scrollTop = Math.max(0, this.layoutState.rowOffsets[row]);
-    else if (p.y + 30 > this.element.clientHeight)
-      this.scroller.scrollTop += p.y + 30 - this.element.clientHeight;
+    else if (p.y + 30 > this.scroller.clientHeight)
+      this.scroller.scrollTop += p.y + 30 - this.scroller.clientHeight;
     if (p.x < LEFT) this.scroller.scrollLeft = Math.max(0, this.layoutState.columnOffsets[column]);
-    else if (p.x + 128 > this.element.clientWidth)
-      this.scroller.scrollLeft += p.x + 128 - this.element.clientWidth;
+    else if (p.x + 128 > this.scroller.clientWidth)
+      this.scroller.scrollLeft += p.x + 128 - this.scroller.clientWidth;
   }
   copyText() {
     return copyText(this.activeRange());

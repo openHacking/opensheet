@@ -16,8 +16,8 @@ export function paintGrid(
 ) {
   const position = (row: number, column: number) =>
     layout.position(row, column, book.sheetData(sheetId).freeze, scroll);
-  const w = element.clientWidth,
-    h = element.clientHeight,
+  const w = scroll.clientWidth,
+    h = scroll.clientHeight,
     dpr = window.devicePixelRatio || 1;
   if (!w || !h) return;
   const pixelWidth = Math.round(w * dpr),
