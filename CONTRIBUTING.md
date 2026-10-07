@@ -21,10 +21,11 @@ pnpm test:e2e
 OPENSHEET_BASE_PATH=/opensheet/ pnpm build
 pnpm test:pages
 pnpm benchmark
+pnpm benchmark:browser -- --compare
 pnpm preview
 ```
 
-`pnpm check` checks formatting, types, unit tests, package declarations, consumer imports, schemas and the production demo build. Run browser tests for UI or file integration changes. Benchmarks are diagnostics, not performance guarantees.
+`pnpm check` checks formatting, types, unit tests, package declarations, consumer imports, schemas and the production demo build. Run browser tests for UI or file integration changes. Run `pnpm build` before the browser benchmark; it measures 10,000, 100,000 and 200,000 populated cells in headless Chromium. Use `pnpm benchmark:browser -- --write-baseline` only after reviewing a new baseline. Comparison is meaningful only on the same browser and machine. Benchmarks are diagnostics, not performance guarantees.
 
 ## Project structure
 

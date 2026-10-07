@@ -20,6 +20,7 @@
     "format:check": "prettier --check packages apps tests scripts examples *.ts *.json",
     "schema": "node scripts/schema.mjs",
     "benchmark": "node scripts/benchmark.mjs",
+    "benchmark:browser": "node scripts/browser-benchmark.mjs",
     "smoke": "node scripts/smoke.mjs",
     "test:pages": "node scripts/pages-check.mjs"
   },
@@ -36,5 +37,8 @@
     "vitest": "4.1.11",
     "vue": "3.5.24",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "dependencies": {
+    "lucide": "1.52.0"
   }
 }

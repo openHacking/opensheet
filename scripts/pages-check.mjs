@@ -46,7 +46,7 @@ try {
     await page.waitForSelector('.os-grid');
     await page.reload();
     await page.waitForSelector('.os-grid');
-    assert.equal(await page.locator(`[data-scene="${id}"]`).getAttribute('aria-current'), 'page');
+    assert.equal(await page.locator('#scene-select').inputValue(), id);
   }
   const { utils, write } = await import('xlsx');
   const workbook = utils.book_new(

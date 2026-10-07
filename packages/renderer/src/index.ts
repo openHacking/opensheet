@@ -42,6 +42,8 @@ export class CanvasGrid {
   private anchor = { row: 0, column: 0 };
   private drag = false;
   private layoutDirty = true;
+  private mergeSource?: readonly Rect[];
+  private mergeRows = new Map<number, Rect[]>();
   constructor(
     private container: HTMLElement,
     private book: Workbook,
@@ -134,6 +136,7 @@ export class CanvasGrid {
       },
       { signal },
     );
+    this.editor.addEventListener('input', () => this.positionEditor(), { signal });
     this.element.addEventListener(
       'copy',
       (e) => {
@@ -166,21 +169,49 @@ export class CanvasGrid {
       },
       { signal },
     );
-    this.stop = book.onCommit(() => {
+    this.stop = book.onCommit((commit) => {
       if (!book.getSheetById(this.sheetId))
         this.setSheet(book.getSheets().find((s) => !book.sheetData(s.id).hidden)!.id);
-      this.layoutDirty = true;
-      const sh = book.getSheetById(this.sheetId)!;
+      const sh = book.sheetData(this.sheetId);
+      if (
+        !commit.commands.length ||
+        sh.filter ||
+        commit.commands.some((command) =>
+          [
+            'core.axis.insert',
+            'core.axis.delete',
+            'core.axis.meta',
+            'core.sheet.freeze',
+            'core.sheet.filter',
+          ].includes(command.type),
+        )
+      )
+        this.layoutDirty = true;
+      const sheet = book.getSheetById(this.sheetId)!;
+      const previousSelection = this.selected;
       this.selected = {
         ...this.selected,
-        startRow: Math.min(this.selected.startRow, sh.rowCount - 1),
-        endRow: Math.min(this.selected.endRow, sh.rowCount),
-        startColumn: Math.min(this.selected.startColumn, sh.columnCount - 1),
-        endColumn: Math.min(this.selected.endColumn, sh.columnCount),
+        startRow: Math.min(this.selected.startRow, sheet.rowCount - 1),
+        endRow: Math.min(this.selected.endRow, sheet.rowCount),
+        startColumn: Math.min(this.selected.startColumn, sheet.columnCount - 1),
+        endColumn: Math.min(this.selected.endColumn, sheet.columnCount),
       };
+      this.selected = this.expandSelection(this.selected);
+      if (
+        previousSelection.sheetId !== this.selected.sheetId ||
+        previousSelection.startRow !== this.selected.startRow ||
+        previousSelection.endRow !== this.selected.endRow ||
+        previousSelection.startColumn !== this.selected.startColumn ||
+        previousSelection.endColumn !== this.selected.endColumn
+      )
+        this.options.onSelection?.(this.selection);
+      if (this.editing) this.positionEditor();
       this.schedule();
     });
-    this.resize = new ResizeObserver(() => this.schedule());
+    this.resize = new ResizeObserver(() => {
+      if (this.editing) this.positionEditor();
+      this.schedule();
+    });
     this.resize.observe(this.element);
     this.schedule();
   }
@@ -198,6 +229,7 @@ export class CanvasGrid {
   setZoom(value: number) {
     this.zoom = Math.max(0.5, Math.min(2, value));
     this.layoutDirty = true;
+    if (this.editing) this.positionEditor();
     this.schedule();
   }
   getZoom() {
@@ -208,6 +240,8 @@ export class CanvasGrid {
     const sheet = this.book.getSheetById(id);
     if (!sheet) throw new OpenSheetError('INVALID_ARGUMENT', 'Unknown sheet');
     this.sheetId = id;
+    this.mergeSource = undefined;
+    this.mergeRows.clear();
     this.scroller.scrollTop = 0;
     this.scroller.scrollLeft = 0;
     this.layoutDirty = true;
@@ -218,30 +252,83 @@ export class CanvasGrid {
       this.setSheet(selection.sheetId);
     }
     this.book.getSheetById(this.sheetId)!.range(selection);
-    this.selected = { ...selection };
+    this.selected = this.expandSelection(selection);
     if (this.layoutDirty) this.layout();
-    const p = this.position(selection.startRow, selection.startColumn);
+    const selected = this.selected;
+    const p = this.position(selected.startRow, selected.startColumn);
     const f = this.book.sheetData(this.sheetId).freeze;
-    if (selection.startRow >= f.rows) {
+    if (selected.startRow >= f.rows) {
       if (p.y < TOP + this.rowOffsets[f.rows])
         this.scroller.scrollTop = Math.max(
           0,
-          this.rowOffsets[selection.startRow] - this.rowOffsets[f.rows],
+          this.rowOffsets[selected.startRow] - this.rowOffsets[f.rows],
         );
       else if (p.y + 30 > this.element.clientHeight)
         this.scroller.scrollTop += p.y + 30 - this.element.clientHeight;
     }
-    if (selection.startColumn >= f.columns) {
+    if (selected.startColumn >= f.columns) {
       if (p.x < LEFT + this.columnOffsets[f.columns])
         this.scroller.scrollLeft = Math.max(
           0,
-          this.columnOffsets[selection.startColumn] - this.columnOffsets[f.columns],
+          this.columnOffsets[selected.startColumn] - this.columnOffsets[f.columns],
         );
       else if (p.x + 80 > this.element.clientWidth)
         this.scroller.scrollLeft += p.x + 80 - this.element.clientWidth;
     }
     this.options.onSelection?.(this.selection);
     this.schedule();
+  }
+  private mergesAtRow(row: number): Rect[] {
+    const merges = this.book.sheetData(this.sheetId).merges;
+    if (this.mergeSource !== merges) {
+      this.mergeSource = merges;
+      this.mergeRows.clear();
+    }
+    let matching = this.mergeRows.get(row);
+    if (!matching) {
+      matching = merges.filter((m) => row >= m.startRow && row < m.endRow);
+      if (this.mergeRows.size >= 256) this.mergeRows.clear();
+      this.mergeRows.set(row, matching);
+    }
+    return matching;
+  }
+  private mergeAt(row: number, column: number): Rect | undefined {
+    return this.mergesAtRow(row).find((m) => column >= m.startColumn && column < m.endColumn);
+  }
+  private expandSelection(selection: Selection): Selection {
+    const result = { ...selection };
+    if (result.endRow === result.startRow + 1 && result.endColumn === result.startColumn + 1) {
+      const merge = this.mergeAt(result.startRow, result.startColumn);
+      return merge ? { ...result, ...merge } : result;
+    }
+    const merges = this.book.sheetData(selection.sheetId).merges;
+    let changed: boolean;
+    do {
+      changed = false;
+      for (const merge of merges) {
+        if (
+          merge.endRow <= result.startRow ||
+          merge.startRow >= result.endRow ||
+          merge.endColumn <= result.startColumn ||
+          merge.startColumn >= result.endColumn
+        )
+          continue;
+        const startRow = Math.min(result.startRow, merge.startRow);
+        const endRow = Math.max(result.endRow, merge.endRow);
+        const startColumn = Math.min(result.startColumn, merge.startColumn);
+        const endColumn = Math.max(result.endColumn, merge.endColumn);
+        if (
+          startRow !== result.startRow ||
+          endRow !== result.endRow ||
+          startColumn !== result.startColumn ||
+          endColumn !== result.endColumn
+        ) {
+          Object.assign(result, { startRow, endRow, startColumn, endColumn });
+          changed = true;
+        }
+      }
+    } while (changed);
+    return result;
   }
   private selectBetween(a: { row: number; column: number }, b: { row: number; column: number }) {
     this.setSelection({
@@ -357,16 +444,22 @@ export class CanvasGrid {
       h = this.element.clientHeight,
       dpr = window.devicePixelRatio || 1;
     if (!w || !h) return;
-    this.canvas.width = Math.round(w * dpr);
-    this.canvas.height = Math.round(h * dpr);
-    this.canvas.style.width = `${w}px`;
-    this.canvas.style.height = `${h}px`;
+    const pixelWidth = Math.round(w * dpr),
+      pixelHeight = Math.round(h * dpr);
+    if (this.canvas.width !== pixelWidth || this.canvas.height !== pixelHeight) {
+      this.canvas.width = pixelWidth;
+      this.canvas.height = pixelHeight;
+      this.canvas.style.width = `${w}px`;
+      this.canvas.style.height = `${h}px`;
+    }
     const ctx = this.canvas.getContext('2d')!;
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, w, h);
     const sh = this.book.sheetData(this.sheetId),
       f = sh.freeze;
+    const freezeX = LEFT + this.columnOffsets[f.columns],
+      freezeY = TOP + this.rowOffsets[f.rows];
     const visible = (offsets: number[], scroll: number, extent: number, frozen: number) => {
       const out: number[] = [];
       for (let i = 0; i < Math.min(frozen, offsets.length - 1) && offsets[i] < extent; i++)
@@ -379,79 +472,88 @@ export class CanvasGrid {
     const rows = visible(this.rowOffsets, this.scroller.scrollTop, h - TOP, f.rows),
       cols = visible(this.columnOffsets, this.scroller.scrollLeft, w - LEFT, f.columns);
     const drawCell = (r: number, c: number) => {
-      const merge = sh.merges.find(
-        (m) => r >= m.startRow && r < m.endRow && c >= m.startColumn && c < m.endColumn,
-      );
+      const merge = this.mergeAt(r, c);
       if (merge && (r !== merge.startRow || c !== merge.startColumn)) return;
-      const pos = this.position(r, c),
-        cw = this.columnOffsets[merge?.endColumn ?? c + 1] - this.columnOffsets[c],
+      const endColumn = merge?.endColumn ?? c + 1,
+        endRow = merge?.endRow ?? r + 1,
+        cw = this.columnOffsets[endColumn] - this.columnOffsets[c],
         rh = this.rowOffsets[merge?.endRow ?? r + 1] - this.rowOffsets[r];
       const cell = this.book.getCell(this.sheetId, r, c),
         style = this.book.getStyle(cell?.styleId);
-      ctx.save();
-      const clipX = c >= f.columns ? LEFT + this.columnOffsets[f.columns] : LEFT,
-        clipY = r >= f.rows ? TOP + this.rowOffsets[f.rows] : TOP;
-      ctx.beginPath();
-      ctx.rect(clipX, clipY, w - clipX, h - clipY);
-      ctx.clip();
-      ctx.fillStyle = style.background ?? '#ffffff';
-      ctx.fillRect(pos.x, pos.y, cw, rh);
-      if (
-        r >= this.selected.startRow &&
-        r < this.selected.endRow &&
-        c >= this.selected.startColumn &&
-        c < this.selected.endColumn
-      ) {
-        ctx.fillStyle = 'rgba(16,130,94,.06)';
-        ctx.fillRect(pos.x, pos.y, cw, rh);
-      }
-      ctx.strokeStyle = style.border ? '#8ca098' : '#e9eeeb';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(pos.x + 0.5, pos.y + 0.5, cw, rh);
-      ctx.beginPath();
-      ctx.rect(pos.x + 3, pos.y + 1, Math.max(0, cw - 6), Math.max(0, rh - 2));
-      ctx.clip();
-      ctx.fillStyle = style.color ?? '#293d35';
-      ctx.font = `${style.italic ? 'italic ' : ''}${style.bold ? '600 ' : ''}${(style.fontSize ?? 13) * this.zoom}px Inter, -apple-system, sans-serif`;
-      ctx.textBaseline = 'middle';
-      const raw = this.book.value(this.sheetId, r, c);
-      const align = style.align ?? (typeof raw === 'number' ? 'right' : 'left');
-      ctx.textAlign = align;
-      const x =
-        align === 'right' ? pos.x + cw - 10 : align === 'center' ? pos.x + cw / 2 : pos.x + 10;
-      const text = this.book.display(this.sheetId, r, c);
-      if (style.wrap) {
-        const lineHeight = (style.fontSize ?? 13) * this.zoom * 1.35;
-        const lines: string[] = [];
-        let line = '';
-        for (const char of text.slice(0, 4096)) {
-          if (char === '\n' || ctx.measureText(line + char).width > cw - 20) {
-            lines.push(line);
-            line = char === '\n' ? '' : char;
-          } else line += char;
-          if (lines.length > Math.ceil(rh / lineHeight)) break;
+      const horizontal = c < f.columns && endColumn > f.columns ? [false, true] : [c >= f.columns];
+      const vertical = r < f.rows && endRow > f.rows ? [false, true] : [r >= f.rows];
+      for (const scrollX of horizontal)
+        for (const scrollY of vertical) {
+          const pos = {
+            x: LEFT + this.columnOffsets[c] - (scrollX ? this.scroller.scrollLeft : 0),
+            y: TOP + this.rowOffsets[r] - (scrollY ? this.scroller.scrollTop : 0),
+          };
+          const clipX = scrollX ? freezeX : LEFT,
+            clipY = scrollY ? freezeY : TOP,
+            clipRight = scrollX ? w : freezeX,
+            clipBottom = scrollY ? h : freezeY;
+          if (clipRight <= clipX || clipBottom <= clipY) continue;
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(clipX, clipY, clipRight - clipX, clipBottom - clipY);
+          ctx.clip();
+          ctx.fillStyle = style.background ?? '#ffffff';
+          ctx.fillRect(pos.x, pos.y, cw, rh);
+          if (
+            r >= this.selected.startRow &&
+            r < this.selected.endRow &&
+            c >= this.selected.startColumn &&
+            c < this.selected.endColumn
+          ) {
+            ctx.fillStyle = 'rgba(16,130,94,.06)';
+            ctx.fillRect(pos.x, pos.y, cw, rh);
+          }
+          ctx.strokeStyle = style.border ? '#8ca098' : '#e9eeeb';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(pos.x + 0.5, pos.y + 0.5, cw, rh);
+          ctx.beginPath();
+          ctx.rect(pos.x + 3, pos.y + 1, Math.max(0, cw - 6), Math.max(0, rh - 2));
+          ctx.clip();
+          ctx.fillStyle = style.color ?? '#293d35';
+          ctx.font = `${style.italic ? 'italic ' : ''}${style.bold ? '600 ' : ''}${(style.fontSize ?? 13) * this.zoom}px Inter, -apple-system, sans-serif`;
+          ctx.textBaseline = 'middle';
+          const raw = this.book.value(this.sheetId, r, c);
+          const align = style.align ?? (typeof raw === 'number' ? 'right' : 'left');
+          ctx.textAlign = align;
+          const x =
+            align === 'right' ? pos.x + cw - 10 : align === 'center' ? pos.x + cw / 2 : pos.x + 10;
+          const text = this.book.display(this.sheetId, r, c);
+          if (style.wrap) {
+            const lineHeight = (style.fontSize ?? 13) * this.zoom * 1.35;
+            const lines: string[] = [];
+            let line = '';
+            for (const char of text.slice(0, 4096)) {
+              if (char === '\n' || ctx.measureText(line + char).width > cw - 20) {
+                lines.push(line);
+                line = char === '\n' ? '' : char;
+              } else line += char;
+              if (lines.length > Math.ceil(rh / lineHeight)) break;
+            }
+            if (line) lines.push(line);
+            lines.forEach((part, i) => ctx.fillText(part, x, pos.y + lineHeight * (i + 0.6)));
+          } else ctx.fillText(text.replace(/\r?\n/g, ' '), x, pos.y + rh / 2);
+          if (style.underline) {
+            const length = Math.min(ctx.measureText(text).width, cw - 20);
+            ctx.fillRect(
+              align === 'right' ? x - length : align === 'center' ? x - length / 2 : x,
+              pos.y + rh / 2 + 8,
+              length,
+              1,
+            );
+          }
+          ctx.restore();
         }
-        if (line) lines.push(line);
-        lines.forEach((part, i) => ctx.fillText(part, x, pos.y + lineHeight * (i + 0.6)));
-      } else ctx.fillText(text.replace(/\r?\n/g, ' '), x, pos.y + rh / 2);
-      if (style.underline) {
-        const length = Math.min(ctx.measureText(text).width, cw - 20);
-        ctx.fillRect(
-          align === 'right' ? x - length : align === 'center' ? x - length / 2 : x,
-          pos.y + rh / 2 + 8,
-          length,
-          1,
-        );
-      }
-      ctx.restore();
     };
     // Include offscreen merge anchors whose merged rectangle intersects the viewport.
     const anchors = new Set<string>();
     for (const r of rows)
       for (const c of cols) {
-        const m = sh.merges.find(
-          (m) => r >= m.startRow && r < m.endRow && c >= m.startColumn && c < m.endColumn,
-        );
+        const m = this.mergeAt(r, c);
         if (m) anchors.add(`${m.startRow},${m.startColumn}`);
         else drawCell(r, c);
       }
@@ -459,22 +561,27 @@ export class CanvasGrid {
       const [r, c] = a.split(',').map(Number);
       drawCell(r, c);
     }
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(LEFT, TOP, w - LEFT, h - TOP);
-    ctx.clip();
-    const s = this.selected,
-      start = this.position(s.startRow, s.startColumn),
-      end = this.position(s.endRow - 1, s.endColumn - 1);
-    ctx.strokeStyle = '#168462';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(
-      start.x + 1,
-      start.y + 1,
-      end.x + this.columnOffsets[s.endColumn] - this.columnOffsets[s.endColumn - 1] - start.x - 2,
-      end.y + this.rowOffsets[s.endRow] - this.rowOffsets[s.endRow - 1] - start.y - 2,
-    );
-    ctx.restore();
+    const s = this.selected;
+    for (const [scrollX, scrollY, x1, y1, x2, y2] of [
+      [0, 0, LEFT, TOP, freezeX, freezeY],
+      [1, 0, freezeX, TOP, w, freezeY],
+      [0, 1, LEFT, freezeY, freezeX, h],
+      [1, 1, freezeX, freezeY, w, h],
+    ]) {
+      if (x2 <= x1 || y2 <= y1) continue;
+      const x = LEFT + this.columnOffsets[s.startColumn] - (scrollX ? this.scroller.scrollLeft : 0),
+        y = TOP + this.rowOffsets[s.startRow] - (scrollY ? this.scroller.scrollTop : 0),
+        endX = LEFT + this.columnOffsets[s.endColumn] - (scrollX ? this.scroller.scrollLeft : 0),
+        endY = TOP + this.rowOffsets[s.endRow] - (scrollY ? this.scroller.scrollTop : 0);
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x1, y1, x2 - x1, y2 - y1);
+      ctx.clip();
+      ctx.strokeStyle = '#168462';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 1, y + 1, endX - x - 2, endY - y - 2);
+      ctx.restore();
+    }
     ctx.fillStyle = '#f6f8f6';
     ctx.fillRect(0, 0, w, TOP);
     ctx.fillRect(0, 0, LEFT, h);
@@ -486,21 +593,33 @@ export class CanvasGrid {
       const { x } = this.position(0, c),
         cw = this.columnOffsets[c + 1] - this.columnOffsets[c];
       if (x < LEFT) continue;
+      ctx.save();
+      ctx.beginPath();
+      const headerLeft = c < f.columns ? LEFT : freezeX;
+      ctx.rect(headerLeft, 0, w - headerLeft, TOP);
+      ctx.clip();
       ctx.fillStyle = c >= s.startColumn && c < s.endColumn ? '#deeee6' : '#f6f8f6';
       ctx.fillRect(x, 0, cw, TOP);
       ctx.fillStyle = '#667b6f';
       ctx.fillText(columnName(c), x + cw / 2, TOP / 2);
       ctx.strokeRect(x + 0.5, 0.5, cw, TOP);
+      ctx.restore();
     }
     for (const r of rows) {
       const { y } = this.position(r, 0),
         rh = this.rowOffsets[r + 1] - this.rowOffsets[r];
       if (y < TOP) continue;
+      ctx.save();
+      ctx.beginPath();
+      const headerTop = r < f.rows ? TOP : freezeY;
+      ctx.rect(0, headerTop, LEFT, h - headerTop);
+      ctx.clip();
       ctx.fillStyle = r >= s.startRow && r < s.endRow ? '#deeee6' : '#f6f8f6';
       ctx.fillRect(0, y, LEFT, rh);
       ctx.fillStyle = '#667b6f';
       ctx.fillText(String(r + 1), LEFT / 2, y + rh / 2);
       ctx.strokeRect(0.5, y + 0.5, LEFT, rh);
+      ctx.restore();
     }
     if (f.rows) {
       ctx.strokeStyle = '#a7bdb0';
@@ -526,13 +645,7 @@ export class CanvasGrid {
     if (this.options.readOnly) return;
     const s = this.selected,
       sh = this.book.sheetData(this.sheetId),
-      m = sh.merges.find(
-        (m) =>
-          s.startRow >= m.startRow &&
-          s.startRow < m.endRow &&
-          s.startColumn >= m.startColumn &&
-          s.startColumn < m.endColumn,
-      );
+      m = this.mergeAt(s.startRow, s.startColumn);
     this.editPosition = { row: m?.startRow ?? s.startRow, column: m?.startColumn ?? s.startColumn };
     const c = this.book.getCell(this.sheetId, this.editPosition.row, this.editPosition.column);
     this.editor.value =
@@ -553,12 +666,21 @@ export class CanvasGrid {
   private positionEditor() {
     if (this.layoutDirty) this.layout();
     const { row, column } = this.editPosition,
-      p = this.position(row, column);
+      p = this.position(row, column),
+      merge = this.mergeAt(row, column),
+      baseWidth = this.columnOffsets[merge?.endColumn ?? column + 1] - this.columnOffsets[column],
+      baseHeight = this.rowOffsets[merge?.endRow ?? row + 1] - this.rowOffsets[row],
+      margin = 4,
+      availableWidth = Math.max(80, this.element.clientWidth - margin),
+      availableHeight = Math.max(30, this.element.clientHeight - margin),
+      width = Math.min(availableWidth, Math.max(100, baseWidth));
+    this.editor.style.width = `${width}px`;
+    this.editor.style.height = 'auto';
+    const height = Math.min(availableHeight, Math.max(30, baseHeight, this.editor.scrollHeight));
     Object.assign(this.editor.style, {
-      left: `${p.x}px`,
-      top: `${p.y}px`,
-      width: `${Math.max(100, this.columnOffsets[column + 1] - this.columnOffsets[column])}px`,
-      height: `${Math.max(30, this.rowOffsets[row + 1] - this.rowOffsets[row])}px`,
+      left: `${Math.max(0, Math.min(p.x, this.element.clientWidth - width))}px`,
+      top: `${Math.max(0, Math.min(p.y, this.element.clientHeight - height))}px`,
+      height: `${height}px`,
     });
   }
   finishEditing(): boolean {
@@ -583,11 +705,25 @@ export class CanvasGrid {
   private move(dr: number, dc: number, extend = false) {
     const sh = this.book.getSheetById(this.sheetId)!;
     const old = this.selected;
-    let row = Math.max(0, Math.min(sh.rowCount - 1, (extend ? old.endRow - 1 : old.startRow) + dr)),
-      column = Math.max(
-        0,
-        Math.min(sh.columnCount - 1, (extend ? old.endColumn - 1 : old.startColumn) + dc),
-      );
+    const merge = this.mergeAt(old.startRow, old.startColumn);
+    const exactMerge =
+      merge &&
+      old.startRow === merge.startRow &&
+      old.endRow === merge.endRow &&
+      old.startColumn === merge.startColumn &&
+      old.endColumn === merge.endColumn;
+    const originRow = extend
+      ? old.endRow - 1
+      : exactMerge && dr > 0
+        ? old.endRow - 1
+        : old.startRow;
+    const originColumn = extend
+      ? old.endColumn - 1
+      : exactMerge && dc > 0
+        ? old.endColumn - 1
+        : old.startColumn;
+    let row = Math.max(0, Math.min(sh.rowCount - 1, originRow + dr)),
+      column = Math.max(0, Math.min(sh.columnCount - 1, originColumn + dc));
     while (
       dr &&
       row > 0 &&

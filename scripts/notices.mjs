@@ -8,6 +8,7 @@ for (const [name, loader] of [
   ['xlsx', appRequire],
   ['immer', coreRequire],
   ['zod', coreRequire],
+  ['lucide', appRequire],
 ]) {
   let dir = dirname(loader.resolve(name));
   while (

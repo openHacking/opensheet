@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      lucide:
+        specifier: 1.52.0
+        version: 1.52.0
     devDependencies:
       '@playwright/test':
         specifier: 1.63.0
@@ -82,6 +86,9 @@ importers:
       '@opensheetjs/renderer':
         specifier: workspace:*
         version: link:../renderer
+      lucide:
+        specifier: 1.52.0
+        version: 1.52.0
 
   packages/plugin-sdk:
     dependencies:
@@ -726,6 +733,9 @@ packages:
 
   immer@11.1.21:
     resolution: {integrity: sha512-bZSadeCPGdaY5/qRLgr6mDSH1ra21rD3rqpiWk7+QTr4ayYPTE9qZYdLh/NdPhMe0wSrTvHD/Lk8q5EwhUs0aw==}
+
+  lucide@1.52.0:
+    resolution: {integrity: sha512-XlP0U+m3seobjTPfT0Ybg9YqJeTwSxx1I6R2Ty7vwpA/4HtibMbV28p9tW7AnIwb77YkTboK9x/OPBEqGAzCFg==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -1378,6 +1388,8 @@ snapshots:
     optional: true
 
   immer@11.1.21: {}
+
+  lucide@1.52.0: {}
 
   magic-string@0.30.21:
     dependencies:

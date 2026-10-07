@@ -22,8 +22,9 @@
   ],
   "dependencies": {
     "@opensheetjs/core": "workspace:*",
+    "@opensheetjs/plugin-sdk": "workspace:*",
     "@opensheetjs/renderer": "workspace:*",
-    "@opensheetjs/plugin-sdk": "workspace:*"
+    "lucide": "1.52.0"
   },
   "repository": {
     "type": "git",

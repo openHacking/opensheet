@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-07T02:42:50.187Z",
+  "node": "v22.19.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "browser": "153.0.8010.12",
+  "headless": true,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "fixture": "20 populated columns, 4 empty columns, frozen first row and column, up to 1000 nonoverlapping merges",
+  "scenarios": {
+    "10000": {
+      "loadP50Ms": 50,
+      "loadP95Ms": 51,
+      "editP50Ms": 33,
+      "editP95Ms": 34,
+      "selectP50Ms": 33,
+      "selectP95Ms": 34,
+      "scrollP50Ms": 33,
+      "scrollP95Ms": 34,
+      "longTaskCount": 1,
+      "longTaskP95Ms": 102,
+      "heapBeforeGcMiB": 31,
+      "retainedHeapMiB": 8,
+      "serializedMiB": 2
+    },
+    "100000": {
+      "loadP50Ms": 367,
+      "loadP95Ms": 503,
+      "editP50Ms": 84,
+      "editP95Ms": 100,
+      "selectP50Ms": 50,
+      "selectP95Ms": 51,
+      "scrollP50Ms": 33,
+      "scrollP95Ms": 34,
+      "longTaskCount": 8,
+      "longTaskP95Ms": 2019,
+      "heapBeforeGcMiB": 249,
+      "retainedHeapMiB": 25,
+      "serializedMiB": 23
+    },
+    "200000": {
+      "loadP50Ms": 813,
+      "loadP95Ms": 1131,
+      "editP50Ms": 117,
+      "editP95Ms": 134,
+      "selectP50Ms": 50,
+      "selectP95Ms": 51,
+      "scrollP50Ms": 33,
+      "scrollP95Ms": 34,
+      "longTaskCount": 7,
+      "longTaskP95Ms": 801,
+      "heapBeforeGcMiB": 513,
+      "retainedHeapMiB": 43,
+      "serializedMiB": 47
+    }
+  }
+}

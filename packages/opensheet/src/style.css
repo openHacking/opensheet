@@ -29,6 +29,10 @@
   font: inherit;
 }
 .opensheet button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   cursor: pointer;
   color: inherit;
   border: 0;
@@ -36,6 +40,10 @@
   border-radius: 5px;
   padding: 7px 10px;
   white-space: nowrap;
+}
+.opensheet button svg {
+  display: block;
+  flex: 0 0 auto;
 }
 .opensheet button:hover {
   background: #edf3ef;
@@ -48,23 +56,77 @@
 .os-toolbar {
   display: flex;
   align-items: center;
-  gap: 5px;
   min-height: 49px;
   padding: 7px 12px;
   border-bottom: 1px solid var(--os-border);
-  overflow-x: auto;
   flex-shrink: 0;
 }
 .os-toolbar[hidden] {
   display: none;
 }
+.os-toolbar-items {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.os-toolbar-more {
+  position: relative;
+  flex: 0 0 auto;
+}
+.os-toolbar-more > button[hidden],
+.os-toolbar-menu[hidden] {
+  display: none;
+}
+.os-toolbar-more > button {
+  padding: 7px;
+}
+.os-toolbar-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+  max-height: min(70vh, 230px);
+  overflow-y: auto;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid var(--os-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px #0002;
+}
 .os-tool-group {
   display: flex;
+  flex: 0 0 auto;
   gap: 3px;
   align-items: center;
   border-right: 1px solid var(--os-border);
   padding-right: 9px;
   margin-right: 4px;
+}
+.os-toolbar-menu .os-tool-group,
+.os-toolbar-menu .os-plugin-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  border: 0;
+  border-bottom: 1px solid var(--os-border);
+  margin: 0;
+  padding: 0 0 4px;
+}
+.os-toolbar-menu .os-tool-group:last-child,
+.os-toolbar-menu .os-plugin-toolbar:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.os-toolbar-menu button {
+  justify-content: flex-start;
 }
 .os-toolbar select {
   background: #fff;
@@ -83,6 +145,7 @@
 }
 .os-plugin-toolbar {
   display: flex;
+  flex: 0 0 auto;
   gap: 4px;
 }
 .os-formula-bar {
@@ -159,11 +222,17 @@
   padding: 5px 8px;
   outline: none;
   box-shadow: 0 2px 6px #0001;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow: auto;
+  scrollbar-width: none;
   font:
     13px Inter,
     sans-serif;
   color: #263b31;
+}
+.os-cell-editor::-webkit-scrollbar {
+  display: none;
 }
 .os-cell-editor[hidden] {
   display: none;

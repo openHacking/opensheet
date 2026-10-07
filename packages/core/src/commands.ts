@@ -251,8 +251,9 @@ export function reduceCommand(s: WorkbookSnapshot, command: Command): void {
           'INVALID_RANGE',
           'Cannot write a covered merged cell',
         );
-        cell(sh, x.row, x.column).input = x.input;
-        delete cell(sh, x.row, x.column).cached;
+        const target = cell(sh, x.row, x.column);
+        target.input = x.input;
+        delete target.cached;
       }
       break;
     case 'core.cells.style':
@@ -480,9 +481,4 @@ export function reduceCommand(s: WorkbookSnapshot, command: Command): void {
     default:
       assert(false, 'UNSUPPORTED_FEATURE', 'Unknown command');
   }
-  assert(
-    s.sheets.reduce((n, sh) => n + Object.keys(sh.cells).length, 0) <= LIMITS.cells,
-    'LIMIT_EXCEEDED',
-    'Cell limit reached',
-  );
 }

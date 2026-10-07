@@ -10,25 +10,73 @@ import { toSheetJS, type CompatibilityReport } from '@opensheetjs/adapter-sheetj
 import 'opensheet/style.css';
 import './style.css';
 import { scenes, createScene, type SceneId } from './scenes';
+import {
+  createElement,
+  Table2,
+  BookOpen,
+  Code2,
+  Braces,
+  ShieldCheck,
+  HelpCircle,
+  RotateCcw,
+  FileSpreadsheet,
+  Upload,
+  Download,
+  Search,
+  CornerDownLeft,
+  Copy,
+  X,
+  ChevronDown,
+  type IconNode,
+} from 'lucide';
+const icon = (node: IconNode) =>
+  createElement(node, { width: 16, height: 16, 'aria-hidden': 'true', focusable: 'false' })
+    .outerHTML;
 const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
 const logo = `<img src="${asset('icon.svg')}" width="30" height="30" alt="" />`;
+const sceneOptions = Object.entries(scenes)
+  .map(([id, scene]) => `<option value="${id}">${scene.title}</option>`)
+  .join('');
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<aside class="sidebar"><a class="brand" href="#budget">${logo}<span>OpenSheet<span class="brand-dot">.</span></span></a><div class="workspace-tag"><span class="workspace-icon">O</span><div>Open workspace<small>Open-source workspace</small></div><span class="tag-caret">⌄</span></div><span class="nav-label">WORKSPACE</span><button class="nav-item active" id="nav-sheet"><span>▦</span> Spreadsheet <span class="nav-pill">1</span></button><button class="nav-item" id="nav-templates"><span>▤</span> Sample workbooks</button><span class="nav-label space-top">DEVELOPER TOOLS</span><button class="nav-item" id="nav-code"><span>〈〉</span> Table generator</button><button class="nav-item" id="nav-api"><span>⌘</span> API quick start</button><button class="nav-item" id="nav-plugins"><span>⊞</span> Plugin example</button><div class="sidebar-bottom"><div class="privacy-mark">◉ <span>Your data stays yours.</span></div><p>Files are processed on your device.<br>No account. No uploads.</p><div class="version"><span class="dot"></span> Open source <span>v0.1.0</span></div></div></aside>
-<div class="page"><header class="topbar"><div class="breadcrumb">Workspace <span>/</span> Playground</div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">?</button><span class="avatar">OS</span></div></header><main><section class="heading"><div><div class="eyebrow">A LITTLE LESS FRICTION. A LOT MORE POSSIBILITIES.</div><h1>Your data, in good hands<span>.</span></h1><p>An open spreadsheet. A simple API. Make it your own.</p></div><div class="heading-badge">OPEN SOURCE <span>↗</span></div></section>
-<a class="brand-banner" href="https://github.com/openHacking/opensheet" aria-label="OpenSheet on GitHub"><img src="${asset('social-preview.png')}" width="1280" height="640" alt="OpenSheet — An open spreadsheet. A simple API." /></a><section class="demo-gallery" aria-label="Interactive demos"><div class="gallery-intro"><span class="eyebrow">THE POSSIBILITIES ARE OPEN.</span><h2>Make something with your data.</h2><p>Four live examples. One small API. Every cell is yours to change.</p></div><div class="demo-cards">${Object.entries(
-  scenes,
-)
-  .map(
-    ([id, scene]) =>
-      `<a class="demo-card" href="#${id}" data-scene="${id}"><span class="card-label">${scene.label}</span><span class="card-icon">${scene.icon}</span><h3>${scene.title}</h3><p>${scene.description}</p><span class="card-action">Try demo ↗</span></a>`,
-  )
-  .join(
-    '',
-  )}</div></section><section class="scene-overview" aria-label="Live workbook insights"><div class="scene-heading"><div><span class="eyebrow" id="scene-label"></span><h2 id="scene-title"></h2><p id="scene-description"></p></div><button class="button secondary" id="reset-demo">↶ Reset demo</button></div><div id="scene-insights" aria-live="polite"></div><p class="scene-hint" id="scene-hint">Edit the sheet below. Your changes update this view in real time.</p></section><section class="document"><div class="document-bar"><div class="document-title"><span class="file-icon">▦</span><div><input id="document-name" aria-label="Workbook name" value="Launch budget"><div class="doc-meta"><span class="dot"></span><span id="save-state">Example workbook · All changes stay local</span></div></div></div><div class="document-actions"><input id="file" type="file" accept=".xlsx,.csv,.tsv,.json" hidden><button class="button secondary" id="import">↑ <span>Import file</span></button><button class="button secondary" id="save-json">Save JSON</button><button class="button primary" id="export-xlsx">↓ <span>Export XLSX</span></button></div></div>
-<div class="utility-bar"><div class="search-wrap"><span>⌕</span><input id="find" placeholder="Find in this sheet…" aria-label="Find in sheet"><button id="find-next" aria-label="Find next">↵</button></div><div class="utility-controls"><select id="sheet-action" aria-label="Sheet actions"><option value="">Sheet actions</option><option value="sort-asc">Sort selection A → Z</option><option value="sort-desc">Sort selection Z → A</option><option value="delete-row">Delete selected rows</option><option value="delete-column">Delete selected columns</option><option value="hide-row">Hide selected row</option><option value="show-rows">Show all rows</option><option value="filter">Filter column by search</option><option value="clear-filter">Clear filter</option><option value="rename">Rename sheet</option><option value="remove">Delete sheet</option><option value="replace">Replace matches</option></select><label class="read-label"><input type="checkbox" id="read-only"> Read only</label><button id="accessible" class="text-button">Table view</button><select id="zoom" aria-label="Zoom"><option value="1">100%</option><option value=".75">75%</option><option value="1.25">125%</option><option value="1.5">150%</option></select></div></div>
-<div id="spreadsheet"></div></section>
-<section class="below"><div class="source-card" id="source-card"><div class="source-heading"><div><span class="small-icon">〈〉</span><h2>From cells to code</h2><span class="live-badge">LIVE</span></div><button id="copy-code" class="text-button">▢ Copy code</button></div><div class="source-tabs" role="tablist" aria-label="Export format"><button class="selected" data-format="latex" role="tab" aria-selected="true">LaTeX</button><button data-format="markdown" role="tab" aria-selected="false">Markdown</button><button data-format="html" role="tab" aria-selected="false">HTML</button><button data-format="csv" role="tab" aria-selected="false">CSV</button><button data-format="tsv" role="tab" aria-selected="false">TSV</button><label><input id="export-selection" type="checkbox"> Selected cells only</label></div><pre><code id="source"></code></pre><div class="source-footer"><span id="export-note">Ready to paste into your next project.</span><button id="download-code" class="text-button">Download ↓</button></div></div><div class="tip-card"><div class="tip-kicker">BUILT FOR YOUR WORKFLOW</div><h2>Small API.<br>Big possibilities.</h2><p>Drop a workbook into your app. Add a plugin. Keep complete control of your data.</p><code>createOpenSheet({ container })</code><button id="quick-start" class="text-button">Explore the API <span>→</span></button><div class="tip-tags"><span>TypeScript</span><span>SheetJS</span><span>Plugins</span></div></div></section><footer class="page-footer"><span>OpenSheet · Built to be built upon.</span><span>No cloud required. Just your browser.</span></footer></main></div>
-<dialog id="dialog"><div class="dialog-header"><h2 id="dialog-title"></h2><button id="dialog-close" aria-label="Close dialog">×</button></div><div id="dialog-content"></div></dialog><div id="notice" role="status" hidden></div>`;
+<aside class="sidebar">
+  <a class="brand" href="#budget">${logo}<span>OpenSheet<span class="brand-dot">.</span></span></a>
+  <div class="workspace-tag"><span class="workspace-icon">O</span><div>Open workspace<small>Open-source workspace</small></div><span class="tag-caret">${icon(ChevronDown)}</span></div>
+  <span class="nav-label">WORKSPACE</span>
+  <button class="nav-item active" id="nav-sheet">${icon(Table2)} Spreadsheet <span class="nav-pill">1</span></button>
+  <button class="nav-item" id="nav-templates">${icon(BookOpen)} Sample workbooks</button>
+  <span class="nav-label space-top">DEVELOPER TOOLS</span>
+  <button class="nav-item" id="nav-code">${icon(Code2)} Table generator</button>
+  <button class="nav-item" id="nav-api">${icon(Braces)} API quick start</button>
+  <button class="nav-item" id="nav-plugins">${icon(Braces)} Plugin example</button>
+  <div class="sidebar-bottom"><div class="privacy-mark">${icon(ShieldCheck)} <span>Your data stays yours.</span></div><p>Files are processed on your device.<br>No account. No uploads.</p><div class="version"><span class="dot"></span> Open source <span>v0.1.0</span></div></div>
+</aside>
+<div class="page">
+  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> Playground</div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">${icon(HelpCircle)}</button><span class="avatar">OS</span></div></header>
+  <main>
+    <section class="workspace-heading" aria-label="Demo controls">
+      <div class="scene-picker"><label for="scene-select">DEMO</label><select id="scene-select" aria-label="Choose demo">${sceneOptions}</select></div>
+      <div class="scene-summary"><span class="eyebrow" id="scene-label"></span><h1 id="scene-title"></h1><p id="scene-description"></p></div>
+      <button class="button secondary" id="reset-demo">${icon(RotateCcw)} Reset demo</button>
+    </section>
+    <div class="workbench" id="workbench">
+      <section class="document" aria-label="Spreadsheet editor">
+        <div class="document-bar"><div class="document-title"><span class="file-icon">${icon(FileSpreadsheet)}</span><div><input id="document-name" aria-label="Workbook name" value="Launch budget"><div class="doc-meta"><span class="dot"></span><span id="save-state">Example workbook · All changes stay local</span></div></div></div><div class="document-actions"><input id="file" type="file" accept=".xlsx,.csv,.tsv,.json" hidden><button class="button secondary" id="import">${icon(Upload)} <span>Import file</span></button><button class="button secondary" id="save-json">Save JSON</button><button class="button primary" id="export-xlsx">${icon(Download)} <span>Export XLSX</span></button></div></div>
+        <div class="utility-bar"><div class="search-wrap">${icon(Search)}<input id="find" placeholder="Find in this sheet…" aria-label="Find in sheet"><button id="find-next" aria-label="Find next">${icon(CornerDownLeft)}</button></div><div class="utility-controls"><select id="sheet-action" aria-label="Sheet actions"><option value="">Sheet actions</option><option value="sort-asc">Sort selection A → Z</option><option value="sort-desc">Sort selection Z → A</option><option value="delete-row">Delete selected rows</option><option value="delete-column">Delete selected columns</option><option value="hide-row">Hide selected row</option><option value="show-rows">Show all rows</option><option value="filter">Filter column by search</option><option value="clear-filter">Clear filter</option><option value="rename">Rename sheet</option><option value="remove">Delete sheet</option><option value="replace">Replace matches</option></select><label class="read-label"><input type="checkbox" id="read-only"> Read only</label><button id="accessible" class="text-button">Table view</button><select id="zoom" aria-label="Zoom"><option value="1">100%</option><option value=".75">75%</option><option value="1.25">125%</option><option value="1.5">150%</option></select></div></div>
+        <div id="spreadsheet"></div>
+      </section>
+      <div class="splitter" id="splitter" role="separator" aria-label="Resize spreadsheet and results" aria-orientation="vertical" aria-valuemin="35" aria-valuemax="70" aria-valuenow="67" tabindex="0" title="Drag or use arrow keys to resize. Double-click to reset."><span aria-hidden="true"></span></div>
+      <aside class="side-panel" aria-label="Demo results">
+        <div class="panel-tabs" role="tablist" aria-label="Result panel">
+          <button id="tab-insights" role="tab" aria-controls="panel-insights" aria-selected="true">Data view</button>
+          <button id="tab-code" role="tab" aria-controls="panel-code" aria-selected="false">Code export</button>
+        </div>
+        <section class="scene-overview" id="panel-insights" role="tabpanel" aria-labelledby="tab-insights"><div id="scene-insights" aria-live="polite"></div><p class="scene-hint" id="scene-hint">Edit the sheet. Your changes update this view in real time.</p></section>
+        <section class="source-card" id="panel-code" role="tabpanel" aria-labelledby="tab-code" hidden><div class="source-heading"><div><span class="small-icon">${icon(Code2)}</span><h2>From cells to code</h2><span class="live-badge">LIVE</span></div><button id="copy-code" class="text-button">${icon(Copy)} Copy code</button></div><div class="source-tabs" role="tablist" aria-label="Export format"><button class="selected" data-format="latex" role="tab" aria-selected="true">LaTeX</button><button data-format="markdown" role="tab" aria-selected="false">Markdown</button><button data-format="html" role="tab" aria-selected="false">HTML</button><button data-format="csv" role="tab" aria-selected="false">CSV</button><button data-format="tsv" role="tab" aria-selected="false">TSV</button><label><input id="export-selection" type="checkbox"> Selected cells only</label></div><pre><code id="source"></code></pre><div class="source-footer"><span id="export-note">Ready to paste into your next project.</span><button id="download-code" class="text-button">${icon(Download)} Download</button></div></section>
+      </aside>
+    </div>
+  </main>
+</div>
+<dialog id="dialog"><div class="dialog-header"><h2 id="dialog-title"></h2><button id="dialog-close" aria-label="Close dialog">${icon(X)}</button></div><div id="dialog-content"></div></dialog><div id="notice" role="status" hidden></div>`;
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 function notice(message: string) {
   $('notice').textContent = message;
@@ -193,6 +241,69 @@ function renderInsights() {
   }
   $('scene-insights').innerHTML = html;
 }
+type Panel = 'insights' | 'code';
+function showPanel(panel: Panel) {
+  for (const name of ['insights', 'code'] as const) {
+    const active = name === panel;
+    $(`panel-${name}`).hidden = !active;
+    $(`tab-${name}`).setAttribute('aria-selected', String(active));
+    $<HTMLButtonElement>(`tab-${name}`).tabIndex = active ? 0 : -1;
+  }
+}
+for (const name of ['insights', 'code'] as const) {
+  $(`tab-${name}`).onclick = () => showPanel(name);
+  $(`tab-${name}`).onkeydown = (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    const next = name === 'insights' ? 'code' : 'insights';
+    showPanel(next);
+    $(`tab-${next}`).focus();
+  };
+}
+const workbench = $('workbench');
+const splitter = $('splitter');
+const defaultSplitFraction = 0.67;
+let splitFraction = defaultSplitFraction;
+function resizeWorkbench(fraction = splitFraction) {
+  if (getComputedStyle(workbench).display !== 'grid') return;
+  const available = workbench.clientWidth - splitter.offsetWidth;
+  if (available <= 0) return;
+  const min = Math.min(520, Math.max(0, available - 320));
+  const max = Math.max(min, available - 320);
+  const left = Math.max(min, Math.min(max, available * fraction));
+  splitFraction = left / available;
+  workbench.style.setProperty('--sheet-width', `${left}px`);
+  splitter.setAttribute('aria-valuemin', String(Math.round((min / available) * 100)));
+  splitter.setAttribute('aria-valuemax', String(Math.round((max / available) * 100)));
+  splitter.setAttribute('aria-valuenow', String(Math.round(splitFraction * 100)));
+}
+new ResizeObserver(() => resizeWorkbench()).observe(workbench);
+splitter.addEventListener('pointerdown', (event) => {
+  if (event.button !== 0) return;
+  splitter.setPointerCapture(event.pointerId);
+  splitter.classList.add('dragging');
+  event.preventDefault();
+});
+splitter.addEventListener('pointermove', (event) => {
+  if (!splitter.hasPointerCapture(event.pointerId)) return;
+  const available = workbench.clientWidth - splitter.offsetWidth;
+  resizeWorkbench((event.clientX - workbench.getBoundingClientRect().left) / available);
+});
+splitter.addEventListener('pointerup', (event) => {
+  if (splitter.hasPointerCapture(event.pointerId)) splitter.releasePointerCapture(event.pointerId);
+  splitter.classList.remove('dragging');
+});
+splitter.addEventListener('pointercancel', () => splitter.classList.remove('dragging'));
+splitter.addEventListener('dblclick', () => resizeWorkbench(defaultSplitFraction));
+splitter.addEventListener('keydown', (event) => {
+  const available = workbench.clientWidth - splitter.offsetWidth;
+  if (event.key === 'ArrowLeft') resizeWorkbench(splitFraction - 24 / available);
+  else if (event.key === 'ArrowRight') resizeWorkbench(splitFraction + 24 / available);
+  else if (event.key === 'Home') resizeWorkbench(0);
+  else if (event.key === 'End') resizeWorkbench(1);
+  else return;
+  event.preventDefault();
+});
 async function loadScene(id: SceneId) {
   importWorker?.terminate();
   importWorker = undefined;
@@ -209,12 +320,8 @@ async function loadScene(id: SceneId) {
   $('scene-label').textContent = scenes[id].label;
   $('scene-description').textContent = scenes[id].description;
   document.title = `${scenes[id].title} · OpenSheet`;
-  for (const card of document.querySelectorAll<HTMLAnchorElement>('[data-scene]')) {
-    const selected = card.dataset.scene === id;
-    card.classList.toggle('selected', selected);
-    if (selected) card.setAttribute('aria-current', 'page');
-    else card.removeAttribute('aria-current');
-  }
+  $<HTMLSelectElement>('scene-select').value = id;
+  showPanel(id === 'code' ? 'code' : 'insights');
   refresh();
 }
 let format: Format = 'latex',
@@ -535,7 +642,7 @@ $('accessible').onclick = () => {
   modal('Accessible table view', box);
 };
 const api = `import { createOpenSheet } from 'opensheet';\nimport 'opensheet/style.css';\n\nconst app = createOpenSheet({ container: '#sheet' });\nconst book = app.createWorkbook();\nconst sheet = book.getSheets()[0];\n\nsheet.range('A1:B2').setValues([\n  ['Product', 'Revenue'], ['OpenSheet', 1200]\n]);\nsheet.range('B3').setFormulas([['SUM(B2:B2)']]);\napp.on('workbook:committed', ({ revision }) => {\n  console.log(revision, book.toJSON());\n});\n\n// On unmount\napp.dispose();`;
-$('nav-api').onclick = $('quick-start').onclick = () => textModal('API quick start', api);
+$('nav-api').onclick = () => textModal('API quick start', api);
 $('nav-plugins').onclick = () =>
   textModal(
     'The Σ Sum button is a plugin',
@@ -546,12 +653,15 @@ $('help').onclick = () =>
     'Keyboard shortcuts',
     'Enter / F2     Edit selected cell\nTab / Shift+Tab     Next / previous cell\nArrow keys     Move selection\nShift + arrows     Extend selection\nCtrl/Cmd + C / V     Copy / paste\nCtrl/Cmd + Z     Undo\nCtrl/Cmd + Shift + Z     Redo\nDelete / Backspace     Clear values\nEscape     Cancel editing\n\nPaste values starting with = as formulas. Use an apostrophe to enter literal formula text.\n\n† after a value indicates an imported formula cache that has not been recalculated.',
   );
-$('nav-code').onclick = () =>
-  $('source-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+$('nav-code').onclick = () => showPanel('code');
 $('nav-sheet').onclick = () =>
-  $('spreadsheet').scrollIntoView({ behavior: 'smooth', block: 'center' });
-$('nav-templates').onclick = () =>
-  document.querySelector('.demo-gallery')!.scrollIntoView({ behavior: 'smooth' });
+  document.querySelector<HTMLElement>('#spreadsheet .os-grid')?.focus();
+$('nav-templates').onclick = () => $<HTMLSelectElement>('scene-select').focus();
+$<HTMLSelectElement>('scene-select').onchange = (event) => {
+  const next = (event.target as HTMLSelectElement).value as SceneId;
+  if (next === currentScene) return;
+  location.hash = next;
+};
 $('reset-demo').onclick = async () => {
   if (dirty && !confirm('Reset this demo? Download JSON first to keep your changes.')) return;
   await loadScene(currentScene);
@@ -576,20 +686,20 @@ function requestedScene(): SceneId {
 let routeBusy = false;
 window.addEventListener('hashchange', async () => {
   const next = requestedScene();
-  if (routeBusy || next === currentScene) return;
+  if (routeBusy || next === currentScene) {
+    $<HTMLSelectElement>('scene-select').value = currentScene;
+    return;
+  }
   if (dirty && !confirm('Switch demos? Download JSON first to keep your changes.')) {
     history.replaceState(null, '', `#${currentScene}`);
+    $<HTMLSelectElement>('scene-select').value = currentScene;
     return;
   }
   routeBusy = true;
   try {
     await loadScene(next);
-    document
-      .querySelector('.scene-overview')!
-      .scrollIntoView({ behavior: 'smooth', block: 'start' });
   } finally {
     routeBusy = false;
   }
 });
 await loadScene(requestedScene());
-if (location.hash) document.querySelector('.scene-overview')!.scrollIntoView({ block: 'start' });

@@ -16,6 +16,28 @@ import {
 } from '@opensheetjs/core';
 import { CanvasGrid } from '@opensheetjs/renderer';
 import { PluginRegistry, type Plugin } from '@opensheetjs/plugin-sdk';
+import {
+  createElement,
+  Undo2,
+  Redo2,
+  Bold,
+  Italic,
+  Underline,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Merge,
+  Split,
+  Square,
+  WrapText,
+  ArrowDown,
+  Plus,
+  Rows3,
+  Columns3,
+  PanelTop,
+  Ellipsis,
+  type IconNode,
+} from 'lucide';
 export * from '@opensheetjs/core';
 export { definePlugin } from '@opensheetjs/plugin-sdk';
 export type { Plugin, PluginContext } from '@opensheetjs/plugin-sdk';
@@ -31,12 +53,16 @@ type EventMap = {
   'plugin:error': unknown;
   'lifecycle:disposed': undefined;
 };
+let toolbarMenuId = 0;
 export class OpenSheet {
   readonly element: HTMLDivElement;
   readonly plugins: PluginRegistry;
   private book?: Workbook;
   private grid?: CanvasGrid;
   private toolbar: HTMLDivElement;
+  private toolbarItems: HTMLDivElement;
+  private moreButton: HTMLButtonElement;
+  private moreMenu: HTMLDivElement;
   private pluginToolbar: HTMLDivElement;
   private formula: HTMLInputElement;
   private namebox: HTMLInputElement;
@@ -62,6 +88,30 @@ export class OpenSheet {
     this.toolbar.className = 'os-toolbar';
     this.toolbar.setAttribute('role', 'toolbar');
     this.toolbar.setAttribute('aria-label', 'Spreadsheet tools');
+    this.toolbarItems = document.createElement('div');
+    this.toolbarItems.className = 'os-toolbar-items';
+    const more = document.createElement('div');
+    more.className = 'os-toolbar-more';
+    this.moreButton = this.button(
+      '',
+      () => this.setMoreOpen(this.moreMenu.hidden),
+      'More tools',
+      Ellipsis,
+    );
+    this.moreButton.setAttribute('aria-haspopup', 'true');
+    this.moreButton.setAttribute('aria-expanded', 'false');
+    this.moreButton.hidden = true;
+    this.moreMenu = document.createElement('div');
+    this.moreMenu.className = 'os-toolbar-menu';
+    this.moreMenu.id = `os-toolbar-menu-${++toolbarMenuId}`;
+    this.moreMenu.setAttribute('aria-label', 'More tools');
+    this.moreMenu.hidden = true;
+    this.moreMenu.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('button')) this.setMoreOpen(false);
+    });
+    this.moreButton.setAttribute('aria-controls', this.moreMenu.id);
+    more.append(this.moreButton, this.moreMenu);
+    this.toolbar.append(this.toolbarItems, more);
     this.pluginToolbar = document.createElement('div');
     this.pluginToolbar.className = 'os-plugin-toolbar';
     this.namebox = document.createElement('input');
@@ -96,8 +146,25 @@ export class OpenSheet {
     this.element.append(this.toolbar, bar, this.viewport, footer, this.toast);
     container.append(this.element);
     this.buildToolbar();
-    this.toolbar.append(this.pluginToolbar);
+    this.toolbarItems.append(this.pluginToolbar);
     this.toolbar.hidden = options.toolbar === false;
+    const resize = new ResizeObserver(() => this.layoutToolbar());
+    resize.observe(this.toolbar);
+    this.cleanups.push(() => resize.disconnect());
+    const dismissMore = (event: PointerEvent) => {
+      if (!more.contains(event.target as Node)) this.setMoreOpen(false);
+    };
+    const escapeMore = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !this.moreMenu.hidden) {
+        this.setMoreOpen(false);
+        this.moreButton.focus();
+      }
+    };
+    document.addEventListener('pointerdown', dismissMore);
+    document.addEventListener('keydown', escapeMore);
+    this.cleanups.push(() => document.removeEventListener('pointerdown', dismissMore));
+    this.cleanups.push(() => document.removeEventListener('keydown', escapeMore));
+    requestAnimationFrame(() => this.layoutToolbar());
     this.namebox.addEventListener('keydown', (e) => {
       if (e.key === 'Enter')
         this.run(() => {
@@ -132,7 +199,11 @@ export class OpenSheet {
         const b = this.button(action.label, action.run);
         b.dataset.action = action.id;
         this.pluginToolbar.append(b);
-        return () => b.remove();
+        this.layoutToolbar();
+        return () => {
+          b.remove();
+          this.layoutToolbar();
+        };
       },
       notify: (m) => this.notify(m),
       onError: (e) => {
@@ -278,21 +349,47 @@ export class OpenSheet {
       this.error(e);
     }
   }
-  private button(label: string, run: () => void, title = label) {
+  private button(label: string, run: () => void, title = label, icon?: IconNode) {
     const b = document.createElement('button');
     b.type = 'button';
-    b.textContent = label;
+    if (icon) {
+      const svg = createElement(icon, {
+        width: 16,
+        height: 16,
+        'aria-hidden': 'true',
+        focusable: 'false',
+      });
+      b.append(svg);
+      if (label) b.append(document.createTextNode(label));
+    } else b.textContent = label;
     b.title = title;
     b.setAttribute('aria-label', title);
     b.addEventListener('click', () => this.run(run));
     return b;
+  }
+  private setMoreOpen(open: boolean) {
+    this.moreMenu.hidden = !open;
+    this.moreButton.setAttribute('aria-expanded', String(open));
+  }
+  private layoutToolbar() {
+    if (this.disposed || this.toolbar.hidden || !this.toolbar.isConnected) return;
+    this.setMoreOpen(false);
+    this.toolbarItems.append(...this.moreMenu.children);
+    this.moreButton.hidden = true;
+    if (this.toolbarItems.scrollWidth <= this.toolbarItems.clientWidth) return;
+    this.moreButton.hidden = false;
+    while (this.toolbarItems.scrollWidth > this.toolbarItems.clientWidth) {
+      const last = this.toolbarItems.lastElementChild;
+      if (!last) break;
+      this.moreMenu.prepend(last);
+    }
   }
   private buildToolbar() {
     const group = (...buttons: HTMLElement[]) => {
       const g = document.createElement('div');
       g.className = 'os-tool-group';
       g.append(...buttons);
-      this.toolbar.append(g);
+      this.toolbarItems.append(g);
     };
     const range = () => {
       const s = this.selection.get();
@@ -301,8 +398,8 @@ export class OpenSheet {
     };
     const style = (s: CellStyle) => range().setStyle(s);
     group(
-      this.button('↶', () => this.getWorkbook().undo(), 'Undo'),
-      this.button('↷', () => this.getWorkbook().redo(), 'Redo'),
+      this.button('', () => this.getWorkbook().undo(), 'Undo', Undo2),
+      this.button('', () => this.getWorkbook().redo(), 'Redo', Redo2),
     );
     const fmt = document.createElement('select');
     fmt.setAttribute('aria-label', 'Number format');
@@ -322,31 +419,34 @@ export class OpenSheet {
     group(fmt);
     group(
       this.button(
-        'B',
+        '',
         () => {
           const s = this.selection.get()!,
             c = this.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
           style({ bold: !this.getWorkbook().getStyle(c?.styleId).bold });
         },
         'Bold',
+        Bold,
       ),
       this.button(
-        'I',
+        '',
         () => {
           const s = this.selection.get()!,
             c = this.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
           style({ italic: !this.getWorkbook().getStyle(c?.styleId).italic });
         },
         'Italic',
+        Italic,
       ),
       this.button(
-        'U',
+        '',
         () => {
           const s = this.selection.get()!,
             c = this.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
           style({ underline: !this.getWorkbook().getStyle(c?.styleId).underline });
         },
         'Underline',
+        Underline,
       ),
     );
     const color = document.createElement('input');
@@ -357,14 +457,14 @@ export class OpenSheet {
     color.addEventListener('input', () => this.run(() => style({ background: color.value })));
     group(
       color,
-      this.button('☷', () => style({ align: 'left' }), 'Align left'),
-      this.button('≡', () => style({ align: 'center' }), 'Align center'),
-      this.button('☰', () => style({ align: 'right' }), 'Align right'),
+      this.button('', () => style({ align: 'left' }), 'Align left', AlignLeft),
+      this.button('', () => style({ align: 'center' }), 'Align center', AlignCenter),
+      this.button('', () => style({ align: 'right' }), 'Align right', AlignRight),
     );
     group(
-      this.button('Merge', () => range().merge()),
-      this.button('Unmerge', () => range().unmerge()),
-      this.button('Borders', () => style({ border: true })),
+      this.button('Merge', () => range().merge(), 'Merge', Merge),
+      this.button('Unmerge', () => range().unmerge(), 'Unmerge', Split),
+      this.button('Borders', () => style({ border: true }), 'Borders', Square),
       this.button(
         'Wrap',
         () => {
@@ -373,25 +473,28 @@ export class OpenSheet {
           style({ wrap: !this.getWorkbook().getStyle(c?.styleId).wrap });
         },
         'Wrap text',
+        WrapText,
       ),
-      this.button('Fill ↓', () => range().fillDown(), 'Fill down'),
+      this.button('Fill', () => range().fillDown(), 'Fill down', ArrowDown),
     );
     group(
       this.button(
-        '＋ Row',
+        'Row',
         () => {
           const s = this.selection.get()!;
           this.getWorkbook().getSheetById(s.sheetId)!.insertRows(s.startRow);
         },
         'Insert row',
+        Rows3,
       ),
       this.button(
-        '＋ Col',
+        'Column',
         () => {
           const s = this.selection.get()!;
           this.getWorkbook().getSheetById(s.sheetId)!.insertColumns(s.startColumn);
         },
         'Insert column',
+        Columns3,
       ),
     );
     group(
@@ -404,6 +507,7 @@ export class OpenSheet {
           book.getSheetById(s.sheetId)!.setFreeze(current.rows ? 0 : 1, 0);
         },
         'Freeze first row',
+        PanelTop,
       ),
     );
   }
@@ -421,7 +525,7 @@ export class OpenSheet {
     }
     this.tabs.append(
       this.button(
-        '+',
+        '',
         () => {
           const names = new Set(
             this.getWorkbook()
@@ -435,6 +539,7 @@ export class OpenSheet {
           this.renderTabs();
         },
         'Add sheet',
+        Plus,
       ),
     );
   }

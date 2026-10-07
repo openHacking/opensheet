@@ -11,6 +11,7 @@ import {
 import { parseFormula, evaluateFormula, type Reference } from '@opensheetjs/formula';
 import {
   assert,
+  LIMITS,
   OpenSheetError,
   key,
   uid,
@@ -52,8 +53,13 @@ export class Workbook {
   private cache = new Map<string, CellValue>();
   private importRevision: number;
   private seen = new Map<string, { signature: string; commit: Commit }>();
+  private cellCount: number;
   constructor(snapshot: WorkbookSnapshot = createSnapshot()) {
     this.state = freeze(validateSnapshot(snapshot), true);
+    this.cellCount = this.state.sheets.reduce(
+      (count, sheet) => count + Object.keys(sheet.cells).length,
+      0,
+    );
     this.readOnly = this.state.extensions['opensheet.readOnly'] === true;
     this.importRevision = this.state.revision;
   }
@@ -237,6 +243,8 @@ export class Workbook {
     source: string,
     commandId: string,
   ): Commit {
+    const nextCellCount = this.countAfterPatches(next, forward);
+    assert(nextCellCount <= LIMITS.cells, 'LIMIT_EXCEEDED', 'Cell limit reached');
     const bytes = JSON.stringify([forward, inverse]).length * 2;
     assert(
       bytes <= 32 * 1024 * 1024,
@@ -245,6 +253,7 @@ export class Workbook {
     );
     const previousRevision = this.state.revision;
     this.state = next;
+    this.cellCount = nextCellCount;
     this.cache.clear();
     this.past.push({ forward, inverse, bytes });
     this.historyBytes += bytes;
@@ -261,6 +270,18 @@ export class Workbook {
     };
     this.emit(commit);
     return commit;
+  }
+  private countAfterPatches(next: WorkbookSnapshot, patches: Patch[]): number {
+    if (patches.some((patch) => patch.path[0] === 'sheets' && patch.path.length <= 2))
+      return next.sheets.reduce((count, sheet) => count + Object.keys(sheet.cells).length, 0);
+    let count = this.cellCount;
+    for (const patch of patches) {
+      if (patch.path[0] === 'sheets' && patch.path[2] === 'cells' && patch.path.length === 4) {
+        if (patch.op === 'add') count++;
+        if (patch.op === 'remove') count--;
+      }
+    }
+    return count;
   }
   private emit(commit: Commit) {
     this.publishing = true;
@@ -300,6 +321,10 @@ export class Workbook {
     this.state = produceWithPatches(changed, (d) => {
       d.revision = previousRevision + 1;
     })[0];
+    this.cellCount = this.state.sheets.reduce(
+      (count, sheet) => count + Object.keys(sheet.cells).length,
+      0,
+    );
     to.push(entry);
     this.historyBytes += redo ? entry.bytes : -entry.bytes;
     this.cache.clear();
