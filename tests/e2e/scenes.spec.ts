@@ -32,7 +32,9 @@ test('sales chart follows workbook data and resets', async ({ page }) => {
   page.once('dialog', (dialog) => dialog.accept());
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.locator('.metric strong').first()).toHaveText('$179,400');
-  await expect(page.getByRole('button', { name: 'Σ Sum', exact: true })).toHaveCount(1);
+  await expect(
+    page.getByRole('button', { name: 'Σ Sum', exact: true, includeHidden: true }),
+  ).toHaveCount(1);
 });
 
 test('planner timeline follows dates and completion', async ({ page }) => {
@@ -140,7 +142,7 @@ test('desktop workbench fits the viewport and resizes both panes', async ({ page
   const after = await page.locator('.document').boundingBox();
   expect(after!.width).toBeGreaterThan(dragged!.width);
   await splitter.dblclick();
-  await expect(splitter).toHaveAttribute('aria-valuenow', '60');
+  await expect(splitter).toHaveAttribute('aria-valuenow', '67');
 });
 
 test('result tabs and sidebar actions expose the code preview', async ({ page }) => {

@@ -29,3 +29,9 @@ The [browser benchmark](../benchmarks/browser-baseline.json) records three workb
 ## Remaining acceptance
 
 Real screen-reader/native IME testing, Firefox, framework host lifecycle E2E, real spreadsheet-reader acceptance, leak profiling and cross-device performance evaluation remain outstanding. The demo's HTML preview is not TeX rendering, and exported XLSX files need independent reader validation.
+
+## Module boundaries
+
+Run `pnpm test:architecture` to validate the module graph and its rule fixtures. `pnpm check` includes this check, TypeScript, unit tests, package declarations, NodeNext consumer checks, headless package imports and the production build. `pnpm test:e2e` exercises Chromium and WebKit, including repeated workbook replacement and disposal, stale import cancellation, IME, read-only input, merged cells and frozen panes.
+
+Toolbar assertions account for actions moved into the accessible More tools menu. Workbench reset assertions use the implemented default split of 67%.

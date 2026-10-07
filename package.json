@@ -14,7 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check": "pnpm format:check && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm format:check && pnpm test:architecture && pnpm typecheck && pnpm test && pnpm build",
     "preview": "vite preview --config apps/playground/vite.config.ts --host 127.0.0.1",
     "format": "prettier --write packages apps tests scripts examples *.ts *.json",
     "format:check": "prettier --check packages apps tests scripts examples *.ts *.json",
@@ -22,7 +22,8 @@
     "benchmark": "node scripts/benchmark.mjs",
     "benchmark:browser": "node scripts/browser-benchmark.mjs",
     "smoke": "node scripts/smoke.mjs",
-    "test:pages": "node scripts/pages-check.mjs"
+    "test:pages": "node scripts/pages-check.mjs",
+    "test:architecture": "node --test scripts/architecture.test.mjs && node scripts/architecture.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

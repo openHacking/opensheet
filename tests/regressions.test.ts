@@ -106,3 +106,35 @@ it('restores freeze, row height, hidden rows and merges through undo and redo', 
   expect(data().rows[data().rowOrder[0]].size).toBe(52);
   expect(data().merges).toHaveLength(1);
 });
+
+it('keeps calculation and history consistent after a rejected transaction', () => {
+  const book = createWorkbook({ sheets: [{ name: 'Data' }, { name: 'Summary' }] });
+  const [data, summary] = book.getSheets();
+  data.range('A1').setValues([[2]]);
+  summary.range('A1').setFormulas([['Data!A1*3']]);
+  const revision = book.revision;
+  expect(summary.range('A1').getValues()).toEqual([[6]]);
+  expect(() =>
+    book.transaction({}, () => {
+      data.range('A1').setValues([[5]]);
+      expect(summary.range('A1').getValues()).toEqual([[15]]);
+      // A caught command error must still poison the entire transaction.
+      try {
+        book.execute({ type: 'core.unknown', payload: {} });
+      } catch {
+        /* intentionally caught */
+      }
+    }),
+  ).toThrow();
+  expect(book.revision).toBe(revision);
+  expect(data.range('A1').getValues()).toEqual([[2]]);
+  expect(summary.range('A1').getValues()).toEqual([[6]]);
+  book.transaction({}, () => data.range('A1').setValues([[7]]));
+  expect(summary.range('A1').getValues()).toEqual([[21]]);
+  book.undo();
+  expect(summary.range('A1').getValues()).toEqual([[6]]);
+  book.redo();
+  expect(summary.range('A1').getValues()).toEqual([[21]]);
+  book.dispose();
+  book.dispose();
+});

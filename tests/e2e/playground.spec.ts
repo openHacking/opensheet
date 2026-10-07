@@ -166,7 +166,10 @@ test('provides an accessible data table and a functional plugin', async ({ page 
       endColumn: 4,
     });
   });
-  await page.getByRole('button', { name: 'Σ Sum', exact: true }).click();
+  const sum = page.getByRole('button', { name: 'Σ Sum', exact: true });
+  if (!(await sum.isVisible()))
+    await page.getByRole('button', { name: 'More tools', exact: true }).click();
+  await sum.click();
   await expect(page.locator('.os-toast')).toContainText('sum to 2');
   await page.getByRole('button', { name: 'Table view', exact: true }).click();
   await expect(page.getByRole('cell', { name: 'Brand identity', exact: true })).toBeVisible();
@@ -179,7 +182,9 @@ test('loads saved JSON and cleans up old plugin UI', async ({ page }) => {
     buffer: Buffer.from(JSON.stringify(snapshot)),
   });
   await expect(page.locator('#save-state')).toContainText('Imported locally');
-  await expect(page.getByRole('button', { name: 'Σ Sum', exact: true })).toHaveCount(1);
+  await expect(
+    page.getByRole('button', { name: 'Σ Sum', exact: true, includeHidden: true }),
+  ).toHaveCount(1);
   expect(
     await page.evaluate(() =>
       window.opensheet.getWorkbook().getSheets()[0].range('F11').getValues(),
@@ -411,7 +416,10 @@ test('frozen row and column respect custom header height while scrolling', async
 
 test('action icons render as SVG while controls keep accessible names', async ({ page }) => {
   for (const name of ['Undo', 'Redo', 'Merge', 'Freeze first row']) {
-    await expect(page.getByRole('button', { name, exact: true }).locator('svg')).toHaveCount(1);
+    const button = page.getByRole('button', { name, exact: true });
+    if (!(await button.isVisible()))
+      await page.getByRole('button', { name: 'More tools', exact: true }).click();
+    await expect(button.locator('svg')).toHaveCount(1);
   }
   for (const name of ['Import file', 'Export XLSX', 'Sample workbooks', 'Keyboard shortcuts']) {
     await expect(page.getByRole('button', { name, exact: true }).locator('svg')).toHaveCount(1);
@@ -494,4 +502,184 @@ test('merged cells crossing frozen panes clip and scroll each pane independently
   }
   expect(colors.beyondRight).toEqual([255, 255, 255]);
   expect(colors.beyondBottom).toEqual([255, 255, 255]);
+});
+
+test('replacing workbooks and disposing twice releases component resources', async ({ page }) => {
+  const result = await page.evaluate(async () => {
+    const NativeResizeObserver = window.ResizeObserver;
+    const observers = new Set<ResizeObserver>();
+    const globalListeners = new Set<EventListenerOrEventListenerObject>();
+    const windowAdd = window.addEventListener.bind(window);
+    const documentAdd = document.addEventListener.bind(document);
+    const documentRemove = document.removeEventListener.bind(document);
+    window.ResizeObserver = class extends NativeResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        super(callback);
+        observers.add(this);
+      }
+      disconnect() {
+        observers.delete(this);
+        super.disconnect();
+      }
+    };
+    window.addEventListener = ((
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: AddEventListenerOptions,
+    ) => {
+      if (type === 'pointermove' || type === 'pointerup') {
+        globalListeners.add(listener);
+        options?.signal?.addEventListener('abort', () => globalListeners.delete(listener), {
+          once: true,
+        });
+      }
+      windowAdd(type, listener, options);
+    }) as typeof window.addEventListener;
+    document.addEventListener = ((
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: AddEventListenerOptions,
+    ) => {
+      if (type === 'pointerdown' || type === 'keydown') globalListeners.add(listener);
+      documentAdd(type, listener, options);
+    }) as typeof document.addEventListener;
+    document.removeEventListener = ((
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: EventListenerOptions,
+    ) => {
+      globalListeners.delete(listener);
+      documentRemove(type, listener, options);
+    }) as typeof document.removeEventListener;
+    const container = document.createElement('div');
+    container.style.height = '300px';
+    document.body.append(container);
+    const Editor = window.opensheet.constructor as new (options: {
+      container: HTMLElement;
+    }) => OpenSheet;
+    const editor = new Editor({ container });
+    let setups = 0,
+      cleanups = 0,
+      disposedEvents = 0;
+    try {
+      editor.createWorkbook();
+      editor.on('lifecycle:disposed', () => {
+        disposedEvents++;
+        editor.dispose();
+      });
+      editor.use({
+        id: 'test.lifecycle',
+        version: '0.1.0',
+        apiVersion: '^0.1.0',
+        capabilities: ['ui.toolbar', 'events'],
+        setup(ctx) {
+          setups++;
+          ctx.ui.toolbar.add({ id: 'test.lifecycle.action', label: 'Lifecycle', run() {} });
+          ctx.onCommit(() => {});
+          ctx.addCleanup(() => {
+            cleanups++;
+          });
+        },
+      });
+      for (let i = 0; i < 3; i++) await editor.load(editor.getWorkbook().toJSON());
+      editor.notify('Dispose this timer');
+      editor.dispose();
+      editor.dispose();
+      return {
+        setups,
+        cleanups,
+        disposedEvents,
+        observers: observers.size,
+        listeners: globalListeners.size,
+        grids: container.querySelectorAll('.os-grid').length,
+      };
+    } finally {
+      editor.dispose();
+      container.remove();
+      window.ResizeObserver = NativeResizeObserver;
+      window.addEventListener = windowAdd;
+      document.addEventListener = documentAdd;
+      document.removeEventListener = documentRemove;
+    }
+  });
+  expect(result).toEqual({
+    setups: 4,
+    cleanups: 4,
+    disposedEvents: 1,
+    observers: 0,
+    listeners: 0,
+    grids: 0,
+  });
+});
+
+test('cancels imports on scene changes and ignores previously queued Worker results', async ({
+  page,
+}) => {
+  await page.evaluate(() => {
+    const workers: Array<{ terminated: boolean; deliver?: (event: MessageEvent) => unknown }> = [];
+    Object.assign(window, {
+      testWorkers: workers,
+      staleSnapshot: window.opensheet.getWorkbook().toJSON(),
+    });
+    window.Worker = class {
+      onmessage: ((event: MessageEvent) => unknown) | null = null;
+      onerror: (() => unknown) | null = null;
+      terminated = false;
+      deliver?: (event: MessageEvent) => unknown;
+      constructor() {
+        workers.push(this);
+      }
+      postMessage() {
+        this.deliver = this.onmessage ?? undefined;
+      }
+      terminate() {
+        this.terminated = true;
+      }
+    } as unknown as typeof Worker;
+  });
+  await page.locator('#file').setInputFiles({
+    name: 'pending.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from('{}'),
+  });
+  await expect(page.getByRole('button', { name: 'Reading…' })).toBeDisabled();
+  await expect
+    .poll(() => page.evaluate(() => (window as any).testWorkers[0]?.deliver !== undefined))
+    .toBe(true);
+  await page.getByRole('combobox', { name: 'Choose demo' }).selectOption('sales');
+  await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
+  await page.evaluate(async () => {
+    const testWindow = window as any;
+    await testWindow.testWorkers[0].deliver({ data: { snapshot: testWindow.staleSnapshot } });
+  });
+  await expect(page.getByRole('tab', { name: 'Sales Dashboard', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
+  expect(await page.evaluate(() => (window as any).testWorkers[0].terminated)).toBe(true);
+});
+
+test('sheet switches expand selection using the target sheet merges after removal', async ({
+  page,
+}) => {
+  const selection = await page.evaluate(() => {
+    const app = window.opensheet;
+    const book = app.getWorkbook();
+    const old = book.getSheets()[0];
+    const target = book.addSheet('Merged target');
+    target.range('A1:B2').merge();
+    app.selection.set({ sheetId: target.id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
+    const afterSwitch = app.selection.get();
+    app.selection.set({ sheetId: old.id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
+    book.removeSheet(old.id);
+    app.selection.set({ sheetId: target.id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
+    return { targetId: target.id, afterSwitch, afterRemoval: app.selection.get() };
+  });
+  const expected = {
+    sheetId: selection.targetId,
+    startRow: 0,
+    startColumn: 0,
+    endRow: 2,
+    endColumn: 2,
+  };
+  expect(selection.afterSwitch).toEqual(expected);
+  expect(selection.afterRemoval).toEqual(expected);
 });
