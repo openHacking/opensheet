@@ -1106,6 +1106,37 @@ dialog::backdrop {
 }
 
 /* Compact, workbook-first playground */
+#spreadsheet-page[hidden],
+.developer-page[hidden] {
+  display: none;
+}
+.developer-page {
+  max-width: 1000px;
+  padding: 36px clamp(16px, 4vw, 48px);
+}
+.developer-page h1 {
+  margin: 10px 0;
+  font-size: 28px;
+}
+.developer-back {
+  display: block;
+  margin-bottom: 24px;
+}
+.developer-page p {
+  color: #6c7e70;
+  line-height: 1.6;
+}
+.developer-page pre {
+  margin-top: 24px;
+  padding: 24px;
+  overflow: auto;
+  border: 1px solid #dce3de;
+  border-radius: 8px;
+  background: #fff;
+  color: #244a37;
+  font-size: 13px;
+  line-height: 1.7;
+}
 .topbar {
   height: 56px;
   padding: 0 24px;
@@ -1373,6 +1404,21 @@ dialog::backdrop {
     min-height: 0;
     display: flex;
     flex-direction: column;
+  }
+  .topbar,
+  .workspace-heading {
+    flex: 0 0 auto;
+  }
+  #spreadsheet-page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .developer-page {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
   }
   .workbench {
     flex: 1;

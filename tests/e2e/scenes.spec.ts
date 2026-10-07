@@ -154,6 +154,10 @@ test('desktop workbench fits the viewport and resizes both panes', async ({ page
       }));
       expect(dimensions.width).toBeLessThanOrEqual(viewport.width);
       expect(dimensions.height).toBeLessThanOrEqual(viewport.height);
+      for (const selector of ['.workbench', '.document', '.side-panel']) {
+        const bounds = await page.locator(selector).boundingBox();
+        expect(bounds!.y + bounds!.height).toBeCloseTo(viewport.height, 0);
+      }
     }
   }
   const splitter = page.getByRole('separator', { name: 'Resize spreadsheet and results' });
@@ -172,13 +176,13 @@ test('desktop workbench fits the viewport and resizes both panes', async ({ page
   await splitter.dblclick();
   await expect(splitter).toHaveAttribute('aria-valuenow', '67');
 });
-test('result tabs and sidebar actions expose the code preview', async ({ page }) => {
+test('result tabs expose the code preview', async ({ page }) => {
   await page.goto('/#budget');
   await page.waitForFunction(
     () =>
       !!window.opensheet?.selection.get() && !!document.querySelector('#scene-title')?.textContent,
   );
-  await page.getByRole('button', { name: 'Table generator' }).click();
+  await page.getByRole('tab', { name: 'Code export', exact: true }).click();
   await expect(page.getByRole('tab', { name: 'Code export' })).toHaveAttribute(
     'aria-selected',
     'true',
@@ -186,6 +190,43 @@ test('result tabs and sidebar actions expose the code preview', async ({ page })
   await expect(page.locator('#source')).toBeVisible();
   await page.getByRole('tab', { name: 'Data view' }).click();
   await expect(page.locator('.metric strong').first()).toBeVisible();
-  await page.getByRole('button', { name: 'Sample workbooks' }).click();
-  await expect(page.getByRole('combobox', { name: 'Choose demo' })).toBeFocused();
+});
+test('developer pages use main content and preserve workbook edits when returning', async ({
+  page,
+}) => {
+  await page.goto('/#sales');
+  await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
+  await page.evaluate(async () => {
+    await window.opensheet
+      .getWorkbook()
+      .getSheets()[0]
+      .range('B2')
+      .setValues([[36000]]);
+  });
+  await expect(page.locator('.metric strong').first()).toHaveText('$197,400');
+  await expect(page.getByRole('button', { name: 'Table generator' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'API quick start', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'API quick start' })).toBeVisible();
+  await expect(page.locator('#api-example')).toContainText('createOpenSheet');
+  await expect(page.locator('#nav-api')).toHaveAttribute('aria-current', 'page');
+  await expect(page.locator('#workbench')).toBeHidden();
+  await expect(page.getByRole('dialog')).toBeHidden();
+  await page.getByRole('button', { name: 'Plugin example', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Plugin example' })).toBeVisible();
+  await expect(page.locator('#plugin-example')).toContainText('definePlugin');
+  await page.goBack();
+  await expect(page.getByRole('heading', { name: 'API quick start' })).toBeVisible();
+  await page.getByRole('button', { name: /Spreadsheet/ }).click();
+  await expect(page.locator('#workbench')).toBeVisible();
+  await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
+  await expect(page.locator('.metric strong').first()).toHaveText('$197,400');
+});
+test('developer pages can be opened directly and reloaded', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/#plugins');
+  await expect(page.getByRole('heading', { name: 'Plugin example' })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Plugin example' })).toBeVisible();
+  await page.getByRole('button', { name: 'Back to spreadsheet', exact: false }).click();
+  await expect(page.locator('#workbench')).toBeVisible();
 });

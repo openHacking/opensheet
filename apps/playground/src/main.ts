@@ -35,7 +35,7 @@ const refresh = () => {
 const files = createFileActions(app, state, feedback, refresh);
 const performanceLab = createPerformance(app, state, files.download);
 const preview = createCodePreview(app, feedback, files.download);
-const interactions = createInteractions(app, state, feedback, workbench.showPanel);
+const interactions = createInteractions(app, state, feedback);
 const routing = createRouting(
   app,
   state,

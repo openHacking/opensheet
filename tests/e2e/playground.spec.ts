@@ -465,7 +465,7 @@ test('action icons render as SVG while controls keep accessible names', async ({
       await page.getByRole('button', { name: 'More tools', exact: true }).click();
     await expect(button.locator('svg')).toHaveCount(1);
   }
-  for (const name of ['Import file', 'Export XLSX', 'Sample workbooks', 'Keyboard shortcuts']) {
+  for (const name of ['Import file', 'Export XLSX', 'Keyboard shortcuts']) {
     await expect(page.getByRole('button', { name, exact: true }).locator('svg')).toHaveCount(1);
   }
 });

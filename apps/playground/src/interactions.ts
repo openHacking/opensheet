@@ -7,7 +7,6 @@ export function createInteractions(
   app: OpenSheet,
   state: PlaygroundState,
   { notice, modal, textModal }: Pick<Feedback, 'notice' | 'modal' | 'textModal'>,
-  showPanel: (panel: 'code' | 'insights') => void,
 ) {
   const bindings = createBindings();
   bindings.on($<HTMLInputElement>('read-only'), 'change', (e) =>
@@ -136,24 +135,11 @@ export function createInteractions(
     box.append(table);
     modal('Accessible table view', box);
   });
-  const api = `import { createOpenSheet } from 'opensheet';\nimport 'opensheet/style.css';\n\nconst app = createOpenSheet({ container: '#sheet' });\nconst book = await app.createWorkbook();\nconst sheet = book.getSheets()[0];\n\nawait sheet.range('A1:B2').setValues([\n  ['Product', 'Revenue'], ['OpenSheet', 1200]\n]);\nawait sheet.range('B3').setFormulas([['SUM(B2:B2)']]);\napp.on('workbook:committed', ({ revision }) => {\n  console.log(revision);\n});\n\n// On unmount\napp.dispose();`;
-  bindings.on($('nav-api'), 'click', () => textModal('API quick start', api));
-  bindings.on($('nav-plugins'), 'click', () =>
-    textModal(
-      'The Σ Sum button is a plugin',
-      `definePlugin({\n  id: 'example.selection-sum',\n  version: '0.1.0',\n  apiVersion: '^0.1.0',\n  capabilities: ['selection.read', 'workbook.read', 'ui.toolbar'],\n  setup(ctx) {\n    ctx.ui.toolbar.add({\n      id: 'sum', label: 'Σ Sum',\n      async run() {\n        const selection = ctx.selection.get();\n        const rows = (await ctx.workbook.readRange(selection)).values;\n        const sum = rows.flat().reduce(\n          (total, n) => total + (typeof n === 'number' ? n : 0), 0\n        );\n        ctx.ui.notify(String(sum));\n      }\n    });\n  }\n});`,
-    ),
-  );
   bindings.on($('help'), 'click', () =>
     textModal(
       'Keyboard shortcuts',
       'Enter / F2     Edit selected cell\nTab / Shift+Tab     Next / previous cell\nArrow keys     Move selection\nShift + arrows     Extend selection\nCtrl/Cmd + C / V     Copy / paste\nCtrl/Cmd + Z     Undo\nCtrl/Cmd + Shift + Z     Redo\nDelete / Backspace     Clear values\nEscape     Cancel editing\n\nPaste values starting with = as formulas. Use an apostrophe to enter literal formula text.\n\n† after a value indicates an imported formula cache that has not been recalculated.',
     ),
   );
-  bindings.on($('nav-code'), 'click', () => showPanel('code'));
-  bindings.on($('nav-sheet'), 'click', () =>
-    document.querySelector<HTMLElement>('#spreadsheet .os-grid')?.focus(),
-  );
-  bindings.on($('nav-templates'), 'click', () => $<HTMLSelectElement>('scene-select').focus());
   return { dispose: bindings.dispose };
 }

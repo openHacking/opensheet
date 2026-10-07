@@ -21,7 +21,8 @@
       "@opensheetjs/react": ["packages/react/src/index.ts"],
       "@opensheetjs/vue": ["packages/vue/src/index.ts"],
       "@opensheetjs/testing": ["packages/testing/src/index.ts"]
-    }
+    },
+    "noEmit": true
   },
   "include": ["packages", "apps", "tests", "examples", "*.ts"]
 }

@@ -1,5 +1,4 @@
 import {
-  BookOpen,
   Braces,
   ChevronDown,
   Code2,
@@ -17,6 +16,7 @@ import {
   X,
   type IconNode,
 } from 'lucide';
+import { apiExample, pluginExample } from './developer-pages.js';
 import { scenes } from './scenes.js';
 export function mountPage() {
   const icon = (node: IconNode) =>
@@ -33,16 +33,15 @@ export function mountPage() {
   <div class="workspace-tag"><span class="workspace-icon">O</span><div>Open workspace<small>Open-source workspace</small></div><span class="tag-caret">${icon(ChevronDown)}</span></div>
   <span class="nav-label">WORKSPACE</span>
   <button class="nav-item active" id="nav-sheet">${icon(Table2)} Spreadsheet <span class="nav-pill">1</span></button>
-  <button class="nav-item" id="nav-templates">${icon(BookOpen)} Sample workbooks</button>
   <span class="nav-label space-top">DEVELOPER TOOLS</span>
-  <button class="nav-item" id="nav-code">${icon(Code2)} Table generator</button>
   <button class="nav-item" id="nav-api">${icon(Braces)} API quick start</button>
   <button class="nav-item" id="nav-plugins">${icon(Braces)} Plugin example</button>
   <div class="sidebar-bottom"><div class="privacy-mark">${icon(ShieldCheck)} <span>Your data stays yours.</span></div><p>Files are processed on your device.<br>No account. No uploads.</p><div class="version"><span class="dot"></span> Open source <span>v0.1.0</span></div></div>
 </aside>
 <div class="page">
-  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> Playground</div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">${icon(HelpCircle)}</button><span class="avatar">OS</span></div></header>
+  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <span id="page-name">Playground</span></div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">${icon(HelpCircle)}</button><span class="avatar">OS</span></div></header>
   <main>
+    <div id="spreadsheet-page">
     <section class="workspace-heading" aria-label="Demo controls">
       <div class="scene-picker"><label for="scene-select">DEMO</label><select id="scene-select" aria-label="Choose demo">${sceneOptions}</select></div>
       <div class="scene-summary"><span class="eyebrow" id="scene-label"></span><h1 id="scene-title"></h1><p id="scene-description"></p></div>
@@ -64,7 +63,12 @@ export function mountPage() {
         <section class="source-card" id="panel-code" role="tabpanel" aria-labelledby="tab-code" hidden><div class="source-heading"><div><span class="small-icon">${icon(Code2)}</span><h2>From cells to code</h2><span class="live-badge">LIVE</span></div><button id="copy-code" class="text-button">${icon(Copy)} Copy code</button></div><div class="source-tabs" role="tablist" aria-label="Export format"><button class="selected" data-format="latex" role="tab" aria-selected="true">LaTeX</button><button data-format="markdown" role="tab" aria-selected="false">Markdown</button><button data-format="html" role="tab" aria-selected="false">HTML</button><button data-format="csv" role="tab" aria-selected="false">CSV</button><button data-format="tsv" role="tab" aria-selected="false">TSV</button><label><input id="export-selection" type="checkbox"> Selected cells only</label></div><pre><code id="source"></code></pre><div class="source-footer"><span id="export-note">Ready to paste into your next project.</span><button id="download-code" class="text-button">${icon(Download)} Download</button></div></section>
       </aside>
     </div>
+    </div>
+    <section class="developer-page" id="api-page" aria-labelledby="api-title" hidden><button class="text-button developer-back" id="api-back">← Back to spreadsheet</button><span class="eyebrow">DEVELOPER TOOLS</span><h1 id="api-title" tabindex="-1">API quick start</h1><p>Create a workbook, write values and formulas, and listen for changes.</p><pre><code id="api-example"></code></pre></section>
+    <section class="developer-page" id="plugins-page" aria-labelledby="plugins-title" hidden><button class="text-button developer-back" id="plugins-back">← Back to spreadsheet</button><span class="eyebrow">DEVELOPER TOOLS</span><h1 id="plugins-title" tabindex="-1">Plugin example</h1><p>The Σ Sum toolbar button is a plugin. It reads the selected cells and displays their sum.</p><pre><code id="plugin-example"></code></pre></section>
   </main>
 </div>
 <dialog id="dialog"><div class="dialog-header"><h2 id="dialog-title"></h2><button id="dialog-close" aria-label="Close dialog">${icon(X)}</button></div><div id="dialog-content"></div></dialog><div id="notice" role="status" hidden></div>`;
+  document.getElementById('api-example')!.textContent = apiExample;
+  document.getElementById('plugin-example')!.textContent = pluginExample;
 }

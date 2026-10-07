@@ -14,6 +14,37 @@ export function createRouting(
   leavePerformance: () => Promise<void>,
 ) {
   const bindings = createBindings();
+  function showPage(page: 'spreadsheet' | 'api' | 'plugins', focus = false) {
+    for (const id of ['spreadsheet', 'api', 'plugins'] as const) {
+      $(id === 'spreadsheet' ? 'spreadsheet-page' : `${id}-page`).hidden = id !== page;
+      const button = $(id === 'spreadsheet' ? 'nav-sheet' : `nav-${id}`);
+      button.classList.toggle('active', id === page);
+      if (id === page) button.setAttribute('aria-current', 'page');
+      else button.removeAttribute('aria-current');
+    }
+    const title =
+      page === 'api' ? 'API quick start' : page === 'plugins' ? 'Plugin example' : 'Playground';
+    $('page-name').textContent = title;
+    document.title = `${page === 'spreadsheet' ? scenes[state.currentScene].title : title} · OpenSheet`;
+    if (focus) {
+      if (page === 'spreadsheet')
+        document.querySelector<HTMLElement>('#spreadsheet .os-grid')?.focus();
+      else $(`${page}-title`).focus();
+    }
+  }
+  bindings.on($('nav-api'), 'click', () => {
+    location.hash = 'api';
+  });
+  bindings.on($('nav-plugins'), 'click', () => {
+    location.hash = 'plugins';
+  });
+  bindings.on($('nav-sheet'), 'click', () => {
+    location.hash = state.currentScene;
+  });
+  for (const id of ['api-back', 'plugins-back'])
+    bindings.on($(id), 'click', () => {
+      location.hash = state.currentScene;
+    });
   async function loadScene(id: SceneId) {
     $<HTMLSelectElement>('scene-select').disabled = true;
     cancelImport();
@@ -68,9 +99,15 @@ export function createRouting(
   window.addEventListener(
     'hashchange',
     async () => {
+      const page = location.hash.slice(1);
+      if (page === 'api' || page === 'plugins') {
+        showPage(page, true);
+        return;
+      }
       const next = requestedScene();
       if (routeBusy || next === state.currentScene) {
         $<HTMLSelectElement>('scene-select').value = state.currentScene;
+        showPage('spreadsheet', true);
         return;
       }
       if (state.dirty && !confirm('Switch demos? Download JSON first to keep your changes.')) {
@@ -81,6 +118,7 @@ export function createRouting(
       routeBusy = true;
       try {
         await loadScene(next);
+        showPage('spreadsheet', true);
       } finally {
         routeBusy = false;
       }
@@ -92,6 +130,8 @@ export function createRouting(
       routeBusy = true;
       try {
         await loadScene(requestedScene());
+        const page = location.hash.slice(1);
+        showPage(page === 'api' || page === 'plugins' ? page : 'spreadsheet');
       } finally {
         routeBusy = false;
       }
