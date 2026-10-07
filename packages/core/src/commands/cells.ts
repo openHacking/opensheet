@@ -3,6 +3,7 @@ import { intersects } from '../address.js';
 import { checkBounds } from '../model.js';
 import {
   assert,
+  inputSchema,
   key,
   type CellRecord,
   type Command,
@@ -14,6 +15,21 @@ export function cellsCommand(s: WorkbookSnapshot, command: Command): void {
   const p = command.payload as any; // Validated before dispatch.
   const sh = sheetFor(s, p.sheetId);
   switch (command.type) {
+    case 'core.cells.replace':
+      for (const cell of Object.values(sh.cells))
+        if (cell.input.type === 'string' && cell.input.value.includes(p.query)) {
+          const input = {
+            type: 'string',
+            value: cell.input.value.replaceAll(p.query, p.replacement),
+          };
+          assert(
+            inputSchema.safeParse(input).success,
+            'LIMIT_EXCEEDED',
+            'Replacement exceeds the text limit',
+          );
+          cell.input = input as typeof cell.input;
+        }
+      break;
     case 'core.cells.copy':
     case 'core.cells.fillDown': {
       const source = p.range as Rect;

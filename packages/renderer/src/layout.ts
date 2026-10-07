@@ -6,17 +6,12 @@ export class GridLayout {
   dirty = true;
   rebuild(book: Workbook, sheetId: string, zoom: number, spacer: HTMLElement) {
     const sh = book.sheetData(sheetId);
+    const filteredRows = new Set(book.filteredRows(sheetId));
     this.rowOffsets = [0];
     this.columnOffsets = [0];
     for (let i = 0; i < sh.rowOrder.length; i++) {
       const m = sh.rows[sh.rowOrder[i]];
-      const filtered =
-        sh.filter &&
-        i > 0 &&
-        !book
-          .display(sheetId, i, sh.filter.column)
-          .toLowerCase()
-          .includes(sh.filter.query.toLowerCase());
+      const filtered = filteredRows.has(i);
       this.rowOffsets.push(
         this.rowOffsets[i] + (m?.hidden || filtered ? 0 : (m?.size ?? 30) * zoom),
       );

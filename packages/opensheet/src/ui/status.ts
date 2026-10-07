@@ -5,13 +5,13 @@ export class StatusBar {
     this.element.className = 'os-status';
     this.element.textContent = 'Ready';
   }
-  update(book: Workbook, s: Selection | null) {
+  async update(book: Workbook, s: Selection | null) {
     if (!s) return;
     const count = (s.endRow - s.startRow) * (s.endColumn - s.startColumn);
     let sum = 0,
       n = 0;
     if (count <= 10000) {
-      for (const row of book.getSheetById(s.sheetId)!.range(s).getValues())
+      for (const row of await book.getSheetById(s.sheetId)!.range(s).getValues())
         for (const v of row)
           if (typeof v === 'number') {
             sum += v;

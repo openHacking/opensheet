@@ -3,7 +3,9 @@ import {
   Workbook,
   commandSchemas,
   createSnapshot,
-  validateSnapshot,
+  openWorkbook,
+  uid,
+  type WorkbookOptions,
   type Command,
   type CommandEnvelope,
   type Selection,
@@ -32,6 +34,7 @@ export class OpenSheet {
   private stop?: () => void;
   private disposed = false;
   private disposing = false;
+  private pendingActions = 0;
   private pluginList: Plugin[] = [];
   private events = new EditorEvents((error) => this.error(error));
   constructor(private options: OpenSheetOptions) {
@@ -92,18 +95,31 @@ export class OpenSheet {
   }
   ready() {
     this.active();
-    return Promise.resolve();
+    return this.grid?.ready() ?? Promise.resolve();
   }
-  createWorkbook(options: Parameters<typeof createSnapshot>[0] = {}) {
+  async createWorkbook(
+    options: Parameters<typeof createSnapshot>[0] = {},
+    storage: WorkbookOptions = {},
+  ) {
     this.active();
     if (this.book)
       throw new OpenSheetError('INVALID_ARGUMENT', 'Use load() to replace an existing workbook');
-    this.attach(new Workbook(createSnapshot(options)));
+    const next = await new Workbook(createSnapshot(options), storage).ready();
+    if (this.disposed) {
+      next.dispose();
+      throw new OpenSheetError('DISPOSED', 'Editor closed during initialization');
+    }
+    this.attach(next);
+    await this.grid!.ready();
     return this.book!;
   }
   async load(snapshot: WorkbookSnapshot) {
     this.active();
-    const next = new Workbook(validateSnapshot(snapshot));
+    const next = await new Workbook({ ...snapshot, workbookId: uid('wb') }).ready();
+    if (this.disposed) {
+      next.dispose();
+      throw new OpenSheetError('DISPOSED', 'Editor closed during import');
+    }
     const defs = this.pluginList.filter((p) => this.plugins.has(p.id));
     this.plugins.dispose();
     this.pluginList = [];
@@ -112,6 +128,44 @@ export class OpenSheet {
     this.book?.dispose();
     this.attach(next);
     if (defs.length) this.use(defs);
+    await this.grid!.ready();
+  }
+  async open(id: string, storage: WorkbookOptions = {}) {
+    this.active();
+    if (this.book?.id === id) {
+      this.grid?.dispose();
+      this.stop?.();
+      await this.book.close();
+      this.book = undefined;
+    }
+    const next = await openWorkbook(id, storage);
+    if (this.disposed) {
+      next.dispose();
+      throw new OpenSheetError('DISPOSED', 'Editor closed during restore');
+    }
+    const defs = this.pluginList.filter((p) => this.plugins.has(p.id));
+    this.plugins.dispose();
+    this.pluginList = [];
+    this.grid?.dispose();
+    this.stop?.();
+    this.book?.dispose();
+    this.attach(next);
+    if (defs.length) this.use(defs);
+    await this.grid!.ready();
+    return next;
+  }
+  async attachWorkbook(book: Workbook) {
+    this.active();
+    await book.ready();
+    const defs = this.pluginList.filter((p) => this.plugins.has(p.id));
+    this.plugins.dispose();
+    this.pluginList = [];
+    this.grid?.dispose();
+    this.stop?.();
+    if (this.book !== book) this.book?.dispose();
+    this.attach(book);
+    if (defs.length) this.use(defs);
+    await this.grid!.ready();
   }
   getWorkbook() {
     this.active();
@@ -121,11 +175,12 @@ export class OpenSheet {
   private attach(book: Workbook) {
     this.book = book;
     const read =
-      this.options.mode === 'read' || book.toJSON().extensions['opensheet.readOnly'] === true;
+      this.options.mode === 'read' || book.metadata.extensions['opensheet.readOnly'] === true;
     book.setReadOnly(read);
-    this.formulaBar.setReadOnly(read);
+    const readonly = book.isReadOnly;
+    this.formulaBar.setReadOnly(readonly);
     this.grid = new CanvasGrid(this.viewport, book, {
-      readOnly: read,
+      readOnly: readonly,
       onSelection: (s) => {
         this.updateSelection();
         this.emit('selection:changed', s);
@@ -137,17 +192,19 @@ export class OpenSheet {
       this.updateSelection();
       this.emit('workbook:committed', c);
     });
+    book.onData(() => this.updateSelection());
     this.tabsView.render();
     this.updateSelection();
   }
   setMode(mode: 'edit' | 'read') {
     this.active();
     this.options.mode = mode;
-    const enforced = this.getWorkbook().toJSON().extensions['opensheet.readOnly'] === true;
+    if (!this.book) return;
+    const enforced = this.getWorkbook().metadata.extensions['opensheet.readOnly'] === true;
     const read = mode === 'read' || enforced;
     this.book!.setReadOnly(read);
-    this.grid?.setReadOnly(read);
-    this.formulaBar.setReadOnly(read);
+    this.grid?.setReadOnly(this.book!.isReadOnly);
+    this.formulaBar.setReadOnly(this.book!.isReadOnly);
   }
   selection = {
     get: (): Selection | null => {
@@ -168,7 +225,8 @@ export class OpenSheet {
       try {
         if (
           this.options.mode === 'read' ||
-          this.getWorkbook().toJSON().extensions['opensheet.readOnly'] === true
+          this.getWorkbook().isReadOnly ||
+          this.getWorkbook().metadata.extensions['opensheet.readOnly'] === true
         )
           return false;
         return (
@@ -202,17 +260,27 @@ export class OpenSheet {
     this.options.onError?.(e);
   }
   private run(fn: () => unknown) {
-    try {
-      fn();
-    } catch (e) {
-      this.error(e);
-    }
+    this.pendingActions++;
+    this.element.setAttribute('aria-busy', 'true');
+    this.statusBar.element.textContent = 'Working…';
+    void Promise.resolve()
+      .then(fn)
+      .catch((e) => this.error(e))
+      .finally(() => {
+        this.pendingActions--;
+        if (!this.pendingActions && !this.disposed) {
+          this.element.setAttribute('aria-busy', 'false');
+          this.updateSelection();
+        }
+      });
   }
   private updateSelection() {
     if (!this.book) return;
     const s = this.grid?.selection ?? null;
     this.formulaBar.update(this.book, s);
-    this.statusBar.update(this.book, s);
+    void this.statusBar.update(this.book, s).catch((e) => {
+      if (!this.disposed) this.error(e);
+    });
   }
   getGrid() {
     this.active();

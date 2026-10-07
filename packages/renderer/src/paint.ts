@@ -54,7 +54,7 @@ export function paintGrid(
       endRow = merge?.endRow ?? r + 1,
       cw = layout.columnOffsets[endColumn] - layout.columnOffsets[c],
       rh = layout.rowOffsets[merge?.endRow ?? r + 1] - layout.rowOffsets[r];
-    const cell = book.getCell(sheetId, r, c),
+    const cell = book.peekCell(sheetId, r, c),
       style = book.getStyle(cell?.styleId);
     const horizontal = c < f.columns && endColumn > f.columns ? [false, true] : [c >= f.columns];
     const vertical = r < f.rows && endRow > f.rows ? [false, true] : [r >= f.rows];
@@ -93,12 +93,12 @@ export function paintGrid(
         ctx.fillStyle = style.color ?? '#293d35';
         ctx.font = `${style.italic ? 'italic ' : ''}${style.bold ? '600 ' : ''}${(style.fontSize ?? 13) * zoom}px Inter, -apple-system, sans-serif`;
         ctx.textBaseline = 'middle';
-        const raw = book.value(sheetId, r, c);
+        const raw = book.peekValue(sheetId, r, c);
         const align = style.align ?? (typeof raw === 'number' ? 'right' : 'left');
         ctx.textAlign = align;
         const x =
           align === 'right' ? pos.x + cw - 10 : align === 'center' ? pos.x + cw / 2 : pos.x + 10;
-        const text = book.display(sheetId, r, c);
+        const text = book.peekDisplay(sheetId, r, c);
         if (style.wrap) {
           const lineHeight = (style.fontSize ?? 13) * zoom * 1.35;
           const lines: string[] = [];
@@ -215,5 +215,5 @@ export function paintGrid(
   element.setAttribute('aria-colcount', String(sh.columnOrder.length));
   ariaCell.setAttribute('aria-rowindex', String(s.startRow + 1));
   ariaCell.setAttribute('aria-colindex', String(s.startColumn + 1));
-  ariaCell.textContent = `${address(s.startRow, s.startColumn)}: ${book.display(sheetId, s.startRow, s.startColumn)}`;
+  ariaCell.textContent = `${address(s.startRow, s.startColumn)}: ${book.peekDisplay(sheetId, s.startRow, s.startColumn)}`;
 }

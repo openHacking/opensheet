@@ -24,20 +24,7 @@ export class Sheet {
     return new Range(this, r);
   }
   getUsedRange() {
-    const s = this.workbook.sheetData(this.id),
-      rs = new Map(s.rowOrder.map((id, i) => [id, i])),
-      cs = new Map(s.columnOrder.map((id, i) => [id, i]));
-    let endRow = 1,
-      endColumn = 1;
-    for (const c of Object.values(s.cells)) {
-      endRow = Math.max(endRow, rs.get(c.rowId)! + 1);
-      endColumn = Math.max(endColumn, cs.get(c.columnId)! + 1);
-    }
-    for (const m of s.merges) {
-      endRow = Math.max(endRow, m.endRow);
-      endColumn = Math.max(endColumn, m.endColumn);
-    }
-    return this.range({ startRow: 0, startColumn: 0, endRow, endColumn });
+    return this.range(this.workbook.usedRange(this.id));
   }
   insertRows(index: number, count = 1) {
     return this.axis('row', index, count, true);

@@ -37,7 +37,7 @@ export function fromSheetJS(
       maxCol = 1;
     const collect = (row: number, col: number, c: any) => {
       if (c === undefined || c === null) return;
-      if (++total > LIMITS.cells || row >= LIMITS.rows || col >= LIMITS.columns)
+      if (row >= LIMITS.rows || col >= LIMITS.columns)
         throw new OpenSheetError('LIMIT_EXCEEDED', 'Workbook exceeds preview limits');
       entries.push([row, col, c]);
       maxRow = Math.max(maxRow, row + 1);

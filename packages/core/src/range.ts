@@ -26,22 +26,31 @@ export class Range {
       ),
     );
   }
+  private async read<T>(
+    fn: (data: Awaited<ReturnType<typeof this.sheet.workbook.readRange>>, k: string) => T,
+    values = true,
+  ) {
+    const data = await this.sheet.workbook.readRange(this.sheet.id, this.bounds, values);
+    const sh = this.sheet.workbook.sheetData(this.sheet.id);
+    return this.matrix((r, c) => fn(data, `${sh.rowOrder[r]}:${sh.columnOrder[c]}`));
+  }
   getValues() {
-    return this.matrix((r, c) => this.sheet.workbook.value(this.sheet.id, r, c));
+    return this.read((data, k) => data.calculated[k] ?? null);
   }
   getDisplayValues() {
-    return this.matrix((r, c) => this.sheet.workbook.display(this.sheet.id, r, c));
+    return this.read((data, k) => data.display[k] ?? '');
   }
   getFormulas() {
-    return this.matrix((r, c) => {
-      const input = this.sheet.workbook.getCell(this.sheet.id, r, c)?.input;
+    return this.read((data, k) => {
+      const input = data.cells[k]?.input;
       return input?.type === 'formula' ? input.expression : null;
-    });
+    }, false);
   }
   getInputs() {
-    return this.matrix(
-      (r, c) => this.sheet.workbook.getCell(this.sheet.id, r, c)?.input ?? { type: 'blank' },
-    );
+    return this.read((data, k) => data.cells[k]?.input ?? { type: 'blank' as const }, false);
+  }
+  stream(options: { signal?: AbortSignal; values?: boolean } = {}) {
+    return this.sheet.workbook.streamRange(this.sheet.id, this.bounds, options);
   }
   private write<T>(matrix: T[][], map: (value: T) => CellInput) {
     const b = this.bounds;

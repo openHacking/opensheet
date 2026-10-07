@@ -23,13 +23,15 @@
     "benchmark:browser": "node scripts/browser-benchmark.mjs",
     "smoke": "node scripts/smoke.mjs",
     "test:pages": "node scripts/pages-check.mjs",
-    "test:architecture": "node --test scripts/architecture.test.mjs && node scripts/architecture.mjs"
+    "test:architecture": "node --test scripts/architecture.test.mjs && node scripts/architecture.mjs",
+    "benchmark:capacity": "node scripts/capacity-benchmark.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
     "@types/node": "22.19.0",
     "@types/react": "19.2.2",
     "esbuild": "0.25.12",
+    "fake-indexeddb": "6.2.5",
     "fast-check": "4.3.0",
     "prettier": "3.6.2",
     "react": "19.2.0",

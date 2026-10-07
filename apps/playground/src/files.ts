@@ -31,9 +31,12 @@ export function createFileActions(
   function name() {
     return $<HTMLInputElement>('document-name').value.trim() || 'workbook';
   }
-  bindings.on($('save-json'), 'click', () => {
+  bindings.on($('save-json'), 'click', async () => {
+    const parts: string[] = [];
+    for await (const chunk of app.getWorkbook().streamJSON()) parts.push(chunk);
+
     download(
-      JSON.stringify(app.getWorkbook().toJSON(), null, 2),
+      new Blob(parts, { type: 'application/json' }),
       `${name()}.opensheet.json`,
       'application/json',
     );
@@ -64,9 +67,9 @@ export function createFileActions(
     }
     modal('Compatibility report', box);
   }
-  bindings.on($('export-xlsx'), 'click', () => {
+  bindings.on($('export-xlsx'), 'click', async () => {
     try {
-      const result = toSheetJS(app.getWorkbook().toJSON());
+      const result = toSheetJS(await app.getWorkbook().toJSON());
       const save = async () => {
         try {
           const XLSX = await import('xlsx');

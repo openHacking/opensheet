@@ -12,7 +12,7 @@ Formula text is separate from derived calculation results. Imported cached resul
 
 ## Commands and transactions
 
-All mutations enter through validated commands. A transaction stages commands against one starting state, validates invariants, then atomically commits one revision, one history entry and one event. Nested or asynchronous transactions are rejected. Failure must preserve the previous workbook, even if an inner error is caught.
+All mutations enter through validated commands. A transaction stages commands against one starting state, validates invariants, then atomically commits one revision, one history entry and one event. Asynchronous callbacks receive an isolated transaction facade; nested transactions and concurrent writes through the outer facade are rejected. Failure must preserve the previous workbook, even if an inner error is caught.
 
 An envelope may provide workbookId, commandId, baseRevision and protocolVersion. Current retry deduplication is instance-local; durable idempotency and remote authorization are host responsibilities. Unknown command types and incompatible schemas must fail explicitly.
 
@@ -26,10 +26,10 @@ Sorting moves data/styles with copy-relative formulas while row IDs and heights 
 
 ## History, events and errors
 
-Current history stores forward/inverse patches and retains at most 100 transactions or an estimated 32 MiB. Oversized mutations fail atomically. New edits clear redo history. Undo/redo creates new revisions; calculation caches do not become separate business history entries.
+Current history stores persistent block-level deltas and retains at most 100 transactions or an estimated 32 MiB. Oversized mutations fail atomically. New edits clear redo history. Undo/redo creates new revisions; calculation caches do not become separate business history entries.
 
 The current event contract is documented in [API](api.md). Commit events are not complete network replication records. Standard error codes include INVALID_ARGUMENT, INVALID_RANGE, READ_ONLY, LIMIT_EXCEEDED, UNSUPPORTED_FEATURE, REVISION_CONFLICT, PLUGIN_CONFLICT and DISPOSED. Dispose is idempotent and invalidates old handles.
 
 ## Persistence and migration
 
-Native JSON is the supported serialization source of truth. Validate size, schema and unsafe object keys before loading. Current snapshots use schemaVersion=1; no historical migrations are implemented. Future migrations must be pure, versioned and covered by retained fixtures. Unknown newer schemas must not be accepted as writable data. Remote durability requires an explicit host acknowledgement before showing a saved state.
+IndexedDB holds the editor source of truth; native JSON is the interchange snapshot. Validate size, schema and unsafe object keys before loading. Current snapshots use schemaVersion=1; no historical migrations are implemented. Future migrations must be pure, versioned and covered by retained fixtures. Unknown newer schemas must not be accepted as writable data. Remote durability requires an explicit host acknowledgement before showing a saved state.

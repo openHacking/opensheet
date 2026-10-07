@@ -28,6 +28,17 @@ for (const name of [
     external: ['@opensheetjs/*', 'opensheet', 'react', 'vue', 'immer', 'zod'],
     sourcemap: true,
   });
+  if (name === 'core')
+    await build({
+      entryPoints: [`${root}/src/engine.worker.js`],
+      outfile: `${root}/dist/engine.worker.js`,
+      bundle: true,
+      format: 'esm',
+      platform: 'browser',
+      target: 'es2022',
+      packages: 'external',
+      external: ['@opensheetjs/*'],
+    });
   execFileSync('pnpm', ['exec', 'tsc', '--project', `${root}/tsconfig.build.json`], {
     stdio: 'inherit',
   });

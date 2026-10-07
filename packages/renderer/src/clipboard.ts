@@ -5,14 +5,17 @@ import {
   type Selection,
   type Workbook,
 } from '@opensheetjs/core';
-export function copyText(range: Range) {
-  return range
-    .getDisplayValues()
+export async function copyText(range: Range) {
+  return (await range.getDisplayValues())
     .map((row) => row.map((v) => (/[\t\n"]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v)).join('\t'))
     .join('\n');
 }
 
-export function pasteText(book: Workbook, selected: Selection, text: string): Selection {
+export async function pasteText(
+  book: Workbook,
+  selected: Selection,
+  text: string,
+): Promise<Selection> {
   if (text.length > 2 * 1024 * 1024)
     throw new OpenSheetError('LIMIT_EXCEEDED', 'Paste is too large');
   const rows: string[][] = [];
@@ -49,7 +52,7 @@ export function pasteText(book: Workbook, selected: Selection, text: string): Se
       input: parseInput(row[j] ?? ''),
     })),
   );
-  book.execute({ type: 'core.cells.set', payload: { sheetId: selected.sheetId, cells } });
+  await book.execute({ type: 'core.cells.set', payload: { sheetId: selected.sheetId, cells } });
   return {
     ...selected,
     endRow: selected.startRow + rows.length,

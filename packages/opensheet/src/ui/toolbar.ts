@@ -130,10 +130,10 @@ export class Toolbar {
       if (!s) throw new Error('No selection');
       return this.actions.getWorkbook().getSheetById(s.sheetId)!.range(s);
     };
-    const style = (s: CellStyle) => range().setStyle(s);
+    const style = async (s: CellStyle) => await range().setStyle(s);
     group(
-      this.button('', () => this.actions.getWorkbook().undo(), 'Undo', Undo2),
-      this.button('', () => this.actions.getWorkbook().redo(), 'Redo', Redo2),
+      this.button('', async () => await this.actions.getWorkbook().undo(), 'Undo', Undo2),
+      this.button('', async () => await this.actions.getWorkbook().redo(), 'Redo', Redo2),
     );
     const fmt = document.createElement('select');
     fmt.setAttribute('aria-label', 'Number format');
@@ -160,8 +160,8 @@ export class Toolbar {
         '',
         () => {
           const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
-          style({ bold: !this.actions.getWorkbook().getStyle(c?.styleId).bold });
+            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
+          return style({ bold: !this.actions.getWorkbook().getStyle(c?.styleId).bold });
         },
         'Bold',
         Bold,
@@ -170,8 +170,8 @@ export class Toolbar {
         '',
         () => {
           const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
-          style({ italic: !this.actions.getWorkbook().getStyle(c?.styleId).italic });
+            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
+          return style({ italic: !this.actions.getWorkbook().getStyle(c?.styleId).italic });
         },
         'Italic',
         Italic,
@@ -180,8 +180,8 @@ export class Toolbar {
         '',
         () => {
           const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
-          style({ underline: !this.actions.getWorkbook().getStyle(c?.styleId).underline });
+            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
+          return style({ underline: !this.actions.getWorkbook().getStyle(c?.styleId).underline });
         },
         'Underline',
         Underline,
@@ -204,36 +204,36 @@ export class Toolbar {
       this.button('', () => style({ align: 'right' }), 'Align right', AlignRight),
     );
     group(
-      this.button('Merge', () => range().merge(), 'Merge', Merge),
-      this.button('Unmerge', () => range().unmerge(), 'Unmerge', Split),
+      this.button('Merge', async () => await range().merge(), 'Merge', Merge),
+      this.button('Unmerge', async () => await range().unmerge(), 'Unmerge', Split),
       this.button('Borders', () => style({ border: true }), 'Borders', Square),
       this.button(
         'Wrap',
         () => {
           const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().getCell(s.sheetId, s.startRow, s.startColumn);
-          style({ wrap: !this.actions.getWorkbook().getStyle(c?.styleId).wrap });
+            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
+          return style({ wrap: !this.actions.getWorkbook().getStyle(c?.styleId).wrap });
         },
         'Wrap text',
         WrapText,
       ),
-      this.button('Fill', () => range().fillDown(), 'Fill down', ArrowDown),
+      this.button('Fill', async () => await range().fillDown(), 'Fill down', ArrowDown),
     );
     group(
       this.button(
         'Row',
-        () => {
+        async () => {
           const s = this.actions.getSelection()!;
-          this.actions.getWorkbook().getSheetById(s.sheetId)!.insertRows(s.startRow);
+          await this.actions.getWorkbook().getSheetById(s.sheetId)!.insertRows(s.startRow);
         },
         'Insert row',
         Rows3,
       ),
       this.button(
         'Column',
-        () => {
+        async () => {
           const s = this.actions.getSelection()!;
-          this.actions.getWorkbook().getSheetById(s.sheetId)!.insertColumns(s.startColumn);
+          await this.actions.getWorkbook().getSheetById(s.sheetId)!.insertColumns(s.startColumn);
         },
         'Insert column',
         Columns3,
@@ -242,11 +242,11 @@ export class Toolbar {
     group(
       this.button(
         'Freeze',
-        () => {
+        async () => {
           const s = this.actions.getSelection()!,
             book = this.actions.getWorkbook(),
             current = book.sheetData(s.sheetId).freeze;
-          book.getSheetById(s.sheetId)!.setFreeze(current.rows ? 0 : 1, 0);
+          await book.getSheetById(s.sheetId)!.setFreeze(current.rows ? 0 : 1, 0);
         },
         'Freeze first row',
         PanelTop,

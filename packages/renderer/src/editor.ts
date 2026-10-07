@@ -22,26 +22,40 @@ export class CellEditor {
     this.element.setAttribute('aria-label', 'Edit cell');
     this.element.hidden = true;
   }
-  start(text?: string) {
-    if (this.readOnly()) return;
-    const s = this.getSelection(),
-      m = this.selection.mergeAt(s.startRow, s.startColumn);
-    this.editPosition = { row: m?.startRow ?? s.startRow, column: m?.startColumn ?? s.startColumn };
-    const c = this.book.getCell(this.getSheetId(), this.editPosition.row, this.editPosition.column);
-    this.element.value =
-      text ??
-      (c?.input.type === 'formula'
-        ? '=' + c.input.expression
-        : c?.input.type === 'error'
-          ? c.input.code
-          : c?.input.type === 'blank'
-            ? ''
-            : String(c && 'value' in c.input ? c.input.value : ''));
-    this.isEditing = true;
-    this.element.hidden = false;
-    this.position();
-    this.element.focus();
-    if (text === undefined) this.element.select();
+  async start(text?: string) {
+    try {
+      if (this.readOnly()) return;
+      const s = this.getSelection(),
+        m = this.selection.mergeAt(s.startRow, s.startColumn);
+      this.editPosition = {
+        row: m?.startRow ?? s.startRow,
+        column: m?.startColumn ?? s.startColumn,
+      };
+      const c =
+        text === undefined
+          ? await this.book.getCell(
+              this.getSheetId(),
+              this.editPosition.row,
+              this.editPosition.column,
+            )
+          : undefined;
+      this.element.value =
+        text ??
+        (c?.input.type === 'formula'
+          ? '=' + c.input.expression
+          : c?.input.type === 'error'
+            ? c.input.code
+            : c?.input.type === 'blank'
+              ? ''
+              : String(c && 'value' in c.input ? c.input.value : ''));
+      this.isEditing = true;
+      this.element.hidden = false;
+      this.position();
+      this.element.focus();
+      if (text === undefined) this.element.select();
+    } catch (error) {
+      this.onError(error);
+    }
   }
   position() {
     this.prepareLayout();
@@ -73,10 +87,11 @@ export class CellEditor {
   finish(): boolean {
     if (!this.isEditing) return true;
     try {
-      this.book
+      void this.book
         .getSheetById(this.getSheetId())!
         .range(address(this.editPosition.row, this.editPosition.column))
-        .setInput(this.element.value);
+        .setInput(this.element.value)
+        .catch((e) => this.onError(e));
       this.cancel();
       return true;
     } catch (e) {

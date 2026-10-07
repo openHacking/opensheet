@@ -21,15 +21,15 @@ export function createPluginContext(
         require('workbook.read');
         return host.getWorkbook().toJSON();
       },
-      readRange(s) {
+      async readRange(s) {
         require('workbook.read');
         const sheet = host.getWorkbook().getSheetById(s.sheetId);
         if (!sheet) throw new OpenSheetError('INVALID_RANGE', 'Unknown sheet');
-        return { values: sheet.range(s).getValues() };
+        return { values: await sheet.range(s).getValues() };
       },
       execute(command) {
         require('workbook.write');
-        host.getWorkbook().execute(command);
+        return host.getWorkbook().execute(command);
       },
     },
     ui: {
@@ -41,7 +41,7 @@ export function createPluginContext(
               ...action,
               run() {
                 try {
-                  action.run();
+                  Promise.resolve(action.run()).catch((e) => host.onError(e));
                 } catch (e) {
                   host.onError(e);
                 }

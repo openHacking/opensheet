@@ -1,43 +1,13 @@
-# 0.1.0 implementation status
+# Implementation status
 
-## Available behavior
+The default engine is a Worker-backed IndexedDB workbook with 64 × 32 blocks, compact disk records, a 64 MiB Worker cache reservation and an 8 MiB viewport cache reservation. The former 200,000 total-cell limit and whole-snapshot node-count limit are removed. Row, column, sheet, text, read-batch and operation resource limits remain.
 
-| Layer            | Current implementation                                                                              |
-| ---------------- | --------------------------------------------------------------------------------------------------- |
-| Workbook         | Sparse cells, stable row/column IDs, validation, frozen reads, snapshots, multiple sheets           |
-| Commands         | Validated reducer, synchronous atomic transactions, revisions, limited instance-local deduplication |
-| History          | Immutable forward/inverse patches; 100 transactions / estimated 32 MiB                              |
-| Formulas         | Basic functions, references and transforms, cycles, errors and resource limits                      |
-| Grid             | Visible Canvas rendering, DOM editor, IME events, selection, keyboard, paste, freeze and zoom       |
-| Editing          | Values, formulas, styles, merges, sorting/filtering, copy and fill-down                             |
-| Interoperability | Sparse/dense SheetJS, date systems, formulas/caches, notes and safe links                           |
-| Demo             | Worker imports, file protection, JSON/XLSX download, four interactive scenes                        |
-| Formats          | CSV/TSV, Markdown, escaped HTML, LaTeX tables and supported merges                                  |
-| Ecosystem        | Plugins, React/Vue lifecycle wrappers, testing helpers, schemas and Agent navigation                |
+All playground scenes, the editor, formula bar, toolbar, plugins, React/Vue wrappers, file adapters and examples use asynchronous workbook I/O. Changes persist locally and scene identifiers restore the corresponding workbook on refresh. The Performance Lab uses a separate database and deterministic mixed data; see [its protocol](performance.md).
 
-## Boundaries
+Supported behaviors include typed values, cross-sheet formulas, formats, merges, frozen panes, search, atomic replacement, filters, disk-backed sorting, structural reference updates, atomic command batches, persistent undo/redo and multi-tab single-writer coordination. Revisions are published only after storage commits; staged failures and cancellation preserve the previous revision. Recovery removes orphan records left by interrupted workers.
 
-- Core currently depends on the formula package. Calculation is synchronous and revision-cached, without incremental dependency scheduling, a calculation Worker or asynchronous custom functions.
-- Merges use positional rectangles updated by structural commands. Partial merge operations fail. Deleted reference endpoints become #REF!; not all Excel structural rules are reproduced.
-- Layout rebuilds after commits. There is no interval-tree viewport index, drag-to-resize headers or drag fill handle. Row/column sizes and fill-down have APIs.
-- Filters support single-column text inclusion. Formula sort keys are rejected. Data validation, conditional formatting, built-in charts and pivot tables are unavailable. Demo charts/timelines are application components.
-- Plugin interfaces cover only documented capabilities. Custom editors, formula functions, shortcut registries, storage providers and plugin scaffolding remain future work.
-- There is no IndexedDB autosave. Download JSON or XLSX before leaving; refreshing restores samples. No uploads or telemetry are present.
-- Date display and currency/percentage/decimal formats are simplified subsets. Date imports can report approximations.
-- SheetJS CE conversion does not preserve all styles, charts, images, macros, named ranges or unknown file parts. Array-formula imports are protected read-only. Strict conversion rejects only detected incompatibilities.
-- XLSX export omits potentially stale formula caches and requires reader recalculation. Native JSON preserves supported OpenSheet state.
-- LaTeX exports do not compile TeX/PDF, import source, expose arbitrary raw math input or implement full fixed-width layouts. Markdown does not support merged cells.
-- Keyboard, ARIA active cells and a separate DOM table view exist. Real VoiceOver/NVDA, native IME and complex touch acceptance are incomplete.
-- Only schemaVersion=1 is supported; there are no published historical snapshots requiring migration. Durable idempotency, authentication and remote replication are host concerns.
+Full snapshot imports and `toJSON()` are explicit materialization boundaries. JSON and table output can be streamed by input batches; Blob download output still consumes memory. SheetJS XLSX conversion is materialized and reports unsupported features. Complex styles, charts, macros, external/named references, array formulas and full Excel compatibility remain outside supported behavior. Sorting directly on formula results is still rejected.
 
-## Resource protection
+Ordinary mutations use a 32 MiB traversal planning budget (512 reserved bytes per visited cell), a 32 MiB working-set/undo delta budget, and single read batches are limited to 16,384 cells. Large structural operations and sorting stage on disk but remain subject to the undo and total storage budgets. Formula evaluation has a 128-dependency-depth and 10,000,000-reference work budget. Metadata for up to 100,000 rows remains resident; caches are bounded, not a guarantee that total browser heap never exceeds the cache budgets.
 
-Limits are 20 sheets, 200,000 stored cells, 100,000 rows and 1,000 columns per sheet, 200,000 cells per range and 32,768 characters per text value. These protect resources; they do not prove smooth interaction at maximum scale. Mutations exceeding history budgets fail atomically.
-
-Formula parsing limits expression length, tokens and depth; evaluation limits range visits and recursion. Browser parsing uses a Worker with 20 MiB file limit, declared ZIP-size prechecks and a 20-second timeout. These cannot guarantee browser memory isolation. Server hosts need actual CPU/memory limits and process isolation.
-
-## Verification and next steps
-
-See [verification](verification.md) and [Contributing](../CONTRIBUTING.md) for checks. Firefox, native input/screen-reader acceptance, real Excel/WPS/LibreOffice fidelity, full framework-host E2E, leak profiles and repeated browser performance matrices remain incomplete.
-
-Prioritize calculation isolation and incremental indexing, real input/accessibility checks and host tests before expanding persistence or plugin interfaces. Stable v1 requires API diffs, backward-compatibility fixtures, performance baselines and actual integration evidence. Version 0.1.0 is an npm development preview.
+Browser Workers, IndexedDB and Web Locks are required for an editor workbook. Pure snapshot readers, schemas, formulas and file adapters can be used in Node; custom runtimes need an injected Worker and an IndexedDB implementation. No old persisted-engine migration or synchronous workbook API compatibility is provided.

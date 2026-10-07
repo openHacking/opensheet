@@ -10,6 +10,11 @@ import {
 } from '../types.js';
 const base = { sheetId: z.string() };
 export const commandSchemas = {
+  'core.cells.replace': z.object({
+    ...base,
+    query: z.string().min(1).max(LIMITS.text),
+    replacement: z.string().max(LIMITS.text),
+  }),
   'core.cells.set': z.object({
     ...base,
     cells: z

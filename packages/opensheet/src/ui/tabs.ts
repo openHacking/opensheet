@@ -35,7 +35,7 @@ export class SheetTabs {
     this.element.append(
       this.button(
         '',
-        () => {
+        async () => {
           const names = new Set(
             this.actions
               .book()
@@ -44,7 +44,7 @@ export class SheetTabs {
           );
           let i = 1;
           while (names.has(`Sheet${i}`)) i++;
-          const sh = this.actions.book().addSheet(`Sheet${i}`);
+          const sh = await this.actions.book().addSheet(`Sheet${i}`);
           this.actions.setSheet(sh.id);
           this.render();
         },

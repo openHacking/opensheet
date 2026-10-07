@@ -11,7 +11,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open http://127.0.0.1:5173. The demo exposes its current public API as `window.opensheet`. Samples reset on refresh; download JSON to keep edits.
+Open http://127.0.0.1:5173. The demo exposes its current public API as `window.opensheet`. Scenes restore their IndexedDB workbooks on refresh; Reset replaces a scene workbook. Download JSON for a portable copy. The Performance Lab uses a separate test database.
 
 ```sh
 pnpm format
@@ -25,7 +25,7 @@ pnpm benchmark:browser -- --compare
 pnpm preview
 ```
 
-`pnpm check` checks formatting, types, unit tests, package declarations, consumer imports, schemas and the production demo build. Run browser tests for UI or file integration changes. Run `pnpm build` before the browser benchmark; it measures 10,000, 100,000 and 200,000 populated cells in headless Chromium. Use `pnpm benchmark:browser -- --write-baseline` only after reviewing a new baseline. Comparison is meaningful only on the same browser and machine. Benchmarks are diagnostics, not performance guarantees.
+`pnpm check` checks formatting, types, unit tests, package declarations, consumer imports, schemas and the production demo build. Run browser tests for UI or file integration changes. Run `pnpm build` before the browser benchmark; it measures fixed mixed-data scales in headless Chromium. Pass `--sizes=10000,100000,200000,1000000` to include the million-cell baseline. Use `pnpm benchmark:browser -- --write-baseline` only after reviewing a new baseline. Comparison is meaningful only on the same browser and machine. Benchmarks are diagnostics, not performance guarantees.
 
 ## Project structure
 

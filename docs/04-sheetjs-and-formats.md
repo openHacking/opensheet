@@ -8,7 +8,7 @@ SheetJS reads/writes file containers; OpenSheet owns the editable model and UI. 
 
 Import supports sparse/dense cells, sheet order, scalar values, formulas, imported caches, date systems, dimensions, hidden rows/columns, merges, notes and safe links within explicit limits. Complex styles, charts, images, macros, named ranges and unknown file parts are not guaranteed to survive conversion. Array formulas force read-only behavior.
 
-The native OpenSheet snapshot is the source of truth after editing. Keeping an original file is a separate host responsibility. Do not merge arbitrary original workbook parts and claim lossless XLSX patching.
+The IndexedDB workbook is the source of truth after editing; native OpenSheet snapshots are interchange data. Keeping an original file is a separate host responsibility. Do not merge arbitrary original workbook parts and claim lossless XLSX patching.
 
 ## Compatibility reports
 
@@ -35,7 +35,7 @@ Preserve 1900/1904 systems. Test boundary serials, fractions and timezone semant
 - HTML uses semantic tables, escaped text and a style allowlist rather than arbitrary scripts.
 - CSV/TSV supports quotes, multiline text, BOM and CRLF. Safe mode prefixes dangerous formula text; explicit raw mode preserves values.
 
-Exports cutting through a merged range are rejected. HTML grid previews are not actual TeX rendering. Future formats should remain separate adapters instead of expanding core responsibilities.
+`streamExport(book, config)` reads bounded asynchronous batches without materializing the entire workbook; `exportRange` remains the explicit snapshot convenience. XLSX remains a SheetJS materialization boundary and does not establish engine capacity. Exports cutting through a merged range are rejected. HTML grid previews are not actual TeX rendering. Future formats should remain separate adapters instead of expanding core responsibilities.
 
 ## References
 

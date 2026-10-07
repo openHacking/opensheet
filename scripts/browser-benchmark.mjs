@@ -2,54 +2,27 @@ import { spawn } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { platform, arch } from 'node:os';
 import { chromium } from '@playwright/test';
-import { createSnapshot, key } from '../packages/core/dist/index.js';
-
 const sizes = (
   process.argv.find((arg) => arg.startsWith('--sizes='))?.slice(8) ?? '10000,100000,200000'
 )
   .split(',')
   .map(Number);
 const baselinePath = new URL('../benchmarks/browser-baseline.json', import.meta.url);
-const median = (values) => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
 const percentile = (values, p) =>
   [...values].sort((a, b) => a - b)[Math.ceil(values.length * p) - 1];
-const fixture = (count) => {
-  const rows = Math.ceil(count / 20);
-  const snapshot = createSnapshot({ sheets: [{ name: 'Performance', rows, columns: 24 }] });
-  const sheet = snapshot.sheets[0];
-  sheet.freeze = { rows: 1, columns: 1 };
-  sheet.rows[sheet.rowOrder[0]] = { size: 36 };
-  for (let n = 0; n < count; n++) {
-    const row = Math.floor(n / 20),
-      column = n % 20;
-    const rowId = sheet.rowOrder[row],
-      columnId = sheet.columnOrder[column];
-    sheet.cells[key(rowId, columnId)] = {
-      rowId,
-      columnId,
-      input: { type: 'number', value: n },
-    };
-  }
-  for (let row = 0; row + 1 < Math.min(rows, 2000); row += 2)
-    sheet.merges.push({ startRow: row, endRow: row + 2, startColumn: 20, endColumn: 22 });
-  return snapshot;
-};
-
-let server;
-let browser;
+let server, browser;
 try {
   let ready = false;
   try {
     ready = (await fetch('http://127.0.0.1:5173/')).ok;
   } catch {}
   if (!ready) server = spawn('pnpm', ['dev'], { stdio: 'ignore', detached: true });
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 80 && !ready; i++) {
     if (server && server.exitCode !== null) throw new Error('Vite exited before becoming ready');
+    await new Promise((resolve) => setTimeout(resolve, 250));
     try {
       ready = (await fetch('http://127.0.0.1:5173/')).ok;
     } catch {}
-    if (ready) break;
-    await new Promise((resolve) => setTimeout(resolve, 250));
   }
   if (!ready) throw new Error('Vite did not become ready');
   browser = await chromium.launch();
@@ -62,106 +35,101 @@ try {
     headless: true,
     viewport: { width: 1280, height: 800 },
     fixture:
-      '20 populated columns, 4 empty columns, frozen first row and column, up to 1000 nonoverlapping merges',
+      'paged-v4: 100 columns, fixed seed, 60% numbers / 30% 32-byte ASCII / 10% booleans; IndexedDB, Worker and bounded caches; scroll samples include viewport loading and painting',
     scenarios: {},
   };
   for (const count of sizes) {
-    if (![10000, 100000, 200000].includes(count)) throw new Error(`Unsupported size: ${count}`);
+    if (!Number.isSafeInteger(count) || count < 10000 || count > 10000000 || count % 10000)
+      throw new Error(`Invalid size: ${count}`);
     const page = await browser.newPage({ viewport: results.viewport });
-    await page.goto('http://127.0.0.1:5173/');
-    await page.locator('.os-grid').waitFor();
-    const snapshot = fixture(count);
-    const measurement = await page.evaluate(async (data) => {
-      const app = window.opensheet;
-      const longTasks = [];
-      const measurementStart = performance.now();
-      const observer =
-        'PerformanceObserver' in window
-          ? new PerformanceObserver((list) => {
-              for (const entry of list.getEntries())
-                if (entry.startTime >= measurementStart) longTasks.push(entry.duration);
-            })
-          : null;
-      try {
-        observer?.observe({ type: 'longtask' });
-      } catch {}
-      const frame = () =>
-        new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-      const loadMs = [];
+    await page.goto('http://127.0.0.1:5173/#performance');
+    await page.locator('#scene-title').filter({ hasText: 'Performance Lab' }).waitFor();
+    const measurement = await page.evaluate(async (count) => {
+      const app = window.opensheet,
+        generationStart = performance.now();
+      await app.getWorkbook().generate(count);
+      await app.attachWorkbook(app.getWorkbook());
+      const generateMs = performance.now() - generationStart;
+      const id = app.getWorkbook().id,
+        loadMs = [],
+        editMs = [],
+        selectMs = [],
+        scrollMs = [];
       for (let i = 0; i < 3; i++) {
         const start = performance.now();
-        await app.load(data);
-        await frame();
+        await app.open(id, { database: 'opensheet-performance-v4' });
         loadMs.push(performance.now() - start);
       }
       const book = app.getWorkbook(),
-        sheet = book.getSheets()[0],
-        sheetId = sheet.id;
-      const editMs = [];
-      for (let i = 0; i < 5; i++) {
-        const t = performance.now();
-        sheet.range('A2').setValues([[i]]);
-        await frame();
-        editMs.push(performance.now() - t);
+        sheet = book.getSheets()[0];
+      for (let i = -5; i < 100; i++) {
+        const start = performance.now();
+        await sheet.range('A2').setValues([[i]]);
+        await app.getGrid().ready();
+        if (i >= 0) editMs.push(performance.now() - start);
       }
-      const selectMs = [];
       for (let i = 0; i < 20; i++) {
-        const t = performance.now();
-        const row = 10 + ((i * 37) % (data.sheets[0].rowOrder.length - 10));
+        const row = 10 + ((i * 337) % (sheet.rowCount - 10)),
+          start = performance.now();
         app.selection.set({
-          sheetId,
+          sheetId: sheet.id,
           startRow: row,
           endRow: row + 1,
-          startColumn: i % 20,
-          endColumn: (i % 20) + 1,
+          startColumn: (i * 7) % 100,
+          endColumn: ((i * 7) % 100) + 1,
         });
-        await frame();
-        selectMs.push(performance.now() - t);
+        await app.getGrid().ready();
+        selectMs.push(performance.now() - start);
       }
-      const scroller = document.querySelector('.os-scroll');
-      const scrollMs = [];
-      for (let i = 0; i < 30; i++) {
-        const t = performance.now();
-        scroller.scrollTop = (i * 977) % scroller.scrollHeight;
-        scroller.scrollLeft = i % 2 ? 2400 : 0;
-        await frame();
-        scrollMs.push(performance.now() - t);
+      const frame = () => new Promise((resolve) => requestAnimationFrame(resolve)),
+        scroller = app.getGrid().scroller;
+      for (let i = -30; i < 300; i++) {
+        const start = await frame();
+        scroller.scrollTop =
+          (Math.max(0, i) * 977) % Math.max(1, scroller.scrollHeight - scroller.clientHeight);
+        scroller.scrollLeft =
+          (Math.max(0, i) * 239) % Math.max(1, scroller.scrollWidth - scroller.clientWidth);
+        await app.getGrid().ready();
+        const end = performance.now();
+        if (i >= 0) scrollMs.push(end - start);
       }
-      observer?.disconnect();
+      await app.getGrid().ready();
+      const storage = await book.storageStats();
       return {
+        generateMs,
         loadMs,
         editMs,
         selectMs,
         scrollMs,
-        longTasks,
-        serializedBytes: JSON.stringify(data).length,
+        storage,
+        quota: await navigator.storage.estimate(),
       };
-    }, snapshot);
+    }, count);
     const session = await page.context().newCDPSession(page);
     await session.send('Performance.enable');
     const metrics = await session.send('Performance.getMetrics');
-    const heapBytes = metrics.metrics.find((metric) => metric.name === 'JSHeapUsedSize')?.value;
     await session.send('HeapProfiler.collectGarbage');
-    const retainedMetrics = await session.send('Performance.getMetrics');
-    const retainedBytes = retainedMetrics.metrics.find(
-      (metric) => metric.name === 'JSHeapUsedSize',
-    )?.value;
+    const retained = await session.send('Performance.getMetrics');
+    const heap = (m) =>
+      Math.round(
+        (m.metrics.find((metric) => metric.name === 'JSHeapUsedSize')?.value ?? 0) / 1048576,
+      );
     results.scenarios[count] = {
-      loadP50Ms: Math.round(median(measurement.loadMs)),
+      generateMs: Math.round(measurement.generateMs),
+      loadP50Ms: Math.round(percentile(measurement.loadMs, 0.5)),
       loadP95Ms: Math.round(percentile(measurement.loadMs, 0.95)),
-      editP50Ms: Math.round(median(measurement.editMs)),
+      editP50Ms: Math.round(percentile(measurement.editMs, 0.5)),
       editP95Ms: Math.round(percentile(measurement.editMs, 0.95)),
-      selectP50Ms: Math.round(median(measurement.selectMs)),
       selectP95Ms: Math.round(percentile(measurement.selectMs, 0.95)),
-      scrollP50Ms: Math.round(median(measurement.scrollMs)),
-      scrollP95Ms: Math.round(percentile(measurement.scrollMs, 0.95)),
-      longTaskCount: measurement.longTasks.length,
-      longTaskP95Ms: measurement.longTasks.length
-        ? Math.round(percentile(measurement.longTasks, 0.95))
-        : 0,
-      heapBeforeGcMiB: heapBytes ? Math.round(heapBytes / 1024 / 1024) : null,
-      retainedHeapMiB: retainedBytes ? Math.round(retainedBytes / 1024 / 1024) : null,
-      serializedMiB: Math.round(measurement.serializedBytes / 1024 / 1024),
+      scrollFrameP95Ms: Number(percentile(measurement.scrollMs, 0.95).toFixed(2)),
+      encodedMiB: Number((measurement.storage.bytes / 1048576).toFixed(2)),
+      workerCacheReservationMiB: Number((measurement.storage.cacheBytes / 1048576).toFixed(2)),
+      viewportCacheReservationMiB: Number(
+        (measurement.storage.viewportCacheBytes / 1048576).toFixed(2),
+      ),
+      mainHeapBeforeGcMiB: heap(metrics),
+      mainHeapRetainedMiB: heap(retained),
+      originUsageMiB: Number(((measurement.quota.usage ?? 0) / 1048576).toFixed(2)),
     };
     await page.close();
     console.error(`Measured ${count} cells`);
@@ -169,18 +137,19 @@ try {
   if (process.argv.includes('--compare')) {
     const baseline = JSON.parse(readFileSync(baselinePath, 'utf8'));
     if (
+      baseline.fixture === results.fixture &&
       baseline.browser === results.browser &&
       baseline.platform === results.platform &&
       baseline.arch === results.arch
     ) {
       for (const count of sizes)
-        for (const metric of ['loadP95Ms', 'editP95Ms', 'selectP95Ms', 'scrollP95Ms']) {
+        for (const metric of ['loadP95Ms', 'editP95Ms', 'selectP95Ms', 'scrollFrameP95Ms']) {
           const old = baseline.scenarios[count]?.[metric],
             current = results.scenarios[count][metric];
           if (old && current > Math.max(old * 1.2, old + 10))
             throw new Error(`${count} ${metric} regressed: ${old} → ${current} ms`);
         }
-    } else console.error('Environment differs from baseline; comparison skipped.');
+    } else console.error('Environment or workload differs; comparison skipped.');
   }
   if (process.argv.includes('--write-baseline'))
     writeFileSync(baselinePath, JSON.stringify(results, null, 2) + '\n');

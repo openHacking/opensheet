@@ -9,6 +9,7 @@
     ],
     "@opensheetjs/core": [
       "createWorkbook",
+      "openWorkbook",
       "Workbook",
       "snapshotSchema",
       "commandSchemas"
@@ -19,6 +20,7 @@
     ],
     "@opensheetjs/formats": [
       "exportRange",
+      "streamExport",
       "parseDelimited",
       "stringifyDelimited"
     ],
@@ -28,6 +30,7 @@
     ]
   },
   "commands": [
+    "core.cells.replace",
     "core.cells.set",
     "core.cells.style",
     "core.cells.clear",
@@ -53,7 +56,16 @@
     "UNSUPPORTED_FEATURE",
     "REVISION_CONFLICT",
     "PLUGIN_CONFLICT",
-    "DISPOSED"
+    "DISPOSED",
+    "ABORTED",
+    "BUSY",
+    "STORAGE_BUDGET",
+    "STORAGE_UNAVAILABLE",
+    "CORRUPT_STORAGE",
+    "WORKER_UNAVAILABLE",
+    "WORKER_FAILED",
+    "WORKER_TIMEOUT",
+    "QuotaExceededError"
   ],
   "docs": [
     "docs/api.md",

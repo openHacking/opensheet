@@ -54,9 +54,8 @@ export function createSnapshot(
 }
 export function validateSnapshot(input: unknown): WorkbookSnapshot {
   // Validate hostile JSON before recursive schemas or object merges.
-  let nodes = 0;
   const walk = (v: unknown, depth: number) => {
-    assert(++nodes < 3000000 && depth < 32, 'LIMIT_EXCEEDED', 'Snapshot is too complex');
+    assert(depth < 32, 'LIMIT_EXCEEDED', 'Snapshot is too complex');
     if (v && typeof v === 'object') {
       for (const [k, x] of Object.entries(v)) {
         assert(
@@ -90,7 +89,6 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
     'INVALID_ARGUMENT',
     'At least one sheet must be visible',
   );
-  let count = 0;
   for (const sh of s.sheets) {
     const rows = new Set(sh.rowOrder),
       cols = new Set(sh.columnOrder);
@@ -100,7 +98,6 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
       'Duplicate row/column identity',
     );
     for (const [k, c] of Object.entries(sh.cells)) {
-      assert(++count <= LIMITS.cells, 'LIMIT_EXCEEDED', 'Too many cells');
       assert(
         rows.has(c.rowId) && cols.has(c.columnId) && k === key(c.rowId, c.columnId),
         'INVALID_ARGUMENT',

@@ -1456,3 +1456,50 @@ dialog::backdrop {
     height: 240px;
   }
 }
+
+.performance-controls {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+.performance-controls label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.performance-controls input {
+  width: 140px;
+  padding: 8px;
+  border: 1px solid var(--border, #dce3de);
+  border-radius: 6px;
+}
+.performance-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.performance-results {
+  overflow: auto;
+}
+.performance-results table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.performance-results td,
+.performance-results th {
+  padding: 8px;
+  border-bottom: 1px solid #dce3de;
+  text-align: left;
+  white-space: nowrap;
+}
+#perf-progress {
+  min-height: 40px;
+  font-weight: 600;
+}
+#perf-summary {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}

@@ -9,6 +9,43 @@
       ],
       "properties": {
         "type": {
+          "const": "core.cells.replace"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768
+            },
+            "replacement": {
+              "type": "string",
+              "maxLength": 32768
+            }
+          },
+          "required": [
+            "sheetId",
+            "query",
+            "replacement"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
           "const": "core.cells.set"
         },
         "payload": {

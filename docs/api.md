@@ -1,120 +1,77 @@
-# OpenSheet 0.1 API
+# OpenSheet API
 
-This guide describes current behavior. Numbered architecture documents describe long-term goals. When they differ, follow this guide, the type declarations and [implementation status](implementation-status.md).
+The default workbook engine runs in a module Worker and persists data in IndexedDB. Use a bundler that packages `new Worker(new URL(..., import.meta.url))`, such as Vite. Browser Workers, IndexedDB and Web Locks are required. Pure schemas, formula functions, snapshot readers and file adapters can be imported in Node; a workbook in a custom runtime requires an injected `workerFactory` and IndexedDB in that worker.
 
-## Instances and ownership
-
-`createOpenSheet({ container, mode: 'edit' | 'read', toolbar?, onError? })` creates a browser host. The container must exist and have an explicit height. Call `createWorkbook({ sheets? })` or `await load(snapshot)` afterward. Each instance owns one workbook; calling `createWorkbook` twice is rejected.
-
-`createWorkbook` is synchronous. `load` validates a snapshot, replaces the old workbook and reinstalls active plugins. Old workbook and sheet handles become disposed. `ready()` resolves immediately in 0.1. `dispose()` is idempotent and releases UI and listeners.
-
-The browser facade exposes `getWorkbook`, `setMode`, `getGrid`, `selection.get/set/onChange`, `commands.execute/describe/canExecute`, `plugins.get/has/remove`, `use`, `notify` and `on`. `canExecute` checks mode and schema quickly; `execute` performs full semantic validation.
-
-`on` supports `workbook:committed`, `selection:changed`, `plugin:error` and `lifecycle:disposed`, and returns an unsubscribe function. A commit includes commandId, previousRevision, revision, source, commands and changedRanges. In 0.1 changedRanges is empty and layout rebuilds on every commit. Undo/redo events have no commands; events are not a complete replication protocol.
-
-## Workbooks, ranges and transactions
-
-- `getSheets()` returns ordered sheet handles; `getSheetById` and `getSheetByName` return undefined when absent.
-- `addSheet(name, { rows?, columns? })`, `removeSheet(id)` and `renameSheet(id, name)` manage sheets.
-- `toJSON()` returns a defensive copy. `new Workbook(snapshot)` validates and restores it. `sheetData(id)` is frozen read-only data.
-- `execute(command | envelope)` accepts local commands or an envelope with protocolVersion=1, workbookId, commandId and baseRevision. The last 1,000 envelope requests are cached per instance for retry deduplication, not durable idempotency.
-- `transaction({ label? }, callback)` produces one revision, event and history entry. Nested transactions, promises and asynchronous I/O are rejected. Any command failure aborts the transaction, even when caught inside the callback.
-- `undo()` and `redo()` return success; `canUndo/canRedo` query availability. History retains at most 100 transactions and an estimated 32 MiB of patches; oversized individual mutations fail atomically.
-- `setReadOnly(true)` prevents writes and undo at the core layer. Protected array-formula imports cannot be forced back to edit mode.
+## Create, restore and close
 
 ```ts
-import { createWorkbook } from '@opensheetjs/core';
+import { createOpenSheet, createWorkbook, openWorkbook } from 'opensheet';
+import 'opensheet/style.css';
+const app = createOpenSheet({ container: '#sheet' });
+const book = await app.createWorkbook({ sheets: [{ name: 'Sales' }] });
+await book.getSheets()[0].range('A1:B2').setValues([['Month', 'Revenue'], ['January', 1200]]);
+await app.ready(); // first viewport is loaded and painted
+const id = book.id; // save this identifier to restore later
+app.dispose();
 
-const book = createWorkbook();
+const restored = await openWorkbook(id);
+const nextApp = createOpenSheet({ container: '#sheet' });
+await nextApp.attachWorkbook(restored);
+```
+
+`app.load(snapshot)` imports a materialized snapshot as a new local workbook and awaits its first viewport. `app.open(id, storageOptions)` restores a persistent workbook. `book.close()` releases the writer lock and closes the worker; `dispose()` terminates it immediately and rejects outstanding requests. Neither deletes saved data. `await book.deleteStorage()` explicitly deletes this workbook only.
+
+Storage options: `database`, `budgetBytes` (256 MiB default), `cacheBytes` (64 MiB Worker cache reservation), `viewportCacheBytes` (8 MiB), `operationTimeoutMs` (60 seconds), `workerFactory` and `onProgress`. Budget accounting includes encoded records, metadata, manifest, history and staged data. Browser physical usage and quota are separate estimates.
+
+## Reads and writes
+
+Metadata methods (`getSheets`, `getSheetById`, `sheetData`, `getStyle`, `usedRange`) are synchronous and expose immutable metadata. They do not enumerate stored cells. `getUsedRange()` uses persisted block extents.
+
+```ts
 const sheet = book.getSheets()[0];
-book.transaction({ label: 'Quote' }, () => {
-  sheet.range('A1:B1').setValues([[100, 3]]);
-  sheet.range('C1').setFormulas([['A1*B1']]);
+const values = await sheet.range('A1:B2').getValues();
+const inputs = await sheet.range('A1:B2').getInputs();
+await sheet.range('C2').setFormulas([['B2*2']]);
+await sheet.range('A1:C1').setStyle({ bold: true });
+await book.undo();
+await book.redo();
+```
+
+`getCell`, `value`, `display`, range reads and mutations are asynchronous. A single read batch is limited to 16,384 cells. Stream larger ranges:
+
+```ts
+for await (const batch of sheet.getUsedRange().stream({ signal: controller.signal })) {
+  // batch.cells, batch.calculated, batch.display, batch.range and batch.revision
+}
+```
+
+Streaming reads reject with `REVISION_CONFLICT` if the workbook changes during the stream. `values: false` skips calculation. Renderer-only `peekCell`, `peekValue`, `peekDisplay` and `isLoaded` consult cached data; unloaded values return `#LOADING` and are never treated as blank. `prefetch` loads complete 64 × 32 blocks; `onData` schedules repainting.
+
+## Atomic transactions and events
+
+Transactions use the scoped workbook passed to the callback. Reads inside the callback see committed data. Commands are collected, validated and atomically published after the callback succeeds. The scope expires when the callback finishes; do not retain its sheet handles.
+
+```ts
+await book.transaction({ label: 'Budget update' }, async tx => {
+  const sheet = tx.getSheets()[0];
+  await sheet.range('A1').setValues([[10]]);
+  await sheet.range('A2').setValues([[20]]);
 });
-console.log(sheet.range('C1').getValues()); // [[300]]
-book.undo();
-book.dispose();
-```
-
-Numeric coordinates are zero-based; Rect endRow/endColumn are exclusive. A1 addresses are case-insensitive. Selections can be passed as ranges. `setValues` requires a complete rectangle; null is blank, distinct from empty text, zero and false. Literal `=1+1` remains text in `setValues`; `setFormulas` explicitly sets formulas with or without a leading equals sign.
-
-`setInput(text)` applies single-cell UI parsing: equals starts a formula, apostrophe forces text, TRUE/FALSE are booleans, finite numbers become numeric values, and leading-zero or long identifiers remain text. Paste uses the same rules. `getValues` returns scalars or error objects, `getFormulas` returns expressions or null, and `getDisplayValues` returns formatted strings.
-
-```ts
-sheet.range('A1:B2').setValues([
-  [1, 2],
-  [3, 4],
-]);
-sheet.range('C1').setFormulas([['SUM(A1:B2)']]);
-sheet.range('A1:B2').setStyle({ bold: true, background: '#e1efe7' });
-sheet.range('C1:C10').fillDown();
-sheet.range('A1:B2').copyTo('D1:E2');
-```
-
-`clear()` keeps formatting; `clear({ all: true })` removes records. Merge rejects covered nonempty values unless `discardCoveredValues: true` is explicit. Covered cells and partial merged ranges cannot be edited or cleared. `unmerge` removes intersecting merges. Copy/fill operations do not handle merged ranges in 0.1.
-
-## Structure and view
-
-Sheet methods include `insertRows/deleteRows/insertColumns/deleteColumns(index, count=1)`, `setRowHeight`, `setColumnWidth`, `setRowHidden`, `setColumnHidden`, `setFreeze(rows, columns=0)`, `setFilter({ column, query } | null)` and `sort(range, column, 'asc' | 'desc')`.
-
-Sorting is stable: data/styles move and relative formulas use copy semantics; row identities and heights stay fixed. Formula sort keys and merged ranges are rejected. Filtering uses case-insensitive text inclusion, always keeping the first row as a header. Structural edits intersecting merges require unmerging first. Unsupported formula rewrites block structural edits. Deleted reference endpoints conservatively become #REF! rather than reproducing all Excel range shrinking rules.
-
-Styles include bold, italic, underline, six-digit hex color/background, fontSize, align, wrap, border and numberFormat. Wrapping needs sufficient row height; it does not automatically expand rows. Fonts and number formats support a limited subset.
-
-Formulas support common aggregate, logical, conditional, rounding and absolute-value functions, A1/$A$1 and cross-sheet references, ranges, comparisons, concatenation, percentages and arithmetic. There is no arbitrary code, network access or complete Excel coercion. Evaluation is synchronous and cached by revision. `await book.calculation.calculate({ revision? })` validates the revision and calculates; it is not Worker-based.
-
-## SheetJS interoperability
-
-```ts
-import * as XLSX from 'xlsx';
-import { fromSheetJS, toSheetJS } from '@opensheetjs/adapter-sheetjs';
-
-const imported = fromSheetJS(XLSX.read(buffer, { type: 'array', cellNF: true }));
-await app.load(imported.snapshot);
-console.log(imported.report);
-const exported = toSheetJS(app.getWorkbook().toJSON());
-console.log(exported.report); // Show compatibility warnings before downloading.
-XLSX.writeFile(exported.workbook, 'result.xlsx');
-```
-
-The adapter has no SheetJS runtime dependency and accepts structurally compatible objects. The workspace pins SheetJS CE 0.20.3 from its official archive; the lockfile records integrity. `{ unsupported: 'strict' }` rejects detected approximations, dropped features and blockers; it cannot prove lossless handling of parts not exposed by the parser.
-
-XLSX export does not write potentially stale formula results and reports external recalculation requirements. Preserve native JSON alongside exports. Imported caches display with a dagger at the original revision and expire on changes. Array formulas are read-only. See implementation status for styles, charts and macros.
-
-## Format exports
-
-```ts
-import { exportRange, parseDelimited } from '@opensheetjs/formats';
-const result = exportRange(book.toJSON(), {
-  sheetId: sheet.id,
-  range: 'A1:D10',
-  format: 'latex',
-  options: { booktabs: true, header: true },
+book.onCommit(({ revision, changedRanges, source }) => {
+  // Acknowledged only after IndexedDB commits the revision.
 });
-console.log(result.text, result.report, result.requiredPackages);
 ```
 
-Formats are latex, markdown, html, csv and tsv. CSV/TSV prefix dangerous formula text by default; `options.safe: false` preserves raw text. Numeric negative values are not rewritten. HTML escapes text and allows limited styles; LaTeX escapes content and reports required packages. Partial merged-range exports are rejected. `parseDelimited(text, separator=',')` handles quoting, multiline fields, BOM and CRLF, returning rectangular string rows.
+Concurrent writes through the parent workbook are rejected while a transaction collects commands. Nested transactions are rejected. `cancel()` aborts active staging or cancels an unsubmitted transaction. Failed staging never changes the committed revision. Undo/redo persists across reopen, with at most 100 steps and a 32 MiB delta budget. Commands exceeding the working-set or undo budget fail atomically; bulk generation/import creates a new workbook without individual-cell history.
 
-## Framework wrappers
+The workbook permits one writer across tabs, coordinated by Web Locks. Other tabs are read-only and receive revision invalidations through BroadcastChannel. Reopen after the writer closes to acquire write access. `isReadOnly` reflects the lock as well as application mode and enforced workbook restrictions.
 
-```tsx
-import { OpenSheetView } from '@opensheetjs/react';
-import 'opensheet/style.css';
-<OpenSheetView
-  initialSnapshot={snapshot}
-  readOnly={false}
-  onReady={(app) => console.log(app)}
-  onChange={(snapshot) => save(snapshot)}
-/>;
-```
+## Export and integrations
 
-```vue
-<script setup lang="ts">
-import { OpenSheetView } from '@opensheetjs/vue';
-import 'opensheet/style.css';
-</script>
-<template><OpenSheetView @ready="(app) => console.log(app)" /></template>
-```
+`await book.toJSON()` explicitly materializes a full snapshot and can require substantial memory; pass a selection to materialize a bounded preview. Normal rendering, events and framework callbacks do not invoke it. Use `streamJSON()` or `streamExport(book, config)` from `@opensheetjs/formats` for bounded input batches and feed the yielded strings to a file/Blob sink. A Blob download still retains its output bytes until download completes.
 
-initialSnapshot is read at mount only; later replacements use `app.load`. Set a height through React style or external Vue styling. Wrappers dispose at unmount. Types and built artifacts are checked; full framework-host lifecycle acceptance remains an integration responsibility.
+`search(sheetId, query, afterPosition)` scans in the Worker and returns the next match and total count. `replaceText` is atomic; sorting uses disk merge passes; structural edits rewrite affected references in staged blocks. Formula range aggregates stream referenced cells and calculation caches are bounded.
+
+Plugin range/snapshot reads and commands return promises; toolbar actions may be async. React `onChange` and Vue `change` now receive a commit rather than a full snapshot. React accepts `onError`; Vue emits `error`. See [plugin guide](plugins.md).
+
+Errors include `ABORTED`, `BUSY`, `READ_ONLY`, `STORAGE_BUDGET`, `QuotaExceededError`, `REVISION_CONFLICT`, `CORRUPT_STORAGE`, `WORKER_FAILED`, `WORKER_TIMEOUT`, input/range/operation limits and disposal. Worker timeouts stop the worker; reopen the last committed workbook to recover.

@@ -13,9 +13,12 @@ const numeric = (value: unknown) =>
 function metric(label: string, value: string, detail: string) {
   return `<div class="metric"><span>${label}</span><strong>${escapeHTML(value)}</strong><small>${detail}</small></div>`;
 }
-export function renderInsights(app: OpenSheet, state: PlaygroundState) {
+export async function renderInsights(app: OpenSheet, state: PlaygroundState) {
   const sheet = app.getWorkbook().getSheets()[0];
-  const rows = sheet.getUsedRange().getValues();
+  const b = sheet.getUsedRange().bounds;
+  const rows = await sheet
+    .range({ ...b, endRow: Math.min(b.endRow, 200), endColumn: Math.min(b.endColumn, 20) })
+    .getValues();
   let html = '';
   if (state.importedWorkbook) {
     $('scene-insights').innerHTML =

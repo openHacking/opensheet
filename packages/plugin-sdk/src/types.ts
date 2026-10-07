@@ -15,11 +15,11 @@ export interface PluginContext {
   selection: { get(): Selection | null };
   workbook: {
     getSnapshot(): ReturnType<Workbook['toJSON']>;
-    readRange(selection: Selection): { values: CellValue[][] };
-    execute(command: Command): void;
+    readRange(selection: Selection): Promise<{ values: CellValue[][] }>;
+    execute(command: Command): Promise<Commit | undefined>;
   };
   ui: {
-    toolbar: { add(action: { id: string; label: string; run(): void }): void };
+    toolbar: { add(action: { id: string; label: string; run(): void | Promise<void> }): void };
     notify(message: string): void;
   };
   onCommit(fn: (commit: Commit) => void): void;
@@ -39,7 +39,7 @@ export function definePlugin<T>(plugin: Plugin<T>): Plugin<T> {
 export interface PluginHost {
   getWorkbook(): Workbook;
   getSelection(): Selection | null;
-  addToolbar(action: { id: string; label: string; run(): void }): () => void;
+  addToolbar(action: { id: string; label: string; run(): void | Promise<void> }): () => void;
   notify(message: string): void;
   onError(error: unknown): void;
 }

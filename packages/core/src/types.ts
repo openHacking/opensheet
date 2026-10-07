@@ -2,7 +2,6 @@ import { z } from 'zod';
 export const LIMITS = {
   rows: 100000,
   columns: 1000,
-  cells: 200000,
   sheets: 20,
   rangeCells: 200000,
   text: 32768,

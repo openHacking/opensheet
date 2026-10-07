@@ -49,9 +49,9 @@ export class FormulaBar {
       'keydown',
       (e) => {
         if (e.key === 'Enter')
-          this.actions.run(() => {
+          this.actions.run(async () => {
             const s = this.actions.selection()!;
-            this.actions
+            await this.actions
               .book()
               .getSheetById(s.sheetId)!
               .range(address(s.startRow, s.startColumn))
@@ -72,7 +72,7 @@ export class FormulaBar {
   update(book: Workbook, s: Selection | null) {
     if (!s) return;
     this.namebox.value = rangeAddress(s);
-    const c = book.getCell(s.sheetId, s.startRow, s.startColumn);
+    const c = book.peekCell(s.sheetId, s.startRow, s.startColumn);
     if (document.activeElement !== this.formula)
       this.formula.value =
         c?.input.type === 'formula'

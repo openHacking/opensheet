@@ -14,3 +14,5 @@ Open-source TypeScript spreadsheet. Current implementation docs take precedence 
 - examples/plugin.ts: compile-checked plugin
 
 Main entry: opensheet; stylesheet: opensheet/style.css. Scoped packages: @opensheetjs/*. Use setValues for literal data and setFormulas for formulas. All writes go through commands. Transactions are synchronous. Numeric range ends are exclusive. Never mutate sheetData or claim full Excel compatibility. Dispose instances on unmount.
+
+Current engine: asynchronous Worker + IndexedDB, bounded caches and atomic staged revisions. API: docs/api.md. Performance example and measurement protocol: docs/performance.md.

@@ -16,31 +16,30 @@ export function createInteractions(
   bindings.on($<HTMLSelectElement>('zoom'), 'change', (e) =>
     app.getGrid()?.setZoom(Number((e.target as HTMLSelectElement).value)),
   );
-  function findNext() {
-    const query = $<HTMLInputElement>('find').value.toLowerCase();
+  async function findNext() {
+    const query = $<HTMLInputElement>('find').value;
     if (!query) return;
-    const s = app.selection.get()!,
-      sheet = app.getWorkbook().getSheetById(s.sheetId)!,
-      r = sheet.getUsedRange().bounds,
-      matches: Array<[number, number]> = [];
-    for (let row = 0; row < r.endRow; row++)
-      for (let c = 0; c < r.endColumn; c++)
-        if (app.getWorkbook().display(s.sheetId, row, c).toLowerCase().includes(query))
-          matches.push([row, c]);
-    if (!matches.length) {
-      notice('No matching cells');
-      return;
+    try {
+      const selection = app.selection.get()!,
+        book = app.getWorkbook();
+      const result = await book.search(selection.sheetId, query, state.foundIndex);
+      if (!result.match) {
+        notice('No matching cells');
+        return;
+      }
+      const { row, column } = result.match;
+      state.foundIndex = row * book.sheetData(selection.sheetId).columnOrder.length + column;
+      app.selection.set({
+        sheetId: selection.sheetId,
+        startRow: row,
+        endRow: row + 1,
+        startColumn: column,
+        endColumn: column + 1,
+      });
+      notice(`${result.count} matching cells`);
+    } catch (error) {
+      notice(String(error));
     }
-    state.foundIndex = (state.foundIndex + 1) % matches.length;
-    const [row, col] = matches[state.foundIndex];
-    app.selection.set({
-      sheetId: s.sheetId,
-      startRow: row,
-      endRow: row + 1,
-      startColumn: col,
-      endColumn: col + 1,
-    });
-    notice(`${state.foundIndex + 1} of ${matches.length} matches`);
   }
   bindings.on($('find-next'), 'click', findNext);
   bindings.on($('find'), 'keydown', (e) => {
@@ -49,7 +48,7 @@ export function createInteractions(
   bindings.on($('find'), 'input', () => {
     state.foundIndex = -1;
   });
-  bindings.on($<HTMLSelectElement>('sheet-action'), 'change', (e) => {
+  bindings.on($<HTMLSelectElement>('sheet-action'), 'change', async (e) => {
     const select = e.target as HTMLSelectElement,
       value = select.value;
     select.value = '';
@@ -60,38 +59,39 @@ export function createInteractions(
       switch (value) {
         case 'sort-asc':
         case 'sort-desc':
-          sh.sort(s, s.startColumn, value === 'sort-asc' ? 'asc' : 'desc');
+          await sh.sort(s, s.startColumn, value === 'sort-asc' ? 'asc' : 'desc');
           break;
         case 'delete-row':
-          sh.deleteRows(s.startRow, s.endRow - s.startRow);
+          await sh.deleteRows(s.startRow, s.endRow - s.startRow);
           break;
         case 'delete-column':
-          sh.deleteColumns(s.startColumn, s.endColumn - s.startColumn);
+          await sh.deleteColumns(s.startColumn, s.endColumn - s.startColumn);
           break;
         case 'hide-row':
-          sh.setRowHidden(s.startRow, true);
+          await sh.setRowHidden(s.startRow, true);
           break;
         case 'show-rows':
-          book.transaction({}, () => {
+          await book.transaction({}, async (book) => {
             const data = book.sheetData(sh.id);
-            data.rowOrder.forEach((id, i) => {
-              if (data.rows[id]?.hidden) sh.setRowHidden(i, false);
-            });
+            for (let i = 0; i < data.rowOrder.length; i++)
+              if (data.rows[data.rowOrder[i]]?.hidden)
+                await book.getSheetById(sh.id)!.setRowHidden(i, false);
           });
           break;
         case 'filter':
-          sh.setFilter({ column: s.startColumn, query: $<HTMLInputElement>('find').value });
+          await sh.setFilter({ column: s.startColumn, query: $<HTMLInputElement>('find').value });
           break;
         case 'clear-filter':
-          sh.setFilter(null);
+          await sh.setFilter(null);
           break;
         case 'rename': {
           const next = prompt('Sheet name', sh.name);
-          if (next) book.renameSheet(sh.id, next);
+          if (next) await book.renameSheet(sh.id, next);
           break;
         }
         case 'remove':
-          if (confirm(`Delete sheet “${sh.name}”? You can undo this.`)) book.removeSheet(sh.id);
+          if (confirm(`Delete sheet “${sh.name}”? You can undo this.`))
+            await book.removeSheet(sh.id);
           break;
         case 'replace': {
           const query = $<HTMLInputElement>('find').value;
@@ -101,17 +101,7 @@ export function createInteractions(
           }
           const replacement = prompt(`Replace “${query}” with:`);
           if (replacement === null) return;
-          book.transaction({}, () => {
-            const data = book.sheetData(sh.id);
-            for (const c of Object.values(data.cells))
-              if (c.input.type === 'string' && c.input.value.includes(query)) {
-                const row = data.rowOrder.indexOf(c.rowId),
-                  col = data.columnOrder.indexOf(c.columnId);
-                sh.range(address(row, col)).setValues([
-                  [c.input.value.replaceAll(query, replacement)],
-                ]);
-              }
-          });
+          await book.replaceText(sh.id, query, replacement);
           break;
         }
       }
@@ -119,7 +109,7 @@ export function createInteractions(
       notice(error instanceof Error ? error.message : String(error));
     }
   });
-  bindings.on($('accessible'), 'click', () => {
+  bindings.on($('accessible'), 'click', async () => {
     const s = app.selection.get()!,
       sheet = app.getWorkbook().getSheetById(s.sheetId)!,
       range = sheet.getUsedRange(),
@@ -128,7 +118,13 @@ export function createInteractions(
       caption = document.createElement('caption');
     caption.textContent = `${sheet.name} — first 200 rows (read-only accessible view)`;
     table.append(caption);
-    for (const row of range.getDisplayValues().slice(0, 200)) {
+    for (const row of await sheet
+      .range({
+        ...range.bounds,
+        endRow: Math.min(200, range.bounds.endRow),
+        endColumn: Math.min(80, range.bounds.endColumn),
+      })
+      .getDisplayValues()) {
       const tr = document.createElement('tr');
       for (const v of row) {
         const td = document.createElement('td');
@@ -140,12 +136,12 @@ export function createInteractions(
     box.append(table);
     modal('Accessible table view', box);
   });
-  const api = `import { createOpenSheet } from 'opensheet';\nimport 'opensheet/style.css';\n\nconst app = createOpenSheet({ container: '#sheet' });\nconst book = app.createWorkbook();\nconst sheet = book.getSheets()[0];\n\nsheet.range('A1:B2').setValues([\n  ['Product', 'Revenue'], ['OpenSheet', 1200]\n]);\nsheet.range('B3').setFormulas([['SUM(B2:B2)']]);\napp.on('workbook:committed', ({ revision }) => {\n  console.log(revision, book.toJSON());\n});\n\n// On unmount\napp.dispose();`;
+  const api = `import { createOpenSheet } from 'opensheet';\nimport 'opensheet/style.css';\n\nconst app = createOpenSheet({ container: '#sheet' });\nconst book = await app.createWorkbook();\nconst sheet = book.getSheets()[0];\n\nawait sheet.range('A1:B2').setValues([\n  ['Product', 'Revenue'], ['OpenSheet', 1200]\n]);\nawait sheet.range('B3').setFormulas([['SUM(B2:B2)']]);\napp.on('workbook:committed', ({ revision }) => {\n  console.log(revision);\n});\n\n// On unmount\napp.dispose();`;
   bindings.on($('nav-api'), 'click', () => textModal('API quick start', api));
   bindings.on($('nav-plugins'), 'click', () =>
     textModal(
       'The Σ Sum button is a plugin',
-      `definePlugin({\n  id: 'example.selection-sum',\n  version: '0.1.0',\n  apiVersion: '^0.1.0',\n  capabilities: ['selection.read', 'workbook.read', 'ui.toolbar'],\n  setup(ctx) {\n    ctx.ui.toolbar.add({\n      id: 'sum', label: 'Σ Sum',\n      run() {\n        const selection = ctx.selection.get();\n        const rows = ctx.workbook.readRange(selection).values;\n        const sum = rows.flat().reduce(\n          (total, n) => total + (typeof n === 'number' ? n : 0), 0\n        );\n        ctx.ui.notify(String(sum));\n      }\n    });\n  }\n});`,
+      `definePlugin({\n  id: 'example.selection-sum',\n  version: '0.1.0',\n  apiVersion: '^0.1.0',\n  capabilities: ['selection.read', 'workbook.read', 'ui.toolbar'],\n  setup(ctx) {\n    ctx.ui.toolbar.add({\n      id: 'sum', label: 'Σ Sum',\n      async run() {\n        const selection = ctx.selection.get();\n        const rows = (await ctx.workbook.readRange(selection)).values;\n        const sum = rows.flat().reduce(\n          (total, n) => total + (typeof n === 'number' ? n : 0), 0\n        );\n        ctx.ui.notify(String(sum));\n      }\n    });\n  }\n});`,
     ),
   );
   bindings.on($('help'), 'click', () =>

@@ -1,0 +1,731 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07T05:09:38.275Z",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+  "hardwareConcurrency": 10,
+  "deviceMemoryGiB": 16,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "workload": {
+    "columns": 100,
+    "seed": "LCG-1664525-1013904223",
+    "numbers": 0.6,
+    "text": 0.3,
+    "textBytes": 32,
+    "booleans": 0.1
+  },
+  "budgetMiB": 256,
+  "thresholds": {
+    "editP95Ms": 100,
+    "scrollP95Ms": 33,
+    "restoreMs": 10000
+  },
+  "quota": {
+    "quota": 4444426240,
+    "usage": 149458944,
+    "usageDetails": {
+      "indexedDB": 149458944
+    }
+  },
+  "memoryScope": "mainHeapBytes covers the main document where supported; workerCacheBytes and viewportCacheBytes are conservative encoded-byte reservations, not total process heap",
+  "largestPassed": 6870000,
+  "smallestFailed": 6880000,
+  "results": [
+    {
+      "cells": 10000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 32.80000000447035,
+          "verifyMs": 22.30000000447035,
+          "editP95Ms": 33.400000005960464,
+          "scrollP95Ms": 25.399999999999636,
+          "bytes": 364065,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 12091644,
+          "viewportCacheBytes": 5935524
+        },
+        {
+          "restoreMs": 40,
+          "verifyMs": 24.399999998509884,
+          "editP95Ms": 32.899999998509884,
+          "scrollP95Ms": 22.200000005959737,
+          "bytes": 364065,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 12091644,
+          "viewportCacheBytes": 5935524
+        },
+        {
+          "restoreMs": 47,
+          "verifyMs": 24.799999997019768,
+          "editP95Ms": 33.5,
+          "scrollP95Ms": 22.00000000595901,
+          "bytes": 364066,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 12091644,
+          "viewportCacheBytes": 5935532
+        }
+      ],
+      "elapsedMs": 45331.79999999702
+    },
+    {
+      "cells": 20000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 33.100000001490116,
+          "verifyMs": 46,
+          "editP95Ms": 33.29999999701977,
+          "scrollP95Ms": 23.5,
+          "bytes": 667386,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 22221124,
+          "viewportCacheBytes": 7635660
+        },
+        {
+          "restoreMs": 36.30000000447035,
+          "verifyMs": 50.19999999552965,
+          "editP95Ms": 37.100000001490116,
+          "scrollP95Ms": 22.40000000447617,
+          "bytes": 667386,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 22221124,
+          "viewportCacheBytes": 7635660
+        },
+        {
+          "restoreMs": 36,
+          "verifyMs": 47.19999999552965,
+          "editP95Ms": 33.600000001490116,
+          "scrollP95Ms": 24.000000005966285,
+          "bytes": 667387,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 22221124,
+          "viewportCacheBytes": 7635668
+        }
+      ],
+      "elapsedMs": 46178.79999999702
+    },
+    {
+      "cells": 40000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 19.100000001490116,
+          "verifyMs": 92.5,
+          "editP95Ms": 39,
+          "scrollP95Ms": 22.300000002986053,
+          "bytes": 1263513,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 42487648,
+          "viewportCacheBytes": 7613372
+        },
+        {
+          "restoreMs": 35,
+          "verifyMs": 93.70000000298023,
+          "editP95Ms": 35,
+          "scrollP95Ms": 22.700000002980232,
+          "bytes": 1263513,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 42487648,
+          "viewportCacheBytes": 7613372
+        },
+        {
+          "restoreMs": 32.20000000298023,
+          "verifyMs": 95.19999999552965,
+          "editP95Ms": 48.19999999552965,
+          "scrollP95Ms": 21.900000002977322,
+          "bytes": 1263514,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 42487648,
+          "viewportCacheBytes": 7613380
+        }
+      ],
+      "elapsedMs": 47028.80000000447
+    },
+    {
+      "cells": 80000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 32.20000000298023,
+          "verifyMs": 179.10000000149012,
+          "editP95Ms": 33.5,
+          "scrollP95Ms": 22.30000000447035,
+          "bytes": 2458037,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 58930368,
+          "viewportCacheBytes": 7670116
+        },
+        {
+          "restoreMs": 32.79999999701977,
+          "verifyMs": 182.80000000447035,
+          "editP95Ms": 33.899999998509884,
+          "scrollP95Ms": 22.500000001484295,
+          "bytes": 2458037,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 58930368,
+          "viewportCacheBytes": 7670116
+        },
+        {
+          "restoreMs": 32.900000005960464,
+          "verifyMs": 179.39999999850988,
+          "editP95Ms": 33.600000001490116,
+          "scrollP95Ms": 22.200000001495937,
+          "bytes": 2458038,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 58930368,
+          "viewportCacheBytes": 7670124
+        }
+      ],
+      "elapsedMs": 47481.89999999851
+    },
+    {
+      "cells": 160000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 33,
+          "verifyMs": 365.70000000298023,
+          "editP95Ms": 75.79999999701977,
+          "scrollP95Ms": 21.900000005960464,
+          "bytes": 4853106,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60243492,
+          "viewportCacheBytes": 7670056
+        },
+        {
+          "restoreMs": 32.399999998509884,
+          "verifyMs": 371.80000000447035,
+          "editP95Ms": 62,
+          "scrollP95Ms": 20.79999999998836,
+          "bytes": 4853106,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60243492,
+          "viewportCacheBytes": 7670056
+        },
+        {
+          "restoreMs": 33.30000000447035,
+          "verifyMs": 369.5,
+          "editP95Ms": 75,
+          "scrollP95Ms": 22.200000005948823,
+          "bytes": 4853107,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60243492,
+          "viewportCacheBytes": 7670064
+        }
+      ],
+      "elapsedMs": 50664
+    },
+    {
+      "cells": 320000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 33,
+          "verifyMs": 754.7999999970198,
+          "editP95Ms": 79,
+          "scrollP95Ms": 22.20000000001164,
+          "bytes": 9646536,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60415088,
+          "viewportCacheBytes": 7670056
+        },
+        {
+          "restoreMs": 33.19999999552965,
+          "verifyMs": 740.8999999985099,
+          "editP95Ms": 79.59999999403954,
+          "scrollP95Ms": 21.900000005960464,
+          "bytes": 9646536,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60415088,
+          "viewportCacheBytes": 7670056
+        },
+        {
+          "restoreMs": 33,
+          "verifyMs": 747,
+          "editP95Ms": 79.30000000447035,
+          "scrollP95Ms": 21.700000001466833,
+          "bytes": 9646537,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60415088,
+          "viewportCacheBytes": 7670064
+        }
+      ],
+      "elapsedMs": 52578.60000000149
+    },
+    {
+      "cells": 640000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 33.100000001490116,
+          "verifyMs": 1499.1000000014901,
+          "editP95Ms": 78.79999999701977,
+          "scrollP95Ms": 22.100000003003515,
+          "bytes": 19235065,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60505516,
+          "viewportCacheBytes": 7735344
+        },
+        {
+          "restoreMs": 36.29999999701977,
+          "verifyMs": 1505.5,
+          "editP95Ms": 78.29999999701977,
+          "scrollP95Ms": 22.100000003003515,
+          "bytes": 19235065,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60505516,
+          "viewportCacheBytes": 7735344
+        },
+        {
+          "restoreMs": 35.69999999552965,
+          "verifyMs": 1501.1000000014901,
+          "editP95Ms": 76.70000000298023,
+          "scrollP95Ms": 22.100000003003515,
+          "bytes": 19235066,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60505516,
+          "viewportCacheBytes": 7735352
+        }
+      ],
+      "elapsedMs": 56047.5
+    },
+    {
+      "cells": 1280000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 33.099999994039536,
+          "verifyMs": 3047.9000000059605,
+          "editP95Ms": 75.5,
+          "scrollP95Ms": 21.600000004458707,
+          "bytes": 38426234,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 38.600000001490116,
+          "verifyMs": 3016,
+          "editP95Ms": 74.80000000447035,
+          "scrollP95Ms": 21.700000005948823,
+          "bytes": 38426234,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 38.29999999701977,
+          "verifyMs": 3016.9000000059605,
+          "editP95Ms": 75.5,
+          "scrollP95Ms": 21.800000005983748,
+          "bytes": 38426235,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 64446.5
+    },
+    {
+      "cells": 2560000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 46.20000000298023,
+          "verifyMs": 6040.89999999851,
+          "editP95Ms": 82.10000000149012,
+          "scrollP95Ms": 22.900000005960464,
+          "bytes": 76844565,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 50.399999998509884,
+          "verifyMs": 6093.9000000059605,
+          "editP95Ms": 83.29999999701977,
+          "scrollP95Ms": 23.20000000001164,
+          "bytes": 76844565,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 51.099999994039536,
+          "verifyMs": 6102.4000000059605,
+          "editP95Ms": 82.20000000298023,
+          "scrollP95Ms": 23.200000001466833,
+          "bytes": 76844566,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 81662.39999999851
+    },
+    {
+      "cells": 5120000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 66.70000000298023,
+          "verifyMs": 12469.60000000149,
+          "editP95Ms": 89.10000000149012,
+          "scrollP95Ms": 22.50000000593718,
+          "bytes": 153681102,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 83.79999999701977,
+          "verifyMs": 12491.5,
+          "editP95Ms": 83.29999999701977,
+          "scrollP95Ms": 23.20000000449363,
+          "bytes": 153681102,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 82.39999999850988,
+          "verifyMs": 12440.70000000298,
+          "editP95Ms": 83.20000000298023,
+          "scrollP95Ms": 23.900000001536682,
+          "bytes": 153681103,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 117863.60000000149
+    },
+    {
+      "cells": 10000000,
+      "passed": false,
+      "rounds": [],
+      "failure": "STORAGE_BUDGET",
+      "elapsedMs": 12738.10000000149
+    },
+    {
+      "cells": 7560000,
+      "passed": false,
+      "rounds": [
+        {
+          "restoreMs": 99.70000000298023,
+          "verifyMs": 18753.70000000298,
+          "editP95Ms": 95.39999999850988,
+          "scrollP95Ms": 23.100000004516914,
+          "bytes": 226920257,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.80000000447035,
+          "verifyMs": 18734.5,
+          "editP95Ms": 101.70000000298023,
+          "scrollP95Ms": 22.70000000449363,
+          "bytes": 226920257,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        }
+      ],
+      "failure": "Interaction threshold exceeded",
+      "elapsedMs": 103123.20000000298
+    },
+    {
+      "cells": 6340000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 82.70000000298023,
+          "verifyMs": 15708,
+          "editP95Ms": 83.60000000149012,
+          "scrollP95Ms": 22.500000004423782,
+          "bytes": 190299944,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 85.79999999701977,
+          "verifyMs": 15546.20000000298,
+          "editP95Ms": 96.79999999701977,
+          "scrollP95Ms": 23.000000004423782,
+          "bytes": 190299944,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 84.70000000298023,
+          "verifyMs": 15546.79999999702,
+          "editP95Ms": 83.60000000149012,
+          "scrollP95Ms": 22.900000000023283,
+          "bytes": 190299945,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 133675.90000000596
+    },
+    {
+      "cells": 6950000,
+      "passed": false,
+      "rounds": [
+        {
+          "restoreMs": 96.69999999552965,
+          "verifyMs": 17290.5,
+          "editP95Ms": 99.70000000298023,
+          "scrollP95Ms": 23.5,
+          "bytes": 208607758,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.69999999552965,
+          "verifyMs": 17379.10000000149,
+          "editP95Ms": 99.90000000596046,
+          "scrollP95Ms": 22.400000000023283,
+          "bytes": 208607758,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 97.19999999552965,
+          "verifyMs": 17249.30000000447,
+          "editP95Ms": 103.60000000149012,
+          "scrollP95Ms": 22.700000002980232,
+          "bytes": 208607759,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "failure": "Interaction threshold exceeded",
+      "elapsedMs": 141160.59999999404
+    },
+    {
+      "cells": 6640000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 99.10000000149012,
+          "verifyMs": 16320.79999999702,
+          "editP95Ms": 85.20000000298023,
+          "scrollP95Ms": 23.20000000600703,
+          "bytes": 199304340,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.09999999403954,
+          "verifyMs": 16473.5,
+          "editP95Ms": 85.30000000447035,
+          "scrollP95Ms": 23.399999999906868,
+          "bytes": 199304340,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 100.5,
+          "verifyMs": 16482.79999999702,
+          "editP95Ms": 91.29999999701977,
+          "scrollP95Ms": 23.20000000600703,
+          "bytes": 199304341,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 137628.3999999985
+    },
+    {
+      "cells": 6790000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 87.39999999850988,
+          "verifyMs": 16931.80000000447,
+          "editP95Ms": 85,
+          "scrollP95Ms": 23.100000001490116,
+          "bytes": 203805847,
+          "mainHeapBytes": 19300000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 99.80000000447035,
+          "verifyMs": 16877.5,
+          "editP95Ms": 90.5,
+          "scrollP95Ms": 22.900000001536682,
+          "bytes": 203805847,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.60000000149012,
+          "verifyMs": 16917.89999999851,
+          "editP95Ms": 93.89999999850988,
+          "scrollP95Ms": 22.900000005960464,
+          "bytes": 203805848,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 139660.6000000015
+    },
+    {
+      "cells": 6870000,
+      "passed": true,
+      "rounds": [
+        {
+          "restoreMs": 83.70000000298023,
+          "verifyMs": 17149.5,
+          "editP95Ms": 97.59999999403954,
+          "scrollP95Ms": 22.300000000046566,
+          "bytes": 206208889,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.60000000149012,
+          "verifyMs": 17057.89999999851,
+          "editP95Ms": 98.80000000447035,
+          "scrollP95Ms": 23.500000004423782,
+          "bytes": 206208889,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.69999999552965,
+          "verifyMs": 17155.60000000149,
+          "editP95Ms": 99.80000000447035,
+          "scrollP95Ms": 23.20000000600703,
+          "bytes": 206208890,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735712
+        }
+      ],
+      "elapsedMs": 140943.59999999404
+    },
+    {
+      "cells": 6910000,
+      "passed": false,
+      "rounds": [
+        {
+          "restoreMs": 89.89999999850988,
+          "verifyMs": 17298.39999999851,
+          "editP95Ms": 98.80000000447035,
+          "scrollP95Ms": 22.100000004516914,
+          "bytes": 207408003,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.09999999403954,
+          "verifyMs": 17321.10000000149,
+          "editP95Ms": 100.89999999850988,
+          "scrollP95Ms": 22.700000002980232,
+          "bytes": 207408003,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        }
+      ],
+      "failure": "Interaction threshold exceeded",
+      "elapsedMs": 97644.39999999851
+    },
+    {
+      "cells": 6890000,
+      "passed": false,
+      "rounds": [
+        {
+          "restoreMs": 99.59999999403954,
+          "verifyMs": 17213.10000000149,
+          "editP95Ms": 83.5,
+          "scrollP95Ms": 23.30000000447035,
+          "bytes": 206807796,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 97.20000000298023,
+          "verifyMs": 17172.19999999553,
+          "editP95Ms": 100.5,
+          "scrollP95Ms": 23.100000000093132,
+          "bytes": 206807796,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        }
+      ],
+      "failure": "Interaction threshold exceeded",
+      "elapsedMs": 97279.89999999851
+    },
+    {
+      "cells": 6880000,
+      "passed": false,
+      "rounds": [
+        {
+          "restoreMs": 84.10000000149012,
+          "verifyMs": 17237.19999999553,
+          "editP95Ms": 92,
+          "scrollP95Ms": 22.900000002933666,
+          "bytes": 206506712,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        },
+        {
+          "restoreMs": 98.19999999552965,
+          "verifyMs": 17151.89999999851,
+          "editP95Ms": 100.10000000149012,
+          "scrollP95Ms": 23.200000004377216,
+          "bytes": 206506712,
+          "mainHeapBytes": 42100000,
+          "workerCacheBytes": 60525300,
+          "viewportCacheBytes": 7735704
+        }
+      ],
+      "failure": "Interaction threshold exceeded",
+      "elapsedMs": 97328.79999999702
+    }
+  ],
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.19.0",
+  "headless": true,
+  "engineFormat": "paged-v4",
+  "browserVersion": "153.0.8010.12",
+  "mode": "capacity",
+  "status": "finished",
+  "protocol": {
+    "rounds": 3,
+    "editWarmups": 5,
+    "editSamples": 100,
+    "scrollWarmups": 30,
+    "scrollSamples": 300,
+    "blockRows": 64,
+    "blockColumns": 32,
+    "workerCacheBudgetBytes": 67108864,
+    "viewportCacheBudgetBytes": 8388608
+  }
+}

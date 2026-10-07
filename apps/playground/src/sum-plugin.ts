@@ -8,10 +8,10 @@ export const sumPlugin = definePlugin({
     ctx.ui.toolbar.add({
       id: 'example.selection-sum.run',
       label: 'Σ Sum',
-      run() {
+      async run() {
         const s = ctx.selection.get();
         if (s) {
-          const values = ctx.workbook.readRange(s).values.flat();
+          const values = (await ctx.workbook.readRange(s)).values.flat();
           const total = values.reduce<number>((sum, v) => sum + (typeof v === 'number' ? v : 0), 0);
           ctx.ui.notify(`Selected numbers sum to ${total.toLocaleString()}`);
         }

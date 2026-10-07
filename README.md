@@ -12,21 +12,22 @@
 
 ## Try it
 
-Explore four interactive examples, powered by the same OpenSheet API:
+Explore five interactive examples, powered by the same OpenSheet API:
 
 | Demo                                                                | What to try                                                                |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | [Budget Simulator](https://openhacking.github.io/opensheet/#budget) | Change quantities and prices; watch totals and spending indicators update. |
 | [Sales Dashboard](https://openhacking.github.io/opensheet/#sales)   | Edit monthly revenue; see live metrics and a revenue chart.                |
 | [Project Planner](https://openhacking.github.io/opensheet/#planner) | Adjust task dates and progress; update a project timeline.                 |
+| [Performance Lab](https://openhacking.github.io/opensheet/#performance) | Measure the largest editable populated workbook within a storage budget. |
 | [Table to Code](https://openhacking.github.io/opensheet/#code)      | Edit cells and export LaTeX, Markdown, HTML, CSV or TSV.                   |
 
-Files are processed in your browser. No account, uploads or telemetry. Download JSON to keep your edits; refreshing restores the sample. Charts and timelines are demo application components.
+Files are processed in your browser. No account, uploads or telemetry. Edits are committed to IndexedDB; refreshing restores the local workbook. Download JSON for a portable backup. Charts and timelines are demo application components.
 
 ## Features
 
 - **Embeddable editor** — a virtualized Canvas grid, DOM cell editor, keyboard navigation, selection, clipboard, frozen panes and zoom.
-- **Workbook engine** — multiple sheets, typed values, synchronous atomic transactions, undo/redo and a headless TypeScript API.
+- **Workbook engine** — multiple sheets, typed values, asynchronous atomic transactions, persistent undo/redo, Worker computation and bounded caches.
 - **Formulas and formatting** — arithmetic, relative/absolute and cross-sheet references, common functions, cell styles and merged ranges.
 - **File interoperability** — SheetJS adapters, browser Worker imports, compatibility reports and XLSX export.
 - **Cells to code** — LaTeX, Markdown, HTML, CSV and TSV generation, plus native JSON snapshots.
@@ -34,7 +35,7 @@ Files are processed in your browser. No account, uploads or telemetry. Download 
 
 ## Usage
 
-**Version 0.1.0 is a development preview.** Install the browser package with `npm install opensheet`, or use `@opensheetjs/core` for headless workbooks. See [Contributing](CONTRIBUTING.md) for workspace setup.
+**Version 0.1.0 is a development preview.** Install the browser package with `npm install opensheet`, or use `@opensheetjs/core` for workbooks without an editor. See [Contributing](CONTRIBUTING.md) for workspace setup.
 
 ```ts
 import { createOpenSheet } from 'opensheet';
@@ -42,21 +43,21 @@ import 'opensheet/style.css';
 
 // The container must exist and have an explicit height.
 const app = createOpenSheet({ container: '#sheet' });
-const book = app.createWorkbook({ sheets: [{ name: 'Sales' }] });
+const book = await app.createWorkbook({ sheets: [{ name: 'Sales' }] });
 const sheet = book.getSheetByName('Sales')!;
 
-sheet.range('A1:B3').setValues([
+await sheet.range('A1:B3').setValues([
   ['Month', 'Revenue'],
   ['January', 1200],
   ['February', 1800],
 ]);
-sheet.range('B4').setFormulas([['SUM(B2:B3)']]);
+await sheet.range('B4').setFormulas([['SUM(B2:B3)']]);
 
 // Release the instance when your component unmounts.
 app.dispose();
 ```
 
-For headless workbooks, import `createWorkbook` from `@opensheetjs/core`. Framework wrappers use `@opensheetjs/react` and `@opensheetjs/vue`. [Read the API guide](docs/api.md).
+For browser workbooks without a UI, import `createWorkbook` from `@opensheetjs/core`. Framework wrappers use `@opensheetjs/react` and `@opensheetjs/vue`. [Read the API guide](docs/api.md).
 
 ## Packages
 
@@ -82,7 +83,7 @@ For headless workbooks, import `createWorkbook` from `@opensheetjs/core`. Framew
 
 ## Current limitations
 
-OpenSheet does not promise lossless Excel compatibility. Complex styles, charts, macros, array formulas and other unsupported file features have explicit limits. Keep native JSON for supported OpenSheet data. Formula evaluation and number formatting cover a subset of Excel behavior. The project has not reached a stable v1 API or completed full performance and assistive-technology validation. See [implementation status](docs/implementation-status.md).
+OpenSheet does not promise lossless Excel compatibility. Complex styles, charts, macros, array formulas and other unsupported file features have explicit limits. Keep native JSON for supported OpenSheet data. Formula evaluation and number formatting cover a subset of Excel behavior. The project has not reached a stable v1 API or completed full performance and assistive-technology validation. Workbooks require browser Workers, IndexedDB and Web Locks. Caches are bounded; explicit full snapshots and the SheetJS XLSX boundary can require more memory. See [implementation status](docs/implementation-status.md) and [performance protocol](docs/performance.md).
 
 ## Contributing
 

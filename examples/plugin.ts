@@ -8,12 +8,11 @@ export const selectionSum = definePlugin({
     ctx.ui.toolbar.add({
       id: 'example.sum.button',
       label: 'Sum',
-      run() {
+      async run() {
         const selected = ctx.selection.get();
         if (!selected) return;
-        const sum = ctx.workbook
-          .readRange(selected)
-          .values.flat()
+        const sum = (await ctx.workbook.readRange(selected)).values
+          .flat()
           .reduce<number>((n, v) => n + (typeof v === 'number' ? v : 0), 0);
         ctx.ui.notify(String(sum));
       },

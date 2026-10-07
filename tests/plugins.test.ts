@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { PluginRegistry, definePlugin, type PluginHost } from '@opensheetjs/plugin-sdk';
 import { createWorkbook } from '@opensheetjs/core';
-function host() {
-  const book = createWorkbook(),
+async function host() {
+  const book = await createWorkbook(),
     removed = vi.fn(),
     error = vi.fn();
   const h: PluginHost = {
@@ -15,8 +15,8 @@ function host() {
   return { registry: new PluginRegistry(h), removed, error, book };
 }
 describe('plugins', () => {
-  it('installs dependencies in order and cleans resources in reverse', () => {
-    const { registry, removed } = host(),
+  it('installs dependencies in order and cleans resources in reverse', async () => {
+    const { registry, removed } = await host(),
       order: string[] = [];
     const a = definePlugin({
       id: 'example.a',
@@ -57,8 +57,8 @@ describe('plugins', () => {
     expect(order.slice(-2)).toEqual(['dispose-b', 'dispose-a']);
     expect(removed).toHaveBeenCalledTimes(1);
   });
-  it('rolls back partial installation and setup resources', () => {
-    const { registry, removed } = host();
+  it('rolls back partial installation and setup resources', async () => {
+    const { registry, removed } = await host();
     expect(() =>
       registry.use([
         definePlugin({
@@ -76,8 +76,8 @@ describe('plugins', () => {
     expect(registry.has('example.bad')).toBe(false);
     expect(removed).toHaveBeenCalledTimes(1);
   });
-  it('rejects missing permissions and incompatible versions', () => {
-    const { registry } = host();
+  it('rejects missing permissions and incompatible versions', async () => {
+    const { registry } = await host();
     expect(() =>
       registry.use([
         definePlugin({

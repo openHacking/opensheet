@@ -8,6 +8,10 @@ declare global {
 }
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
+  await page.waitForFunction(
+    () =>
+      !!window.opensheet?.selection.get() && !!document.querySelector('#scene-title')?.textContent,
+  );
   await expect(page.getByRole('grid', { name: 'Spreadsheet', exact: true })).toBeVisible();
   await expect(page.locator('#source')).toContainText('tabular');
 });
@@ -15,8 +19,8 @@ test('renders the local workbook, formula totals and source preview', async ({ p
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await expect(page.getByRole('heading', { name: 'Budget Simulator' })).toBeVisible();
-  const total = await page.evaluate(() =>
-    window.opensheet.getWorkbook().getSheets()[0].range('F11').getValues(),
+  const total = await page.evaluate(
+    async () => await window.opensheet.getWorkbook().getSheets()[0].range('F11').getValues(),
   );
   expect(total).toEqual([[13097]]);
   await page.getByRole('tab', { name: 'Code export' }).click();
@@ -37,20 +41,20 @@ test('edits with the DOM editor, recalculates, undoes and redoes', async ({ page
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).fill('3');
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).press('Enter');
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('F2').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('F2').getValues(),
     ),
   ).toEqual([[7200]]);
   await page.getByRole('button', { name: 'Undo', exact: true }).click();
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('D2').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('D2').getValues(),
     ),
   ).toEqual([[1]]);
   await page.getByRole('button', { name: 'Redo', exact: true }).click();
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('D2').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('D2').getValues(),
     ),
   ).toEqual([[3]]);
 });
@@ -60,8 +64,8 @@ test('uses the formula bar, tab navigation and independent worksheets', async ({
   await page.getByRole('textbox', { name: 'Formula bar', exact: true }).fill('=SUM(D2:D10)');
   await page.getByRole('textbox', { name: 'Formula bar', exact: true }).press('Enter');
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('H2').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('H2').getValues(),
     ),
   ).toEqual([[15]]);
   await page.getByRole('tab', { name: 'Notes', exact: true }).click();
@@ -83,8 +87,8 @@ test('blocks edits in read-only mode and preserves keyboard selection', async ({
   await grid.press('ArrowRight');
   await expect(page.getByRole('textbox', { name: 'Cell address', exact: true })).toHaveValue('B1');
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
     ),
   ).toEqual([['Item']]);
 });
@@ -96,8 +100,8 @@ test('pastes a matrix atomically and protects IME composition from Enter', async
     app.getGrid()!.pasteText('姓名\t数量\n测试\t2');
   });
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('A16:B17').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('A16:B17').getValues(),
     ),
   ).toEqual([
     ['姓名', '数量'],
@@ -114,8 +118,8 @@ test('pastes a matrix atomically and protects IME composition from Enter', async
   await editor.dispatchEvent('compositionend');
   await editor.press('Enter');
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('A16').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('A16').getValues(),
     ),
   ).toEqual([['中文输入']]);
 });
@@ -134,11 +138,12 @@ test('imports a real XLSX in a Worker and exports a downloadable XLSX', async ({
     buffer: bytes,
   });
   await expect(page.getByRole('tab', { name: 'Imported', exact: true })).toBeVisible();
+  await expect(page.locator('#save-state')).toContainText('Imported locally');
   if (await page.getByRole('dialog').isVisible())
     await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('B2').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('B2').getValues(),
     ),
   ).toEqual([[7]]);
   await page.getByRole('button', { name: 'Export XLSX', exact: false }).click();
@@ -175,7 +180,7 @@ test('provides an accessible data table and a functional plugin', async ({ page 
   await expect(page.getByRole('cell', { name: 'Brand identity', exact: true })).toBeVisible();
 });
 test('loads saved JSON and cleans up old plugin UI', async ({ page }) => {
-  const snapshot = await page.evaluate(() => window.opensheet.getWorkbook().toJSON());
+  const snapshot = await page.evaluate(async () => await window.opensheet.getWorkbook().toJSON());
   await page.locator('#file').setInputFiles({
     name: 'saved.json',
     mimeType: 'application/json',
@@ -186,8 +191,8 @@ test('loads saved JSON and cleans up old plugin UI', async ({ page }) => {
     page.getByRole('button', { name: 'Σ Sum', exact: true, includeHidden: true }),
   ).toHaveCount(1);
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('F11').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('F11').getValues(),
     ),
   ).toEqual([[13097]]);
 });
@@ -201,7 +206,6 @@ test('uses a responsive layout without body overflow', async ({ page }) => {
     fullPage: true,
   });
 });
-
 test('scrolls to distant selections and reads the edited frozen-grid cell', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Cell address', exact: true }).fill('J80');
   await page.getByRole('textbox', { name: 'Cell address', exact: true }).press('Enter');
@@ -211,12 +215,11 @@ test('scrolls to distant selections and reads the edited frozen-grid cell', asyn
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).fill('distant');
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).press('Enter');
   expect(
-    await page.evaluate(() =>
-      window.opensheet.getWorkbook().getSheets()[0].range('J80').getValues(),
+    await page.evaluate(
+      async () => await window.opensheet.getWorkbook().getSheets()[0].range('J80').getValues(),
     ),
   ).toEqual([['distant']]);
 });
-
 test('cell editor grows for long wrapped and multiline text without visible scrollbars', async ({
   page,
 }) => {
@@ -272,15 +275,14 @@ test('cell editor grows for long wrapped and multiline text without visible scro
   );
   await editor.press('Escape');
 });
-
 test('merged cells select their full rectangle with pointer, API, and keyboard', async ({
   page,
 }) => {
-  const point = await page.evaluate(() => {
+  const point = await page.evaluate(async () => {
     const app = window.opensheet;
     const sheet = app.getWorkbook().getSheets()[0];
-    sheet.range('H2').setValues([['merged']]);
-    sheet.range('H2:J4').merge();
+    await sheet.range('H2').setValues([['merged']]);
+    await sheet.range('H2:J4').merge();
     const scroller = document.querySelector('.os-scroll')!;
     scroller.scrollLeft = 800;
     const grid = document.querySelector('.os-grid')!.getBoundingClientRect();
@@ -366,20 +368,20 @@ test('merged cells select their full rectangle with pointer, API, and keyboard',
     endColumn: 10,
   });
 });
-
 test('frozen row and column respect custom header height while scrolling', async ({ page }) => {
   const colors = await page.evaluate(async () => {
     const app = window.opensheet;
     const sheet = app.getWorkbook().getSheets()[0];
-    sheet.setRowHeight(0, 52);
-    sheet.setFreeze(1, 1);
-    sheet.range('A1').setStyle({ background: '#ff0000' });
-    sheet.range('B2').setStyle({ background: '#0000ff' });
+    await sheet.setRowHeight(0, 52);
+    await sheet.setFreeze(1, 1);
+    await sheet.range('A1').setStyle({ background: '#ff0000' });
+    await sheet.range('B2').setStyle({ background: '#0000ff' });
     app.selection.set({ sheetId: sheet.id, startRow: 1, endRow: 2, startColumn: 1, endColumn: 2 });
     const scroller = document.querySelector('.os-scroll')!;
     scroller.scrollTop = 24;
     scroller.scrollLeft = 24;
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await app.getGrid()!.ready();
     const canvas = document.querySelector<HTMLCanvasElement>('.os-canvas')!;
     const ctx = canvas.getContext('2d')!;
     const pixel = (x: number, y: number) =>
@@ -400,7 +402,7 @@ test('frozen row and column respect custom header height while scrolling', async
   const zoomedHeaders = await page.evaluate(async () => {
     const app = window.opensheet;
     const sheet = app.getWorkbook().getSheets()[0];
-    sheet.setRowHidden(1, true);
+    await sheet.setRowHidden(1, true);
     app.getGrid()!.setZoom(1.5);
     app.selection.set({ sheetId: sheet.id, startRow: 2, endRow: 3, startColumn: 0, endColumn: 1 });
     document.querySelector('.os-scroll')!.scrollTop = 0;
@@ -413,7 +415,6 @@ test('frozen row and column respect custom header height while scrolling', async
   });
   expect(zoomedHeaders[0]).not.toEqual(zoomedHeaders[1]);
 });
-
 test('action icons render as SVG while controls keep accessible names', async ({ page }) => {
   for (const name of ['Undo', 'Redo', 'Merge', 'Freeze first row']) {
     const button = page.getByRole('button', { name, exact: true });
@@ -425,7 +426,6 @@ test('action icons render as SVG while controls keep accessible names', async ({
     await expect(page.getByRole('button', { name, exact: true }).locator('svg')).toHaveCount(1);
   }
 });
-
 test('toolbar moves trailing actions into More tools instead of scrolling', async ({ page }) => {
   await page.setViewportSize({ width: 600, height: 800 });
   const toolbar = page.getByRole('toolbar', { name: 'Spreadsheet tools' });
@@ -450,12 +450,14 @@ test('toolbar moves trailing actions into More tools instead of scrolling', asyn
   });
   await toolbar.getByRole('button', { name: 'Freeze first row' }).click();
   await expect(more).toHaveAttribute('aria-expanded', 'false');
-  expect(
-    await page.evaluate(() => {
-      const app = window.opensheet;
-      return app.getWorkbook().sheetData(app.getWorkbook().getSheets()[0].id).freeze.rows;
-    }),
-  ).toBe(freezeRows ? 0 : 1);
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const app = window.opensheet;
+        return app.getWorkbook().sheetData(app.getWorkbook().getSheets()[0].id).freeze.rows;
+      }),
+    )
+    .toBe(freezeRows ? 0 : 1);
   await page.setViewportSize({ width: 320, height: 800 });
   await expect(more).toBeVisible();
   expect(await toolbar.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(
@@ -468,18 +470,17 @@ test('toolbar moves trailing actions into More tools instead of scrolling', asyn
   await expect(more).toBeHidden();
   await expect(toolbar.getByRole('button', { name: 'Freeze first row' })).toBeVisible();
 });
-
 test('merged cells crossing frozen panes clip and scroll each pane independently', async ({
   page,
 }) => {
   const colors = await page.evaluate(async () => {
     const app = window.opensheet,
       sheet = app.getWorkbook().getSheets()[0];
-    for (let column = 0; column < 9; column++) sheet.setColumnWidth(column, 60);
-    sheet.setRowHeight(0, 52);
-    sheet.range('H1').setStyle({ background: '#ff00ff' });
-    sheet.range('H1:I2').merge();
-    sheet.setFreeze(1, 8);
+    for (let column = 0; column < 9; column++) await sheet.setColumnWidth(column, 60);
+    await sheet.setRowHeight(0, 52);
+    await sheet.range('H1').setStyle({ background: '#ff00ff' });
+    await sheet.range('H1:I2').merge();
+    await sheet.setFreeze(1, 8);
     const scroller = document.querySelector('.os-scroll')!;
     scroller.scrollLeft = 45;
     scroller.scrollTop = 25;
@@ -503,7 +504,6 @@ test('merged cells crossing frozen panes clip and scroll each pane independently
   expect(colors.beyondRight).toEqual([255, 255, 255]);
   expect(colors.beyondBottom).toEqual([255, 255, 255]);
 });
-
 test('replacing workbooks and disposing twice releases component resources', async ({ page }) => {
   const result = await page.evaluate(async () => {
     const NativeResizeObserver = window.ResizeObserver;
@@ -562,7 +562,7 @@ test('replacing workbooks and disposing twice releases component resources', asy
       cleanups = 0,
       disposedEvents = 0;
     try {
-      editor.createWorkbook();
+      await editor.createWorkbook();
       editor.on('lifecycle:disposed', () => {
         disposedEvents++;
         editor.dispose();
@@ -581,7 +581,7 @@ test('replacing workbooks and disposing twice releases component resources', asy
           });
         },
       });
-      for (let i = 0; i < 3; i++) await editor.load(editor.getWorkbook().toJSON());
+      for (let i = 0; i < 3; i++) await editor.load(await editor.getWorkbook().toJSON());
       editor.notify('Dispose this timer');
       editor.dispose();
       editor.dispose();
@@ -611,22 +611,26 @@ test('replacing workbooks and disposing twice releases component resources', asy
     grids: 0,
   });
 });
-
 test('cancels imports on scene changes and ignores previously queued Worker results', async ({
   page,
 }) => {
-  await page.evaluate(() => {
-    const workers: Array<{ terminated: boolean; deliver?: (event: MessageEvent) => unknown }> = [];
+  await page.evaluate(async () => {
+    const workers: Array<{
+      terminated: boolean;
+      deliver?: (event: MessageEvent) => unknown;
+    }> = [];
     Object.assign(window, {
       testWorkers: workers,
-      staleSnapshot: window.opensheet.getWorkbook().toJSON(),
+      staleSnapshot: await window.opensheet.getWorkbook().toJSON(),
     });
+    const NativeWorker = window.Worker;
     window.Worker = class {
       onmessage: ((event: MessageEvent) => unknown) | null = null;
       onerror: (() => unknown) | null = null;
       terminated = false;
       deliver?: (event: MessageEvent) => unknown;
-      constructor() {
+      constructor(url: URL | string, options?: WorkerOptions) {
+        if (!String(url).includes('file.worker')) return new NativeWorker(url, options) as any;
         workers.push(this);
       }
       postMessage() {
@@ -656,20 +660,19 @@ test('cancels imports on scene changes and ignores previously queued Worker resu
   await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
   expect(await page.evaluate(() => (window as any).testWorkers[0].terminated)).toBe(true);
 });
-
 test('sheet switches expand selection using the target sheet merges after removal', async ({
   page,
 }) => {
-  const selection = await page.evaluate(() => {
+  const selection = await page.evaluate(async () => {
     const app = window.opensheet;
     const book = app.getWorkbook();
     const old = book.getSheets()[0];
-    const target = book.addSheet('Merged target');
-    target.range('A1:B2').merge();
+    const target = await book.addSheet('Merged target');
+    await target.range('A1:B2').merge();
     app.selection.set({ sheetId: target.id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
     const afterSwitch = app.selection.get();
     app.selection.set({ sheetId: old.id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
-    book.removeSheet(old.id);
+    await book.removeSheet(old.id);
     app.selection.set({ sheetId: target.id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
     return { targetId: target.id, afterSwitch, afterRemoval: app.selection.get() };
   });

@@ -1,3 +1,5 @@
+> Workbook reads/commands are asynchronous. Await `readRange`, `getSnapshot` and `execute`; toolbar actions may return promises. `getSnapshot` materializes data, so use bounded range reads during ordinary interaction.
+
 # Writing OpenSheet plugins
 
 The current SDK apiVersion is `0.1.0` / `^0.1.0`. Install plugins with `app.use` after creating or loading a workbook.
@@ -14,10 +16,10 @@ const sumPlugin = definePlugin({
     ctx.ui.toolbar.add({
       id: 'example.sum.button',
       label: 'Σ Sum',
-      run() {
+      async run() {
         const selection = ctx.selection.get();
         if (!selection) return;
-        const values = ctx.workbook.readRange(selection).values.flat();
+        const values = (await ctx.workbook.readRange(selection)).values.flat();
         const total = values.reduce<number>(
           (sum, value) => sum + (typeof value === 'number' ? value : 0),
           0,

@@ -1,12 +1,11 @@
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
-import { createWorkbook } from '../packages/core/dist/index.js';
+import { createSnapshot, SnapshotReader, key } from '../packages/core/dist/index.js';
 import { createOpenSheet } from '../packages/opensheet/dist/index.js';
 import { OpenSheetView as ReactView } from '../packages/react/dist/index.js';
 import { OpenSheetView as VueView } from '../packages/vue/dist/index.js';
 import { toSheetJS, fromSheetJS } from '../packages/adapter-sheetjs/dist/index.js';
 import { exportRange } from '../packages/formats/dist/index.js';
-import { workbookFromRows } from '../packages/testing/dist/index.js';
 import { definePlugin } from '../packages/plugin-sdk/dist/index.js';
 execFileSync(
   'pnpm',
@@ -26,20 +25,26 @@ execFileSync(
   { stdio: 'inherit' },
 );
 assert.equal(typeof globalThis.document, 'undefined');
-const book = createWorkbook(),
-  sheet = book.getSheets()[0];
-sheet.range('A1:B1').setValues([[1, 2]]);
-sheet.range('C1').setFormulas([['SUM(A1:B1)']]);
-assert.deepEqual(sheet.range('C1').getValues(), [[3]]);
-const restored = fromSheetJS(toSheetJS(book.toJSON()).workbook);
-assert.equal(restored.snapshot.sheets.length, 1);
-assert.match(exportRange(book.toJSON(), { sheetId: sheet.id, format: 'latex' }).text, /tabular/);
+const snapshot = createSnapshot(),
+  sheet = snapshot.sheets[0];
+for (let col = 0; col < 3; col++)
+  sheet.cells[key(sheet.rowOrder[0], sheet.columnOrder[col])] = {
+    rowId: sheet.rowOrder[0],
+    columnId: sheet.columnOrder[col],
+    input:
+      col === 2
+        ? { type: 'formula', expression: 'SUM(A1:B1)' }
+        : { type: 'number', value: col + 1 },
+  };
+const reader = new SnapshotReader(snapshot);
+assert.deepEqual(reader.getSheetById(sheet.id).range('C1').getValues(), [[3]]);
+assert.equal(fromSheetJS(toSheetJS(snapshot).workbook).snapshot.sheets.length, 1);
+assert.match(exportRange(snapshot, { sheetId: sheet.id, format: 'latex' }).text, /tabular/);
 assert.equal(typeof createOpenSheet, 'function');
 assert.equal(typeof ReactView, 'function');
 assert.ok(VueView);
 assert.equal(typeof definePlugin, 'function');
-assert.equal(workbookFromRows([[1]]).getSheets().length, 1);
-book.dispose();
+reader.dispose();
 console.log(
-  'PASS: all built package entry points import headlessly; formulas, adapters and formats work.',
+  'PASS: built package entry points import without a DOM; snapshot formulas, adapters and formats work. Worker-backed workbooks are verified in browser tests.',
 );

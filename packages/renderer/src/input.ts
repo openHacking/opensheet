@@ -11,7 +11,7 @@ export interface InputActions {
   run(action: () => unknown): void;
   range(): Range;
   readOnly(): boolean;
-  copy(): string;
+  copy(): Promise<string>;
   paste(text: string): void;
 }
 export class GridInput {
@@ -78,7 +78,10 @@ export class GridInput {
       'copy',
       (e) => {
         if (editor.isEditing) return;
-        e.clipboardData?.setData('text/plain', actions.copy());
+        actions.run(async () => {
+          const text = await actions.copy();
+          await navigator.clipboard.writeText(text);
+        });
         e.preventDefault();
       },
       { signal },
@@ -87,7 +90,10 @@ export class GridInput {
       'cut',
       (e) => {
         if (editor.isEditing || actions.readOnly()) return;
-        e.clipboardData?.setData('text/plain', actions.copy());
+        actions.run(async () => {
+          const text = await actions.copy();
+          await navigator.clipboard.writeText(text);
+        });
         e.preventDefault();
         actions.run(() => actions.range().clear());
       },

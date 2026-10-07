@@ -29,15 +29,15 @@ describe('formulas', () => {
       error: '#LIMIT!',
     });
   });
-  it('catches cycles and invalidates formula results after every write', () => {
-    const b = createWorkbook(),
+  it('catches cycles and invalidates formula results after every write', async () => {
+    const b = await createWorkbook(),
       s = b.getSheets()[0];
-    s.range('A1:B1').setFormulas([['B1', 'A1']]);
-    expect(s.range('A1').getValues()).toEqual([[{ error: '#CYCLE!' }]]);
-    s.range('B1').setValues([[42]]);
-    expect(s.range('A1').getValues()).toEqual([[42]]);
-    b.undo();
-    expect(s.range('A1').getValues()).toEqual([[{ error: '#CYCLE!' }]]);
+    await s.range('A1:B1').setFormulas([['B1', 'A1']]);
+    expect(await s.range('A1').getValues()).toEqual([[{ error: '#CYCLE!' }]]);
+    await s.range('B1').setValues([[42]]);
+    expect(await s.range('A1').getValues()).toEqual([[42]]);
+    await b.undo();
+    expect(await s.range('A1').getValues()).toEqual([[{ error: '#CYCLE!' }]]);
   });
   it('copies relative references without changing absolute refs or string literals', () => {
     expect(offsetFormula('A1+$B$2+"A1"', 1, 2)).toContain('C2');

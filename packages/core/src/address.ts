@@ -51,9 +51,7 @@ export function validateRect(r: Rect): void {
     'Invalid range bounds',
   );
   assert(
-    r.endRow <= LIMITS.rows &&
-      r.endColumn <= LIMITS.columns &&
-      (r.endRow - r.startRow) * (r.endColumn - r.startColumn) <= LIMITS.rangeCells,
+    r.endRow <= LIMITS.rows && r.endColumn <= LIMITS.columns,
     'LIMIT_EXCEEDED',
     'Range exceeds resource limits',
   );

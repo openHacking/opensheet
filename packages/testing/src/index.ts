@@ -1,6 +1,6 @@
 import { createWorkbook, type Primitive, type WorkbookSnapshot, Workbook } from '@opensheetjs/core';
-export function workbookFromRows(rows: Primitive[][], name = 'Sheet1') {
-  const book = createWorkbook({
+export async function workbookFromRows(rows: Primitive[][], name = 'Sheet1') {
+  const book = await createWorkbook({
     sheets: [
       {
         name,
@@ -10,7 +10,7 @@ export function workbookFromRows(rows: Primitive[][], name = 'Sheet1') {
     ],
   });
   if (rows.length)
-    book
+    await book
       .getSheets()[0]
       .range({ startRow: 0, startColumn: 0, endRow: rows.length, endColumn: rows[0].length })
       .setValues(rows);
@@ -21,9 +21,9 @@ export function normalizedSnapshot(snapshot: WorkbookSnapshot) {
   copy.revision = 0;
   return copy;
 }
-export function roundTrip(snapshot: WorkbookSnapshot) {
-  const restored = new Workbook(JSON.parse(JSON.stringify(snapshot)));
-  const result = restored.toJSON();
+export async function roundTrip(snapshot: WorkbookSnapshot) {
+  const restored = await new Workbook(JSON.parse(JSON.stringify(snapshot))).ready();
+  const result = await restored.toJSON();
   restored.dispose();
   return result;
 }

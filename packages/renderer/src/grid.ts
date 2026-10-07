@@ -28,6 +28,9 @@ export class CanvasGrid {
   private abort = new AbortController();
   private resize: ResizeObserver;
   private stop: () => void;
+  private stopData: () => void;
+  private fetching = false;
+  private fetchError?: unknown;
   private disposed = false;
   private zoom = 1;
   constructor(
@@ -138,6 +141,7 @@ export class CanvasGrid {
       if (this.cellEditor.isEditing) this.positionEditor();
       this.schedule();
     });
+    this.stopData = book.onData(() => this.schedule());
     this.resize = new ResizeObserver(() => {
       if (this.cellEditor.isEditing) this.positionEditor();
       this.schedule();
@@ -231,7 +235,7 @@ export class CanvasGrid {
   }
   private run(fn: () => unknown) {
     try {
-      fn();
+      Promise.resolve(fn()).catch((e) => this.options.onError?.(e));
     } catch (e) {
       this.options.onError?.(e);
     }
@@ -266,6 +270,7 @@ export class CanvasGrid {
   private draw() {
     if (this.disposed) return;
     if (this.layoutState.dirty) this.layout();
+    void this.prepareViewport();
     paintGrid(
       this.book,
       this.sheetId,
@@ -277,6 +282,89 @@ export class CanvasGrid {
       this.canvas,
       this.ariaCell,
       this.scroller,
+    );
+  }
+  private viewportRanges(): Selection[] {
+    const sh = this.book.sheetData(this.sheetId),
+      row = this.layoutState.index(this.layoutState.rowOffsets, this.scroller.scrollTop),
+      col = this.layoutState.index(this.layoutState.columnOffsets, this.scroller.scrollLeft);
+    const range = {
+      sheetId: sh.id,
+      startRow: Math.max(0, row - 8),
+      endRow: Math.min(
+        sh.rowOrder.length,
+        this.layoutState.index(
+          this.layoutState.rowOffsets,
+          this.scroller.scrollTop + this.element.clientHeight,
+        ) + 9,
+      ),
+      startColumn: Math.max(0, col - 2),
+      endColumn: Math.min(
+        sh.columnOrder.length,
+        this.layoutState.index(
+          this.layoutState.columnOffsets,
+          this.scroller.scrollLeft + this.element.clientWidth,
+        ) + 3,
+      ),
+    };
+    const frozenRows = Math.min(
+      sh.freeze.rows,
+      this.layoutState.index(this.layoutState.rowOffsets, this.element.clientHeight) + 1,
+    );
+    const frozenColumns = Math.min(
+      sh.freeze.columns,
+      this.layoutState.index(this.layoutState.columnOffsets, this.element.clientWidth) + 1,
+    );
+    const ranges = [range];
+    if (sh.freeze.rows) ranges.push({ ...range, startRow: 0, endRow: frozenRows });
+    if (sh.freeze.columns)
+      ranges.push({
+        ...range,
+        startColumn: 0,
+        endColumn: frozenColumns,
+      });
+    if (sh.freeze.rows && sh.freeze.columns)
+      ranges.push({
+        sheetId: sh.id,
+        startRow: 0,
+        endRow: frozenRows,
+        startColumn: 0,
+        endColumn: frozenColumns,
+      });
+    return ranges;
+  }
+  private async prepareViewport() {
+    if (this.fetching || this.disposed) return;
+    this.fetching = true;
+    try {
+      for (const range of this.viewportRanges()) await this.book.prefetch(range.sheetId, range);
+    } catch (error) {
+      this.fetchError = error;
+      this.options.onError?.(error);
+    } finally {
+      this.fetching = false;
+    }
+  }
+  async ready() {
+    if (this.layoutState.dirty) this.layout();
+    while (this.fetching)
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    if (this.fetchError) {
+      const error = this.fetchError;
+      this.fetchError = undefined;
+      throw error;
+    }
+    await this.prepareViewport();
+    if (this.fetchError) {
+      const error = this.fetchError;
+      this.fetchError = undefined;
+      throw error;
+    }
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => {
+        this.draw();
+        resolve();
+      }),
     );
   }
   startEditing(text?: string) {
@@ -344,7 +432,7 @@ export class CanvasGrid {
   }
   pasteText(text: string) {
     if (this.options.readOnly) return;
-    this.run(() => this.setSelection(pasteText(this.book, this.selected, text)));
+    this.run(async () => this.setSelection(await pasteText(this.book, this.selected, text)));
   }
   dispose() {
     if (this.disposed) return;
@@ -352,6 +440,7 @@ export class CanvasGrid {
     this.abort.abort();
     this.input.dispose();
     this.stop();
+    this.stopData();
     this.resize.disconnect();
     cancelAnimationFrame(this.raf);
     this.element.remove();

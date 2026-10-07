@@ -41,13 +41,17 @@ try {
   page.on('response', (response) => {
     if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`);
   });
-  for (const id of ['budget', 'sales', 'planner', 'code']) {
+  for (const id of ['budget', 'sales', 'planner', 'code', 'performance']) {
     await page.goto(`http://127.0.0.1:5185/opensheet/#${id}`);
     await page.waitForSelector('.os-grid');
+    await page.waitForFunction(() => !document.querySelector('#scene-select')?.disabled);
     await page.reload();
     await page.waitForSelector('.os-grid');
+    await page.waitForFunction(() => !document.querySelector('#scene-select')?.disabled);
     assert.equal(await page.locator('#scene-select').inputValue(), id);
   }
+  await page.goto('http://127.0.0.1:5185/opensheet/#code');
+  await page.waitForFunction(() => !document.querySelector('#scene-select')?.disabled);
   const { utils, write } = await import('xlsx');
   const workbook = utils.book_new(
     utils.aoa_to_sheet([
@@ -64,7 +68,8 @@ try {
   await page.getByRole('tab', { name: 'Imported', exact: true }).waitFor();
   assert.equal(
     await page.evaluate(
-      () => window.opensheet.getWorkbook().getSheets()[0].range('B2').getValues()[0][0],
+      async () =>
+        (await window.opensheet.getWorkbook().getSheets()[0].range('B2').getValues())[0][0],
     ),
     7,
   );
