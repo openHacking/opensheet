@@ -36,7 +36,7 @@ export function mountPage() {
   <span class="nav-label space-top">DEVELOPER TOOLS</span>
   <button class="nav-item" id="nav-api">${icon(Braces)} API quick start</button>
   <button class="nav-item" id="nav-plugins">${icon(Braces)} Plugin example</button>
-  <div class="sidebar-bottom"><div class="privacy-mark">${icon(ShieldCheck)} <span>Your data stays yours.</span></div><p>Files are processed on your device.<br>No account. No uploads.</p><div class="version"><span class="dot"></span> Open source <span>v0.1.0</span></div></div>
+  <div class="sidebar-bottom"><div class="privacy-mark">${icon(ShieldCheck)} <span>Your data stays yours.</span></div><p>Files are processed on your device.<br>No account. No uploads.</p><div class="version"><span class="dot"></span> Open source <span>v0.1.1</span></div></div>
 </aside>
 <div class="page">
   <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <span id="page-name">Playground</span></div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">${icon(HelpCircle)}</button><span class="avatar">OS</span></div></header>

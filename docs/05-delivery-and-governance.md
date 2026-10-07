@@ -4,7 +4,7 @@
 
 ## Release principles
 
-The current release is a development preview, not stable v1. Public claims must reflect tested behavior. Version 0.1.0 is published to npm; source publication and Pages deployment are separate from registry publication.
+The current release is a development preview, not stable v1. Public claims must reflect tested behavior. Version 0.1.1 is published to npm; source publication and Pages deployment are separate from registry publication.
 
 Keep the core usable independently of UI or hosted infrastructure. Public features use the same validated model and command semantics. Maintain dependency licenses and notices in distributed bundles.
 

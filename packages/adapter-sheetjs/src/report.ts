@@ -2,7 +2,7 @@ import { OpenSheetError } from '@opensheetjs/core';
 import type { AdapterOptions, CompatibilityReport, Issue } from './types.js';
 export function report(): CompatibilityReport {
   return {
-    adapterVersion: '0.1.0',
+    adapterVersion: '0.1.1',
     sourceFormat: 'SheetJS',
     summary: { exact: 0, approximated: 0, dropped: 0, blocked: 0 },
     issues: [],

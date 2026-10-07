@@ -35,7 +35,7 @@ Files are processed in your browser. No account, uploads or telemetry. Edits are
 
 ## Usage
 
-**Version 0.1.0 is a development preview.** Install the browser package with `npm install opensheet`, or use `@opensheetjs/core` for workbooks without an editor. See [Contributing](CONTRIBUTING.md) for workspace setup.
+**Version 0.1.1 is a development preview.** Install the browser package with `npm install opensheet`, or use `@opensheetjs/core` for workbooks without an editor. See [Contributing](CONTRIBUTING.md) for workspace setup.
 
 ```ts
 import { createOpenSheet } from 'opensheet';

@@ -28,7 +28,7 @@ writeFileSync(
   'api-manifest.json',
   JSON.stringify(
     {
-      version: '0.1.0',
+      version: '0.1.1',
       schemaVersion: 3,
       pluginApiVersion: '0.1.0',
       entrypoints: {

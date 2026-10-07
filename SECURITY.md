@@ -1,6 +1,6 @@
 # Security policy
 
-OpenSheet 0.1.0 is a development preview. The active development branch receives fixes; no stable support matrix or security response SLA is promised.
+OpenSheet 0.1.1 is a development preview. The active development branch receives fixes; no stable support matrix or security response SLA is promised.
 
 ## Reporting a vulnerability
 
