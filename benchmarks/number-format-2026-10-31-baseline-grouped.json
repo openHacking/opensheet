@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-30T17:12:05.412Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "logicalCores": 10,
+  "memoryBytes": 17179869184,
+  "powerMode": "unrecorded",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 220,
+    "sha256": "9c25e094ad8ebd158c4cb05afa5f0570a28283ea5ac9c9767cb1914a07ffe8b2"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "cd9f9b76741ba8f746e38bf3ae89a896848453834fdd9c7231e04132281f020f"
+  },
+  "count": 50000,
+  "rounds": 5,
+  "scope": "Warmed Node process; 50,000 synchronous formatted values per sample. Does not include Worker transport, browser paint, workbook reads, memory or interactive latency.",
+  "results": [
+    {
+      "format": "0.00",
+      "checksum": 2826830841,
+      "samplesMs": [
+        4201.5205,
+        4053.950208,
+        2796.5625,
+        2789.2274159999997,
+        1788.3990000000013
+      ]
+    },
+    {
+      "format": "#,##0.00",
+      "checksum": 402787895,
+      "samplesMs": [
+        1754.4180840000008,
+        2553.4026669999985,
+        2289.5568749999984,
+        3090.5985,
+        2237.7842920000003
+      ]
+    },
+    {
+      "format": "0.0%",
+      "checksum": 908332683,
+      "samplesMs": [
+        2405.8923749999994,
+        1758.3281670000033,
+        1690.2427499999976,
+        1724.078207999999,
+        1797.403207999996
+      ]
+    },
+    {
+      "format": "$0.00",
+      "checksum": 2784581625,
+      "samplesMs": [
+        1700.3266660000008,
+        1452.6869580000057,
+        1169.9009159999987,
+        1231.6811250000028,
+        1239.2047499999971
+      ]
+    },
+    {
+      "format": "yyyy-mm-dd hh:mm",
+      "checksum": 1294518797,
+      "samplesMs": [
+        58.0702089999977,
+        31.04279200000019,
+        35.439542000000074,
+        35.67483400000492,
+        46.96037499999511
+      ]
+    },
+    {
+      "format": "m/d/yy h:mm",
+      "checksum": 4276775917,
+      "samplesMs": [
+        42.27008300000307,
+        51.27287500000239,
+        30.25379200000316,
+        29.807749999999942,
+        34.362583000001905
+      ]
+    }
+  ],
+  "finishedAt": "2026-10-30T17:12:51.267Z"
+}

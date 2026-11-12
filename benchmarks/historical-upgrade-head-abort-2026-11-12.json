@@ -1,0 +1,469 @@
+{
+  "startedAt": "2026-11-12T10:23:12.111Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 377,
+    "sha256": "a72dc99d056c9b3bf35a6e396f4cfd6c7e6ea1a37050050c158aca316cf06ee7"
+  },
+  "node": "v22.19.0",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        }
+      },
+      "fault": {
+        "triggered": true,
+        "error": "AbortError",
+        "revisionUnchanged": true,
+        "unchanged": true,
+        "historicalValues": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        }
+      },
+      "fault": {
+        "triggered": true,
+        "error": "AbortError",
+        "revisionUnchanged": true,
+        "unchanged": true,
+        "historicalValues": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        }
+      },
+      "fault": {
+        "triggered": true,
+        "error": "AbortError",
+        "revisionUnchanged": true,
+        "unchanged": true,
+        "historicalValues": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    }
+  ],
+  "injectHeadAbort": true,
+  "scope": "Published npm core 0.1.1 and locally packed 0.2.0-dev.0, separately installed and esbuild-bundled in one localhost origin. Synthetic workbook, one sample per browser; not complete historical compatibility, crash testing, independent toolchain, physical devices or safe downgrade certification.",
+  "historical": {
+    "name": "@opensheetjs/core",
+    "version": "0.1.1",
+    "integrity": "sha512-7Sin0Eh6nJMDyoLU7oEjifEIOXZHgZujuEvVheUChWCqbXPOMtJ3zIptiBehiJfUDNxsOuKBLuSJxcFmW4nyFw==",
+    "sha256": "335770053ca5be85497d7fa1373d7e2e0e195009a9aa9aeba2dfc5f070e8bf3a"
+  },
+  "candidate": {
+    "coreSha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2",
+    "formulaSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+  },
+  "oldAssets": {
+    "main": "b833cc1f26479b25c365c92e0db0a6cb2f0632a281fde1eef6cb31b34562f4bc",
+    "worker": "11c1e2308f3bdcbfc1631a3d1c1eb693660c03de11062f845b13dcd773ef43cd",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-head-abort-2026-11-12.old-consumer-lock.yaml",
+      "sha256": "ce785d9bb9726a7e272ec12536565455fc0ab9b7962c95687402258536164f54"
+    }
+  },
+  "newAssets": {
+    "main": "9a2bdb3bc5f883f08c50c9b61a23676a3c46e71d5b5ed394086cfe29b8712273",
+    "worker": "9e214bf0915434b2de734c0950e7abfd4773e15dbb5b722a8fb6db13c4b993e1",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-head-abort-2026-11-12.new-consumer-lock.yaml",
+      "sha256": "fb43050561eeabe38a463eab32c07818109a253b11b5b6d7fc724bab2c806671"
+    }
+  },
+  "finishedAt": "2026-11-12T10:23:18.671Z"
+}

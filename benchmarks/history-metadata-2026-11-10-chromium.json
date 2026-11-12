@@ -1,0 +1,91 @@
+{
+  "startedAt": "2026-11-10T08:03:37.966Z",
+  "engine": "chromium",
+  "workload": "metadata",
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 248,
+    "sha256": "f2ea292f26f637e4c93920b23449945141d238719328f53018c3ccc94e491e8c"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "91fb7c0090d6bb7ed10de3ae10363066ab7dbd16bd64d207b713f57ba5027f3d"
+  },
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless local production preview; three fresh contexts, 100 sheet renames with distinct stored metadata and complete undo/redo checks. Reopen includes editor attachment and first viewport, not just history validation. No Worker heap or cross-device claim.",
+  "rounds": [
+    {
+      "round": 1,
+      "setupMs": 360.5,
+      "reopenMs": [
+        87.09999990463257,
+        84.19999980926514,
+        82.09999990463257
+      ],
+      "undoMs": 488.59999990463257,
+      "redoMs": 472.69999980926514,
+      "verifiedCellsPerFullCheck": 1,
+      "undoSteps": 100,
+      "redoSteps": 100,
+      "stats": {
+        "bytes": 1095331,
+        "cacheBytes": 1354,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 0
+      }
+    },
+    {
+      "round": 2,
+      "setupMs": 384.59999990463257,
+      "reopenMs": [
+        79.40000009536743,
+        81.2999997138977,
+        82.2000002861023
+      ],
+      "undoMs": 465.09999990463257,
+      "redoMs": 458.7000002861023,
+      "verifiedCellsPerFullCheck": 1,
+      "undoSteps": 100,
+      "redoSteps": 100,
+      "stats": {
+        "bytes": 1095331,
+        "cacheBytes": 1354,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 0
+      }
+    },
+    {
+      "round": 3,
+      "setupMs": 356,
+      "reopenMs": [
+        77.69999980926514,
+        81,
+        83.19999980926514
+      ],
+      "undoMs": 460.8999996185303,
+      "redoMs": 436.40000009536743,
+      "verifiedCellsPerFullCheck": 1,
+      "undoSteps": 100,
+      "redoSteps": 100,
+      "stats": {
+        "bytes": 1095331,
+        "cacheBytes": 1354,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 0
+      }
+    }
+  ]
+}

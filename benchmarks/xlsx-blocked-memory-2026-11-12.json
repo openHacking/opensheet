@@ -1,0 +1,518 @@
+{
+  "startedAt": "2026-11-12T03:47:00.593Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 347,
+    "sha256": "56e9f93af39c49b51a2d0e110c31211bb9fc999b51cb298f06d10945cd40a37d"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Separate Node processes; 100k synthetic cells, one overlong text first or last. Retain and discard are modes of the same build, not a before/after release comparison. Heap is sampled after explicit GC; peak RSS includes fixture construction. Excludes workbook snapshot, XLSX writer, browser Worker and other workloads.",
+  "samples": [
+    {
+      "round": 1,
+      "mode": "retain",
+      "position": "first",
+      "elapsedMs": 211.45941700000003,
+      "before": {
+        "rss": 124207104,
+        "heapTotal": 54886400,
+        "heapUsed": 11751512,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 140378112,
+        "heapTotal": 68009984,
+        "heapUsed": 26478664,
+        "external": 2312617,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 143712,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "A1",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 1,
+      "mode": "discard",
+      "position": "first",
+      "elapsedMs": 169.407292,
+      "before": {
+        "rss": 126009344,
+        "heapTotal": 54624256,
+        "heapUsed": 11752120,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 129564672,
+        "heapTotal": 54886400,
+        "heapUsed": 12181504,
+        "external": 2953270,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 127328,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "A1",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 1,
+      "mode": "retain",
+      "position": "last",
+      "elapsedMs": 166.104958,
+      "before": {
+        "rss": 126517248,
+        "heapTotal": 55934976,
+        "heapUsed": 11746304,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 142458880,
+        "heapTotal": 67747840,
+        "heapUsed": 26469680,
+        "external": 2443944,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 145744,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "J10000",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 1,
+      "mode": "discard",
+      "position": "last",
+      "elapsedMs": 170.108041,
+      "before": {
+        "rss": 132775936,
+        "heapTotal": 63537152,
+        "heapUsed": 11743376,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 142000128,
+        "heapTotal": 71401472,
+        "heapUsed": 12178928,
+        "external": 3035316,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 151056,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "J10000",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 2,
+      "mode": "discard",
+      "position": "first",
+      "elapsedMs": 124.76249999999999,
+      "before": {
+        "rss": 132857856,
+        "heapTotal": 63537152,
+        "heapUsed": 11752400,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 136314880,
+        "heapTotal": 69042176,
+        "heapUsed": 12181840,
+        "external": 2509741,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 133920,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "A1",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 2,
+      "mode": "retain",
+      "position": "first",
+      "elapsedMs": 203.93908299999998,
+      "before": {
+        "rss": 133136384,
+        "heapTotal": 63275008,
+        "heapUsed": 11751952,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 148701184,
+        "heapTotal": 82690048,
+        "heapUsed": 26477160,
+        "external": 3002551,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 151440,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "A1",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 2,
+      "mode": "discard",
+      "position": "last",
+      "elapsedMs": 184.840125,
+      "before": {
+        "rss": 133038080,
+        "heapTotal": 63012864,
+        "heapUsed": 11747224,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 142147584,
+        "heapTotal": 71925760,
+        "heapUsed": 12179056,
+        "external": 3035316,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 151200,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "J10000",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 2,
+      "mode": "retain",
+      "position": "last",
+      "elapsedMs": 180.79674999999997,
+      "before": {
+        "rss": 132464640,
+        "heapTotal": 63799296,
+        "heapUsed": 11747624,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 148783104,
+        "heapTotal": 82952192,
+        "heapUsed": 26464888,
+        "external": 2936754,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 151520,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "J10000",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 3,
+      "mode": "retain",
+      "position": "first",
+      "elapsedMs": 534.112833,
+      "before": {
+        "rss": 133545984,
+        "heapTotal": 63012864,
+        "heapUsed": 11745656,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 150650880,
+        "heapTotal": 82952192,
+        "heapUsed": 26476688,
+        "external": 2854708,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 153344,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "A1",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 3,
+      "mode": "discard",
+      "position": "first",
+      "elapsedMs": 166.106042,
+      "before": {
+        "rss": 133513216,
+        "heapTotal": 63537152,
+        "heapUsed": 11752088,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 136511488,
+        "heapTotal": 69042176,
+        "heapUsed": 12182280,
+        "external": 2559022,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 134240,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "A1",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 3,
+      "mode": "retain",
+      "position": "last",
+      "elapsedMs": 184.01970900000003,
+      "before": {
+        "rss": 133136384,
+        "heapTotal": 63799296,
+        "heapUsed": 11753064,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 149815296,
+        "heapTotal": 82952192,
+        "heapUsed": 26465016,
+        "external": 3035316,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 152528,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "J10000",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    {
+      "round": 3,
+      "mode": "discard",
+      "position": "last",
+      "elapsedMs": 175.534708,
+      "before": {
+        "rss": 133955584,
+        "heapTotal": 63012864,
+        "heapUsed": 11747168,
+        "external": 2163010,
+        "arrayBuffers": 16623
+      },
+      "after": {
+        "rss": 142966784,
+        "heapTotal": 72187904,
+        "heapUsed": 12178984,
+        "external": 2936754,
+        "arrayBuffers": 16623
+      },
+      "maxRssKiB": 152000,
+      "verified": 100000,
+      "report": {
+        "summary": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 1
+        },
+        "issues": [
+          {
+            "code": "XLSX_TEXT_LENGTH_BLOCKED",
+            "feature": "text",
+            "message": "XLSX text cells must not exceed 32,767 UTF-16 code units",
+            "action": "blocked",
+            "severity": "error",
+            "address": "J10000",
+            "count": 1
+          }
+        ],
+        "omitted": 0
+      }
+    }
+  ]
+}

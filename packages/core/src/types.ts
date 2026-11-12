@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { isSafeLinkTarget } from './links.js';
+import { filterSchema } from './filter-schema.js';
 export const LIMITS = {
   rows: 100000,
   columns: 1000,
@@ -47,15 +49,24 @@ export const rectSchema = z.object({
   endRow: z.number().int().positive(),
   endColumn: z.number().int().positive(),
 });
+export const linkSchema = z
+  .object({
+    target: z
+      .string()
+      .min(1)
+      .max(4096)
+      .refine(isSafeLinkTarget, 'Use an absolute HTTP, HTTPS or mailto URL without whitespace'),
+    tooltip: z.string().max(1000).optional(),
+  })
+  .strict();
+export type CellLink = z.infer<typeof linkSchema>;
 export const cellSchema = z.object({
   rowId: z.number().int().min(0).max(0xffffffff),
   columnId: z.number().int().min(0).max(0xffffffff),
   input: inputSchema,
   styleId: id.optional(),
   numberFormat: z.string().max(200).optional(),
-  link: z
-    .object({ target: z.string().max(4096), tooltip: z.string().max(1000).optional() })
-    .optional(),
+  link: linkSchema.optional(),
   note: z.string().max(LIMITS.text).optional(),
   cached: scalarSchema.optional(),
 });
@@ -81,7 +92,7 @@ export const sheetSchema = z.object({
   ),
   merges: z.array(rectSchema).max(10000),
   freeze: z.object({ rows: z.number().int().min(0), columns: z.number().int().min(0) }),
-  filter: z.object({ column: z.number().int().min(0), query: z.string().max(1000) }).nullable(),
+  filter: filterSchema,
   hidden: z.boolean(),
 });
 export const snapshotSchema = z.object({

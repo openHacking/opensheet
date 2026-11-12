@@ -1,0 +1,91 @@
+{
+  "startedAt": "2026-11-11T08:24:29.822Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 278,
+    "sha256": "d03a55b2a4719712748fa78adb53a1839ed3112c99cc96943adf90aabd253bf8"
+  },
+  "hashes": {
+    "baseline": "e7b37bb3017ab6a26a11775cd4e0faa402adfb6f7da1df817c6b118ebb892f11",
+    "current": "49eaebb618ba46ca561b6828d24756ceb3d03299bc7c17d4470778d0751633c6"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "In-process Node adapter conversion of 20,000 repeated short power formulas, six alternating rounds. The reconstructed baseline skips rewriting and therefore does not preserve spreadsheet precedence; both variants verify every stored formula outside timing. Excludes XLSX parsing, browser Worker, UI, peak memory, other formulas and hardware.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "ms": 60.719041000000004,
+      "verified": 20000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "ms": 89.63408399999997,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "ms": 66.28633300000001,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "ms": 35.358041999999955,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "ms": 37.31604200000004,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "ms": 63.401541000000066,
+      "verified": 20000
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "ms": 63.36516700000004,
+      "verified": 20000
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "ms": 32.340791999999965,
+      "verified": 20000
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "ms": 30.87783300000001,
+      "verified": 20000
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "ms": 61.31116600000007,
+      "verified": 20000
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "ms": 58.67054099999996,
+      "verified": 20000
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "ms": 26.270582999999988,
+      "verified": 20000
+    }
+  ],
+  "finishedAt": "2026-11-11T08:24:30.554Z"
+}

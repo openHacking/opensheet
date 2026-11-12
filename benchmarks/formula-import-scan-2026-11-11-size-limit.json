@@ -1,0 +1,177 @@
+{
+  "startedAt": "2026-11-11T03:51:48.455Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 255,
+    "sha256": "c75c52b36f8f7f136ad28ebda04585302be2c63b56c8e048ae0956449a55e591"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 60000,
+  "limitations": "In-process Node adapter conversion only; alternating variants, synthetic repeated supported formulas, no XLSX parse, browser, Worker or isolated memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 187.01312500000006
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 268.18724999999995
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 157.8544589999999
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 128.22174999999993
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 90.10116599999992
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 180.27324999999996
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 146.019458
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "elapsedMs": 182.32662499999992
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "elapsedMs": 147.2482500000001
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 218.18720800000028
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 195.53999999999996
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "elapsedMs": 242.24054100000012
+    }
+  ],
+  "longSamples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 2.4659169999999904
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 2.6103329999996276
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 1.0629170000001977
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 0.7123329999999441
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 1.8185000000003129
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 2.205916999999772
+    }
+  ],
+  "distinctSamples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 83.72158300000001,
+      "verified": 20000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 126.9084170000001,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 202.347667,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 62.789124999999785,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 54.382624999999734,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 82.46787499999982,
+      "verified": 20000
+    }
+  ],
+  "identifierSamples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 1.482915999999932
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 4.573041999999987
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 4.176665999999841
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 6.604624999999942
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 1.9689159999998083
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 5.439958999999817
+    }
+  ]
+}

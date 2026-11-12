@@ -1,0 +1,168 @@
+{
+  "startedAt": "2026-11-12T06:45:43.557Z",
+  "runtime": "v22.19.0",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 366,
+    "sha256": "5b89803d9b4d31cbd69084f3da34756fec1b5a40bbe8674f4811b088e7db6a7c"
+  },
+  "bundles": [
+    {
+      "name": "before",
+      "sha256": "11ee373dc85dcee2eaba5974af2bf9ca449bb8c7f1a097bc307868c13cd57d13"
+    },
+    {
+      "name": "after",
+      "sha256": "614b6a5d8615bd325ef463a77657248307b282447d9e91d38930f98c6b10c7de"
+    }
+  ],
+  "scope": "Paired Node process, alternating order, two warmups then five measured runs per variant and fixture. Includes input validation, candidate enumeration and sorting; excludes engine, IndexedDB, browser scheduling and peak memory.",
+  "samples": [
+    {
+      "fixture": "disjoint",
+      "variant": "before",
+      "round": 1,
+      "elapsedMs": 111.00429200000002,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "after",
+      "round": 1,
+      "elapsedMs": 26.436374999999998,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "after",
+      "round": 2,
+      "elapsedMs": 26.109249999999975,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "before",
+      "round": 2,
+      "elapsedMs": 106.10729100000003,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "before",
+      "round": 3,
+      "elapsedMs": 104.00633299999993,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "after",
+      "round": 3,
+      "elapsedMs": 21.594249999999988,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "after",
+      "round": 4,
+      "elapsedMs": 22.598999999999933,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "before",
+      "round": 4,
+      "elapsedMs": 106.08754199999998,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "before",
+      "round": 5,
+      "elapsedMs": 101.62258300000008,
+      "count": 0
+    },
+    {
+      "fixture": "disjoint",
+      "variant": "after",
+      "round": 5,
+      "elapsedMs": 20.734459000000015,
+      "count": 0
+    },
+    {
+      "fixture": "dense",
+      "variant": "before",
+      "round": 1,
+      "elapsedMs": 3.7518749999999272,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "after",
+      "round": 1,
+      "elapsedMs": 3.310333000000128,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "after",
+      "round": 2,
+      "elapsedMs": 3.380500000000211,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "before",
+      "round": 2,
+      "elapsedMs": 6.083291999999801,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "before",
+      "round": 3,
+      "elapsedMs": 3.7030829999998787,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "after",
+      "round": 3,
+      "elapsedMs": 3.3447080000000824,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "after",
+      "round": 4,
+      "elapsedMs": 7.743416000000025,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "before",
+      "round": 4,
+      "elapsedMs": 6.2654999999999745,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "before",
+      "round": 5,
+      "elapsedMs": 6.22179200000005,
+      "count": 65536
+    },
+    {
+      "fixture": "dense",
+      "variant": "after",
+      "round": 5,
+      "elapsedMs": 7.645208000000139,
+      "count": 65536
+    }
+  ]
+}

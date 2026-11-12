@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-10-22T23:51:15.646Z",
+  "node": "v22.19.0",
+  "files": [
+    {
+      "path": "tests/workbook-model.test.ts",
+      "sha256": "75cb4edabda2370d6d819d9b3c911ab23452272ff23daac89f19b7a10a203e94"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "2cec4fdb45f1cd6cda15bc6a68447b95c2ec3aaf415bd699ed1e83452c9bce66"
+    },
+    {
+      "path": "benchmarks/model-2026-10-23-isolated.jsonl",
+      "sha256": "de4d93b0548f13c660f4ed0d5c7b315b0e30aa6ecb7a88ee37bcfebf82984b86"
+    },
+    {
+      "path": "benchmarks/model-2026-10-23-seed991-clean.jsonl",
+      "sha256": "94af302e9b00cbce30017b6595ee96fbfb03f6dd1e0abb62df52164dba9d9797"
+    }
+  ],
+  "sequences": 300,
+  "checkedTransitions": 15097,
+  "reopens": 1025,
+  "limitations": "First two seeds completed in one process; third seed completed separately after shared-process timeout. No root cause or retained-memory acceptance claim."
+}

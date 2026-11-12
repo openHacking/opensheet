@@ -1,0 +1,22 @@
+{
+  "producer": "openpyxl",
+  "version": "3.1.5",
+  "sha256": "0f2b485d5a1687c7f97f11d7f2a7c6ce70301ddc3c74620612b6832596b4efb3",
+  "global": [
+    "预算"
+  ],
+  "local": [
+    "总计"
+  ],
+  "dataFormulas": [
+    "=预算+1",
+    "=总计+1",
+    "=\"预算\""
+  ],
+  "otherFormulas": [
+    "='数据'!总计+1",
+    "='数据'!预算+1",
+    "='数据'!$A$1",
+    "='[external.xlsx]数据'!预算"
+  ]
+}

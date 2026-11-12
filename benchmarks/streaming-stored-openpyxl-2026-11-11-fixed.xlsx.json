@@ -1,0 +1,10 @@
+{
+  "generator": "openpyxl + Python zipfile on a nonseekable writer",
+  "openpyxl": "3.1.5",
+  "python": "3.14.3 (main, Mar 17 2026, 07:56:24) [Clang 17.0.0 (clang-1700.0.13.5)]",
+  "sha256": "b8c001c4d942d4723fab7eb84dfde3ac01e538618bcaff3e14285c65482ac4f2",
+  "bytes": 18025,
+  "entries": 9,
+  "descriptor": "signed, stored, local size zero",
+  "independentReadback": "openpyxl formula, values, sheet name and validation count passed"
+}

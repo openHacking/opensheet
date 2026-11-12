@@ -33,6 +33,6 @@ export const OpenSheetView = defineComponent({
       app?.dispose();
     });
     expose({ getInstance: () => app });
-    return () => h('div', { ref: host, style: { height: '500px' } });
+    return () => h('div', { ref: host, class: 'os-framework-host' });
   },
 });

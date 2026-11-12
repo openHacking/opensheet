@@ -1,0 +1,94 @@
+{
+  "startedAt": "2026-10-23T02:10:29.726Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 205,
+    "sha256": "d168eb981aeb9172ee1b2ef903cbba97465f5fc9264d30074283966c58ce20a6"
+  },
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "a883ef4cfe94b262d8f0dffc8137838a78716764ffd43240b9c34a99cd3addca"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "412e8eba50343744cc794df46e71ddd3e0e9b5f9ac2d23f6fabe9d8bf1e63e49"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "8e50132b5bb5c55b84ddf1e6cb8efa4e19419a29ffbd6aa14650e316408b77a5"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "975aed732c6fd8b4ade76eef8b6f1a660018bbac7982a0b2a6d0d641b064c6fa"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "cad67ce37b5056cebe32742df7157967715d3bdd82e361ac538d997dcbfcc313"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.1.1",
+      "sha256": "4f7ae0de4b28eb0fb07a03bf960a9e3c860d24b66ea32c6a3fe0bb33ad5e1bcb"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.1.1",
+      "sha256": "408e4b65f8b776d0ea037a628922603be2a675ce89bb0e3acb6f1e202aba1175"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "development",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "async initialization errors reach host"
+      ],
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: Host received an error after unmount\n\n1 !== 0\n",
+      "pageErrors": [],
+      "observation": {
+        "ready": 1,
+        "errors": [
+          {
+            "version": 0,
+            "message": "Error: late host error"
+          }
+        ],
+        "workerUrls": [
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ],
+        "workers": 0,
+        "createdWorkers": 10,
+        "grids": 0
+      }
+    }
+  ],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no source aliases; development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "14159ca51fa99a662036da32d608108d0b0ec5d8ccc208040f524fc944b8a1cb",
+  "configSha256": "614ecf67df6780727922b7db8f44b55bc7423ca7231cb22aa4feec04039dd156",
+  "lock": {
+    "file": "/Volumes/github/private/opensheet/benchmarks/framework-2026-10-23-late-action.consumer-lock.yaml",
+    "sha256": "d6dec94d4a36b4c9370647e55ea132ed824534bc13915a583eed8781b1df64b0"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Host received an error after unmount\n\n1 !== 0\n"
+}

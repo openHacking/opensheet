@@ -1,3 +1,4 @@
+// Requires the browser Worker/storage runtime; see docs/node-usage.md for pure Node reads.
 import { createWorkbook } from '@opensheetjs/core';
 import { exportRange } from '@opensheetjs/formats';
 const workbook = await createWorkbook();

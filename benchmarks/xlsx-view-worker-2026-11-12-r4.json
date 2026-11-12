@@ -1,0 +1,215 @@
+{
+  "startedAt": "2026-11-12T03:17:13.768Z",
+  "url": "http://127.0.0.1:4192/",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 344,
+    "sha256": "3ebc8c722579aca2a8a0636535dd9dba791b73b89dee76739b461f05672baae4"
+  },
+  "localBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "783c06c05989429adbba7d648097fd879fc7fddf38b2b8034607a06e62a315d1"
+  },
+  "worker": {
+    "path": "assets/file.worker-xwv7GCIq.js",
+    "sha256": "59a262af5b522fc749fc2803d95384d4eac3493803ada74a2a38913ddaf7054e"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "inputs": {
+    "control": {
+      "bytes": 5082472,
+      "sha256": "cc394bb70a954b19db830f8fd6c6eb5a931a97c87455b6eb53f3169af88149d8"
+    },
+    "active": {
+      "bytes": 5082541,
+      "sha256": "20522ff1a1c6d322d88693d48f4e6007be9160afea613209271cb788f1482211"
+    }
+  },
+  "scope": "Production file Worker, synthetic XLSX with 100,000 numeric cells. Three alternating pairs per headless browser after warmup; active view differs from control and intentionally generates two warnings. Times include ZIP preflight, SheetJS parsing, adapter conversion and Worker response; every input value and expected report checked outside timing. This is not full UI import, persistence, peak memory, a controlled before/after build or reference-device acceptance.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "pairs": [
+        {
+          "control": {
+            "roundTripMs": 356.90000009536743,
+            "zipMs": 45.200000286102295,
+            "parseMs": 108.19999980926514,
+            "adaptMs": 195.90000009536743,
+            "totalMs": 349.30000019073486,
+            "checkedCells": 100000
+          },
+          "active": {
+            "roundTripMs": 345.5,
+            "zipMs": 68.09999990463257,
+            "parseMs": 107.90000009536743,
+            "adaptMs": 163.09999990463257,
+            "totalMs": 339.09999990463257,
+            "checkedCells": 100000
+          }
+        },
+        {
+          "active": {
+            "roundTripMs": 392.30000019073486,
+            "zipMs": 45.700000286102295,
+            "parseMs": 110.19999980926514,
+            "adaptMs": 229.80000019073486,
+            "totalMs": 385.7000002861023,
+            "checkedCells": 100000
+          },
+          "control": {
+            "roundTripMs": 342.09999990463257,
+            "zipMs": 77.59999990463257,
+            "parseMs": 107.90000009536743,
+            "adaptMs": 149.80000019073486,
+            "totalMs": 335.30000019073486,
+            "checkedCells": 100000
+          }
+        },
+        {
+          "control": {
+            "roundTripMs": 318.40000009536743,
+            "zipMs": 48.30000019073486,
+            "parseMs": 106.69999980926514,
+            "adaptMs": 156.90000009536743,
+            "totalMs": 311.90000009536743,
+            "checkedCells": 100000
+          },
+          "active": {
+            "roundTripMs": 379.09999990463257,
+            "zipMs": 67.19999980926514,
+            "parseMs": 117,
+            "adaptMs": 188.60000038146973,
+            "totalMs": 372.80000019073486,
+            "checkedCells": 100000
+          }
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "pairs": [
+        {
+          "control": {
+            "roundTripMs": 481,
+            "zipMs": 54,
+            "parseMs": 129,
+            "adaptMs": 274,
+            "totalMs": 457,
+            "checkedCells": 100000
+          },
+          "active": {
+            "roundTripMs": 544,
+            "zipMs": 57,
+            "parseMs": 128,
+            "adaptMs": 330,
+            "totalMs": 515,
+            "checkedCells": 100000
+          }
+        },
+        {
+          "active": {
+            "roundTripMs": 613,
+            "zipMs": 54,
+            "parseMs": 186,
+            "adaptMs": 351,
+            "totalMs": 591,
+            "checkedCells": 100000
+          },
+          "control": {
+            "roundTripMs": 487,
+            "zipMs": 53,
+            "parseMs": 173,
+            "adaptMs": 242,
+            "totalMs": 468,
+            "checkedCells": 100000
+          }
+        },
+        {
+          "control": {
+            "roundTripMs": 441,
+            "zipMs": 54,
+            "parseMs": 118,
+            "adaptMs": 247,
+            "totalMs": 419,
+            "checkedCells": 100000
+          },
+          "active": {
+            "roundTripMs": 458,
+            "zipMs": 54,
+            "parseMs": 117,
+            "adaptMs": 269,
+            "totalMs": 440,
+            "checkedCells": 100000
+          }
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "pairs": [
+        {
+          "control": {
+            "roundTripMs": 442,
+            "zipMs": 54,
+            "parseMs": 149,
+            "adaptMs": 228,
+            "totalMs": 431,
+            "checkedCells": 100000
+          },
+          "active": {
+            "roundTripMs": 459,
+            "zipMs": 66,
+            "parseMs": 127,
+            "adaptMs": 255,
+            "totalMs": 448,
+            "checkedCells": 100000
+          }
+        },
+        {
+          "active": {
+            "roundTripMs": 499,
+            "zipMs": 102,
+            "parseMs": 135,
+            "adaptMs": 251,
+            "totalMs": 488,
+            "checkedCells": 100000
+          },
+          "control": {
+            "roundTripMs": 429,
+            "zipMs": 64,
+            "parseMs": 123,
+            "adaptMs": 231,
+            "totalMs": 418,
+            "checkedCells": 100000
+          }
+        },
+        {
+          "control": {
+            "roundTripMs": 411,
+            "zipMs": 34,
+            "parseMs": 141,
+            "adaptMs": 226,
+            "totalMs": 401,
+            "checkedCells": 100000
+          },
+          "active": {
+            "roundTripMs": 426,
+            "zipMs": 31,
+            "parseMs": 135,
+            "adaptMs": 250,
+            "totalMs": 416,
+            "checkedCells": 100000
+          }
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-12T03:17:29.276Z"
+}

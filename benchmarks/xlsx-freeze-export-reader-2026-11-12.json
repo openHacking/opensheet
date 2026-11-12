@@ -1,0 +1,255 @@
+{
+  "startedAt": "2026-11-12T02:45:13.960Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 341,
+    "sha256": "172881e81d1f0ec7d1b867a813a0341f1e06b5ca6ebb22ed3cf33625450aed46"
+  },
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "independent": {
+    "version": "3.1.5",
+    "files": [
+      [
+        {
+          "name": "Rows",
+          "freeze": "A5",
+          "value": 100
+        },
+        {
+          "name": "Columns",
+          "freeze": "D1",
+          "value": 101
+        },
+        {
+          "name": "Both '中' &",
+          "freeze": "C4",
+          "value": 102
+        },
+        {
+          "name": "Unfrozen",
+          "freeze": null,
+          "value": 103
+        }
+      ],
+      [
+        {
+          "name": "Rows",
+          "freeze": "A5",
+          "value": 100
+        },
+        {
+          "name": "Columns",
+          "freeze": "D1",
+          "value": 101
+        },
+        {
+          "name": "Both '中' &",
+          "freeze": "C4",
+          "value": 102
+        },
+        {
+          "name": "Unfrozen",
+          "freeze": null,
+          "value": 103
+        }
+      ]
+    ]
+  },
+  "expected": [
+    {
+      "name": "Rows",
+      "freeze": "A5",
+      "rows": 4,
+      "columns": 0,
+      "value": 100
+    },
+    {
+      "name": "Columns",
+      "freeze": "D1",
+      "rows": 0,
+      "columns": 3,
+      "value": 101
+    },
+    {
+      "name": "Both '中' &",
+      "freeze": "C4",
+      "rows": 3,
+      "columns": 2,
+      "value": 102
+    },
+    {
+      "name": "Unfrozen",
+      "freeze": null,
+      "rows": 0,
+      "columns": 0,
+      "value": 103
+    }
+  ],
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 4,
+      "approximated": 0,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [],
+    "omittedIssueOccurrences": 0
+  },
+  "imported": {
+    "exported": {
+      "freezes": [
+        {
+          "name": "Rows",
+          "rows": 4,
+          "columns": 0
+        },
+        {
+          "name": "Columns",
+          "rows": 0,
+          "columns": 3
+        },
+        {
+          "name": "Both '中' &",
+          "rows": 3,
+          "columns": 2
+        },
+        {
+          "name": "Unfrozen",
+          "rows": 0,
+          "columns": 0
+        }
+      ],
+      "report": {
+        "adapterVersion": "0.1.1",
+        "sourceFormat": "SheetJS",
+        "summary": {
+          "exact": 5,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 0
+        },
+        "issues": [
+          {
+            "code": "DATA_INTERCHANGE",
+            "feature": "xlsx-container",
+            "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+            "action": "preserved",
+            "severity": "info",
+            "count": 1
+          }
+        ],
+        "omittedIssueOccurrences": 0
+      }
+    },
+    "saved": {
+      "freezes": [
+        {
+          "name": "Rows",
+          "rows": 0,
+          "columns": 0
+        },
+        {
+          "name": "Columns",
+          "rows": 0,
+          "columns": 0
+        },
+        {
+          "name": "Both '中' &",
+          "rows": 0,
+          "columns": 0
+        },
+        {
+          "name": "Unfrozen",
+          "rows": 0,
+          "columns": 0
+        }
+      ],
+      "report": {
+        "adapterVersion": "0.1.1",
+        "sourceFormat": "SheetJS",
+        "summary": {
+          "exact": 5,
+          "approximated": 0,
+          "dropped": 16,
+          "blocked": 0
+        },
+        "issues": [
+          {
+            "code": "WORKSHEET_PANE_UNSUPPORTED",
+            "feature": "worksheet-pane",
+            "action": "dropped",
+            "severity": "warning",
+            "message": "Some frozen or split worksheet panes are not imported",
+            "count": 3
+          },
+          {
+            "code": "WORKSHEET_SELECTION_DROPPED",
+            "feature": "worksheet-selection",
+            "action": "dropped",
+            "severity": "warning",
+            "message": "Worksheet selection and active cell are not imported",
+            "count": 9
+          },
+          {
+            "code": "UNSUPPORTED_METADATA",
+            "feature": "!margins",
+            "message": "Worksheet metadata !margins is not preserved",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_f3ce97fe90c1416c9bd45a01953322ac",
+            "count": 1
+          },
+          {
+            "code": "UNSUPPORTED_METADATA",
+            "feature": "!margins",
+            "message": "Worksheet metadata !margins is not preserved",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_ffbd25b0ddbb4e08b4f341fb58703ba8",
+            "count": 1
+          },
+          {
+            "code": "UNSUPPORTED_METADATA",
+            "feature": "!margins",
+            "message": "Worksheet metadata !margins is not preserved",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_19687790c574421e95223f0788063d2f",
+            "count": 1
+          },
+          {
+            "code": "UNSUPPORTED_METADATA",
+            "feature": "!margins",
+            "message": "Worksheet metadata !margins is not preserved",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_41a2862000a34edc869dfc595b6dc1b7",
+            "count": 1
+          },
+          {
+            "code": "DATA_INTERCHANGE",
+            "feature": "xlsx-container",
+            "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+            "action": "preserved",
+            "severity": "info",
+            "count": 1
+          }
+        ],
+        "omittedIssueOccurrences": 0
+      }
+    }
+  },
+  "artifacts": {
+    "exported": {
+      "file": "xlsx-freeze-export-reader-2026-11-12.xlsx",
+      "sha256": "014c28e113db63f89d91fcdfa74a26196791c5d59e4def3035415a9581ae0a76"
+    },
+    "saved": {
+      "file": "xlsx-freeze-export-reader-2026-11-12.saved.xlsx",
+      "sha256": "e39b2d9ddd183ff5a8b0f77f48a19b1519ae8d13aa29723eafed21067461bc15"
+    }
+  },
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-freeze-export-OyxQFh/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-freeze-export-OyxQFh/saved/source.xlsx using filter : Calc MS Excel 2007 XML"
+}

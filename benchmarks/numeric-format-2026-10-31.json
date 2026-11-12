@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-30T17:44:18.644Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "provenance": "CC0 synthetic numeric-format cells exported through OpenSheet and SheetJS; display text independently produced by LibreOffice CSV conversion. Excel and visual layout not tested.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 223,
+    "sha256": "ac0120f25c24bd9acd4a6515d5e4e5d5d6e0ccb044b855114436741d5aad2938"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "7a9129fe7cc51fa368241750c0faab87e5eb93125e8978ec89b8200d6cafc1f1"
+  },
+  "results": [
+    {
+      "system": "1900",
+      "comparisons": [
+        {
+          "value": -1234.56,
+          "format": "$#,##0.00",
+          "opensheet": "-$1,234.56",
+          "reader": "-$1,234.56",
+          "agrees": true
+        },
+        {
+          "value": 1234.56,
+          "format": "$#,##0.00",
+          "opensheet": "$1,234.56",
+          "reader": "$1,234.56",
+          "agrees": true
+        },
+        {
+          "value": -0.001,
+          "format": "$0.00",
+          "opensheet": "-$0.00",
+          "reader": "$0.00",
+          "agrees": false
+        },
+        {
+          "value": -0.125,
+          "format": "0.0%",
+          "opensheet": "-12.5%",
+          "reader": "-12.5%",
+          "agrees": true
+        },
+        {
+          "value": 1.005,
+          "format": "0.00",
+          "opensheet": "1.01",
+          "reader": "1.01",
+          "agrees": true
+        },
+        {
+          "value": 2.675,
+          "format": "0.00",
+          "opensheet": "2.68",
+          "reader": "2.68",
+          "agrees": true
+        },
+        {
+          "value": -2.675,
+          "format": "0.00",
+          "opensheet": "-2.68",
+          "reader": "-2.68",
+          "agrees": true
+        },
+        {
+          "value": 1234.5,
+          "format": "#,##0.00",
+          "opensheet": "1,234.50",
+          "reader": "1,234.50",
+          "agrees": true
+        }
+      ],
+      "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-numeric-rNeUgc/1900/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-numeric-rNeUgc/1900/source.csv using filter : Text - txt - csv (StarCalc):44,34,76,1"
+    },
+    {
+      "system": "1904",
+      "comparisons": [
+        {
+          "value": -1234.56,
+          "format": "$#,##0.00",
+          "opensheet": "-$1,234.56",
+          "reader": "-$1,234.56",
+          "agrees": true
+        },
+        {
+          "value": 1234.56,
+          "format": "$#,##0.00",
+          "opensheet": "$1,234.56",
+          "reader": "$1,234.56",
+          "agrees": true
+        },
+        {
+          "value": -0.001,
+          "format": "$0.00",
+          "opensheet": "-$0.00",
+          "reader": "$0.00",
+          "agrees": false
+        },
+        {
+          "value": -0.125,
+          "format": "0.0%",
+          "opensheet": "-12.5%",
+          "reader": "-12.5%",
+          "agrees": true
+        },
+        {
+          "value": 1.005,
+          "format": "0.00",
+          "opensheet": "1.01",
+          "reader": "1.01",
+          "agrees": true
+        },
+        {
+          "value": 2.675,
+          "format": "0.00",
+          "opensheet": "2.68",
+          "reader": "2.68",
+          "agrees": true
+        },
+        {
+          "value": -2.675,
+          "format": "0.00",
+          "opensheet": "-2.68",
+          "reader": "-2.68",
+          "agrees": true
+        },
+        {
+          "value": 1234.5,
+          "format": "#,##0.00",
+          "opensheet": "1,234.50",
+          "reader": "1,234.50",
+          "agrees": true
+        }
+      ],
+      "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-numeric-rNeUgc/1904/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-numeric-rNeUgc/1904/source.csv using filter : Text - txt - csv (StarCalc):44,34,76,1"
+    }
+  ],
+  "artifacts": {
+    "1900xlsx": {
+      "file": "numeric-format-2026-10-31.1900.xlsx",
+      "sha256": "76bd18b0c31dbc586f252e9d29870f9a40fd40966a137e10dbfc89bdd1e4d11b"
+    },
+    "1900csv": {
+      "file": "numeric-format-2026-10-31.1900.csv",
+      "sha256": "8925464670163ef5ab7862801e9cc7983a370c0b0cc8baa3b6a98b1216aa79cc"
+    },
+    "1904xlsx": {
+      "file": "numeric-format-2026-10-31.1904.xlsx",
+      "sha256": "fe9bc3fc8793b4c52d8a29520510b50e9be04778b4c89fb6e52a538083d1927a"
+    },
+    "1904csv": {
+      "file": "numeric-format-2026-10-31.1904.csv",
+      "sha256": "8925464670163ef5ab7862801e9cc7983a370c0b0cc8baa3b6a98b1216aa79cc"
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "startedAt": "2026-11-11T23:35:39.890Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 325,
+    "sha256": "4c1394f6157865ef6a9006e2571f49841c76e3fd37f1cad2b4b676e9be01acda"
+  },
+  "scriptSha256": "e8e7d368f62d6ea95b90d82408fc8868a01364d19ab43b43b5ef9b928e082049",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "bundles": {
+    "control": "38923e34d983cc23a9a4c35b64805cda06ed5f8550cc89faa12c5491f04038a6",
+    "current": "457122bc936c87b9a3136774d293a7a58117962d818b868f2cfcceaa9e7a782e"
+  },
+  "scope": "Headless real Worker, local development server, three alternating fresh-context pairs per browser and workload. Control differs only by omitting position-validation checkpoints. Workloads: 65,536 positions and no rules; or 1,000 positions and 900 disjoint numeric rules. Includes position copying, rule preparation and asynchronous checkpoints; no reads, persistence, UI, peak memory, independent devices or power-mode record. Uses actual worker clocks, no forced cancellation. Verifies full report and zero reads.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 18.100000381469727
+        },
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 12
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 13.100000381469727
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 10.799999713897705
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 9.199999809265137
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 13.299999713897705
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 49.09999990463257
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 45
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 41.59999990463257
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 41.09999990463257
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 40.40000009536743
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 40.30000019073486
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 12
+        },
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 18
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 10
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 8
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 9
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 12
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 168
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 171
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 172
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 179
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 195
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 222
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 18
+        },
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 23
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 13
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 13
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 14
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 16
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 64
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 83
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 59
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 62
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 62
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 65
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T23:35:54.425Z"
+}

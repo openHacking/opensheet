@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-11-12T09:17:25.421Z",
+  "browserName": "firefox",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 371,
+    "sha256": "f2e0fbef33d5c5d40d63db7f302b26da90b7296dc16a80074be114b9ec8e5489"
+  },
+  "bundles": {
+    "control": "feb779cab665f626074f129a50c551b57befd289533c99ea960030057ab00d23",
+    "current": "7e56e918cebb5f86299e817f85022699656be03cc08ed22a366236d70f7bd042"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 1292,
+      "sourceReads": 16384,
+      "verified": 512
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 261,
+      "sourceReads": 32,
+      "verified": 512
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 260,
+      "sourceReads": 32,
+      "verified": 512
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 1336,
+      "sourceReads": 16384,
+      "verified": 512
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 1326,
+      "sourceReads": 16384,
+      "verified": 512
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 255,
+      "sourceReads": 32,
+      "verified": 512
+    }
+  ],
+  "scope": "Real Worker and IndexedDB, zero persistent cache, 512 formulas referencing the same 32 scalar cells. Three alternating fresh-context pairs. Control reconstructs the previous zero-scratch read; setup excluded, every result checked. Source cell calls are not physical storage reads. Development-server source bundles, no production UI, peak memory, other devices or reference performance acceptance.",
+  "browser": "155.0",
+  "finishedAt": "2026-11-12T09:17:32.951Z"
+}

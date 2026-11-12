@@ -1,0 +1,1053 @@
+{
+  "startedAt": "2026-11-11T16:56:51.356Z",
+  "engine": "chromium",
+  "browser": "153.0.8010.12",
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 287,
+    "sha256": "36c3306006346f2638f9a41a168eccdebb22c0e3237608f8b9a30d91e2d3bab4"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Development-server direct Workbook Worker with opt-in operation timing; three fresh contexts, five edits per context. All outputs checked after timing. Queue, Worker execution and round trip include instrumentation and scheduling, not CPU attribution. No production asset, UI, peak memory, other devices or reference acceptance.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "target": 2,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.3000001907348633,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.9000000953674316,
+                "roundTripMs": 1.3000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.8999996185302734,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.6999998092651367,
+                "roundTripMs": 0.8999996185302734,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 6.100000381469727,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 5.299999713897705,
+                "roundTripMs": 6,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.200000286102295,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.7999997138977051,
+                "roundTripMs": 1.0999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.7999997138977051,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5,
+                "roundTripMs": 0.6999998092651367,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.5,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.0999999046325684,
+                "roundTripMs": 3.4000000953674316,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.1000003814697266,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.6999998092651367,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.6999998092651367,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5,
+                "roundTripMs": 0.6999998092651367,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.4000000953674316,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.0999999046325684,
+                "roundTripMs": 3.3000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.6999998092651367,
+                "roundTripMs": 0.8999996185302734,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.5999999046325684,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5,
+                "roundTripMs": 0.5999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.5,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.1999998092651367,
+                "roundTripMs": 3.4000000953674316,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.0999999046325684,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.6999998092651367,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.5,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5,
+                "roundTripMs": 0.5,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2.799999713897705,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2.5999999046325684,
+                "roundTripMs": 2.799999713897705,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "target": 2,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 2.0999999046325684,
+              "timing": {
+                "method": "read",
+                "queueMs": 0.09999990463256836,
+                "executionMs": 1.6999998092651367,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.7999997138977051,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5999999046325684,
+                "roundTripMs": 0.7999997138977051,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.6000003814697266,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.1999998092651367,
+                "roundTripMs": 3.5,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.1999998092651367,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.6999998092651367,
+                "roundTripMs": 0.9000000953674316,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.5999999046325684,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.40000009536743164,
+                "roundTripMs": 0.5999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.700000286102295,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.1999998092651367,
+                "roundTripMs": 3.5,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.8000001907348633,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.7000002861022949,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.40000009536743164,
+                "roundTripMs": 0.5999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.5,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.299999713897705,
+                "roundTripMs": 3.3999996185302734,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.1999998092651367,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.7999997138977051,
+                "roundTripMs": 1.0999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.7000002861022949,
+                "roundTripMs": 0.9000000953674316,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.8000001907348633,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.5999999046325684,
+                "roundTripMs": 3.8000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 0.9000000953674316,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5999999046325684,
+                "roundTripMs": 0.8000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.6999998092651367,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.40000009536743164,
+                "roundTripMs": 0.5999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2.9000000953674316,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2.700000286102295,
+                "roundTripMs": 2.8000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "target": 2,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.299999713897705,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1.1999998092651367,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.8000001907348633,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5,
+                "roundTripMs": 0.7000002861022949,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 6.299999713897705,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 5.900000095367432,
+                "roundTripMs": 6.299999713897705,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.5999999046325684,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1.0999999046325684,
+                "roundTripMs": 1.5,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.7999997138977051,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.5999999046325684,
+                "roundTripMs": 0.6999998092651367,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 4,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.8000001907348633,
+                "roundTripMs": 4,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1.5,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1.3000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1.9000000953674316,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1.4000000953674316,
+                "roundTripMs": 1.700000286102295,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 6,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 5.599999904632568,
+                "roundTripMs": 5.900000095367432,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2.200000286102295,
+                "roundTripMs": 2.8000001907348633,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1.200000286102295,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1.0999999046325684,
+                "roundTripMs": 1.200000286102295,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3.299999713897705,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3.0999999046325684,
+                "roundTripMs": 3.1999998092651367,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.6000003814697266,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0.7000002861022949,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0.40000009536743164,
+                "roundTripMs": 0.5999999046325684,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2.6999998092651367,
+                "roundTripMs": 2.8999996185302734,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512
+    }
+  ]
+}

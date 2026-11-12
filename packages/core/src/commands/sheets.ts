@@ -1,4 +1,6 @@
-import { offsetFormula } from '@opensheetjs/formula';
+import { filterColumns } from '../filter.js';
+import { compareSortKeys, sortColumns, sortKey } from '../sort-values.js';
+import { FormulaCalculation } from '../calculation.js';
 import { intersects } from '../address.js';
 import { checkBounds, validateSnapshot } from '../model.js';
 import {
@@ -9,7 +11,7 @@ import {
   type Command,
   type WorkbookSnapshot,
 } from '../types.js';
-import { sheetFor, transformAll } from './helpers.js';
+import { offsetCellFormula, sheetFor, structuralReferences, transformAll } from './helpers.js';
 export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
   const p = command.payload as any; // Validated before dispatch.
   if (command.type === 'core.sheet.add') {
@@ -38,7 +40,13 @@ export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
         'INVALID_ARGUMENT',
         'Cannot remove last visible sheet',
       );
-      transformAll(s, (r) => (r.sheet === sh.name ? null : r));
+      transformAll(
+        s,
+        structuralReferences(command, sh.name),
+        undefined,
+        undefined,
+        (sheet) => sheet.id === sh.id,
+      );
       s.sheets = s.sheets.filter((x) => x.id !== sh.id);
       s.sheetOrder = s.sheetOrder.filter((id) => id !== sh.id);
       break;
@@ -48,7 +56,7 @@ export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
         'INVALID_ARGUMENT',
         'Duplicate sheet name',
       );
-      transformAll(s, (r) => (r.sheet === sh.name ? { ...r, sheet: p.name } : r));
+      transformAll(s, structuralReferences(command, sh.name));
       sh.name = p.name;
       break;
     case 'core.sheet.freeze':
@@ -61,7 +69,9 @@ export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
       break;
     case 'core.sheet.filter':
       assert(
-        !p.filter || p.filter.column < sh.columnOrder.length,
+        !p.filter ||
+          (filterColumns(p.filter).every((column) => column < sh.columnOrder.length) &&
+            ('column' in p.filter || p.filter.headerRows <= sh.rowOrder.length)),
         'INVALID_RANGE',
         'Invalid filter column',
       );
@@ -69,11 +79,7 @@ export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
       break;
     case 'core.sheet.sort': {
       checkBounds(sh, p.range);
-      assert(
-        p.column >= p.range.startColumn && p.column < p.range.endColumn,
-        'INVALID_RANGE',
-        'Sort column outside range',
-      );
+      const keys = sortColumns(p, p.range);
       assert(
         !sh.merges.some((m) => intersects(m, p.range)),
         'INVALID_RANGE',
@@ -83,34 +89,33 @@ export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
         { length: p.range.endRow - p.range.startRow },
         (_, i) => p.range.startRow + i,
       );
-      const value = (r: number) => {
-        const x = sh.cells[key(sh.rowOrder[r], sh.columnOrder[p.column])]?.input;
-        assert(
-          x?.type !== 'formula',
-          'UNSUPPORTED_FEATURE',
-          'Sorting on formula results is not supported yet',
-        );
-        return x && 'value' in x ? x.value : null;
-      };
-      rows.sort((a, b) => {
-        const x = value(a),
-          y = value(b);
-        const cmp =
-          x === y
-            ? 0
-            : x === null
-              ? 1
-              : y === null
-                ? -1
-                : typeof x === 'number' && typeof y === 'number'
-                  ? x - y
-                  : String(x).localeCompare(String(y), 'en');
-        return p.direction === 'asc' ? cmp : -cmp;
-      });
+      const calculator = new FormulaCalculation(
+        (id) => sheetFor(s, id),
+        (name) => s.sheets.find((sheet) => sheet.name.toLowerCase() === name.toLowerCase())?.id,
+        s.dateSystem,
+      );
+      const values = new Map(
+        rows.map((row) => [
+          row,
+          keys.map((key) => sortKey(calculator.value(sh.id, row, key.column))),
+        ]),
+      );
+      calculator.clear();
+      rows.sort((a, b) => compareSortKeys(values.get(a)!, values.get(b)!, keys) || a - b);
       const copied = rows.map((r) =>
         Array.from({ length: p.range.endColumn - p.range.startColumn }, (_, i) => {
           const x = sh.cells[key(sh.rowOrder[r], sh.columnOrder[p.range.startColumn + i])];
           return x ? (JSON.parse(JSON.stringify(x)) as CellRecord) : undefined;
+        }),
+      );
+      copied.forEach((cells, i) =>
+        cells.forEach((x) => {
+          if (x?.input.type === 'formula')
+            x.input.expression = offsetCellFormula(
+              x.input.expression,
+              p.range.startRow + i - rows[i],
+              0,
+            );
         }),
       );
       copied.forEach((cells, i) =>
@@ -122,8 +127,6 @@ export function sheetsCommand(s: WorkbookSnapshot, command: Command): void {
             delete sh.cells[k];
             return;
           }
-          if (x.input.type === 'formula')
-            x.input.expression = offsetFormula(x.input.expression, r - rows[i], 0);
           x.rowId = sh.rowOrder[r];
           x.columnId = sh.columnOrder[c];
           delete x.cached;

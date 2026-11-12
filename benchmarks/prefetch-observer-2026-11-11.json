@@ -1,0 +1,917 @@
+{
+  "startedAt": "2026-11-11T09:27:09.847Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 281,
+    "sha256": "73a9dd0f39deebfdc597b7bd70a5ad511664a80186ed97871fa9876d4dbe9d09"
+  },
+  "helperSourceSha256": "85558395a79f4143bff48a1df33461e83e5c90f8f89e28ca1d094137e1b137ce",
+  "benchmarkSha256": "ac68f8e34cceb5a47dcfffeca48376f5cd27f5cdef3f1a29ae8efddbd930c484",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless main-page callback-dispatch microbenchmark. Compares the old direct prefetch data-listener loop with the current extracted notification helper, using 100,000 synthetic notifications and zero, one or four synchronous nonthrowing listeners. Seven alternating samples per profile after warmup; checks every callback count. Not an end-to-end workbook prefetch, Worker/IndexedDB, paint, memory, asynchronous or failure benchmark. One host, no recorded power mode.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "round": 1,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.6999998092651367
+        },
+        {
+          "round": 1,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 2.0999999046325684
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.7000002861022949
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 1,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 1.799999713897705
+        },
+        {
+          "round": 1,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 2.5
+        },
+        {
+          "round": 2,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 0.6999998092651367
+        },
+        {
+          "round": 2,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0.8000001907348633
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0.19999980926513672
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 2,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 2,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 3,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 3,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0.10000038146972656
+        },
+        {
+          "round": 3,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.2999997138977051
+        },
+        {
+          "round": 3,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0.20000028610229492
+        },
+        {
+          "round": 3,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0.8999996185302734
+        },
+        {
+          "round": 3,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 0.8000001907348633
+        },
+        {
+          "round": 4,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 0.6999998092651367
+        },
+        {
+          "round": 4,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 4,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 4,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.19999980926513672
+        },
+        {
+          "round": 4,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0.10000038146972656
+        },
+        {
+          "round": 4,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.19999980926513672
+        },
+        {
+          "round": 5,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 5,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 5,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 5,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 5,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0.7999997138977051
+        },
+        {
+          "round": 5,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 0.9000000953674316
+        },
+        {
+          "round": 6,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 0.8000001907348633
+        },
+        {
+          "round": 6,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 6,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0.19999980926513672
+        },
+        {
+          "round": 6,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 6,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 6,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 7,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 7,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0.09999990463256836
+        },
+        {
+          "round": 7,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 7,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0.3000001907348633
+        },
+        {
+          "round": 7,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0.8999996185302734
+        },
+        {
+          "round": 7,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 0.8000001907348633
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "round": 1,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 1
+        },
+        {
+          "round": 1,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 1,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 1,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 3
+        },
+        {
+          "round": 2,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 2,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 2,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 2,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 1
+        },
+        {
+          "round": 3,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 2
+        },
+        {
+          "round": 3,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 3,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 3
+        },
+        {
+          "round": 4,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 3
+        },
+        {
+          "round": 4,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 4,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 4,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 4,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 1
+        },
+        {
+          "round": 4,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 1
+        },
+        {
+          "round": 5,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 5,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 5,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 3
+        },
+        {
+          "round": 6,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 6,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 6,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 6,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 6,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 6,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 1
+        },
+        {
+          "round": 7,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 1
+        },
+        {
+          "round": 7,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 7,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 2
+        },
+        {
+          "round": 7,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 3
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "round": 1,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 1,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 1,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 1,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 2,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 2,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 2,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 2,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 3,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 3,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 4,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 4,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 4,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 4,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 4,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 4,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 5,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 5,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 6,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        },
+        {
+          "round": 6,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 6,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 6,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 6,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 6,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 0,
+          "current": false,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 0,
+          "current": true,
+          "calls": 0,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 1,
+          "current": false,
+          "calls": 100000,
+          "ms": 1
+        },
+        {
+          "round": 7,
+          "count": 1,
+          "current": true,
+          "calls": 100000,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 4,
+          "current": false,
+          "calls": 400000,
+          "ms": 0
+        },
+        {
+          "round": 7,
+          "count": 4,
+          "current": true,
+          "calls": 400000,
+          "ms": 1
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T09:27:12.569Z"
+}

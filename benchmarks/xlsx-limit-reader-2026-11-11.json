@@ -1,0 +1,702 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 269,
+    "sha256": "7d24f2aeeb940e7ac36e9dca02dd59aea8655e3ccf045a362bd6c09008bba122"
+  },
+  "adapterBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 10,
+    "sha256": "2bbe9e96d4d55511d5d64c0d4f4babc2ab1db29476ca01c8e69857c982308ad2"
+  },
+  "report": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 130,
+      "approximated": 129,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "RECALC_REQUIRED",
+        "feature": "formula",
+        "message": "Formula result requires recalculation in the target application",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_964f985e0eb549f1881d5b5e5d03f983",
+        "address": "A2",
+        "count": 129
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "observations": [
+    {
+      "address": "A1",
+      "value": 1,
+      "formula": null
+    },
+    {
+      "address": "A2",
+      "value": 2,
+      "formula": "A1+1"
+    },
+    {
+      "address": "A3",
+      "value": 3,
+      "formula": "A2+1"
+    },
+    {
+      "address": "A4",
+      "value": 4,
+      "formula": "A3+1"
+    },
+    {
+      "address": "A5",
+      "value": 5,
+      "formula": "A4+1"
+    },
+    {
+      "address": "A6",
+      "value": 6,
+      "formula": "A5+1"
+    },
+    {
+      "address": "A7",
+      "value": 7,
+      "formula": "A6+1"
+    },
+    {
+      "address": "A8",
+      "value": 8,
+      "formula": "A7+1"
+    },
+    {
+      "address": "A9",
+      "value": 9,
+      "formula": "A8+1"
+    },
+    {
+      "address": "A10",
+      "value": 10,
+      "formula": "A9+1"
+    },
+    {
+      "address": "A11",
+      "value": 11,
+      "formula": "A10+1"
+    },
+    {
+      "address": "A12",
+      "value": 12,
+      "formula": "A11+1"
+    },
+    {
+      "address": "A13",
+      "value": 13,
+      "formula": "A12+1"
+    },
+    {
+      "address": "A14",
+      "value": 14,
+      "formula": "A13+1"
+    },
+    {
+      "address": "A15",
+      "value": 15,
+      "formula": "A14+1"
+    },
+    {
+      "address": "A16",
+      "value": 16,
+      "formula": "A15+1"
+    },
+    {
+      "address": "A17",
+      "value": 17,
+      "formula": "A16+1"
+    },
+    {
+      "address": "A18",
+      "value": 18,
+      "formula": "A17+1"
+    },
+    {
+      "address": "A19",
+      "value": 19,
+      "formula": "A18+1"
+    },
+    {
+      "address": "A20",
+      "value": 20,
+      "formula": "A19+1"
+    },
+    {
+      "address": "A21",
+      "value": 21,
+      "formula": "A20+1"
+    },
+    {
+      "address": "A22",
+      "value": 22,
+      "formula": "A21+1"
+    },
+    {
+      "address": "A23",
+      "value": 23,
+      "formula": "A22+1"
+    },
+    {
+      "address": "A24",
+      "value": 24,
+      "formula": "A23+1"
+    },
+    {
+      "address": "A25",
+      "value": 25,
+      "formula": "A24+1"
+    },
+    {
+      "address": "A26",
+      "value": 26,
+      "formula": "A25+1"
+    },
+    {
+      "address": "A27",
+      "value": 27,
+      "formula": "A26+1"
+    },
+    {
+      "address": "A28",
+      "value": 28,
+      "formula": "A27+1"
+    },
+    {
+      "address": "A29",
+      "value": 29,
+      "formula": "A28+1"
+    },
+    {
+      "address": "A30",
+      "value": 30,
+      "formula": "A29+1"
+    },
+    {
+      "address": "A31",
+      "value": 31,
+      "formula": "A30+1"
+    },
+    {
+      "address": "A32",
+      "value": 32,
+      "formula": "A31+1"
+    },
+    {
+      "address": "A33",
+      "value": 33,
+      "formula": "A32+1"
+    },
+    {
+      "address": "A34",
+      "value": 34,
+      "formula": "A33+1"
+    },
+    {
+      "address": "A35",
+      "value": 35,
+      "formula": "A34+1"
+    },
+    {
+      "address": "A36",
+      "value": 36,
+      "formula": "A35+1"
+    },
+    {
+      "address": "A37",
+      "value": 37,
+      "formula": "A36+1"
+    },
+    {
+      "address": "A38",
+      "value": 38,
+      "formula": "A37+1"
+    },
+    {
+      "address": "A39",
+      "value": 39,
+      "formula": "A38+1"
+    },
+    {
+      "address": "A40",
+      "value": 40,
+      "formula": "A39+1"
+    },
+    {
+      "address": "A41",
+      "value": 41,
+      "formula": "A40+1"
+    },
+    {
+      "address": "A42",
+      "value": 42,
+      "formula": "A41+1"
+    },
+    {
+      "address": "A43",
+      "value": 43,
+      "formula": "A42+1"
+    },
+    {
+      "address": "A44",
+      "value": 44,
+      "formula": "A43+1"
+    },
+    {
+      "address": "A45",
+      "value": 45,
+      "formula": "A44+1"
+    },
+    {
+      "address": "A46",
+      "value": 46,
+      "formula": "A45+1"
+    },
+    {
+      "address": "A47",
+      "value": 47,
+      "formula": "A46+1"
+    },
+    {
+      "address": "A48",
+      "value": 48,
+      "formula": "A47+1"
+    },
+    {
+      "address": "A49",
+      "value": 49,
+      "formula": "A48+1"
+    },
+    {
+      "address": "A50",
+      "value": 50,
+      "formula": "A49+1"
+    },
+    {
+      "address": "A51",
+      "value": 51,
+      "formula": "A50+1"
+    },
+    {
+      "address": "A52",
+      "value": 52,
+      "formula": "A51+1"
+    },
+    {
+      "address": "A53",
+      "value": 53,
+      "formula": "A52+1"
+    },
+    {
+      "address": "A54",
+      "value": 54,
+      "formula": "A53+1"
+    },
+    {
+      "address": "A55",
+      "value": 55,
+      "formula": "A54+1"
+    },
+    {
+      "address": "A56",
+      "value": 56,
+      "formula": "A55+1"
+    },
+    {
+      "address": "A57",
+      "value": 57,
+      "formula": "A56+1"
+    },
+    {
+      "address": "A58",
+      "value": 58,
+      "formula": "A57+1"
+    },
+    {
+      "address": "A59",
+      "value": 59,
+      "formula": "A58+1"
+    },
+    {
+      "address": "A60",
+      "value": 60,
+      "formula": "A59+1"
+    },
+    {
+      "address": "A61",
+      "value": 61,
+      "formula": "A60+1"
+    },
+    {
+      "address": "A62",
+      "value": 62,
+      "formula": "A61+1"
+    },
+    {
+      "address": "A63",
+      "value": 63,
+      "formula": "A62+1"
+    },
+    {
+      "address": "A64",
+      "value": 64,
+      "formula": "A63+1"
+    },
+    {
+      "address": "A65",
+      "value": 65,
+      "formula": "A64+1"
+    },
+    {
+      "address": "A66",
+      "value": 66,
+      "formula": "A65+1"
+    },
+    {
+      "address": "A67",
+      "value": 67,
+      "formula": "A66+1"
+    },
+    {
+      "address": "A68",
+      "value": 68,
+      "formula": "A67+1"
+    },
+    {
+      "address": "A69",
+      "value": 69,
+      "formula": "A68+1"
+    },
+    {
+      "address": "A70",
+      "value": 70,
+      "formula": "A69+1"
+    },
+    {
+      "address": "A71",
+      "value": 71,
+      "formula": "A70+1"
+    },
+    {
+      "address": "A72",
+      "value": 72,
+      "formula": "A71+1"
+    },
+    {
+      "address": "A73",
+      "value": 73,
+      "formula": "A72+1"
+    },
+    {
+      "address": "A74",
+      "value": 74,
+      "formula": "A73+1"
+    },
+    {
+      "address": "A75",
+      "value": 75,
+      "formula": "A74+1"
+    },
+    {
+      "address": "A76",
+      "value": 76,
+      "formula": "A75+1"
+    },
+    {
+      "address": "A77",
+      "value": 77,
+      "formula": "A76+1"
+    },
+    {
+      "address": "A78",
+      "value": 78,
+      "formula": "A77+1"
+    },
+    {
+      "address": "A79",
+      "value": 79,
+      "formula": "A78+1"
+    },
+    {
+      "address": "A80",
+      "value": 80,
+      "formula": "A79+1"
+    },
+    {
+      "address": "A81",
+      "value": 81,
+      "formula": "A80+1"
+    },
+    {
+      "address": "A82",
+      "value": 82,
+      "formula": "A81+1"
+    },
+    {
+      "address": "A83",
+      "value": 83,
+      "formula": "A82+1"
+    },
+    {
+      "address": "A84",
+      "value": 84,
+      "formula": "A83+1"
+    },
+    {
+      "address": "A85",
+      "value": 85,
+      "formula": "A84+1"
+    },
+    {
+      "address": "A86",
+      "value": 86,
+      "formula": "A85+1"
+    },
+    {
+      "address": "A87",
+      "value": 87,
+      "formula": "A86+1"
+    },
+    {
+      "address": "A88",
+      "value": 88,
+      "formula": "A87+1"
+    },
+    {
+      "address": "A89",
+      "value": 89,
+      "formula": "A88+1"
+    },
+    {
+      "address": "A90",
+      "value": 90,
+      "formula": "A89+1"
+    },
+    {
+      "address": "A91",
+      "value": 91,
+      "formula": "A90+1"
+    },
+    {
+      "address": "A92",
+      "value": 92,
+      "formula": "A91+1"
+    },
+    {
+      "address": "A93",
+      "value": 93,
+      "formula": "A92+1"
+    },
+    {
+      "address": "A94",
+      "value": 94,
+      "formula": "A93+1"
+    },
+    {
+      "address": "A95",
+      "value": 95,
+      "formula": "A94+1"
+    },
+    {
+      "address": "A96",
+      "value": 96,
+      "formula": "A95+1"
+    },
+    {
+      "address": "A97",
+      "value": 97,
+      "formula": "A96+1"
+    },
+    {
+      "address": "A98",
+      "value": 98,
+      "formula": "A97+1"
+    },
+    {
+      "address": "A99",
+      "value": 99,
+      "formula": "A98+1"
+    },
+    {
+      "address": "A100",
+      "value": 100,
+      "formula": "A99+1"
+    },
+    {
+      "address": "A101",
+      "value": 101,
+      "formula": "A100+1"
+    },
+    {
+      "address": "A102",
+      "value": 102,
+      "formula": "A101+1"
+    },
+    {
+      "address": "A103",
+      "value": 103,
+      "formula": "A102+1"
+    },
+    {
+      "address": "A104",
+      "value": 104,
+      "formula": "A103+1"
+    },
+    {
+      "address": "A105",
+      "value": 105,
+      "formula": "A104+1"
+    },
+    {
+      "address": "A106",
+      "value": 106,
+      "formula": "A105+1"
+    },
+    {
+      "address": "A107",
+      "value": 107,
+      "formula": "A106+1"
+    },
+    {
+      "address": "A108",
+      "value": 108,
+      "formula": "A107+1"
+    },
+    {
+      "address": "A109",
+      "value": 109,
+      "formula": "A108+1"
+    },
+    {
+      "address": "A110",
+      "value": 110,
+      "formula": "A109+1"
+    },
+    {
+      "address": "A111",
+      "value": 111,
+      "formula": "A110+1"
+    },
+    {
+      "address": "A112",
+      "value": 112,
+      "formula": "A111+1"
+    },
+    {
+      "address": "A113",
+      "value": 113,
+      "formula": "A112+1"
+    },
+    {
+      "address": "A114",
+      "value": 114,
+      "formula": "A113+1"
+    },
+    {
+      "address": "A115",
+      "value": 115,
+      "formula": "A114+1"
+    },
+    {
+      "address": "A116",
+      "value": 116,
+      "formula": "A115+1"
+    },
+    {
+      "address": "A117",
+      "value": 117,
+      "formula": "A116+1"
+    },
+    {
+      "address": "A118",
+      "value": 118,
+      "formula": "A117+1"
+    },
+    {
+      "address": "A119",
+      "value": 119,
+      "formula": "A118+1"
+    },
+    {
+      "address": "A120",
+      "value": 120,
+      "formula": "A119+1"
+    },
+    {
+      "address": "A121",
+      "value": 121,
+      "formula": "A120+1"
+    },
+    {
+      "address": "A122",
+      "value": 122,
+      "formula": "A121+1"
+    },
+    {
+      "address": "A123",
+      "value": 123,
+      "formula": "A122+1"
+    },
+    {
+      "address": "A124",
+      "value": 124,
+      "formula": "A123+1"
+    },
+    {
+      "address": "A125",
+      "value": 125,
+      "formula": "A124+1"
+    },
+    {
+      "address": "A126",
+      "value": 126,
+      "formula": "A125+1"
+    },
+    {
+      "address": "A127",
+      "value": 127,
+      "formula": "A126+1"
+    },
+    {
+      "address": "A128",
+      "value": 128,
+      "formula": "A127+1"
+    },
+    {
+      "address": "A129",
+      "value": 129,
+      "formula": "A128+1"
+    },
+    {
+      "address": "A130",
+      "value": 130,
+      "formula": "A129+1"
+    }
+  ],
+  "agrees": true,
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-xlsx-limit-doD2fS/chain.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-xlsx-limit-doD2fS/out/chain.xlsx using filter : Calc MS Excel 2007 XML\n",
+  "artifacts": [
+    {
+      "name": "xlsx-limit-reader-2026-11-11.source.xlsx",
+      "sha256": "5d624566852bb2d56ce921222d4e8a31a1cd7cc451971165576e9fa6898f0abb"
+    },
+    {
+      "name": "xlsx-limit-reader-2026-11-11.recalculated.xlsx",
+      "sha256": "5a0c8d7871677e3f2cd98ed633ab1b3ce568151e0d946414d5180946223e11e1"
+    }
+  ],
+  "limitations": "One synthetic 130-cell addition chain; XLSX emitted by SheetJS, recalculated by LibreOfficeDev headless and decoded by SheetJS. Does not establish Excel, native clipboard, other formulas or general cache/recalculation behavior."
+}

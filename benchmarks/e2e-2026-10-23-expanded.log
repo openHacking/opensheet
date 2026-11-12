@@ -1,0 +1,179 @@
+[WebServer] (node:71913) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:71933) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 126 tests using 2 workers
+
+(node:72038) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:72037) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    2 [chromium] › tests/e2e/formula.spec.ts:7:3 › formula semantics survive real Worker storage and reopen (1900) (2.5s)
+  ✓    3 [chromium] › tests/e2e/formula.spec.ts:7:3 › formula semantics survive real Worker storage and reopen (1904) (714ms)
+  ✓    4 [chromium] › tests/e2e/playground.spec.ts:19:1 › renders the local workbook, formula totals and source preview (1.1s)
+  ✓    5 [chromium] › tests/e2e/playground.spec.ts:37:1 › keeps both scrollbar tracks visible and usable beside the canvas (763ms)
+  ✓    6 [chromium] › tests/e2e/playground.spec.ts:80:1 › edits with the DOM editor, recalculates, undoes and redoes (920ms)
+  ✓    7 [chromium] › tests/e2e/playground.spec.ts:105:1 › uses the formula bar, tab navigation and independent worksheets (935ms)
+  ✓    8 [chromium] › tests/e2e/playground.spec.ts:125:1 › blocks edits in read-only mode and preserves keyboard selection (725ms)
+  ✓    9 [chromium] › tests/e2e/playground.spec.ts:139:1 › pastes a matrix atomically and protects IME composition from Enter (832ms)
+  ✓   10 [chromium] › tests/e2e/playground.spec.ts:170:1 › imports a real XLSX in a Worker and exports a downloadable XLSX (1.1s)
+  ✓   11 [chromium] › tests/e2e/playground.spec.ts:198:1 › imports hostile JSON without replacing the current workbook (571ms)
+  ✓   12 [chromium] › tests/e2e/playground.spec.ts:207:1 › provides an accessible data table and a functional plugin (779ms)
+  ✓   13 [chromium] › tests/e2e/playground.spec.ts:226:1 › loads saved JSON and cleans up old plugin UI (679ms)
+  ✓   14 [chromium] › tests/e2e/playground.spec.ts:251:1 › uses a responsive layout without body overflow (725ms)
+  ✓   15 [chromium] › tests/e2e/playground.spec.ts:261:1 › scrolls to distant selections and reads the edited frozen-grid cell (609ms)
+  ✓   16 [chromium] › tests/e2e/playground.spec.ts:275:1 › cell editor grows for long wrapped and multiline text without visible scrollbars (637ms)
+  ✓   17 [chromium] › tests/e2e/playground.spec.ts:330:1 › merged cells select their full rectangle with pointer, API, and keyboard (1.2s)
+  ✓   18 [chromium] › tests/e2e/playground.spec.ts:423:1 › frozen row and column respect custom header height while scrolling (647ms)
+  ✓   19 [chromium] › tests/e2e/playground.spec.ts:470:1 › action icons render as SVG while controls keep accessible names (619ms)
+  ✓   20 [chromium] › tests/e2e/playground.spec.ts:481:1 › toolbar moves trailing actions into More tools instead of scrolling (851ms)
+  ✓   21 [chromium] › tests/e2e/playground.spec.ts:525:1 › merged cells crossing frozen panes clip and scroll each pane independently (634ms)
+  ✓   22 [chromium] › tests/e2e/playground.spec.ts:559:1 › replacing workbooks and disposing twice releases component resources (829ms)
+  ✓   23 [chromium] › tests/e2e/playground.spec.ts:666:1 › cancels imports on scene changes and ignores previously queued Worker results (721ms)
+  ✓   24 [chromium] › tests/e2e/playground.spec.ts:715:1 › sheet switches expand selection using the target sheet merges after removal (624ms)
+  ✓   25 [chromium] › tests/e2e/playground.spec.ts:742:1 › downloads and reimports binary native files in the real storage worker (868ms)
+  ✓   26 [chromium] › tests/e2e/playground.spec.ts:776:1 › scene changes abort pending native imports before they can reattach the prior workbook (1.0s)
+  ✓   27 [chromium] › tests/e2e/scenes.spec.ts:2:1 › budget indicators reflect edits and undo (560ms)
+  ✓   28 [chromium] › tests/e2e/scenes.spec.ts:22:1 › sales chart follows workbook data and resets (908ms)
+  ✓   29 [chromium] › tests/e2e/scenes.spec.ts:47:1 › planner timeline follows dates and completion (558ms)
+  ✓   30 [chromium] › tests/e2e/scenes.spec.ts:73:1 › table code updates and downloads a complete export (1.1s)
+  ✓   31 [chromium] › tests/e2e/scenes.spec.ts:99:1 › demo selector, history and reload preserve the chosen scene (859ms)
+  ✓   32 [chromium] › tests/e2e/scenes.spec.ts:113:1 › switching a modified workbook requires an explicit discard (536ms)
+  ✓   33 [chromium] › tests/e2e/scenes.spec.ts:136:1 › desktop workbench fits the viewport and resizes both panes (687ms)
+  ✓   34 [chromium] › tests/e2e/scenes.spec.ts:179:1 › result tabs expose the code preview (460ms)
+  ✓   35 [chromium] › tests/e2e/scenes.spec.ts:194:1 › developer pages use main content and preserve workbook edits when returning (524ms)
+  ✓   36 [chromium] › tests/e2e/scenes.spec.ts:224:1 › developer pages can be opened directly and reloaded (548ms)
+(node:73856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   37 [webkit] › tests/e2e/formula.spec.ts:7:3 › formula semantics survive real Worker storage and reopen (1900) (3.7s)
+  ✓   38 [webkit] › tests/e2e/formula.spec.ts:7:3 › formula semantics survive real Worker storage and reopen (1904) (799ms)
+  ✓    1 [chromium] › tests/e2e/performance.spec.ts:2:1 › performance example measures a complete workload and restores stored data (53.1s)
+  ✓   40 [chromium] › tests/e2e/performance.spec.ts:49:1 › stopping capacity generation preserves a recoverable workbook (1.1s)
+  ✓   41 [chromium] › tests/e2e/performance.spec.ts:60:1 › multiple tabs share revisions and only one writer can commit (630ms)
+  ✓   42 [chromium] › tests/e2e/performance.spec.ts:88:1 › worker interruption recovers the previous head and reclaims uncommitted blocks (1.2s)
+  ✓   43 [chromium] › tests/e2e/performance.spec.ts:139:1 › native quota failures preserve committed values in a real storage worker (461ms)
+  ✓   44 [chromium] › tests/e2e/performance.spec.ts:180:1 › rapid scrolling and cache eviction reload the latest viewport without stale data (2.1s)
+  ✓   45 [chromium] › tests/e2e/performance.spec.ts:216:1 › leaving the performance scene cancels work before attaching the next scene (680ms)
+(node:74403) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   46 [webkit] › tests/e2e/playground.spec.ts:19:1 › renders the local workbook, formula totals and source preview (2.2s)
+  ✓   47 [webkit] › tests/e2e/playground.spec.ts:37:1 › keeps both scrollbar tracks visible and usable beside the canvas (1.3s)
+  ✓   48 [webkit] › tests/e2e/playground.spec.ts:80:1 › edits with the DOM editor, recalculates, undoes and redoes (1.2s)
+  ✓   49 [webkit] › tests/e2e/playground.spec.ts:105:1 › uses the formula bar, tab navigation and independent worksheets (1.3s)
+  ✓   50 [webkit] › tests/e2e/playground.spec.ts:125:1 › blocks edits in read-only mode and preserves keyboard selection (831ms)
+  ✓   51 [webkit] › tests/e2e/playground.spec.ts:139:1 › pastes a matrix atomically and protects IME composition from Enter (1.0s)
+  ✓   52 [webkit] › tests/e2e/playground.spec.ts:170:1 › imports a real XLSX in a Worker and exports a downloadable XLSX (1.7s)
+  ✓   53 [webkit] › tests/e2e/playground.spec.ts:198:1 › imports hostile JSON without replacing the current workbook (782ms)
+  ✓   54 [webkit] › tests/e2e/playground.spec.ts:207:1 › provides an accessible data table and a functional plugin (1.5s)
+  ✓   55 [webkit] › tests/e2e/playground.spec.ts:226:1 › loads saved JSON and cleans up old plugin UI (1.2s)
+  ✓   56 [webkit] › tests/e2e/playground.spec.ts:251:1 › uses a responsive layout without body overflow (739ms)
+  ✓   57 [webkit] › tests/e2e/playground.spec.ts:261:1 › scrolls to distant selections and reads the edited frozen-grid cell (788ms)
+  ✓   58 [webkit] › tests/e2e/playground.spec.ts:275:1 › cell editor grows for long wrapped and multiline text without visible scrollbars (1.2s)
+  ✓   59 [webkit] › tests/e2e/playground.spec.ts:330:1 › merged cells select their full rectangle with pointer, API, and keyboard (1.2s)
+  ✓   60 [webkit] › tests/e2e/playground.spec.ts:423:1 › frozen row and column respect custom header height while scrolling (1.3s)
+  ✓   39 [webkit] › tests/e2e/performance.spec.ts:2:1 › performance example measures a complete workload and restores stored data (45.7s)
+  ✓   61 [webkit] › tests/e2e/playground.spec.ts:470:1 › action icons render as SVG while controls keep accessible names (1.2s)
+  ✓   63 [webkit] › tests/e2e/playground.spec.ts:481:1 › toolbar moves trailing actions into More tools instead of scrolling (931ms)
+  ✓   62 [webkit] › tests/e2e/performance.spec.ts:49:1 › stopping capacity generation preserves a recoverable workbook (1.4s)
+  ✓   64 [webkit] › tests/e2e/playground.spec.ts:525:1 › merged cells crossing frozen panes clip and scroll each pane independently (1.2s)
+  ✓   65 [webkit] › tests/e2e/performance.spec.ts:60:1 › multiple tabs share revisions and only one writer can commit (2.2s)
+  ✓   66 [webkit] › tests/e2e/playground.spec.ts:559:1 › replacing workbooks and disposing twice releases component resources (1.3s)
+  ✓   68 [webkit] › tests/e2e/playground.spec.ts:666:1 › cancels imports on scene changes and ignores previously queued Worker results (1.3s)
+  ✓   67 [webkit] › tests/e2e/performance.spec.ts:88:1 › worker interruption recovers the previous head and reclaims uncommitted blocks (1.6s)
+  ✓   69 [webkit] › tests/e2e/playground.spec.ts:715:1 › sheet switches expand selection using the target sheet merges after removal (917ms)
+  ✓   70 [webkit] › tests/e2e/performance.spec.ts:139:1 › native quota failures preserve committed values in a real storage worker (1.4s)
+  ✓   71 [webkit] › tests/e2e/playground.spec.ts:742:1 › downloads and reimports binary native files in the real storage worker (1.0s)
+  ✓   73 [webkit] › tests/e2e/playground.spec.ts:776:1 › scene changes abort pending native imports before they can reattach the prior workbook (1.6s)
+  ✓   72 [webkit] › tests/e2e/performance.spec.ts:180:1 › rapid scrolling and cache eviction reload the latest viewport without stale data (3.3s)
+  ✓   74 [webkit] › tests/e2e/scenes.spec.ts:2:1 › budget indicators reflect edits and undo (820ms)
+  ✓   76 [webkit] › tests/e2e/scenes.spec.ts:22:1 › sales chart follows workbook data and resets (1.4s)
+  ✓   75 [webkit] › tests/e2e/performance.spec.ts:216:1 › leaving the performance scene cancels work before attaching the next scene (1.9s)
+  ✓   77 [webkit] › tests/e2e/scenes.spec.ts:47:1 › planner timeline follows dates and completion (815ms)
+(node:75702) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   78 [webkit] › tests/e2e/scenes.spec.ts:73:1 › table code updates and downloads a complete export (1.1s)
+  ✓   79 [webkit] › tests/e2e/scenes.spec.ts:99:1 › demo selector, history and reload preserve the chosen scene (3.1s)
+  ✓   81 [webkit] › tests/e2e/scenes.spec.ts:113:1 › switching a modified workbook requires an explicit discard (1.3s)
+  ✓   82 [webkit] › tests/e2e/scenes.spec.ts:136:1 › desktop workbench fits the viewport and resizes both panes (1.5s)
+  ✓   83 [webkit] › tests/e2e/scenes.spec.ts:179:1 › result tabs expose the code preview (1.2s)
+  ✓   84 [webkit] › tests/e2e/scenes.spec.ts:194:1 › developer pages use main content and preserve workbook edits when returning (1.3s)
+  ✓   85 [webkit] › tests/e2e/scenes.spec.ts:224:1 › developer pages can be opened directly and reloaded (1.2s)
+(node:76276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   80 [firefox] › tests/e2e/formula.spec.ts:7:3 › formula semantics survive real Worker storage and reopen (1900) (9.0s)
+  ✘   86 [firefox] › tests/e2e/performance.spec.ts:2:1 › performance example measures a complete workload and restores stored data (7.3s)
+(node:77085) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   87 [firefox] › tests/e2e/formula.spec.ts:7:3 › formula semantics survive real Worker storage and reopen (1904) (5.9s)
+  ✓   89 [firefox] › tests/e2e/playground.spec.ts:19:1 › renders the local workbook, formula totals and source preview (1.7s)
+  ✓   90 [firefox] › tests/e2e/playground.spec.ts:37:1 › keeps both scrollbar tracks visible and usable beside the canvas (1.8s)
+  ✓   91 [firefox] › tests/e2e/playground.spec.ts:80:1 › edits with the DOM editor, recalculates, undoes and redoes (5.7s)
+  ✓   88 [firefox] › tests/e2e/performance.spec.ts:49:1 › stopping capacity generation preserves a recoverable workbook (9.7s)
+  ✓   92 [firefox] › tests/e2e/playground.spec.ts:105:1 › uses the formula bar, tab navigation and independent worksheets (6.6s)
+  ✓   93 [firefox] › tests/e2e/performance.spec.ts:60:1 › multiple tabs share revisions and only one writer can commit (4.9s)
+  ✓   94 [firefox] › tests/e2e/playground.spec.ts:125:1 › blocks edits in read-only mode and preserves keyboard selection (2.7s)
+  ✓   95 [firefox] › tests/e2e/performance.spec.ts:88:1 › worker interruption recovers the previous head and reclaims uncommitted blocks (3.8s)
+  ✓   96 [firefox] › tests/e2e/playground.spec.ts:139:1 › pastes a matrix atomically and protects IME composition from Enter (2.2s)
+  ✓   97 [firefox] › tests/e2e/performance.spec.ts:139:1 › native quota failures preserve committed values in a real storage worker (1.8s)
+  ✓   98 [firefox] › tests/e2e/playground.spec.ts:170:1 › imports a real XLSX in a Worker and exports a downloadable XLSX (1.6s)
+  ✓  100 [firefox] › tests/e2e/playground.spec.ts:198:1 › imports hostile JSON without replacing the current workbook (1.5s)
+  ✓   99 [firefox] › tests/e2e/performance.spec.ts:180:1 › rapid scrolling and cache eviction reload the latest viewport without stale data (3.1s)
+  ✓  101 [firefox] › tests/e2e/playground.spec.ts:207:1 › provides an accessible data table and a functional plugin (1.9s)
+  ✓  102 [firefox] › tests/e2e/performance.spec.ts:216:1 › leaving the performance scene cancels work before attaching the next scene (1.8s)
+  ✓  103 [firefox] › tests/e2e/playground.spec.ts:226:1 › loads saved JSON and cleans up old plugin UI (1.1s)
+  ✓  104 [firefox] › tests/e2e/scenes.spec.ts:2:1 › budget indicators reflect edits and undo (1.2s)
+  ✓  105 [firefox] › tests/e2e/playground.spec.ts:251:1 › uses a responsive layout without body overflow (1.5s)
+  ✓  106 [firefox] › tests/e2e/scenes.spec.ts:22:1 › sales chart follows workbook data and resets (1.4s)
+  ✓  107 [firefox] › tests/e2e/playground.spec.ts:261:1 › scrolls to distant selections and reads the edited frozen-grid cell (1.1s)
+  ✓  108 [firefox] › tests/e2e/scenes.spec.ts:47:1 › planner timeline follows dates and completion (634ms)
+  ✓  109 [firefox] › tests/e2e/playground.spec.ts:275:1 › cell editor grows for long wrapped and multiline text without visible scrollbars (898ms)
+  ✓  111 [firefox] › tests/e2e/playground.spec.ts:330:1 › merged cells select their full rectangle with pointer, API, and keyboard (1.2s)
+  ✓  110 [firefox] › tests/e2e/scenes.spec.ts:73:1 › table code updates and downloads a complete export (2.0s)
+  ✓  112 [firefox] › tests/e2e/playground.spec.ts:423:1 › frozen row and column respect custom header height while scrolling (934ms)
+  ✓  114 [firefox] › tests/e2e/playground.spec.ts:470:1 › action icons render as SVG while controls keep accessible names (3.6s)
+  ✓  113 [firefox] › tests/e2e/scenes.spec.ts:99:1 › demo selector, history and reload preserve the chosen scene (5.6s)
+  ✓  115 [firefox] › tests/e2e/playground.spec.ts:481:1 › toolbar moves trailing actions into More tools instead of scrolling (4.7s)
+  ✓  116 [firefox] › tests/e2e/scenes.spec.ts:113:1 › switching a modified workbook requires an explicit discard (3.2s)
+  ✓  118 [firefox] › tests/e2e/scenes.spec.ts:136:1 › desktop workbench fits the viewport and resizes both panes (1.6s)
+  ✓  117 [firefox] › tests/e2e/playground.spec.ts:525:1 › merged cells crossing frozen panes clip and scroll each pane independently (2.2s)
+  ✓  119 [firefox] › tests/e2e/scenes.spec.ts:179:1 › result tabs expose the code preview (1.3s)
+  ✓  120 [firefox] › tests/e2e/playground.spec.ts:559:1 › replacing workbooks and disposing twice releases component resources (1.4s)
+  ✓  121 [firefox] › tests/e2e/scenes.spec.ts:194:1 › developer pages use main content and preserve workbook edits when returning (954ms)
+  ✓  122 [firefox] › tests/e2e/playground.spec.ts:666:1 › cancels imports on scene changes and ignores previously queued Worker results (1.7s)
+  ✓  123 [firefox] › tests/e2e/scenes.spec.ts:224:1 › developer pages can be opened directly and reloaded (1.9s)
+  ✓  124 [firefox] › tests/e2e/playground.spec.ts:715:1 › sheet switches expand selection using the target sheet merges after removal (1.0s)
+  ✓  125 [firefox] › tests/e2e/playground.spec.ts:742:1 › downloads and reimports binary native files in the real storage worker (1.6s)
+  ✓  126 [firefox] › tests/e2e/playground.spec.ts:776:1 › scene changes abort pending native imports before they can reattach the prior workbook (2.0s)
+
+
+  1) [firefox] › tests/e2e/performance.spec.ts:2:1 › performance example measures a complete workload and restores stored data 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('#scene-title')
+    Expected: "Performance Lab"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('#scene-title') with timeout 5000ms
+      - waiting for locator('#scene-title')
+        6 × locator resolved to <h1 id="scene-title"></h1>
+          - unexpected value ""
+
+
+       7 |   page.on('pageerror', (error) => errors.push(error.message));
+       8 |   await page.goto('/#performance');
+    >  9 |   await expect(page.locator('#scene-title')).toHaveText('Performance Lab');
+         |                                              ^
+      10 |   await page.locator('#perf-run').click();
+      11 |   await expect.poll(() => page.evaluate(() => window.opensheet.element.inert)).toBe(true);
+      12 |   await expect(page.locator('#perf-progress')).toContainText('Finished', { timeout: 150000 });
+        at /Volumes/github/private/opensheet/tests/e2e/performance.spec.ts:9:46
+
+    Error Context: test-results/performance-performance-ex-613dd-ad-and-restores-stored-data-firefox/error-context.md
+
+  1 failed
+    [firefox] › tests/e2e/performance.spec.ts:2:1 › performance example measures a complete workload and restores stored data 
+  125 passed (2.9m)

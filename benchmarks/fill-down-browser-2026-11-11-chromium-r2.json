@@ -1,0 +1,25 @@
+{
+  "engine": "chromium",
+  "startedAt": "2026-11-11T02:03:51.271Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 252,
+    "sha256": "689039a0d6061bdb2466d448e484926a8582a11a45f9199f36084f9044e7144a"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "a05419bada35818b9eb50eb5e6a1da5109eaa42712fc7b869537e773616754c9"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Timing includes Worker commit acknowledgement, excludes verification and UI frame analysis.",
+  "rounds": [
+    {
+      "round": 1,
+      "error": "Error: page.evaluate: OpenSheetError: Command exceeds the 32 MiB traversal planning budget; use a streamed operation\n    at worker.onmessage (http://127.0.0.1:5186/assets/index-DeS0jsCo.js:57:80861)"
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

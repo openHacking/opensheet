@@ -2,16 +2,18 @@ export function stringifyDelimited(
   rows: unknown[][],
   separator = ',',
   safe = true,
+  onSanitized?: (row: number, column: number) => void,
 ): { text: string; sanitized: number } {
   let sanitized = 0;
   const text = rows
-    .map((row) =>
+    .map((row, rowIndex) =>
       row
-        .map((value) => {
+        .map((value, columnIndex) => {
           let s = String(value ?? '');
-          if (safe && typeof value === 'string' && /^[\s]*[=+@-]|^[\t\r]/.test(s)) {
+          if (safe && typeof value === 'string' && /^(?:\s*[=+@\-＝＋＠－]|[\t\r\n\0])/.test(s)) {
             s = "'" + s;
             sanitized++;
+            onSanitized?.(rowIndex, columnIndex);
           }
           return s.includes(separator) || /["\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
         })
@@ -26,7 +28,22 @@ export function parseDelimited(text: string, separator = ','): string[][] {
   let row: string[] = [],
     cell = '',
     quoted = false,
+    afterQuote = false,
+    width = 0;
+  const checkSize = (columns: number) => {
+    if (columns > 1000 || rows.length + 1 > 100000)
+      throw new Error('Delimited data exceeds limits');
+    if ((rows.length + 1) * Math.max(width, columns) > 200000) throw new Error('Too many cells');
+  };
+  const finishRow = () => {
+    checkSize(row.length + 1);
+    row.push(cell);
+    width = Math.max(width, row.length);
+    rows.push(row);
+    cell = '';
+    row = [];
     afterQuote = false;
+  };
   const input = text.replace(/^\uFEFF/, '');
   for (let i = 0; i < input.length; i++) {
     const c = input[i];
@@ -42,16 +59,13 @@ export function parseDelimited(text: string, separator = ','): string[][] {
       } else cell += c;
     } else if (c === '"' && !cell && !afterQuote) quoted = true;
     else if (c === separator) {
+      checkSize(row.length + 2);
       row.push(cell);
       cell = '';
       afterQuote = false;
     } else if (c === '\n' || c === '\r') {
       if (c === '\r' && input[i + 1] === '\n') i++;
-      row.push(cell);
-      rows.push(row);
-      cell = '';
-      row = [];
-      afterQuote = false;
+      finishRow();
     } else {
       if (afterQuote) throw new Error('Unexpected character after quoted field');
       cell += c;
@@ -60,11 +74,6 @@ export function parseDelimited(text: string, separator = ','): string[][] {
       throw new Error('Delimited data exceeds limits');
   }
   if (quoted) throw new Error('Unterminated quoted field');
-  if (cell || row.length || !rows.length) {
-    row.push(cell);
-    rows.push(row);
-  }
-  const width = rows.reduce((max, r) => Math.max(max, r.length), 0);
-  if (rows.length * width > 200000) throw new Error('Too many cells');
+  if (cell || row.length || afterQuote || !rows.length) finishRow();
   return rows.map((r) => [...r, ...Array(width - r.length).fill('')]);
 }

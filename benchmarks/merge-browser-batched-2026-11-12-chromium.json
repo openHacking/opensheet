@@ -1,0 +1,40 @@
+{
+  "startedAt": "2026-11-12T05:36:53.872Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 361,
+    "sha256": "3a3384ccf368f0277658e3d3253519ec332053e65e225632fc251046dc2f6eac"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "baf36dde108d3aabef8ab8fbebf8d9d5345cb8b58b1f94e5a6b11a8e94de32b0"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "engine": "chromium",
+  "cells": 20000,
+  "scope": "Production preview; real Worker and IndexedDB merge of 20,000 existing annotated blank cells. All notes verified before, after, undo, redo and reopen. No paired baseline, process peak memory, native input or other devices.",
+  "rounds": [
+    {
+      "round": 1,
+      "mergeMs": 167.30000019073486,
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1229372
+    },
+    {
+      "round": 2,
+      "mergeMs": 150.59999990463257,
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1229372
+    },
+    {
+      "round": 3,
+      "mergeMs": 171.69999980926514,
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1229372
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

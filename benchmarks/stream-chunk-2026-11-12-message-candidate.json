@@ -1,0 +1,2951 @@
+{
+  "startedAt": "2026-11-11T17:59:24.798Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 291,
+    "sha256": "fdc3c949a91aac86c43878c8ba9288f72f07b93b51ad76409d16838a97d8b112"
+  },
+  "bundleSha256": {
+    "scheduled": "a37ee5cdba75e69e2abb3125c1913b13114385ef82c91985caa2ac9face4a90f",
+    "noYield": "8e2e4aa549c150db305583b2d2b2d3f56d29cbbadd28ae5f93945cc4b9e3c866",
+    "messageYield": "005627ec664491e8e8cb0d33d5efe14811ee1e92f79d517aaa6e6d3cb507078d"
+  },
+  "scope": "Synthetic in-page parser benchmark. The noYield control replaces timer yields with microtask yields and cannot provide the same cancellation guarantee. The messageYield candidate uses a new MessageChannel per yield; it is not production code. Batches rotate order and verify JSON payload and binary metadata. Excludes Worker transfer, persistence, large workbooks, peak memory and reference devices.",
+  "browsers": {
+    "chromium": {
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 123.90000009536743,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 101.19999980926514,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 114.59999990463257,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 104.09999990463257,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 121.90000009536743,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 103.5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 114.30000019073486,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 102.30000019073486,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 116.89999961853027,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 137.60000038146973,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 100.59999990463257,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 100.69999980926514,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 103.09999990463257,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 116,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 103.7000002861023,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 104.19999980926514,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 99.40000009536743,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 118,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 8.800000190734863,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 21.399999618530273,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 9,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 11.100000381469727,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 9.099999904632568,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 11.799999713897705,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 9.400000095367432,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 11.200000286102295,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 8.899999618530273,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 11.200000286102295,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 9.400000095367432,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 11.599999904632568,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 9,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 11.400000095367432,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 9,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 11.5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 8.899999618530273,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 11.600000381469727,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 3.5999999046325684,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 4.699999809265137,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 3.4000000953674316,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 3.5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 3.9000000953674316,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 3.5999999046325684,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 3.8000001907348633,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 3.6999998092651367,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 3.4000000953674316,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 3.6999998092651367,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 3.700000286102295,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 3.799999713897705,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 3.5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 3.5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 3.8000001907348633,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 3.5999999046325684,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 3.6999998092651367,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 3.5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 5.300000190734863,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 4.199999809265137,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 3.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 2.0999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1.799999713897705,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 4.400000095367432,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 1.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 1.799999713897705,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 1.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 1.8999996185302734,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 1.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 1.0999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 0.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 0.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 0.7999997138977051,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 0.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 0.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1.0999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 0.7999997138977051,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 0.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 0.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 0.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 0.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 0.8000001907348633,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 0.9000000953674316,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 0.5999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 5.300000190734863,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 0.5999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 0.6000003814697266,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 0.5,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 0.5,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 0.5999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 0.5,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 0.5,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 0.5999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 0.6000003814697266,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 0.5,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 0.5999999046325684,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 0.6999998092651367,
+          "bytesPerInput": 417
+        }
+      ]
+    },
+    "firefox": {
+      "version": "155.0",
+      "samples": [
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 487,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 286,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 302,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 244,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 406,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 259,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 267,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 253,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 432,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 423,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 258,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 275,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 237,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 416,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 277,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 279,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 394,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 402,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 31,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 29,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 28,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 28,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 33,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 27,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 26,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 31,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 31,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 26,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 30,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 27,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 14,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 12,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 12,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 10,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 12,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 12,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 14,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 15,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 17,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 12,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 12,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 20,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 10,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 16,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 11,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 10,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 14,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 10,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 16,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 21,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 16,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 4,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 8,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 3,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 12,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        }
+      ]
+    },
+    "webkit": {
+      "version": "26.6",
+      "samples": [
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 39,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 34,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 40,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 34,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 45,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 35,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 32,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 32,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 36,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 34,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 34,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 35,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 35,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 36,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 36,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 31,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 31,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 31,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 10,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 9,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 8,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 4,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 4,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 4,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 5,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 7,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 6,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 11,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "json",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 9,
+          "bytesPerInput": 16014
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 7,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 4,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 4,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 2,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 1,
+          "iterations": 5,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 0,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 0,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 64,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 0,
+          "variant": "messageYield",
+          "ms": 0,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 1,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "noYield",
+          "ms": 0,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 2,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "noYield",
+          "ms": 0,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 3,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "scheduled",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 4,
+          "variant": "noYield",
+          "ms": 0,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "noYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "messageYield",
+          "ms": 1,
+          "bytesPerInput": 417
+        },
+        {
+          "format": "binary",
+          "chunkBytes": 65536,
+          "iterations": 20,
+          "round": 5,
+          "variant": "scheduled",
+          "ms": 0,
+          "bytesPerInput": 417
+        }
+      ]
+    }
+  },
+  "finishedAt": "2026-11-11T17:59:38.029Z"
+}

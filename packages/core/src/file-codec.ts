@@ -23,6 +23,13 @@ const position = z
   .max(BLOCK_ROWS * BLOCK_COLUMNS - 1);
 const column = <T extends z.ZodType>(value: T) =>
   z.object({ positions: z.array(position).max(2048), values: z.array(value).max(2048) }).strict();
+const fileScalarSchema = z.discriminatedUnion('type', [
+  scalarSchema.options[0].strict(),
+  scalarSchema.options[1].strict(),
+  scalarSchema.options[2].strict(),
+  scalarSchema.options[3].strict(),
+  scalarSchema.options[4].strict(),
+]);
 const axisSchema = z
   .object({
     nextId: z.number().int().min(1).max(0x100000000),
@@ -35,7 +42,7 @@ const axisSchema = z
         ]),
       )
       .max(LIMITS.rows),
-    meta: z.record(z.string(), sheetSchema.shape.rows.valueType).optional(),
+    meta: z.record(z.string(), sheetSchema.shape.rows.valueType.strict()).optional(),
   })
   .strict();
 export const fileBlockDataSchema = z
@@ -54,7 +61,7 @@ export const fileBlockDataSchema = z
     notes: column(cellSchema.shape.note.unwrap()).optional(),
     links: column(cellSchema.shape.link.unwrap()).optional(),
     formats: column(cellSchema.shape.numberFormat.unwrap()).optional(),
-    cached: column(scalarSchema).optional(),
+    cached: column(fileScalarSchema).optional(),
     cachedNegativeZero: z.array(position).max(2048).optional(),
   })
   .strict();
@@ -74,6 +81,7 @@ const fileSheetSchema = sheetSchema
   .extend({
     rows: axisSchema,
     columns: axisSchema,
+    freeze: sheetSchema.shape.freeze.strict(),
     blocks: z.array(fileBlockSchema),
   })
   .strict();
@@ -82,7 +90,7 @@ export const workbookFileSchema = snapshotSchema
   .extend({
     schemaVersion: z.literal(3),
     sheets: z.array(fileSheetSchema).min(1).max(LIMITS.sheets),
-    styles: z.array(styleSchema),
+    styles: z.array(styleSchema.strict()),
   })
   .strict();
 export type WorkbookFile = z.infer<typeof workbookFileSchema>;
@@ -197,6 +205,7 @@ export function decodeFileCells(
   styles: readonly string[],
   rows?: Set<number>,
   columns?: Set<number>,
+  sparse = false,
 ): Record<string, CellRecord> {
   let textBytes = 0;
   for (const col of Object.values(block?.data ?? {})) {
@@ -301,9 +310,22 @@ export function decodeFileCells(
   }
   zero(data.negativeZero, false);
   zero(data.cachedNegativeZero, true);
-  return Object.fromEntries(
-    [...cells.values()].map((cell) => [key(cell.rowId, cell.columnId), cell]),
-  );
+  const result: Record<string, CellRecord> = {};
+  for (const cell of cells.values()) {
+    if (
+      sparse &&
+      cell.input.type !== 'formula' &&
+      cell.input.type !== 'blank' &&
+      cell.styleId === undefined &&
+      cell.note === undefined &&
+      cell.link === undefined &&
+      cell.numberFormat === undefined &&
+      cell.cached === undefined
+    )
+      continue;
+    result[key(cell.rowId, cell.columnId)] = cell;
+  }
+  return result;
 }
 export function encodeWorkbookFile(snapshot: WorkbookSnapshot): WorkbookFile {
   const entries = Object.entries(snapshot.styles),
@@ -343,6 +365,22 @@ export function encodeWorkbookFile(snapshot: WorkbookSnapshot): WorkbookFile {
 /** Only metadata is expanded; import processes each page independently. */
 export function decodeFileMetadata(input: unknown): WorkbookSnapshot {
   validateJSONValue(input);
+  if (input && typeof input === 'object' && !Array.isArray(input)) {
+    const candidate = input as Record<string, unknown>;
+    if (
+      typeof candidate.schemaVersion === 'number' &&
+      Number.isSafeInteger(candidate.schemaVersion) &&
+      typeof candidate.workbookId === 'string' &&
+      Array.isArray(candidate.sheets) &&
+      Array.isArray(candidate.styles)
+    ) {
+      assert(
+        candidate.schemaVersion === 3,
+        'UNSUPPORTED_VERSION',
+        `Workbook schema ${candidate.schemaVersion} is unsupported; open it with a compatible version and export a schema 3 backup`,
+      );
+    }
+  }
   const parsed = workbookFileSchema.safeParse(input);
   assert(parsed.success, 'INVALID_ARGUMENT', 'Invalid workbook file (schemaVersion 3 required)');
   const file = parsed.data;
@@ -376,6 +414,7 @@ export function decodeWorkbookFile(input: unknown): WorkbookSnapshot {
       columns = new Set(sh.columnOrder),
       seen = new Set<string>();
     for (const block of file.sheets[i].blocks) {
+      assert(block && typeof block === 'object', 'INVALID_ARGUMENT', 'Invalid data block');
       const address = `${block.row}/${block.column}`;
       assert(!seen.has(address), 'INVALID_ARGUMENT', 'Duplicate block');
       seen.add(address);
@@ -390,7 +429,11 @@ export function createWorkbookFile(
 ): WorkbookFile {
   return encodeWorkbookFile(createSnapshot(options));
 }
-export function validateWorkbookFile(input: unknown): WorkbookFile {
+/** Internal iterator: the first step validates metadata, then each step validates one page. */
+export function* validateWorkbookFilePages(
+  input: unknown,
+  onMetadata?: (file: WorkbookFile) => void,
+): Generator<{ sheetIndex: number; block: FileBlock }, WorkbookFile> {
   assert(
     input && typeof input === 'object' && Array.isArray((input as WorkbookFile).sheets),
     'INVALID_ARGUMENT',
@@ -401,6 +444,7 @@ export function validateWorkbookFile(input: unknown): WorkbookFile {
     ...file,
     sheets: file.sheets.map((sh) => ({ ...sh, blocks: [] })),
   });
+  onMetadata?.(file);
   const styles = Object.keys(metadata.styles);
   for (let i = 0; i < file.sheets.length; i++) {
     const sh = metadata.sheets[i],
@@ -409,11 +453,21 @@ export function validateWorkbookFile(input: unknown): WorkbookFile {
       seen = new Set<string>();
     assert(Array.isArray(file.sheets[i].blocks), 'INVALID_ARGUMENT', 'Invalid blocks');
     for (const block of file.sheets[i].blocks) {
+      assert(block && typeof block === 'object', 'INVALID_ARGUMENT', 'Invalid data block');
       const address = `${block.row}/${block.column}`;
       assert(!seen.has(address), 'INVALID_ARGUMENT', 'Duplicate page');
       seen.add(address);
+      validateJSONValue(block);
       decodeFileCells(block, styles, rows, columns);
+      yield { sheetIndex: i, block };
     }
   }
   return file;
+}
+
+export function validateWorkbookFile(input: unknown): WorkbookFile {
+  const pages = validateWorkbookFilePages(input);
+  for (let step = pages.next(); ; step = pages.next()) {
+    if (step.done) return step.value;
+  }
 }

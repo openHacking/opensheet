@@ -1,0 +1,42 @@
+{
+  "startedAt": "2026-11-12T04:51:07.300Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 354,
+    "sha256": "0085d5a928bcad25f8b96e838db4346024935d7d81c8746ad2268567008f73ee"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Internal rectangle-only model; one warmed Node process, 8,192 synthetic definitions per round. Index build, 8,192 detached lookups and a row transform are timed separately. Excludes browser, storage, formula evaluation, cancellation and isolated peak memory.",
+  "samples": [
+    {
+      "round": 1,
+      "indexMs": 217.75791699999996,
+      "lookupMs": 12.145582999999988,
+      "transformMs": 454.28045799999995,
+      "verified": 8192
+    },
+    {
+      "round": 2,
+      "indexMs": 192.44262500000013,
+      "lookupMs": 12.40383299999985,
+      "transformMs": 430.31220800000006,
+      "verified": 8192
+    },
+    {
+      "round": 3,
+      "indexMs": 224.9709580000001,
+      "lookupMs": 18.002541000000065,
+      "transformMs": 584.0476249999999,
+      "verified": 8192
+    },
+    {
+      "round": 4,
+      "indexMs": 223.05937500000027,
+      "lookupMs": 13.078541999999743,
+      "transformMs": 403.55337499999996,
+      "verified": 8192
+    }
+  ]
+}

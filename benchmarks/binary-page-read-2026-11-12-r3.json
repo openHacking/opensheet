@@ -1,0 +1,202 @@
+{
+  "startedAt": "2026-11-12T01:23:11.177Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 338,
+    "sha256": "20451ddab769bd06698b6a5d55fde9375636e95945fc1d398ca7f06698db3f38"
+  },
+  "hashes": {
+    "previous": "52c7e87e6ad8c923639a31ce187a9e47303392efe23c641a3602b9e8431e73ec",
+    "current": "561aa4b6bf90d20c18d82785a775dd3095c52ddf095a02bdaeb322947f0f625e"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless browser, warm Blob, 8 real encoded workbook pages of 2048 pseudorandom text cells each; paired sequential reads excluding open, validation of every decoded value outside timing. Previous is reconstructed, not a clean historical build. No Worker, IndexedDB, cold I/O, peak memory, production assets or other devices.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "fixture": {
+        "fileBytes": 1622379,
+        "rawBytes": [
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528
+        ],
+        "frameBytes": [
+          202686,
+          202683,
+          202689,
+          202687,
+          202684,
+          202679,
+          202672,
+          202675
+        ]
+      },
+      "rounds": [
+        {
+          "previous": 47.30000019073486,
+          "current": 47.09999990463257
+        },
+        {
+          "current": 46.59999990463257,
+          "previous": 46
+        },
+        {
+          "previous": 51,
+          "current": 48.40000009536743
+        },
+        {
+          "current": 45.89999961853027,
+          "previous": 44.5
+        },
+        {
+          "previous": 47.10000038146973,
+          "current": 46
+        },
+        {
+          "current": 49.200000286102295,
+          "previous": 50.59999990463257
+        },
+        {
+          "previous": 46.799999713897705,
+          "current": 46.799999713897705
+        },
+        {
+          "current": 47.30000019073486,
+          "previous": 47
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "fixture": {
+        "fileBytes": 1629947,
+        "rawBytes": [
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528
+        ],
+        "frameBytes": [
+          203617,
+          203625,
+          203628,
+          203636,
+          203629,
+          203633,
+          203625,
+          203630
+        ]
+      },
+      "rounds": [
+        {
+          "previous": 71,
+          "current": 86
+        },
+        {
+          "current": 71,
+          "previous": 67
+        },
+        {
+          "previous": 67,
+          "current": 72
+        },
+        {
+          "current": 72,
+          "previous": 75
+        },
+        {
+          "previous": 69,
+          "current": 73
+        },
+        {
+          "current": 72,
+          "previous": 67
+        },
+        {
+          "previous": 67,
+          "current": 69
+        },
+        {
+          "current": 71,
+          "previous": 64
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "fixture": {
+        "fileBytes": 1621807,
+        "rawBytes": [
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528,
+          270528
+        ],
+        "frameBytes": [
+          202620,
+          202601,
+          202614,
+          202623,
+          202610,
+          202607,
+          202591,
+          202617
+        ]
+      },
+      "rounds": [
+        {
+          "previous": 58,
+          "current": 68
+        },
+        {
+          "current": 60,
+          "previous": 61
+        },
+        {
+          "previous": 59,
+          "current": 61
+        },
+        {
+          "current": 61,
+          "previous": 59
+        },
+        {
+          "previous": 62,
+          "current": 62
+        },
+        {
+          "current": 61,
+          "previous": 62
+        },
+        {
+          "previous": 68,
+          "current": 62
+        },
+        {
+          "current": 62,
+          "previous": 61
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-12T01:23:17.720Z"
+}

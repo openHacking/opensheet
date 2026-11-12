@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-10-30T20:15:07.945Z",
+  "engine": "chromium",
+  "rows": 128,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 236,
+    "sha256": "0f2b10c64f99ac7b360bdac305e149ea2755413cb5267ea247bc708636e66eb1"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "df77898649f3dcf735c80ac72ac8de7cf2592b824c95702372d3a26e89e331c4"
+  },
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless browser, local development server; acknowledged edits and full output reads are separate. No worker memory, internal phase attribution or cross-device acceptance.",
+  "rounds": [
+    {
+      "round": 1,
+      "error": "Error: page.evaluate: Error: Reopen mismatch 2/A: {\"error\":\"#LIMIT!\"}\n    at eval (eval at evaluate (:311:30), <anonymous>:61:21)\n    at async <anonymous>:337:30"
+    }
+  ]
+}

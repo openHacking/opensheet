@@ -1,4 +1,67 @@
 import { test, expect } from '@playwright/test';
+
+for (const failure of [false, true]) {
+  test(`developer page stays selected when a scene load ${failure ? 'fails' : 'finishes'}`, async ({
+    page,
+  }) => {
+    await page.goto('/#budget');
+    await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+    await page.evaluate((shouldFail) => {
+      const app = window.opensheet;
+      const load = app.load.bind(app);
+      app.load = async (...args) => {
+        await new Promise<void>((resolve) => ((window as any).releaseSceneLoad = resolve));
+        if (shouldFail) throw new Error('Injected scene failure');
+        return load(...args);
+      };
+    }, failure);
+    await page.locator('#scene-select').selectOption('sales');
+    await expect
+      .poll(() => page.evaluate(() => Boolean((window as any).releaseSceneLoad)))
+      .toBe(true);
+    await page.locator('#nav-api').click();
+    await expect(page.locator('#api-page')).toBeVisible();
+    await page.evaluate(() => (window as any).releaseSceneLoad());
+    if (failure) await expect(page.locator('#notice')).toContainText('Injected scene failure');
+    else await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
+    await expect(page.locator('#scene-select')).toBeEnabled();
+    await expect(page.locator('#api-page')).toBeVisible();
+    await expect(page.locator('#spreadsheet-page')).toBeHidden();
+    await expect(page).toHaveTitle('API quick start · OpenSheet');
+    expect(new URL(page.url()).hash).toBe('#api');
+    await page.locator('#api-back').click();
+    await expect(page.locator('#scene-title')).toHaveText(
+      failure ? 'Budget Simulator' : 'Sales Dashboard',
+    );
+  });
+}
+
+test('reset completion preserves a developer page title and address', async ({ page }) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  await page.evaluate(() => {
+    const original = window.opensheet.getWorkbook();
+    const prototype = Object.getPrototypeOf(original);
+    const ready = prototype.ready;
+    prototype.ready = async function () {
+      const result = await ready.call(this);
+      if (this !== original) {
+        prototype.ready = ready;
+        await new Promise<void>((resolve) => ((window as any).releaseReset = resolve));
+      }
+      return result;
+    };
+  });
+  await page.getByRole('button', { name: 'Reset demo' }).click();
+  await expect.poll(() => page.evaluate(() => Boolean((window as any).releaseReset))).toBe(true);
+  await page.locator('#nav-plugins').click();
+  await expect(page.locator('#plugins-page')).toBeVisible();
+  await page.evaluate(() => (window as any).releaseReset());
+  await expect(page.locator('#reset-demo')).toBeEnabled();
+  await expect(page.locator('#plugins-page')).toBeVisible();
+  await expect(page).toHaveTitle('Plugin example · OpenSheet');
+  expect(new URL(page.url()).hash).toBe('#plugins');
+});
 test('budget indicators reflect edits and undo', async ({ page }) => {
   await page.goto('/#budget');
   await page.waitForFunction(
@@ -171,8 +234,9 @@ test('desktop workbench fits the viewport and resizes both panes', async ({ page
   expect(dragged!.width).toBeLessThan(before!.width);
   await splitter.focus();
   await splitter.press('ArrowRight');
-  const after = await page.locator('.document').boundingBox();
-  expect(after!.width).toBeGreaterThan(dragged!.width);
+  await expect
+    .poll(async () => (await page.locator('.document').boundingBox())!.width)
+    .toBeGreaterThan(dragged!.width);
   await splitter.dblclick();
   await expect(splitter).toHaveAttribute('aria-valuenow', '67');
 });

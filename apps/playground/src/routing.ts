@@ -1,9 +1,20 @@
-import type { OpenSheet } from 'opensheet';
+import { createWorkbook, Workbook, type OpenSheet } from 'opensheet';
 import { createBindings } from './bindings.js';
 import { sample } from './budget.js';
 import { $ } from './dom.js';
 import { createScene, scenes, type SceneId } from './scenes.js';
 import type { PlaygroundState } from './state.js';
+import { refreshPersistence } from './persistence.js';
+export class RetainedBackupError extends Error {
+  constructor(
+    readonly workbookId: string,
+    message: string,
+    cause: unknown,
+  ) {
+    super(message, { cause });
+    this.name = 'RetainedBackupError';
+  }
+}
 export function createRouting(
   app: OpenSheet,
   state: PlaygroundState,
@@ -12,6 +23,7 @@ export function createRouting(
   showPanel: (panel: 'code' | 'insights') => void,
   startPerformance: () => Promise<void>,
   leavePerformance: () => Promise<void>,
+  notice: (message: string) => void,
 ) {
   const bindings = createBindings();
   function showPage(page: 'spreadsheet' | 'api' | 'plugins', focus = false) {
@@ -53,15 +65,15 @@ export function createRouting(
     if (id === 'performance') await startPerformance();
     else {
       const saved = localStorage.getItem(`opensheet.scene.${id}`);
-      if (saved) {
-        try {
-          await app.open(saved);
-        } catch {
-          await app.load(id === 'budget' ? await sample() : await createScene(id));
-        }
-      } else await app.load(id === 'budget' ? await sample() : await createScene(id));
-      localStorage.setItem(`opensheet.scene.${id}`, app.getWorkbook().id);
+      if (saved) await app.open(saved);
+      else {
+        await app.load(id === 'budget' ? await sample() : await createScene(id));
+        localStorage.setItem(`opensheet.scene.${id}`, app.getWorkbook().id);
+      }
     }
+    completeScene(id);
+  }
+  function completeScene(id: SceneId) {
     state.dirty = false;
     state.importedWorkbook = false;
     state.foundIndex = -1;
@@ -69,11 +81,12 @@ export function createRouting(
     app.setMode('edit');
     $<HTMLInputElement>('document-name').value =
       id === 'budget' ? 'Launch budget' : scenes[id].title;
-    $('save-state').textContent = 'Example workbook · All changes stay local';
+    refreshPersistence(app, state);
     $('scene-title').textContent = scenes[id].title;
     $('scene-label').textContent = scenes[id].label;
     $('scene-description').textContent = scenes[id].description;
-    document.title = `${scenes[id].title} · OpenSheet`;
+    const page = location.hash.slice(1);
+    document.title = `${page === 'api' ? 'API quick start' : page === 'plugins' ? 'Plugin example' : scenes[id].title} · OpenSheet`;
     $<HTMLSelectElement>('scene-select').value = id;
     showPanel(id === 'code' ? 'code' : 'insights');
     refresh();
@@ -85,11 +98,65 @@ export function createRouting(
     location.hash = next;
   });
   bindings.on($('reset-demo'), 'click', async () => {
+    if (routeBusy) return;
+    if (app.getWorkbook().persistenceState.pending) {
+      notice('Wait for saving to finish');
+      return;
+    }
     if (state.dirty && !confirm('Reset this demo? Download JSON first to keep your changes.'))
       return;
-    localStorage.removeItem(`opensheet.scene.${state.currentScene}`);
-    if (state.currentScene !== 'performance') await app.getWorkbook().deleteStorage();
-    await loadScene(state.currentScene);
+    routeBusy = true;
+    const scene = state.currentScene;
+    const button = $<HTMLButtonElement>('reset-demo');
+    button.disabled = true;
+    let candidate: Workbook | undefined;
+    let published = false;
+    try {
+      if (scene === 'performance') {
+        localStorage.removeItem(`opensheet.scene.${scene}`);
+        await loadScene(scene);
+      } else {
+        const previous = app.getWorkbook();
+        const revision = previous.revision;
+        const snapshot = scene === 'budget' ? await sample() : await createScene(scene);
+        candidate = new Workbook({ ...snapshot, workbookId: `wb-${crypto.randomUUID()}` });
+        await candidate.ready();
+        if (
+          app.getWorkbook() !== previous ||
+          previous.revision !== revision ||
+          previous.persistenceState.pending
+        )
+          throw new Error('Workbook changed during reset; try again');
+        localStorage.setItem(`opensheet.scene.${scene}`, candidate.id);
+        published = true;
+        await app.attachWorkbook(candidate);
+        completeScene(scene);
+      }
+    } catch (error) {
+      if (candidate && !published) {
+        try {
+          await candidate.deleteStorage();
+        } catch {
+          candidate.dispose();
+        }
+      } else if (candidate && published) {
+        try {
+          if (app.getWorkbook() !== candidate) await candidate.close();
+        } catch {
+          candidate.dispose();
+        }
+      }
+      $<HTMLSelectElement>('scene-select').disabled = false;
+      const message = error instanceof Error ? error.message : String(error);
+      notice(
+        published
+          ? `${message}. Reset workbook ${candidate?.id} was retained; reload to open the saved scene.`
+          : message,
+      );
+    } finally {
+      routeBusy = false;
+      button.disabled = false;
+    }
   });
   function requestedScene(): SceneId {
     const id = location.hash.slice(1);
@@ -105,9 +172,24 @@ export function createRouting(
         return;
       }
       const next = requestedScene();
-      if (routeBusy || next === state.currentScene) {
+      if (routeBusy) {
+        if (next !== state.currentScene) {
+          history.replaceState(null, '', `#${state.currentScene}`);
+          notice('Wait for the current scene operation to finish');
+        }
         $<HTMLSelectElement>('scene-select').value = state.currentScene;
         showPage('spreadsheet', true);
+        return;
+      }
+      if (next === state.currentScene) {
+        $<HTMLSelectElement>('scene-select').value = state.currentScene;
+        showPage('spreadsheet', true);
+        return;
+      }
+      if (app.getWorkbook().persistenceState.pending) {
+        history.replaceState(null, '', `#${state.currentScene}`);
+        $<HTMLSelectElement>('scene-select').value = state.currentScene;
+        notice('Wait for saving to finish');
         return;
       }
       if (state.dirty && !confirm('Switch demos? Download JSON first to keep your changes.')) {
@@ -116,9 +198,19 @@ export function createRouting(
         return;
       }
       routeBusy = true;
+      const previous = state.currentScene;
       try {
         await loadScene(next);
-        showPage('spreadsheet', true);
+        const page = location.hash.slice(1);
+        if (page === 'api' || page === 'plugins') showPage(page);
+        else showPage('spreadsheet', true);
+      } catch (error) {
+        state.currentScene = previous;
+        const page = location.hash.slice(1);
+        if (page !== 'api' && page !== 'plugins') history.replaceState(null, '', `#${previous}`);
+        $<HTMLSelectElement>('scene-select').value = previous;
+        $<HTMLSelectElement>('scene-select').disabled = false;
+        notice(error instanceof Error ? error.message : String(error));
       } finally {
         routeBusy = false;
       }
@@ -126,6 +218,69 @@ export function createRouting(
     { signal: bindings.signal },
   );
   return {
+    restoreBackup: async (file: File, signal: AbortSignal) => {
+      if (!/\.(opensheet|json)$/i.test(file.name))
+        throw new Error('Choose a native or JSON backup');
+      const scene = requestedScene();
+      if (scene === 'performance') throw new Error('Open Budget Simulator to restore a backup');
+      signal.throwIfAborted();
+      const candidate = await createWorkbook();
+      let attached = false;
+      const key = `opensheet.scene.${scene}`;
+      let referenceWritten = false;
+      try {
+        if (/\.json$/i.test(file.name)) await candidate.importJSON(file, { signal });
+        else await candidate.importBinary(file, { signal });
+        signal.throwIfAborted();
+        localStorage.setItem(key, candidate.id);
+        referenceWritten = true;
+        signal.throwIfAborted();
+        await app.attachWorkbook(candidate);
+        attached = true;
+        signal.throwIfAborted();
+        state.currentScene = scene;
+        completeScene(scene);
+        showPage('spreadsheet');
+        signal.throwIfAborted();
+      } catch (error) {
+        try {
+          if (!attached && app.getWorkbook() === candidate) attached = true;
+        } catch {
+          /* No workbook is attached. */
+        }
+        if (attached || referenceWritten) {
+          if (!attached) {
+            try {
+              await candidate.close();
+            } catch {
+              candidate.dispose();
+            }
+          }
+          const message = error instanceof Error ? error.message : String(error);
+          throw new RetainedBackupError(
+            candidate.id,
+            `Backup restored as workbook ${candidate.id}, but recovery could not finish: ${message}. The restored workbook was retained. Try again opens the currently saved scene, which may have changed in another tab.`,
+            error,
+          );
+        }
+        try {
+          await candidate.deleteStorage();
+        } catch {
+          /* Preserve the original error; storage may be unavailable. */
+        }
+        candidate.dispose();
+        throw error;
+      }
+    },
+    openRetainedBackup: async (id: string) => {
+      const scene = requestedScene();
+      if (scene === 'performance') throw new Error('Open Budget Simulator to restore a backup');
+      await app.open(id);
+      localStorage.setItem(`opensheet.scene.${scene}`, id);
+      state.currentScene = scene;
+      completeScene(scene);
+      showPage('spreadsheet');
+    },
     start: async () => {
       routeBusy = true;
       try {

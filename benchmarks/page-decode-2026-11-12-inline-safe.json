@@ -1,0 +1,289 @@
+{
+  "startedAt": "2026-11-11T16:42:58.339Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 286,
+    "sha256": "4311bc5ceeeb63a271b5aaa9e4e438c364f9b62ec03bfdd0693f0552de334521"
+  },
+  "hashes": {
+    "previous": "fe47904a7e7972d86cd6032cad04750b28ad2208b38bc291c637a48ead4c5736",
+    "current": "03e93aa2c485592e6a39c5e2b63af57c7a3161fb846cc9120a86aae7d94dbd00"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Six alternating paired rounds per headless browser; 16 mixed scalar pages of 2048 cells each, decode only. All decoded values and counts are checked after timing. Previous reconstructs the full temporary cell table, not a prior commit. Excludes Worker, IndexedDB, paint, metadata/formulas, process memory, other devices and end-to-end latency.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        [
+          {
+            "variant": "previous",
+            "ms": 64.09999990463257,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 12.300000190734863,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 5.900000095367432,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 19.200000286102295,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "ms": 21.700000286102295,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 5.799999713897705,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 6.099999904632568,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 27,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "ms": 19.40000009536743,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 11.300000190734863,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 6.700000286102295,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 24,
+            "pages": 16,
+            "cells": 32768
+          }
+        ]
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        [
+          {
+            "variant": "previous",
+            "ms": 62,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 42,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 11,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 25,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "ms": 29,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 11,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 21,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 23,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "ms": 30,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 10,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 13,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 23,
+            "pages": 16,
+            "cells": 32768
+          }
+        ]
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        [
+          {
+            "variant": "previous",
+            "ms": 26,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 14,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 7,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 16,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "ms": 12,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 6,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 5,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 10,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "ms": 13,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "current",
+            "ms": 6,
+            "pages": 16,
+            "cells": 32768
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "ms": 6,
+            "pages": 16,
+            "cells": 32768
+          },
+          {
+            "variant": "previous",
+            "ms": 13,
+            "pages": 16,
+            "cells": 32768
+          }
+        ]
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T16:43:03.917Z"
+}

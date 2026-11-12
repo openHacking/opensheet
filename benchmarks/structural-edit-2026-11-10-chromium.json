@@ -1,0 +1,38 @@
+{
+  "engine": "chromium",
+  "cpu": "Apple M4",
+  "os": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 246,
+    "sha256": "0c536a3c0c23db2169c8179b4cb2aa9490376a610c93c99425f005724ae99065"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "2ab8ecc6cf316911930d0a3ac08874cd55859ac0ea0f465349af7f062b0fe073"
+  },
+  "startedAt": "2026-11-10T07:42:23.279Z",
+  "formulaCells": 32768,
+  "formulaPages": 16,
+  "sourceRows": 99999,
+  "rounds": [
+    {
+      "round": 1,
+      "insertMs": 284.7000002861023,
+      "encodedBytes": 159720
+    },
+    {
+      "round": 2,
+      "insertMs": 265.69999980926514,
+      "encodedBytes": 159720
+    },
+    {
+      "round": 3,
+      "insertMs": 272.5,
+      "encodedBytes": 159720
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

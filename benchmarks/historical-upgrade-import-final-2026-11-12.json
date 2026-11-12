@@ -1,0 +1,431 @@
+{
+  "startedAt": "2026-11-12T10:24:10.013Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 377,
+    "sha256": "5d934a4b06dd7bef79ea1848460c227b5505c88f737eb5b85c9eb86341379686"
+  },
+  "node": "v22.19.0",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ]
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    }
+  ],
+  "injectHeadAbort": false,
+  "scope": "Published npm core 0.1.1 and locally packed 0.2.0-dev.0, separately installed and esbuild-bundled in one localhost origin. Optional head-transaction abort is injected into the served candidate Worker. Synthetic workbook, one sample per browser; not complete historical compatibility, physical crash testing, independent toolchain, physical devices or safe downgrade certification.",
+  "historical": {
+    "name": "@opensheetjs/core",
+    "version": "0.1.1",
+    "integrity": "sha512-7Sin0Eh6nJMDyoLU7oEjifEIOXZHgZujuEvVheUChWCqbXPOMtJ3zIptiBehiJfUDNxsOuKBLuSJxcFmW4nyFw==",
+    "sha256": "335770053ca5be85497d7fa1373d7e2e0e195009a9aa9aeba2dfc5f070e8bf3a"
+  },
+  "candidate": {
+    "coreSha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2",
+    "formulaSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+  },
+  "oldAssets": {
+    "main": "0e0621fd6ffadab89be3b4252fa293eca9e346e7c1351e9133a18d918127112e",
+    "worker": "cb33d268052a301978505cd1edf27c3b149cece56917eed6db85ba55a803e591",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-import-final-2026-11-12.old-consumer-lock.yaml",
+      "sha256": "ce785d9bb9726a7e272ec12536565455fc0ab9b7962c95687402258536164f54"
+    }
+  },
+  "newAssets": {
+    "main": "cdeb5fa6555096776901e8c89ccf7731f14f5bc900b7487a87b858af0dba0f00",
+    "worker": "0b5a809796869b6b24d7dd494a5217d31cb6895855303273dba34a153d13ecc7",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-import-final-2026-11-12.new-consumer-lock.yaml",
+      "sha256": "fb43050561eeabe38a463eab32c07818109a253b11b5b6d7fc724bab2c806671"
+    },
+    "servedWorker": "0b5a809796869b6b24d7dd494a5217d31cb6895855303273dba34a153d13ecc7"
+  },
+  "finishedAt": "2026-11-12T10:24:15.429Z"
+}

@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { workbookFileSchema, commandSchemas } from '../packages/core/dist/index.js';
 const { z } = createRequire(new URL('../packages/core/package.json', import.meta.url))('zod');
 mkdirSync('schemas', { recursive: true });
@@ -28,7 +28,7 @@ writeFileSync(
   'api-manifest.json',
   JSON.stringify(
     {
-      version: '0.1.1',
+      version: JSON.parse(readFileSync('package.json', 'utf8')).version,
       schemaVersion: 3,
       pluginApiVersion: '0.1.0',
       entrypoints: {
@@ -42,9 +42,18 @@ writeFileSync(
           'validateWorkbookFile',
           'FileReader',
           'BinaryReader',
+          'verifyBinary',
+          'verifyJSON',
+          'compareBinaryBackup',
           'commandSchemas',
         ],
-        '@opensheetjs/adapter-sheetjs': ['fromSheetJS', 'toSheetJS'],
+        '@opensheetjs/adapter-sheetjs': [
+          'fromSheetJS',
+          'toSheetJS',
+          'writeXlsx',
+          'unsupportedXlsxSheetName',
+          'XLSX_SHEET_NAME_MESSAGE',
+        ],
         '@opensheetjs/formats': [
           'exportRange',
           'streamExport',

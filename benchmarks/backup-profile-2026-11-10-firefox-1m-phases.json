@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-10T06:31:58.135Z",
+  "engine": "firefox",
+  "browser": "155.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 241,
+    "sha256": "b6ab5dd3447e19234e7ebe2cd857e290c659ac4226bfc5addba733a5700b8f79"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "ac1a18d35ef74634c0a30f3b1b2a596ef629fe21130968e5a58b3cf979f3eeff"
+  },
+  "bundleHash": "03025b195393ee97a7ced9af12088d693c8eb30e4369d1d693eece96072c3508",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Production app, separate minified source verifier bundle on the main page; one fresh context, complete native backups of deterministic fixture, verification/comparison summaries and animation-frame intervals. Optional profile uses an instrumented replica and read timings include async waits. Excludes fixture and initial export from timings; comparison includes its own export. No Worker/process memory, controlled power mode or cross-device acceptance.",
+  "result": {
+    "cells": 1000000,
+    "jsonBytes": 22772617,
+    "binaryBytes": 12282432,
+    "json": {
+      "elapsedMs": 6119,
+      "maxFrameMs": 39.04000000000087,
+      "frames": 454,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 628,
+        "cells": 1000000
+      }
+    },
+    "binary": {
+      "elapsedMs": 1648,
+      "maxFrameMs": 67.64000000000124,
+      "frames": 36,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 628,
+        "cells": 1000000
+      }
+    },
+    "comparison": {
+      "elapsedMs": 4160,
+      "maxFrameMs": 67.64000000000124,
+      "frames": 215,
+      "summary": {
+        "matches": true,
+        "revision": 1
+      }
+    },
+    "profile": {
+      "elapsedMs": 1820,
+      "maxFrameMs": 67.63999999999942,
+      "frames": 38,
+      "summary": {
+        "pages": 628,
+        "cells": 1000000,
+        "metadataMs": 6,
+        "read": {
+          "count": 628,
+          "totalMs": 585,
+          "p95Ms": 2,
+          "maxMs": 6
+        },
+        "validate": {
+          "count": 628,
+          "totalMs": 1217,
+          "p95Ms": 4,
+          "maxMs": 15
+        },
+        "decode": {
+          "count": 628,
+          "totalMs": 812,
+          "p95Ms": 3,
+          "maxMs": 8
+        },
+        "expand": {
+          "count": 628,
+          "totalMs": 386,
+          "p95Ms": 1,
+          "maxMs": 8
+        },
+        "references": {
+          "count": 628,
+          "totalMs": 19,
+          "p95Ms": 0,
+          "maxMs": 2
+        }
+      }
+    }
+  }
+}

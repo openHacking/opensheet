@@ -1,0 +1,74 @@
+{
+  "engine": "chromium",
+  "startedAt": "2026-11-11T19:43:46.550Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 302,
+    "sha256": "e33d13d43337b4a4c7a99096fc136a2f17515344b8fb7aab2fdb026b346756c4"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "d1a824201f57982942895d74dd2057308b455a0df185ee83ae18be47e1c15fd8"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Frame intervals are main-document requestAnimationFrame observations during the grid paste, not input latency or total process responsiveness. Measures a compact API command, excluding native clipboard permission and operating-system input.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 169.59999990463257,
+      "frameIntervals": [
+        16.569999999999993,
+        16.700000000000045,
+        16.699999999999932,
+        16.600000000000023,
+        16.700000000000045,
+        16.699999999999932,
+        16.600000000000023,
+        16.700000000000045,
+        16.699999999999932,
+        16.600000000000023,
+        16.700000000000045
+      ]
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 167.7999997138977,
+      "frameIntervals": [
+        16.67199999999997,
+        16.600000000000023,
+        16.600000000000023,
+        16.69999999999999,
+        16.69999999999999,
+        16.69999999999999,
+        16.69999999999999,
+        16.600000000000023,
+        16.600000000000023,
+        16.699999999999932,
+        16.700000000000045
+      ]
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 166.80000019073486,
+      "frameIntervals": [
+        16.700000000000045,
+        16.599999999999966,
+        16.69999999999999,
+        16.700000000000045,
+        16.69999999999999,
+        16.599999999999966,
+        16.600000000000023,
+        16.700000000000045,
+        16.699999999999932,
+        16.700000000000045
+      ]
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

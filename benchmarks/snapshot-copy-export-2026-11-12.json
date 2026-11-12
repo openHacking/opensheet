@@ -1,0 +1,66 @@
+{
+  "startedAt": "2026-11-12T08:38:38.854Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 369,
+    "sha256": "5a4e759f5ae2af14caaec496043820bc8170520f146e9a3385c7ac0a96517891"
+  },
+  "hashes": {
+    "previous": "551a26a18fc9a1228855516a48979e76caff6c3f4d304e67faabbf4e8fcdfb6a",
+    "current": "5d235f5b4285438d06699fba3c7b6c5ed5c78a69a23acaf200f696b06d09b35d"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "limitations": "Fresh Node processes, one synthetic dense numeric fixture. Previous reconstructs only cells() returning internal objects. Includes reader construction, validation and SheetJS object creation, not XLSX serialization, browsers, memory or UI latency.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "previous",
+      "elapsedMs": 135.212083,
+      "verified": 100000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 143.28208299999997,
+      "verified": 100000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 151.97741699999997,
+      "verified": 100000
+    },
+    {
+      "round": 2,
+      "variant": "previous",
+      "elapsedMs": 149.207958,
+      "verified": 100000
+    },
+    {
+      "round": 3,
+      "variant": "previous",
+      "elapsedMs": 142.42379200000002,
+      "verified": 100000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 151.590875,
+      "verified": 100000
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 139.39279100000002,
+      "verified": 100000
+    },
+    {
+      "round": 4,
+      "variant": "previous",
+      "elapsedMs": 132.97725,
+      "verified": 100000
+    }
+  ]
+}

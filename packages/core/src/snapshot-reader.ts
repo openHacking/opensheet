@@ -9,11 +9,26 @@ import {
   type WorkbookFile,
   type FileBlock,
 } from './file-codec.js';
-import { key, type CellRecord, type Rect, type WorkbookSnapshot } from './types.js';
+import {
+  assert,
+  key,
+  type CellRecord,
+  type CellValue,
+  type Rect,
+  type WorkbookSnapshot,
+} from './types.js';
 /** Explicit materialized snapshot reader for file adapters; never backs an editor. */
 export type WorkbookMetadata = Omit<WorkbookSnapshot, 'sheets'> & {
   sheets: Array<Omit<WorkbookSnapshot['sheets'][number], 'cells'>>;
 };
+function copyCell(cell: CellRecord): CellRecord {
+  return {
+    ...cell,
+    input: { ...cell.input },
+    ...(cell.cached && { cached: { ...cell.cached } }),
+    ...(cell.link && { link: { ...cell.link } }),
+  };
+}
 export class RangeReader {
   private calculator: FormulaCalculation;
   protected snapshot: WorkbookSnapshot;
@@ -30,6 +45,7 @@ export class RangeReader {
     this.calculator = new FormulaCalculation(
       (id) => this.sheetData(id),
       (name) => snapshot.sheets.find((s) => s.name.toLowerCase() === name.toLowerCase())?.id,
+      snapshot.dateSystem,
     );
   }
   sheetData(id: string) {
@@ -38,20 +54,31 @@ export class RangeReader {
     return sh;
   }
   getStyle(id?: string) {
-    return this.snapshot.styles[id ?? ''] ?? {};
+    return { ...this.snapshot.styles[id ?? ''] };
   }
-  getCell(id: string, r: number, c: number) {
+  private cellData(id: string, r: number, c: number) {
     const sh = this.sheetData(id);
     return sh.cells[key(sh.rowOrder[r], sh.columnOrder[c])];
   }
+  getCell(id: string, r: number, c: number) {
+    const cell = this.cellData(id, r, c);
+    return cell ? copyCell(cell) : undefined;
+  }
   value(id: string, r: number, c: number) {
-    return this.calculator.value(id, r, c);
+    const value = this.calculator.value(id, r, c);
+    // Formula errors can be retained by the calculator. Do not expose that
+    // mutable object to callers of the snapshot reader.
+    return value && typeof value === 'object' ? { error: value.error } : value;
   }
   display(id: string, r: number, c: number) {
-    const cell = this.getCell(id, r, c);
+    return this.format(id, r, c, this.value(id, r, c));
+  }
+  /** Format a previously calculated value without evaluating the cell again. */
+  format(id: string, r: number, c: number, value: CellValue) {
+    const cell = this.cellData(id, r, c);
     return formatValue(
-      this.value(id, r, c),
-      cell?.numberFormat ?? this.getStyle(cell?.styleId).numberFormat,
+      value,
+      cell?.numberFormat ?? this.snapshot.styles[cell?.styleId ?? '']?.numberFormat,
       this.snapshot.dateSystem,
     );
   }
@@ -61,16 +88,57 @@ export class RangeReader {
     const range = (input: string | Rect) => {
       const bounds = parseRange(input);
       checkBounds(data, bounds);
-      const matrix = <T>(fn: (r: number, c: number) => T) =>
-        Array.from({ length: bounds.endRow - bounds.startRow }, (_, i) =>
-          Array.from({ length: bounds.endColumn - bounds.startColumn }, (_, j) =>
-            fn(bounds.startRow + i, bounds.startColumn + j),
+      const matrix = <T>(fn: (r: number, c: number) => T) => {
+        const captured = parseRange({ ...bounds });
+        checkBounds(data, captured);
+        return Array.from({ length: captured.endRow - captured.startRow }, (_, i) =>
+          Array.from({ length: captured.endColumn - captured.startColumn }, (_, j) =>
+            fn(captured.startRow + i, captured.startColumn + j),
           ),
         );
+      };
       return {
         bounds,
         getValues: () => matrix((r, c) => this.value(id, r, c)),
         getDisplayValues: () => matrix((r, c) => this.display(id, r, c)),
+        batches: (options: { maxCells?: number; display?: boolean } = {}) => {
+          assert(
+            options && typeof options === 'object' && !Array.isArray(options),
+            'INVALID_ARGUMENT',
+            'Invalid batch options',
+          );
+          const maxCells = options.maxCells ?? 16384;
+          const display = options.display ?? false;
+          assert(
+            Number.isInteger(maxCells) && maxCells >= 1 && maxCells <= 16384,
+            'INVALID_ARGUMENT',
+            'Batch size must be 1..16384 cells',
+          );
+          assert(typeof display === 'boolean', 'INVALID_ARGUMENT', 'Invalid display option');
+          const captured = parseRange({ ...bounds });
+          checkBounds(data, captured);
+          const width = captured.endColumn - captured.startColumn;
+          assert(width <= maxCells, 'INVALID_ARGUMENT', 'Batch size must fit the range width');
+          const rows = Math.floor(maxCells / width);
+          const reader = this;
+          return (function* () {
+            for (let startRow = captured.startRow; startRow < captured.endRow; startRow += rows) {
+              const batch = {
+                ...captured,
+                startRow,
+                endRow: Math.min(startRow + rows, captured.endRow),
+              };
+              const values = Array.from({ length: batch.endRow - batch.startRow }, (_, r) =>
+                Array.from({ length: width }, (_, c) =>
+                  display
+                    ? reader.display(id, startRow + r, batch.startColumn + c)
+                    : reader.value(id, startRow + r, batch.startColumn + c),
+                ),
+              );
+              yield { bounds: batch, values };
+            }
+          })();
+        },
       };
     };
     return {
@@ -138,9 +206,12 @@ export class FileReader extends RangeReader {
     }
     return cells;
   }
-  *cells(sheetId: string) {
+  private *rawCells(sheetId: string) {
     for (const address of this.pages.keys())
       if (address.startsWith(`${sheetId}/`)) yield* Object.values(this.page(address)!);
+  }
+  *cells(sheetId: string) {
+    for (const cell of this.rawCells(sheetId)) yield copyCell(cell);
   }
   override getSheetById(id: string) {
     const sheet = super.getSheetById(id);
@@ -153,7 +224,7 @@ export class FileReader extends RangeReader {
           cols = new Map(sh.columnOrder.map((id, i) => [id, i]));
         let endRow = 1,
           endColumn = 1;
-        for (const cell of this.cells(id)) {
+        for (const cell of this.rawCells(id)) {
           endRow = Math.max(endRow, rows.get(cell.rowId)! + 1);
           endColumn = Math.max(endColumn, cols.get(cell.columnId)! + 1);
         }

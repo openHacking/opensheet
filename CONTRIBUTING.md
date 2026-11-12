@@ -16,7 +16,7 @@ Open http://127.0.0.1:5173. The demo exposes its current public API as `window.o
 ```sh
 pnpm format
 pnpm check
-pnpm exec playwright install chromium webkit
+pnpm exec playwright install chromium firefox webkit
 pnpm test:e2e
 OPENSHEET_BASE_PATH=/opensheet/ pnpm build
 pnpm test:pages
@@ -27,6 +27,15 @@ pnpm preview
 
 `pnpm check` checks formatting, types, unit tests, package declarations, consumer imports, schemas and the production demo build. Run browser tests for UI or file integration changes. Run `pnpm build` before the browser benchmark; it measures fixed mixed-data scales in headless Chromium. Pass `--sizes=10000,100000,200000,1000000` to include the million-cell baseline. Use `pnpm benchmark:browser -- --write-baseline` only after reviewing a new baseline. Comparison is meaningful only on the same browser and machine. Benchmarks are diagnostics, not performance guarantees.
 
+For a focused regression, run a specific unit test or browser spec while developing:
+
+```sh
+pnpm exec vitest run tests/grid-visible-index.test.ts
+pnpm exec playwright test tests/e2e/keyboard-page.spec.ts
+```
+
+The browser command runs the configured Chromium, Firefox and WebKit projects. Replace the paths with the tests relevant to your change; run `pnpm check` and the applicable browser coverage before submitting.
+
 ## Project structure
 
 - `packages/`: package implementations; public entry points are `src/index.ts`.
@@ -36,7 +45,7 @@ pnpm preview
 - `scripts/`: builds, schemas, notices, consumer checks and benchmarks.
 - `docs/`: API guides, implementation limits and architecture decisions.
 
-The main package is published as `opensheet`; scoped packages use `@opensheetjs/*`. Version 0.1.1 is a development preview. Use workspace dependencies for local development. Do not introduce DOM, network or billing dependencies into the core.
+The main package is published as `opensheet`; scoped packages use `@opensheetjs/*`. The published 0.1.1 is a development preview; this workspace targets the unreleased 0.2.0-dev.0 candidate. Use workspace dependencies for local development. Do not introduce DOM, network or billing dependencies into the core.
 
 ## Making changes
 
@@ -45,6 +54,8 @@ Use a focused branch and include a minimal reproduction for bug fixes. New comma
 Propose public API, snapshot schema or command semantics changes with a design note explaining the problem, compatibility and migration. Modify source schemas, then regenerate with `pnpm build`; do not hand-edit generated schemas or `api-manifest.json`.
 
 Explain any new dependency's necessity, size, license and maintenance. Record breaking 0.x changes in the changelog. Contributions are submitted under Apache-2.0; only contribute material you can license.
+
+For a plugin or example, start with [examples/plugin.ts](examples/plugin.ts) and the [plugin SDK guide](packages/plugin-sdk/README.md). Use public entry points, declare capabilities and dependencies, clean up registered resources on removal, and describe any required host permissions. Plugins are trusted JavaScript, not a sandbox for untrusted code. Add focused lifecycle or behavior tests and keep examples synthetic; explain setup and any external service requirements in the pull request.
 
 ## Pull requests
 

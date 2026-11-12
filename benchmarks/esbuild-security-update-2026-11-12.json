@@ -1,0 +1,13 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 381,
+    "sha256": "6b2242c461aa45e442f19ce4ec9d8263548327efa455263c95e93e4d5c2990ce"
+  },
+  "artifactDirectory": null,
+  "startedAt": "2026-11-12T11:44:04.841Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed editor and dependencies; separate esbuild browser, CSS and Worker bundles, strict CSP with Zod jitless shim, localhost subpath and real IndexedDB/Web Locks. No SSR framework, other bundlers or physical devices.",
+  "packages": [],
+  "results": []
+}

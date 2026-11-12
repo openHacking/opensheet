@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-11-11T03:57:17.576Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 256,
+    "sha256": "0b87efeb42833d6fc2f9819c34ded0c46eb680d881d5540967f5f71efc6e6081"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "xmlBytes": 5129750,
+  "xmlCells": 100000,
+  "rulesPerType": 1000,
+  "limitations": "In-process Node conversion of a one-cell parsed worksheet; synthetic 100,000-cell raw XML is only inspected, not parsed into cells. No ZIP, browser, Worker, full import or isolated peak-memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "no-xml",
+      "elapsedMs": 9.708958999999993
+    },
+    {
+      "round": 1,
+      "variant": "inspection",
+      "elapsedMs": 51.118750000000034
+    },
+    {
+      "round": 2,
+      "variant": "inspection",
+      "elapsedMs": 38.40129200000001
+    },
+    {
+      "round": 2,
+      "variant": "no-xml",
+      "elapsedMs": 0.8109160000000202
+    },
+    {
+      "round": 3,
+      "variant": "no-xml",
+      "elapsedMs": 0.6515840000000139
+    },
+    {
+      "round": 3,
+      "variant": "inspection",
+      "elapsedMs": 41.330667000000005
+    },
+    {
+      "round": 4,
+      "variant": "inspection",
+      "elapsedMs": 37.96912500000002
+    },
+    {
+      "round": 4,
+      "variant": "no-xml",
+      "elapsedMs": 0.41316600000004655
+    },
+    {
+      "round": 5,
+      "variant": "no-xml",
+      "elapsedMs": 2.268665999999996
+    },
+    {
+      "round": 5,
+      "variant": "inspection",
+      "elapsedMs": 51.83687500000002
+    }
+  ]
+}

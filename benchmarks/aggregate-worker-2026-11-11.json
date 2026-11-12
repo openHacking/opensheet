@@ -1,0 +1,2431 @@
+{
+  "startedAt": "2026-11-11T07:04:32.018Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 271,
+    "sha256": "eb4bac1e675ba3bbec18c6ee2eb484f616e189fa83bd4e1acd7f25d4031d1995"
+  },
+  "hashes": {
+    "previous": "90c14dc25b393909a40f3158ca94fa294d7c1a9e0069f74d574424f9e07213af",
+    "current": "392de9bbcedd0e0509c3fa214fdcc5c993d0f9a134059b1d60303f7dafb1ec2b"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless dedicated browser Worker microbenchmark; source-bundled current and reconstructed previous accumulator, not a full workbook. Each sample feeds 100,000 referenced values (all numeric or repeating number/text/boolean/blank) into SUM/MIN/MAX/COUNT and verifies the result. Six alternating rounds in each fresh Worker pair. Excludes formula parsing, dependencies, IndexedDB, output/UI latency, worker/process memory, other devices and direct argument behavior.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 12.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 3.1999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 3.200000286102295,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 3.0999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.7999997138977051,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1.5,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.7000002861022949,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1.1999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.5,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.4000000953674316,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.9000000953674316,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.1999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1.299999713897705,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1.5,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.200000286102295,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.8999996185302734,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.6000003814697266,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.3000001907348633,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.9000000953674316,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.19999980926513672,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.200000286102295,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1.0999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.7999997138977051,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.6000003814697266,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.9000000953674316,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.7999997138977051,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.39999961853027344,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1.0999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.2999997138977051,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.2999997138977051,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1.1000003814697266,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.6000003814697266,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.8999996185302734,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.9000000953674316,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.5,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.0999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.7000002861022949,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.7999997138977051,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.7000002861022949,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.8000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.5999999046325684,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1.3000001907348633,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.6999998092651367,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0.6000003814697266,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.39999961853027344,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0.40000009536743164,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0.3000001907348633,
+              "verified": 100000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 18,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 5,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 4,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 3,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 0,
+              "verified": 100000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "current",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": true,
+              "value": 25000,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": true,
+              "value": 1,
+              "ms": 2,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": true,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": true,
+              "value": 25000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "SUM",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MIN",
+              "mixed": false,
+              "value": 1,
+              "ms": 1,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "MAX",
+              "mixed": false,
+              "value": 1,
+              "ms": 0,
+              "verified": 100000
+            },
+            {
+              "variant": "previous",
+              "name": "COUNT",
+              "mixed": false,
+              "value": 100000,
+              "ms": 1,
+              "verified": 100000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T07:04:36.450Z"
+}

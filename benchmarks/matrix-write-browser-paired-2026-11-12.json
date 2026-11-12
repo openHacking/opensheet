@@ -1,0 +1,947 @@
+{
+  "startedAt": "2026-11-11T23:47:06.050Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 328,
+    "sha256": "bca013d0d4d28aefdd90b0a211c8c23019ef8d50c4b700d171452ececfb6b825"
+  },
+  "scriptSha256": "4592396a3fae777dbcc70adf022b4659391c351c4b1f3b458437b20598ccae0d",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "bundles": {
+    "control": "56648446fc426dcc564145bc6ed26e99070244a94b39251b518e8e2b63bfadac",
+    "current": "22743c34d3b5502e2fd9b3d57ccc5610069548f4ddd62dec66873c2c991510fa"
+  },
+  "scope": "Browser main-thread Range matrix-to-command construction only; 100,000 dense numeric or formula inputs. Three fresh contexts per browser, four alternating pairs per fixture and context; every coordinate and input checked outside timing. Control reconstructs old flatMap path, which silently skips sparse entries. Excludes real Worker, transfer, schema validation, persistence, actual paint/input latency, peak memory, other hardware and power-mode record; sequential samples are sensitive to JIT/GC.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 5.699999809265137
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 1.5999999046325684
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 3.6000003814697266
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 1.8000001907348633
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 1.9000000953674316
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 1.5
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 1.700000286102295
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 4.400000095367432
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 6.300000190734863
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 4.800000190734863
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 13
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 11.700000286102295
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 4.199999809265137
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 4.400000095367432
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 4.100000381469727
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 5.300000190734863
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 6.599999904632568
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 4.099999904632568
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 1.4000000953674316
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 1.8999996185302734
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 1.8999996185302734
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 1.4000000953674316
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 4.800000190734863
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 7.400000095367432
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 4.900000095367432
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 8.299999713897705
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 9.5
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 4.5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 4.599999904632568
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 3.5
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 3.8000001907348633
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 5.600000381469727
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 1.5
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 3.6999998092651367
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 1.799999713897705
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 1.8000001907348633
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 1.4000000953674316
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 1.700000286102295
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 4.400000095367432
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 6.399999618530273
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 4.599999904632568
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 6.099999904632568
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 11.200000286102295
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 3.799999713897705
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 4.400000095367432
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 3.9000000953674316
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 7
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 12
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 11
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 9
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 11
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 11
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 8
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 7
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 10
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 1
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 12
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 11
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 7
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 8
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 7
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 5
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 12
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 1
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 1
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 1
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 8
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 7
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 14
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 8
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 7
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 7
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 1
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 1
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 4
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 5
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 3
+            },
+            {
+              "fixture": "numeric",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "numeric",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 2
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "control",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 1,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "current",
+              "elapsedMs": 6
+            },
+            {
+              "fixture": "formula",
+              "pair": 2,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "control",
+              "elapsedMs": 4
+            },
+            {
+              "fixture": "formula",
+              "pair": 3,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "current",
+              "elapsedMs": 5
+            },
+            {
+              "fixture": "formula",
+              "pair": 4,
+              "variant": "control",
+              "elapsedMs": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T23:47:12.287Z"
+}

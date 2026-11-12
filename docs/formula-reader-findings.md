@@ -1,0 +1,111 @@
+# Independent formula reader findings
+
+Run on 2026-10-23 (Asia/Shanghai), using `LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5`. This is a development build, not evidence for a stable Excel/LibreOffice release support claim.
+
+Evidence: [result JSON](../benchmarks/formula-reader-2026-10-23.json), [synthetic source XLSX](../benchmarks/formula-reader-2026-10-23.source.xlsx), [recalculated XLSX](../benchmarks/formula-reader-2026-10-23.recalculated.xlsx). The JSON records reader version, corpus checksum, input/output SHA-256, conversion log, formulas and cached actual values. Expected values come from the hand-authored corpus; LibreOffice independently produces actual values. SheetJS only constructs the input and decodes the reader output.
+
+Reproduce with a new result path:
+
+```sh
+node scripts/formula-reader.mjs --output=benchmarks/formula-reader-new.json
+```
+
+Requires `soffice` on PATH. The script uses a fresh temporary directory, invokes headless conversion with a two-minute timeout, preserves source/recalculated workbooks beside the JSON and refuses to overwrite evidence. The bundled local `soffice` launcher uses an isolated temporary user profile. No private workbook or remote data source is used.
+
+## Observed differences
+
+The [260-case 1900 run](../benchmarks/formula-reader-2026-11-12-nested-1900.json) adds six hand-authored nested IF, IFERROR, aggregation and arithmetic cases; all six agree with this LibreOfficeDev build. The [exact corpus snapshot](../tests/fixtures/formula-corpus-nested-2026-11-12.txt) and source/recalculated workbooks are retained. The run records 203 agreements and 57 differences overall; it does not establish Excel or stable LibreOffice compatibility.
+
+The later [223-case 1900 run](../benchmarks/formula-reader-2026-11-11-minmax-1900.json) includes ten new MIN/MAX direct-versus-reference cases. Seven agree with LibreOfficeDev; its results differ for direct numeric text in both functions and for `MIN(A1,2)` when A1 contains TRUE. The current OpenSheet contract follows the direct/reference distinction in Microsoft's MIN/MAX documentation, with a narrower locale-independent numeric-text grammar; actual Excel behavior and other reader versions remain unverified. The report retains source and recalculated workbooks and all 47 disagreements; these are not silently treated as passes.
+
+The subsequent [230-case 1900 run](../benchmarks/formula-reader-2026-11-11-sum-1900.json) adds seven SUM direct/reference cases. Four agree with the same LibreOfficeDev alpha; it returns `#VALUE!` for two numeric-text arguments and includes a referenced boolean in one case. The OpenSheet profile follows Microsoft's SUM example for the direct/reference distinction. Empty and nonnumeric direct text behavior and the narrower numeric grammar remain part of the explicit OpenSheet profile, not verified Excel results. Both runs retain their exact source-corpus snapshots under `tests/fixtures/` and hash-pinned workbooks.
+
+The [233-case 1900 run](../benchmarks/formula-reader-2026-11-11-average-1900.json) adds AVERAGE cases for invalid direct text, empty direct text and referenced numeric text. All three agree with the LibreOfficeDev alpha. This does not resolve direct boolean or valid numeric-text behavior; a combined direct-text/boolean probe in the report produced an error in this reader. The source corpus and both XLSX artifacts are pinned.
+
+The [240-case 1900 run](../benchmarks/formula-reader-2026-11-11-nonfinite-1900.json) adds seven formulas containing `1e309`. LibreOfficeDev rewrote that literal as `INF` and returned `#VALUE!` in all seven, including a skipped IF branch. OpenSheet represents the literal as a `#NUM!` error and applies its normal IF/IFERROR laziness. These differing results are retained, not treated as Excel parity. The exact source corpus and both XLSX artifacts are pinned; actual Excel behavior is unverified.
+
+The separate [AVERAGE coercion probe](../benchmarks/average-coercion-reader-2026-11-11.json) isolates eight direct and referenced values. LibreOfficeDev returns 1.5 for both `AVERAGE(TRUE,2)` and `AVERAGE(A1,2)` with A1 = TRUE, and `#VALUE!` for `AVERAGE("7",2)`; OpenSheet returns 2 in each case. Microsoft's [worksheet-function support page](https://support.microsoft.com/en-us/excel/functions/average-function) says direct booleans and numeric text are not counted, while its [Excel interop API reference](https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.worksheetfunction.average?view=excel-pia) says they are counted. These documents describe different entry points and cannot alone establish worksheet behavior. No actual Excel measurement was available, so this discrepancy remains unresolved rather than being presented as compatibility. The report retains generated and reader-saved XLSX files, source/build fingerprints and hashes.
+
+36 of 46 initial expected results agree. Ten differ; none is silently reclassified as a pass:
+
+| Cases                       | Observation                                                                                   | Interpretation / next action                                                                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SUM/AVERAGE of A1:A5        | LibreOffice includes TRUE as 1, producing 3 / 1.5 instead of 2 / 2                            | Reader semantic difference. Preserve the stated Excel-oriented numeric-reference contract until versioned Excel evidence is available.             |
+| Three COUNT reference cases | LibreOffice counts both boolean cells, increasing each count by two                           | Conflicts with the consulted Microsoft COUNT reference rule; record per-reader difference rather than changing expected values to fit this reader. |
+| COUNTA(A1:A7)               | Empty text A5 is present in source XLSX but absent after conversion; result drops from 6 to 5 | Actual file-interchange loss. Separate cell-state loss from formula evaluation; add to IO fixture/report acceptance.                               |
+| SUM(IF(TRUE,A1:A3,0))       | LibreOffice returns 3                                                                         | Array-valued branch outside the current OpenSheet scalar-only profile.                                                                             |
+| ROUND(1,101)                | LibreOffice returns 1                                                                         | Current OpenSheet digit-limit difference; numeric/precision policy remains open.                                                                   |
+| SUM() and IF(TRUE)          | Reader rewrites to SUM(0) and IF(TRUE(),TRUE()), producing 0 / TRUE                           | Arity/default-argument difference; retain exact source and rewritten formulas.                                                                     |
+
+Six additional probes record direct text/boolean coercion behavior. LibreOffice rejects the numeric-text aggregation probes and direct logical strings with `#VALUE!`; these observations do not settle Excel semantics.
+
+Input/output inspection also found that typed boolean cells are exported by LibreOffice as `TRUE()` / `FALSE()` formulas with boolean caches. OpenSheet now implements both calls. A regression imports this actual reader output, expires imported caches with an edit and verifies values again after close/reopen.
+
+## Expanded text profile and export correction
+
+The first text run ([80-case evidence](../benchmarks/formula-reader-2026-10-23-text.json)) exposed eight NAME errors because modern function names were written without their OOXML `_xlfn.` prefix. Export now inserts that prefix at function tokens and preserves quoted text/sheet names. The independent harness uses the same adapter conversion; it does not invoke OpenSheet evaluation to produce actual values.
+
+The corrected [81-case run](../benchmarks/formula-reader-2026-10-23-text-prefixed.json), with preserved source/recalculated XLSX artifacts, agrees on 66 and differs on 15. The export-related NAME errors are gone. The ten original differences remain; five added differences are Unicode uppercase sharp-s (`STRASSE` versus reader `STRAẞE`) and four CONCAT/TEXTJOIN boolean conversions (OpenSheet TRUE/FALSE versus reader 1/0). These remain explicit semantic discrepancies, not passing cases. A raw-prefix import regression verifies two independently computed text results after cache expiry and persistence reopen.
+
+The function registry contains 24 functions. Text output limits, Unicode counting, empty joins, invalid arguments and error fallback have pure/Worker tests. This does not complete the date/rounding profile or settle Excel locale/compatibility modes.
+
+## Rounding and conditional expansion
+
+The [113-case numeric run](../benchmarks/formula-reader-2026-10-23-numeric.json) agrees on 96 and differs on 17. Its 32 added cases agree on 30: the reader returns zero for ROUNDUP(1,-1000), while OpenSheet reports unrepresentable output as `#NUM!`; and the reader accepts IFS(TRUE,7,FALSE) as 7, while OpenSheet rejects an incomplete pair before evaluation. The previous 15 discrepancies remain. Ordinary directed rounding, decimal MOD, IFNA error discrimination and the tested lazy IFS branches agree with this exact reader build. Source/recalculated workbooks and hashes are preserved beside the JSON. These observations do not establish Excel behavior.
+
+## Date-system expansion
+
+The [139-case 1900 run](../benchmarks/formula-reader-2026-10-23-dates.json) agrees on 109 and differs on 30, including 13 new date differences. This reader uses an 1899-12-30 base for early dates without the fictional 1900 leap day, interprets DATE(24,2,29) as 2024 rather than the documented Excel offset to 1924, permits some negative/out-of-range serials, and differs in error classification for negative years. Exact observations and rewritten formulas remain in the evidence rather than being adjusted to pass.
+
+The [expanded 1904 run](../benchmarks/formula-reader-2026-11-12-1904-boundaries.json) compares 30 hand-authored cases, including the 2000 and 2100 century boundaries, overflow, fractional serials and maximum dates. LibreOfficeDev 26.8.0.0.alpha0 agrees on 28; it returns -1 for `DATE(1903,12,31)` and 10000 for `YEAR(2957004)`, where OpenSheet returns `#NUM!`. The [corpus snapshot](../tests/fixtures/formula-corpus-1904-boundaries-2026-11-12.txt), input and recalculated workbooks are hash-pinned. Reproduce with `node scripts/formula-reader.mjs --date-system=1904 --output=NEW.json` after building the packages. The reader is an alpha build, and these samples do not establish Excel or locale behavior.
+
+The separate [1904 run](../benchmarks/formula-reader-2026-10-23-dates-1904.json) agrees on 11/13. Its two discrepancies are acceptance of serial -1 and year 10000, which the supported OpenSheet date range rejects. Both sets preserve source and recalculated workbooks with hashes and date-system metadata. A regression imports the actual 1904 reader output, expires caches and checks DATE/YEAR/DAY using the persisted 1904 system.
+
+## Conditional aggregation expansion
+
+The [161-case conditional run](../benchmarks/formula-reader-2026-10-23-conditional.json) agrees on 128 and differs on 33. Among the 22 new cases, 19 agree; the three new discrepancies are COUNTIF numeric-text matching (`">1"`: OpenSheet 2, reader 1) and wildcard matching (`"*"`: 2 versus 5, `"?"`: 1 versus 2). These reflect the explicit type/matching profile and are retained, not silently counted as agreement. The other 30 differences predate this family. The source/recalculated XLSX artifacts and hashes accompany the JSON.
+
+## Lookup expansion
+
+The [191-case lookup run](../benchmarks/formula-reader-2026-10-23-lookup.json) agrees on 152 and differs on 39. Of 30 added cases, 24 agree. Six new differences comprise three unsupported-mode cases (MATCH approximate, VLOOKUP approximate, XLOOKUP binary search), one VLOOKUP column-bound error classification, and two XLOOKUP nearest matches where this reader treats TRUE as numeric 1 while OpenSheet keeps logical values type-distinct. First/last duplicate-key matches and case-insensitive matches agree in the new synthetic D:E input table.
+
+Preserved raw-prefix output is also used by an import regression: an independently calculated XLOOKUP returns 30; after importing and editing its selected source value to 90, OpenSheet recalculates to 90 rather than retaining the external cache. Full Excel/stable-reader acceptance remains open.
+
+## Acceptance still open
+
+The later [191-case rounding rerun](../benchmarks/formula-reader-2026-10-30-round.json) agrees on 153 cases. `ROUND(1,101)` now returns 1, matching this reader; the remaining 38 differences are retained. ROUND uses the shortest round-trippable decimal and nearest rounding with ties away from zero, including bounded extreme exponents. Several ordinary examples follow the [Microsoft ROUND reference](https://support.microsoft.com/en-us/excel/functions/round-function). That reference and the development-reader run do not establish full Excel floating-point compatibility, fractional digit handling, or stable-reader acceptance.
+
+The [196-case ordered-lookup rerun](../benchmarks/formula-reader-2026-10-30-ordered-lookup-fixed.json) adds five ascending/descending MATCH and VLOOKUP examples, including duplicate keys; all five match this development reader, for 158 agreements and 38 remaining differences. The [first attempt](../benchmarks/formula-reader-2026-10-30-ordered-lookup.json) incorrectly excluded the new input columns from the source workbook's `!ref` and produced five spurious `#N/A` results; the original artifact remains available and the corrected run includes the cells. The implementation explicitly rejects mixed-type or unsorted approximate keys, rather than claiming Excel parity for them. These fixtures do not establish stable-reader or Excel behavior across all types and collation rules.
+
+The [201-case binary-lookup run](../benchmarks/formula-reader-2026-10-30-binary-lookup.json) adds five XLOOKUP binary search fixtures for ascending and descending data, nearest matches and fallback. All five agree with this LibreOffice development build, giving 163 agreements and 38 remaining differences. Duplicate selection, mixed types, unsorted inputs and stable-reader/Excel behavior are not established by these five fixtures.
+
+Six subsequent duplicate-key probes were promoted to the [207-case corpus](../benchmarks/formula-reader-2026-10-30-binary-duplicates-corpus.json): five agree and one differs. For descending exact search of duplicate key 2, OpenSheet selects the first matching vector position (value 21), while this LibreOfficeDev build selects the next duplicate (value 40). Nearest binary lookup follows the insertion boundary. Excel and stable LibreOffice duplicate selection remain unverified; no compatibility equivalence is claimed.
+
+These are actual independent recalculation observations, not complete CALC-01 or IO-03 acceptance. Excel versioned runs, stable LibreOffice confirmation, property/visual comparisons, full date/precision profiles and resolution or explicit supported-profile treatment of every difference remain required. No broad lossless XLSX claim is made.
+
+## Mixed comparisons and concatenation
+
+The [213-case run](../benchmarks/formula-reader-2026-11-10-comparison.json) adds six mixed-type and boolean-concatenation examples. It records 169 agreements and 44 differences overall. One new numeric/text comparison agrees; four text/boolean ordering cases and `TRUE&"/"&FALSE` differ: this LibreOfficeDev build orders boolean before text and returns `1/0` for the concatenation, while OpenSheet orders text before boolean and returns `TRUE/FALSE`. The former OpenSheet comparison was internally inconsistent under operand reversal; the new documented ordering fixes that defect without claiming equivalence with this reader or Excel. Stable-reader and Excel results remain unverified.
+## Projected SUMIF at the A1 row boundary (2026-11-11)
+
+An openpyxl-authored [source](../benchmarks/conditional-boundary-2026-11-11-source.xlsx) has A1=A2=1 and A1048576=2. LibreOfficeDev 26.8.0.0.alpha0 recalculated `SUMIF(A1:A2,">0",A1048576)` as 2 and `SUMIF(A1:A2,">2",A1048576)` as 0 in the [saved result](../benchmarks/conditional-boundary-2026-11-11-libreoffice.xlsx). Source and result SHA-256 are `40c7764f8f4762afc27936f8c76759d49c164aeefce29ae0db6feaad2bd7db4c` and `f85fb1b9e885763b7a6d8191267b07f5db5a96b8a817cd1d6bc711024248917a`. The results were read with openpyxl `data_only=True`.
+
+The pure OpenSheet evaluator now returns `#REF!` when a matched projected cell exceeds the A1 parser's address limit; it does not call the supplied reader outside that limit. An unmatched projected cell is not read. This differs from the first LibreOfficeDev result, and actual Excel behavior remains unverified. OpenSheet's workbook dimensions are lower than the A1 parser limits, so a separate three-browser test covers its own sheet boundary instead of claiming an end-to-end reproduction of the millionth row.
+
+## ROUND with fractional digits (2026-11-11)
+
+Four cases with positive and negative fractional digit counts now truncate the count toward zero before rounding. All four agree with LibreOfficeDev 26.8.0.0.alpha0 in the [244-case independent run](../benchmarks/formula-reader-2026-11-11-round-fraction-1900.json); 187 expectations agree overall and 57 differ. The [exact corpus snapshot](../tests/fixtures/formula-corpus-round-fraction-2026-11-11.txt) and reader-generated workbooks referenced by the report are retained. Microsoft's [ROUND documentation](https://support.microsoft.com/en-us/excel/functions/round-function) describes positive, zero and negative digit counts but does not settle fractional counts in its examples. Actual Excel and broader floating-point edge compatibility remain unverified.
+
+## Exponentiation precedence and XLSX exchange (2026-11-11)
+
+OpenSheet's existing native formula grammar treats `^` as right-associative and places unary negation below exponentiation. Microsoft's [operator-precedence documentation](https://support.microsoft.com/en-gb/excel/the-order-in-which-excel-performs-operations-in-formulas) specifies left-to-right evaluation for equal-precedence operators and lists negation before exponentiation. A separate openpyxl-authored [source](../benchmarks/formula-precedence-2026-11-11-source.xlsx) evaluated by LibreOfficeDev 26.8.0.0.alpha0 produced 64, 4, 512 and 4 for `2^3^2`, `-2^2`, `2^(-3^2)` and `(-2)^2`, respectively, in this [reader output](../benchmarks/formula-precedence-2026-11-11-libreoffice.xlsx). The source and result hashes are `65b2bae965b2ba569cc822ef2852cd0cf6fd02f04354603a970c8cbbaec70db5` and `14566b1cc2dde8e5142d85dafc80ef1b44b64e1255495b4d929319ffff46bd6d`.
+
+Changing native parsing in place would change existing workbook results. The XLSX adapter now parses supported potentially affected formulas using the source profile and emits explicit parentheses, verifying that the other parser reconstructs the same syntax tree. Unparseable formulas, unknown functions, error literals and rewrites exceeding the text limit retain their original text and produce an approximation warning; strict import rejects that fallback. The conservative detector may also normalize harmless formulas. An independent [export probe](../benchmarks/precedence-export-reader-2026-11-11.json) confirms four native results after recalculation by this LibreOfficeDev build. This does not establish Excel-version-specific results, unsupported formula handling, numeric literal parity or general workbook compatibility; a versioned native formula-semantics migration remains open.
+
+An expanded generated grammar exposed a missed unary-plus case, `2^+3^2`; the detector now handles both prefix signs. An independent [openpyxl-authored source](../benchmarks/plus-precedence-2026-11-11-source.xlsx) and [LibreOfficeDev output](../benchmarks/plus-precedence-2026-11-11-libreoffice.xlsx) give 64 for that expression and 1 for `+1^++1`. Their SHA-256 hashes are `43c8b6acae31886b697a4f1088c257d8cacf448d013c3a5b16295d38c0fabb6e` and `90a7fb2ec64fa8476447bad399e65457d7c6ac4743e2bd4929e7b3e33a7c61f9`. These two cases do not establish full unary-operator compatibility.
+
+# Numeric text radix prefixes (2026-11-11)
+
+The [LibreOfficeDev 26.8 alpha report](../benchmarks/formula-reader-2026-11-11-radix-1900.json) independently recalculates `ROUND` with `0x10`, `0b10` and `0o10` as text and returns `#VALUE!` for each; `1e2` returns 100. Source and recalculated workbooks and hashes accompany the report. OpenSheet's shared scalar numeric conversion now rejects these programming-language prefixes while retaining decimal exponent notation. The corpus tests pure and asynchronous calculation, and browser tests cover referenced values, recalculation, history and reopen. This is one reader and four literal probes, not a complete Excel or locale coercion contract; other differences in the report remain unresolved.
+
+A [follow-up independent report](../benchmarks/formula-reader-2026-11-11-radix-contexts-1900.json) also agrees on six expressions using radix-prefixed text in arithmetic, `MOD`, `MID`, `DATE`, `INDEX` and `MATCH`; each returns `#VALUE!`. The corpus exercises the pure and asynchronous evaluators, and browser tests verify the latter four contexts survive reopening in three engines. This still represents one independent reader and a small set of literal arguments, not a complete coercion or Excel compatibility claim.

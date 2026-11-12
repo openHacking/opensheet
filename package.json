@@ -1,7 +1,7 @@
 {
   "name": "opensheet-workspace",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.2.0-dev.0",
   "type": "module",
   "packageManager": "pnpm@10.22.0",
   "engines": {
@@ -9,11 +9,13 @@
   },
   "scripts": {
     "dev": "vite --config apps/playground/vite.config.ts --host 127.0.0.1",
-    "build": "node scripts/build.mjs && pnpm schema && pnpm smoke && node scripts/notices.mjs && vite build --config apps/playground/vite.config.ts",
+    "build": "node scripts/build.mjs && pnpm schema && pnpm formula:docs && pnpm smoke && node scripts/notices.mjs && vite build --config apps/playground/vite.config.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:model": "vitest run tests/workbook-model.test.ts",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:frameworks": "node scripts/framework-acceptance.mjs",
     "check": "pnpm format:check && pnpm test:architecture && pnpm typecheck && pnpm test && pnpm build",
     "preview": "vite preview --config apps/playground/vite.config.ts --host 127.0.0.1",
     "format": "prettier --write packages apps tests scripts examples *.ts *.json",
@@ -23,8 +25,9 @@
     "benchmark:browser": "node scripts/browser-benchmark.mjs",
     "smoke": "node scripts/smoke.mjs",
     "test:pages": "node scripts/pages-check.mjs",
-    "test:architecture": "node --test scripts/architecture.test.mjs && node scripts/architecture.mjs",
-    "benchmark:capacity": "node scripts/capacity-benchmark.mjs"
+    "test:architecture": "node --test scripts/architecture.test.mjs scripts/process-memory-sampler.test.mjs && node scripts/architecture.mjs",
+    "benchmark:capacity": "node scripts/capacity-benchmark.mjs",
+    "formula:docs": "node scripts/formula-docs.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
@@ -36,9 +39,9 @@
     "prettier": "3.6.2",
     "react": "19.2.0",
     "typescript": "5.9.3",
-    "vite": "7.3.6",
-    "vitest": "4.1.11",
-    "vue": "3.5.24",
+    "vite": "7.3.7",
+    "vitest": "4.1.12",
+    "vue": "3.5.42",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "dependencies": {

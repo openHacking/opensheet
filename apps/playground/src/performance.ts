@@ -3,12 +3,16 @@ import {
   createWorkbookFile,
   fixtureValue,
   type OpenSheet,
+  type OperationTiming,
   type WorkbookOptions,
 } from 'opensheet';
 import { escapeHTML } from '@opensheetjs/formats';
 import { $ } from './dom.js';
 import {
   LIMIT,
+  capacityEditRow,
+  capacityHorizontalScrollOffset,
+  capacityScrollOffset,
   percentile,
   probeCapacity,
   thresholds,
@@ -36,10 +40,23 @@ export function createPerformance(
   let results: Measurement[] = [],
     quota: { usage?: number; quota?: number } = {},
     lastBook: Workbook | undefined;
+  const traceOperations = new URLSearchParams(location.search).has('trace-ops');
+  let lastExecuteTiming: OperationTiming | undefined;
+  let currentScrollReads: OperationTiming[] | undefined;
+  const getLastExecuteTiming = () => lastExecuteTiming;
   let largest = 0,
     smallest: number | undefined;
   const options = (): WorkbookOptions => ({
     database: DATABASE,
+    preserveOrphans: true,
+    ...(traceOperations
+      ? {
+          onOperationTiming: (timing: OperationTiming) => {
+            if (timing.method === 'execute') lastExecuteTiming = timing;
+            if (timing.method === 'read') currentScrollReads?.push(timing);
+          },
+        }
+      : {}),
     budgetBytes: budgetMiB * 1048576,
     onProgress: (p) => {
       progress = `${p.phase}: ${p.completed.toLocaleString()}${p.total ? ' / ' + p.total.toLocaleString() : ''}`;
@@ -63,7 +80,23 @@ export function createPerformance(
       `Largest passed: ${largest.toLocaleString()} · Smallest failed: ${smallest?.toLocaleString() ?? '—'} · Origin usage: ${quota.usage === undefined ? 'unknown' : mib(quota.usage) + ' MiB'} · Estimated origin quota: ${quota.quota === undefined ? 'unknown' : mib(quota.quota) + ' MiB'} (includes other same-origin storage). Application bytes count encoded records, staging and history; browser disk usage is a separate estimate.`;
     $('perf-results').innerHTML = results
       .map((r) => {
-        const worst = (k: keyof Round) => Math.max(0, ...r.rounds.map((v) => v[k] ?? 0));
+        const worst = (
+          k: keyof Omit<
+            Round,
+            | 'editSamplesMs'
+            | 'scrollSamplesMs'
+            | 'commitSamplesMs'
+            | 'viewportSamplesMs'
+            | 'workerQueueSamplesMs'
+            | 'workerExecutionSamplesMs'
+            | 'rpcSamplesMs'
+            | 'workerActiveSamples'
+            | 'workerQueuedAheadSamples'
+            | 'scrollReadTraces'
+            | 'scrollPhaseTraces'
+            | 'scrollExtents'
+          >,
+        ) => Math.max(0, ...r.rounds.map((v) => v[k] ?? 0));
         return `<tr><td>${r.cells.toLocaleString()}</td><td>${escapeHTML(r.passed ? (r.boundary ?? 'Passed') : r.failure === 'STORAGE_BUDGET' ? 'Test boundary: application budget' : (r.failure ?? 'Failed'))}</td><td>${worst('editP95Ms').toFixed(1)} ms</td><td>${worst('scrollP95Ms').toFixed(1)} ms</td><td>${worst('restoreMs').toFixed(0)} ms</td><td>${worst('verifyMs').toFixed(0)} ms</td><td>${(r.elapsedMs ?? 0).toFixed(0)} ms</td><td>${mib(worst('bytes'))}</td><td>${(worst('bytes') / r.cells).toFixed(2)}</td><td>${mib(worst('workerCacheBytes'))} MiB</td><td>${mib(worst('viewportCacheBytes'))} MiB</td><td>${r.rounds.some((v) => v.mainHeapBytes !== undefined) ? mib(worst('mainHeapBytes')) + ' MiB' : 'unknown'}</td></tr>`;
       })
       .join('');
@@ -111,6 +144,9 @@ export function createPerformance(
         /* Database may not exist yet. */
       }
     }
+    return createEmpty();
+  }
+  async function createEmpty() {
     const snapshot = createWorkbookFile({
       sheets: [{ name: 'Performance', rows: 100, columns: 100 }],
     });
@@ -126,8 +162,9 @@ export function createPerformance(
     await estimate();
     try {
       lastBook = await app.open(ID, options());
-    } catch {
-      await empty();
+    } catch (error) {
+      if ((error as { code?: string }).code !== 'INVALID_ARGUMENT') throw error;
+      await createEmpty();
     }
     state.dirty = false;
     progress = 'Ready — measurements depend on this browser and device.';
@@ -177,10 +214,17 @@ export function createPerformance(
         app.getGrid()!.setReadOnly(true);
         const verifyMs = await verify(current, count),
           sheet = current.getSheets()[0];
-        const edits: number[] = [];
+        const edits: number[] = [],
+          commits: number[] = [],
+          viewports: number[] = [],
+          workerQueues: number[] = [],
+          workerExecutions: number[] = [],
+          rpcs: number[] = [],
+          workerActive: string[] = [],
+          workerAhead: number[] = [];
         for (let i = -5; i < 100; i++) {
           abort.signal.throwIfAborted();
-          const row = (Math.max(0, i) * 67) % sheet.rowCount,
+          const row = capacityEditRow(i, sheet.rowCount),
             column = (Math.max(0, i) * 37) % 100;
           app.selection.set({
             sheetId: sheet.id,
@@ -192,12 +236,28 @@ export function createPerformance(
           await app.getGrid()!.ready();
           const before = fixtureValue(row * 100 + column),
             start = performance.now();
+          lastExecuteTiming = undefined;
           await sheet
             .range({ startRow: row, endRow: row + 1, startColumn: column, endColumn: column + 1 })
             .setValues([[i + 0.25]]);
+          const committed = performance.now();
           await app.getGrid()!.ready();
-          if (i >= 0) edits.push(performance.now() - start);
-          await current.undo();
+          const ready = performance.now();
+          if (i >= 0) {
+            commits.push(committed - start);
+            viewports.push(ready - committed);
+            edits.push(ready - start);
+            if (traceOperations) {
+              const timing = getLastExecuteTiming();
+              if (!timing) throw new Error('Worker timing was not reported');
+              workerQueues.push(timing.queueMs);
+              workerExecutions.push(timing.executionMs);
+              rpcs.push(timing.roundTripMs);
+              workerActive.push(timing.activeAtArrival);
+              workerAhead.push(timing.queuedAhead);
+            }
+          }
+          if (!(await current.undo())) throw new Error('Undo was unavailable');
           if (
             (
               await sheet
@@ -211,22 +271,147 @@ export function createPerformance(
             )[0][0] !== before
           )
             throw new Error('Undo validation failed');
-          await current.redo();
-          await current.undo();
+          if (!(await current.redo())) throw new Error('Redo was unavailable');
+          if (
+            (
+              await sheet
+                .range({
+                  startRow: row,
+                  endRow: row + 1,
+                  startColumn: column,
+                  endColumn: column + 1,
+                })
+                .getValues()
+            )[0][0] !==
+            i + 0.25
+          )
+            throw new Error('Redo validation failed');
+          if (!(await current.undo())) throw new Error('Final undo was unavailable');
         }
         const scroller = app.getGrid()!.scroller,
-          frames: number[] = [];
+          frames: number[] = [],
+          scrollReadTraces: NonNullable<Round['scrollReadTraces']> = [],
+          scrollPhaseTraces: NonNullable<Round['scrollPhaseTraces']> = [];
+        let viewportChecks = 0;
+        const scrollExtents = {
+          maxTop: Math.max(0, scroller.scrollHeight - scroller.clientHeight),
+          maxLeft: Math.max(0, scroller.scrollWidth - scroller.clientWidth),
+          observedTop: [Infinity, -Infinity] as [number, number],
+          observedLeft: [Infinity, -Infinity] as [number, number],
+        };
+        const geometry = current.sheetData(sheet.id);
+        if (
+          Object.keys(geometry.rows).length ||
+          Object.keys(geometry.columns).length ||
+          geometry.freeze.rows ||
+          geometry.freeze.columns
+        )
+          throw new Error('Unexpected performance fixture geometry');
         for (let i = -30; i < 300; i++) {
           abort.signal.throwIfAborted();
           const start = await frame();
-          scroller.scrollTop =
-            (Math.max(0, i) * 977) % Math.max(1, scroller.scrollHeight - scroller.clientHeight);
-          scroller.scrollLeft =
-            (Math.max(0, i) * 239) % Math.max(1, scroller.scrollWidth - scroller.clientWidth);
-          await app.getGrid()!.ready();
+          const reads: OperationTiming[] | undefined = traceOperations ? [] : undefined;
+          const phases = traceOperations
+            ? {
+                layoutMs: -1,
+                previousFetchMs: -1,
+                viewportFetchMs: -1,
+                frameWaitMs: -1,
+                drawMs: -1,
+              }
+            : undefined;
+          currentScrollReads = reads;
+          try {
+            scroller.scrollTop = capacityScrollOffset(
+              i,
+              Math.max(0, scroller.scrollHeight - scroller.clientHeight),
+            );
+            scroller.scrollLeft = capacityHorizontalScrollOffset(
+              i,
+              Math.max(0, scroller.scrollWidth - scroller.clientWidth),
+            );
+            await app.getGrid()!.ready(phases);
+          } finally {
+            currentScrollReads = undefined;
+          }
           const end = performance.now();
-          if (i >= 0) frames.push(end - start);
+          if (i >= 0) {
+            frames.push(end - start);
+            scrollExtents.observedTop[0] = Math.min(
+              scrollExtents.observedTop[0],
+              scroller.scrollTop,
+            );
+            scrollExtents.observedTop[1] = Math.max(
+              scrollExtents.observedTop[1],
+              scroller.scrollTop,
+            );
+            scrollExtents.observedLeft[0] = Math.min(
+              scrollExtents.observedLeft[0],
+              scroller.scrollLeft,
+            );
+            scrollExtents.observedLeft[1] = Math.max(
+              scrollExtents.observedLeft[1],
+              scroller.scrollLeft,
+            );
+            const zoom = app.getGrid()!.getZoom();
+            const rows = [scroller.scrollTop, scroller.scrollTop + scroller.clientHeight].map(
+              (offset) => Math.min(sheet.rowCount - 1, Math.floor(offset / (30 * zoom))),
+            );
+            const columns = [scroller.scrollLeft, scroller.scrollLeft + scroller.clientWidth].map(
+              (offset) => Math.min(sheet.columnCount - 1, Math.floor(offset / (128 * zoom))),
+            );
+            for (let row = rows[0]; row <= rows[1]; row++)
+              for (let column = columns[0]; column <= columns[1]; column++) {
+                const value = fixtureValue(row * 100 + column);
+                const display =
+                  typeof value === 'boolean' ? String(value).toUpperCase() : String(value);
+                if (
+                  !current.isLoaded(sheet.id, row, column) ||
+                  current.peekValue(sheet.id, row, column) !== value ||
+                  current.peekDisplay(sheet.id, row, column) !== display
+                )
+                  throw new Error(`Viewport validation failed at row ${row}, column ${column}`);
+                viewportChecks++;
+              }
+            if (reads)
+              scrollReadTraces.push({
+                count: reads.length,
+                maxRoundTripMs: Math.max(0, ...reads.map((r) => r.roundTripMs)),
+                sumExecutionMs: reads.reduce((sum, r) => sum + r.executionMs, 0),
+                maxExecutionMs: Math.max(0, ...reads.map((r) => r.executionMs)),
+                maxQueueMs: Math.max(0, ...reads.map((r) => r.queueMs)),
+                maxOutsideWorkerMs: Math.max(
+                  0,
+                  ...reads.map((r) => Math.max(0, r.roundTripMs - r.queueMs - r.executionMs)),
+                ),
+                sumOutsideWorkerMs: reads.reduce(
+                  (sum, r) => sum + Math.max(0, r.roundTripMs - r.queueMs - r.executionMs),
+                  0,
+                ),
+                pageCacheHits: reads.reduce((sum, r) => sum + (r.read?.cacheHits ?? 0), 0),
+                pageCacheMisses: reads.reduce((sum, r) => sum + (r.read?.cacheMisses ?? 0), 0),
+                absentPages: reads.reduce((sum, r) => sum + (r.read?.absentPages ?? 0), 0),
+                storageMs: reads.reduce((sum, r) => sum + (r.read?.storageMs ?? 0), 0),
+                decodeMs: reads.reduce((sum, r) => sum + (r.read?.decodeMs ?? 0), 0),
+                inflateMs: reads.reduce((sum, r) => sum + (r.read?.inflateMs ?? 0), 0),
+                pageDecodeMs: reads.reduce((sum, r) => sum + (r.read?.pageDecodeMs ?? 0), 0),
+              });
+            if (phases) scrollPhaseTraces.push(phases);
+          }
         }
+        if (
+          scrollExtents.observedTop[0] > 1 ||
+          scrollExtents.observedLeft[0] > 1 ||
+          scrollExtents.observedTop[1] < scrollExtents.maxTop - 1 ||
+          scrollExtents.observedLeft[1] < scrollExtents.maxLeft - 1 ||
+          Math.abs(
+            Math.max(0, scroller.scrollHeight - scroller.clientHeight) - scrollExtents.maxTop,
+          ) > 1 ||
+          Math.abs(
+            Math.max(0, scroller.scrollWidth - scroller.clientWidth) - scrollExtents.maxLeft,
+          ) > 1
+        )
+          throw new Error('Scroll extent validation failed');
         await app.getGrid()!.ready();
         const mainHeapBytes = (performance as Performance & { memory?: { usedJSHeapSize: number } })
           .memory?.usedJSHeapSize;
@@ -235,6 +420,25 @@ export function createPerformance(
           verifyMs,
           editP95Ms: percentile(edits),
           scrollP95Ms: percentile(frames),
+          editSamplesMs: edits,
+          commitSamplesMs: commits,
+          viewportSamplesMs: viewports,
+          commitP95Ms: percentile(commits),
+          viewportP95Ms: percentile(viewports),
+          ...(traceOperations
+            ? {
+                workerQueueSamplesMs: workerQueues,
+                workerExecutionSamplesMs: workerExecutions,
+                rpcSamplesMs: rpcs,
+                workerActiveSamples: workerActive,
+                workerQueuedAheadSamples: workerAhead,
+                scrollReadTraces,
+                scrollPhaseTraces,
+              }
+            : {}),
+          scrollSamplesMs: frames,
+          viewportChecks,
+          scrollExtents,
           bytes: current.stats.bytes,
           mainHeapBytes,
           workerCacheBytes: (await current.storageStats()).cacheBytes,
@@ -368,11 +572,15 @@ export function createPerformance(
                   ? 'finished'
                   : 'ready',
             protocol: {
+              operationTiming: traceOperations,
               rounds: 3,
               editWarmups: 5,
               editSamples: 100,
+              editRowSampling: 'evenly-spaced-inclusive-v1',
               scrollWarmups: 30,
               scrollSamples: 300,
+              scrollSampling: 'evenly-spaced-2d-permuted-inclusive-v2',
+              viewportValidation: 'viewport-rectangle-cached-value-display-v2',
               blockRows: 64,
               blockColumns: 32,
               workerCacheBudgetBytes: 64 * 1048576,

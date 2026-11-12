@@ -71,33 +71,106 @@ const decode = <T>(value: unknown): T | undefined => {
 export class Database {
   private constructor(readonly db: IDBDatabase) {}
   static async open(name = 'opensheet') {
-    assert(typeof indexedDB !== 'undefined', 'STORAGE_UNAVAILABLE', 'IndexedDB is required');
-    const req = indexedDB.open(name, 1);
-    req.onupgradeneeded = () => {
-      req.result.createObjectStore('sizes');
-      req.result.createObjectStore('heads');
-      req.result.createObjectStore('records');
-      req.result.createObjectStore('scratch');
-    };
-    const db = await request(req);
-    db.onversionchange = () => db.close();
-    return new Database(db);
+    try {
+      assert(typeof indexedDB !== 'undefined', 'STORAGE_UNAVAILABLE', 'IndexedDB is required');
+      const req = indexedDB.open(name, 1);
+      req.onupgradeneeded = () => {
+        req.result.createObjectStore('sizes');
+        req.result.createObjectStore('heads');
+        req.result.createObjectStore('records');
+        req.result.createObjectStore('scratch');
+      };
+      const db = await request(req);
+      db.onversionchange = () => db.close();
+      return new Database(db);
+    } catch (error) {
+      if ((error as { name?: unknown })?.name === 'SecurityError')
+        throw new OpenSheetError(
+          'STORAGE_UNAVAILABLE',
+          'IndexedDB access was denied; enable site storage or use a supported browser context',
+        );
+      throw error;
+    }
   }
   get<T>(store: string, id: IDBValidKey) {
     return request<unknown>(this.db.transaction(store).objectStore(store).get(id)).then((value) =>
       decode<T>(value),
     );
   }
+  async hasAny(store: string, range: IDBKeyRange) {
+    return (
+      (await request(this.db.transaction(store).objectStore(store).getKey(range))) !== undefined
+    );
+  }
+  /** Compare raw record lengths with their ledger entries in bounded read transactions. */
+  async recordSizes(ids: readonly string[]): Promise<number[]> {
+    const result: number[] = [];
+    for (let start = 0; start < ids.length; start += 128) {
+      const batch = ids.slice(start, start + 128);
+      const tx = this.db.transaction(['records', 'sizes']);
+      const records = tx.objectStore('records'),
+        sizes = tx.objectStore('sizes');
+      await new Promise<void>((resolve, reject) => {
+        let index = 0;
+        const next = () => {
+          if (index === batch.length) return resolve();
+          const id = batch[index];
+          const ledger = sizes.get(id);
+          const record = records.get(id);
+          let pending = 2;
+          const check = () => {
+            if (--pending !== 0) return;
+            try {
+              const size = decode<number>(ledger.result);
+              assert(
+                Number.isSafeInteger(size) && size! > 0,
+                'CORRUPT_STORAGE',
+                'Missing or invalid storage ledger; restore a backup',
+              );
+              assert(
+                record.result instanceof Uint8Array && record.result.byteLength === size,
+                'CORRUPT_STORAGE',
+                'Record length differs from storage ledger; restore a backup',
+              );
+              result.push(size!);
+              index++;
+              next();
+            } catch (error) {
+              reject(error);
+            }
+          };
+          ledger.onerror = () => reject(ledger.error);
+          record.onerror = () => reject(record.error);
+          ledger.onsuccess = record.onsuccess = check;
+        };
+        next();
+      });
+    }
+    return result;
+  }
   async write(
     store: string,
     puts: Array<[IDBValidKey, unknown]>,
     deletes: Array<IDBValidKey | IDBKeyRange> = [],
+    signal?: AbortSignal,
   ) {
+    signal?.throwIfAborted();
     const stores = store === 'records' ? [store, 'sizes'] : [store];
     const tx = this.db.transaction(stores, 'readwrite');
     const done = completed(tx);
     const target = tx.objectStore(store);
     const ledger = store === 'records' ? tx.objectStore('sizes') : undefined;
+    let abortedBySignal = false;
+    const abort = () => {
+      try {
+        tx.abort();
+        abortedBySignal = true;
+      } catch {
+        // A completed or already-aborted transaction cannot be cancelled here.
+      }
+    };
+    signal?.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) abort();
     try {
       for (const id of deletes) {
         target.delete(id);
@@ -116,39 +189,108 @@ export class Database {
         /* Transaction may already be aborted. */
       }
       await done.catch(() => {});
+      if (abortedBySignal) throw signal!.reason;
       throw error;
+    } finally {
+      signal?.removeEventListener('abort', abort);
+    }
+  }
+  /** Remove one workbook atomically, including its size ledger and staging records. */
+  async deleteWorkbook(id: string, range: IDBKeyRange) {
+    const tx = this.db.transaction(['heads', 'records', 'sizes', 'scratch'], 'readwrite');
+    const done = completed(tx);
+    try {
+      tx.objectStore('heads').delete(id);
+      tx.objectStore('records').delete(range);
+      tx.objectStore('sizes').delete(range);
+      tx.objectStore('scratch').delete(range);
+      await done;
+    } catch (error) {
+      try {
+        tx.abort();
+      } catch {
+        /* Transaction may already be aborted. */
+      }
+      await done.catch(() => {});
+      throw error;
+    }
+  }
+  /** Read bounded key batches without decoding values. The consumer may delete yielded keys. */
+  async *scanKeys(store: string, range: IDBKeyRange, batch = 256) {
+    assert(Number.isSafeInteger(batch) && batch > 0, 'INVALID_ARGUMENT', 'Invalid scan batch');
+    let remaining = range;
+    while (true) {
+      const target = this.db.transaction(store).objectStore(store);
+      const keys = await request(target.getAllKeys(remaining, batch));
+      if (!keys.length) return;
+      const last = keys.at(-1)!;
+      const finished =
+        keys.length < batch ||
+        (range.upper !== undefined && indexedDB.cmp(last, range.upper) === 0);
+      yield keys;
+      if (finished) return;
+      remaining =
+        range.upper === undefined
+          ? IDBKeyRange.lowerBound(last, true)
+          : IDBKeyRange.bound(last, range.upper, true, range.upperOpen);
     }
   }
   async *scan<T>(
     store: string,
     range: IDBKeyRange,
     batch = 32,
+    maxBytes = Infinity,
   ): AsyncGenerator<Array<[IDBValidKey, T]>> {
+    assert(
+      Number.isSafeInteger(batch) && batch > 0 && maxBytes > 0,
+      'INVALID_ARGUMENT',
+      'Invalid scan batch',
+    );
     let after: IDBValidKey | undefined;
     while (true) {
       const tx = this.db.transaction(store);
       const target = tx.objectStore(store);
       const rows: Array<[IDBValidKey, T]> = [];
+      let bytes = 0;
       await new Promise<void>((resolve, reject) => {
         const req = target.openCursor(
           after === undefined
             ? range
-            : IDBKeyRange.bound(after, range.upper, true, range.upperOpen),
+            : range.upper === undefined
+              ? IDBKeyRange.lowerBound(after, true)
+              : IDBKeyRange.bound(after, range.upper, true, range.upperOpen),
         );
         req.onerror = () => reject(req.error);
         req.onsuccess = () => {
-          const cursor = req.result;
-          if (!cursor || rows.length === batch) {
-            resolve();
-            return;
+          try {
+            const cursor = req.result;
+            if (!cursor || rows.length === batch) {
+              resolve();
+              return;
+            }
+            const encoded = cursor.value;
+            assert(
+              encoded instanceof Uint8Array,
+              'CORRUPT_STORAGE',
+              'Invalid encoded storage record',
+            );
+            // Always allow one record so a large page cannot prevent cursor progress.
+            if (rows.length && bytes + encoded.byteLength > maxBytes) {
+              resolve();
+              return;
+            }
+            rows.push([cursor.key, decode<T>(encoded)!]);
+            bytes += encoded.byteLength;
+            cursor.continue();
+          } catch (error) {
+            reject(error);
           }
-          rows.push([cursor.key, decode<T>(cursor.value)!]);
-          cursor.continue();
         };
       });
       if (!rows.length) return;
       after = rows.at(-1)![0];
       yield rows;
+      if (range.upper !== undefined && indexedDB.cmp(after, range.upper) === 0) return;
     }
   }
   close() {

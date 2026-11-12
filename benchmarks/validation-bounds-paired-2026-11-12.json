@@ -1,0 +1,362 @@
+{
+  "startedAt": "2026-11-11T23:39:34.408Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 326,
+    "sha256": "6eb8fdc1b953f743fa5965276d4ef6e45e816a2a583e67cd0578ad17181080e8"
+  },
+  "scriptSha256": "84599581725f6f4dfb61700fecf5411b92792a410c20faad581eb7a1df0f618c",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "bundles": {
+    "control": "9e943546f4cefa5484de54fff81320accd6fad8ecc521c4ccc987847db1e011c",
+    "current": "f2118312575a5e0d0560b04939b1577c2bf54ba8076224a2a4d9ba86d60fd4e5"
+  },
+  "scope": "Headless real Worker, local development server, three alternating fresh-context pairs per browser and workload. Control disables only the bounding-box skip, retaining bounds calculation. Workloads: 65,536 positions and no rules; or 1,000 positions and 900 disjoint or covering numeric rules. Includes position copying, rule preparation, in-memory readers and asynchronous checkpoints; no persistence, UI, peak memory, independent devices or power-mode record. Uses actual worker clocks, no forced cancellation. Verifies full report and read count.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 13.800000190734863
+        },
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 14.800000190734863
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 13.700000286102295
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 11.5
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 11.599999904632568
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 10.5
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 46.19999980926514
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 29.5
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 30
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 43.5
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 46.200000286102295
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 29.5
+        },
+        {
+          "fixture": "covered",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 60.5
+        },
+        {
+          "fixture": "covered",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 59.5
+        },
+        {
+          "fixture": "covered",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 58.09999990463257
+        },
+        {
+          "fixture": "covered",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 58.59999990463257
+        },
+        {
+          "fixture": "covered",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 59
+        },
+        {
+          "fixture": "covered",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 70.59999990463257
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 11
+        },
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 8
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 10
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 10
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 19
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 10
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 166
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 99
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 106
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 200
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 187
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 124
+        },
+        {
+          "fixture": "covered",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 269
+        },
+        {
+          "fixture": "covered",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 262
+        },
+        {
+          "fixture": "covered",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 272
+        },
+        {
+          "fixture": "covered",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 260
+        },
+        {
+          "fixture": "covered",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 260
+        },
+        {
+          "fixture": "covered",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 270
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 18
+        },
+        {
+          "fixture": "positions",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 14
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 13
+        },
+        {
+          "fixture": "positions",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 14
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 13
+        },
+        {
+          "fixture": "positions",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 12
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 51
+        },
+        {
+          "fixture": "disjoint",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 36
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 34
+        },
+        {
+          "fixture": "disjoint",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 55
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 51
+        },
+        {
+          "fixture": "disjoint",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 43
+        },
+        {
+          "fixture": "covered",
+          "round": 1,
+          "variant": "control",
+          "elapsedMs": 98
+        },
+        {
+          "fixture": "covered",
+          "round": 1,
+          "variant": "current",
+          "elapsedMs": 75
+        },
+        {
+          "fixture": "covered",
+          "round": 2,
+          "variant": "current",
+          "elapsedMs": 77
+        },
+        {
+          "fixture": "covered",
+          "round": 2,
+          "variant": "control",
+          "elapsedMs": 74
+        },
+        {
+          "fixture": "covered",
+          "round": 3,
+          "variant": "control",
+          "elapsedMs": 77
+        },
+        {
+          "fixture": "covered",
+          "round": 3,
+          "variant": "current",
+          "elapsedMs": 73
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T23:39:55.589Z"
+}

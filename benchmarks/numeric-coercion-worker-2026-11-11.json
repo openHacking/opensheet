@@ -1,0 +1,559 @@
+{
+  "startedAt": "2026-11-11T10:39:33.368Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 284,
+    "sha256": "8816783fa8d257589c3c5faa01a1e1b2ebf8cc601ec50d18e126dfbc48a4025d"
+  },
+  "hashes": {
+    "previous": "e04661679f70a717181aaa37a3384673de91a41f619cca2efb1f755f961044e8",
+    "current": "5bb682c778b92e931a01a6c01727e9bcd44cd35cd581757b7aa3752dec98c2c8"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless browser Worker microbenchmark of one million valid scalar numeric or decimal-text coercions. Six alternating fresh-Worker pairs per browser; previous removes only the radix guard. Sum verified each sample. Excludes formulas, invalid inputs, storage, rendering, peak memory and other devices.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 12.199999809265137,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9.5,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 5.100000381469727,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 18.5,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 17.09999990463257,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 4.900000095367432,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9.900000095367432,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 4.200000286102295,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 4.900000095367432,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9.699999809265137,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 5,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 17.09999990463257,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 17.5,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 5,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9.700000286102295,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 4.700000286102295,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 4.799999713897705,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9.400000095367432,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 4.900000095367432,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 17.5,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 17.5,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 4.5,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9.900000095367432,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 4.800000190734863,
+              "sum": 26125000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 10,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 18,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 32,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 24,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 12,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 7,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 19,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 33,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 24,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 13,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 7,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 19,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 8,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 31,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 24,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 7,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 13,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 7,
+              "sum": 26125000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 23,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 18,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 10,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 32,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 18,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 5,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 10,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 5,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 11,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 17,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 10,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 31,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 17,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 6,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 9,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 4,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 11,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 17,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 10,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 30,
+              "sum": 26125000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "text": true,
+              "ms": 16,
+              "sum": 26125000
+            },
+            {
+              "variant": "current",
+              "text": false,
+              "ms": 5,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": true,
+              "ms": 10,
+              "sum": 26125000
+            },
+            {
+              "variant": "previous",
+              "text": false,
+              "ms": 5,
+              "sum": 26125000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T10:39:36.841Z"
+}

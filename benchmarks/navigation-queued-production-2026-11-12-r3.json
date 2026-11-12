@@ -1,0 +1,156 @@
+{
+  "startedAt": "2026-11-12T01:58:38.463Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 340,
+    "sha256": "e1532034fa147534795eda167564b17481ba2956501555b76b100339df8a7a93"
+  },
+  "localBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "d9304f8cfa1c276fbc79df337e6ac3fb49c72c142ba7b6d91b94a3cdb83e23ee"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "url": "http://127.0.0.1:4192/",
+  "scope": "Headless app real Worker, 100k rows in the existing scene workbook; five alternating timed reads after warmup for a 10k contiguous run and an 85k-row sparse gap. Three additional pairs time synthetic keydown through selection and grid.ready; three bursts time 32 queued keydowns and check every selection. Every fixture input and destination checked. Source and local build fingerprints do not independently verify served assets. Excludes native keyboard latency, pixel inspection, peak memory and other machines.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "dense": 2.700000286102295,
+          "sparse": 9.900000095367432
+        },
+        {
+          "sparse": 9.399999618530273,
+          "dense": 2.4000000953674316
+        },
+        {
+          "dense": 2.4000000953674316,
+          "sparse": 9.099999904632568
+        },
+        {
+          "sparse": 9.300000190734863,
+          "dense": 2.5
+        },
+        {
+          "dense": 2,
+          "sparse": 7.5
+        }
+      ],
+      "uiSamples": [
+        {
+          "dense": 33.30000019073486,
+          "sparse": 31.90000009536743
+        },
+        {
+          "sparse": 32.30000019073486,
+          "dense": 33.59999990463257
+        },
+        {
+          "dense": 32.90000009536743,
+          "sparse": 32.19999980926514
+        }
+      ],
+      "burstSamples": [
+        65.59999990463257,
+        66.69999980926514,
+        66.2000002861023
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "dense": 4,
+          "sparse": 11
+        },
+        {
+          "sparse": 10,
+          "dense": 4
+        },
+        {
+          "dense": 2,
+          "sparse": 10
+        },
+        {
+          "sparse": 9,
+          "dense": 4
+        },
+        {
+          "dense": 3,
+          "sparse": 10
+        }
+      ],
+      "uiSamples": [
+        {
+          "dense": 26,
+          "sparse": 26
+        },
+        {
+          "sparse": 26,
+          "dense": 26
+        },
+        {
+          "dense": 26,
+          "sparse": 40
+        }
+      ],
+      "burstSamples": [
+        67,
+        66,
+        65
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "dense": 3,
+          "sparse": 6
+        },
+        {
+          "sparse": 6,
+          "dense": 2
+        },
+        {
+          "dense": 3,
+          "sparse": 6
+        },
+        {
+          "sparse": 7,
+          "dense": 3
+        },
+        {
+          "dense": 3,
+          "sparse": 7
+        }
+      ],
+      "uiSamples": [
+        {
+          "dense": 25,
+          "sparse": 26
+        },
+        {
+          "sparse": 26,
+          "dense": 26
+        },
+        {
+          "dense": 25,
+          "sparse": 25
+        }
+      ],
+      "burstSamples": [
+        79,
+        80,
+        79
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-12T01:58:49.665Z"
+}

@@ -1,0 +1,77 @@
+{
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 337,
+    "sha256": "ebf0137c6f0031b850453602e7a3511b9108da3b4b2b03f084f5d5e0fc776ed9"
+  },
+  "hashes": [
+    "5ac205c1cf48fa75c2cc0f79afd500a33ee1c2a0321b113f36f4bea5c59eba75",
+    "8552fa776601e36e203eef1b62ad6201e503cf502d1fdce0dca840b70bc49786"
+  ],
+  "count": 10000,
+  "bytes": 899991,
+  "scope": "Synthetic frame-level reader comparison; page payload is one byte, not a valid workbook page. Excludes IndexedDB, page decoding, browser memory and real data.",
+  "results": [
+    {
+      "mode": "open",
+      "pairs": [
+        {
+          "beforeMs": 52.284625000000005,
+          "afterMs": 54.08212500000002
+        },
+        {
+          "beforeMs": 43.83312500000011,
+          "afterMs": 39.76520900000003
+        },
+        {
+          "beforeMs": 90.78479200000004,
+          "afterMs": 170.94654200000002
+        },
+        {
+          "beforeMs": 40.10095799999999,
+          "afterMs": 54.020500000000084
+        },
+        {
+          "beforeMs": 43.0339170000002,
+          "afterMs": 46.43770900000004
+        },
+        {
+          "beforeMs": 50.84791700000005,
+          "afterMs": 47.19645800000012
+        }
+      ]
+    },
+    {
+      "mode": "stream",
+      "pairs": [
+        {
+          "beforeMs": 68.08995800000002,
+          "afterMs": 71.28341599999999
+        },
+        {
+          "beforeMs": 66.64199999999983,
+          "afterMs": 59.324208
+        },
+        {
+          "beforeMs": 57.915042000000085,
+          "afterMs": 51.024041000000125
+        },
+        {
+          "beforeMs": 56.93537500000002,
+          "afterMs": 50.882082999999966
+        },
+        {
+          "beforeMs": 60.38270899999998,
+          "afterMs": 52.24199999999996
+        },
+        {
+          "beforeMs": 58.22483300000022,
+          "afterMs": 53.492750000000115
+        }
+      ]
+    }
+  ]
+}

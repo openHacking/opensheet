@@ -1,5 +1,5 @@
 import { OpenSheetError, FileReader, type WorkbookFile } from '@opensheetjs/core';
-import { renderDelimited } from './generators/delimited.js';
+import { renderDelimited, validateDelimitedOptions } from './generators/delimited.js';
 import { renderHtml } from './generators/html.js';
 import { renderLatex } from './generators/latex.js';
 import { renderMarkdown } from './generators/markdown.js';
@@ -8,6 +8,7 @@ import type { ExportOptions, ExportResult } from './types.js';
 export function exportRange(file: WorkbookFile, config: ExportOptions): ExportResult {
   if (!['csv', 'tsv', 'markdown', 'html', 'latex'].includes(config.format))
     throw new OpenSheetError('INVALID_ARGUMENT', 'Unknown export format');
+  if (config.format === 'csv' || config.format === 'tsv') validateDelimitedOptions(config);
   const book = new FileReader(file);
   try {
     const prepared = prepareRange(book, config);

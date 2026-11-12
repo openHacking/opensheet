@@ -1,0 +1,75 @@
+{
+  "startedAt": "2026-11-11T03:38:32.354Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 255,
+    "sha256": "9ffa3f68fe39ca2726b63e3c8a5bc0068458d9eef382c2a1d90130456b7dfe65"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 60000,
+  "limitations": "In-process Node adapter conversion only; alternating variants, synthetic repeated supported formulas, no XLSX parse, browser, Worker or isolated memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 152.006666
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 139.08275000000003
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 107.24862500000006
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 105.48004200000003
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 86.10625000000005
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 138.61629199999993
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 217.88966699999992
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "elapsedMs": 198.6043749999999
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "elapsedMs": 91.82845900000007
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 113.08220799999981
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 104.30608400000006
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "elapsedMs": 124.26970800000004
+    }
+  ]
+}

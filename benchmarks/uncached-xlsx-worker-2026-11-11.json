@@ -1,0 +1,270 @@
+{
+  "startedAt": "2026-11-11T08:39:22.942Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 280,
+    "sha256": "cd2dc696156a7b79217ef82d72ff01cb50802d9a49df93642d816dab628dcf49"
+  },
+  "workerSha256": "daf5dde506b6fbcb126068d7afecd1d9602e46bdd007387ecaff18a0f9d39cf1",
+  "inputSha256": "7365e2a66f434eb937d64a5cac5496da3472d64c41ecabf5445423172a31d417",
+  "inputBytes": 147397,
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless dedicated Worker SheetJS parse only, three alternating fresh-Worker rounds per browser. An openpyxl fixture contains 10,000 uncached formulas, 10,000 numeric cells and 2,000 formatted blanks. All cells checked outside timing. Styles-on profiles retain cells with either stubs setting; styles-off/stubs-off is an incomplete-data comparison. Excludes ZIP preflight, adapter, persistence, UI, peak memory, devices and other workbooks.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "profile": "styles-no-stubs",
+              "ms": 36.80000019073486,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 33.299999713897705,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 30.5,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 31.200000286102295,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 35.90000009536743,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-no-stubs",
+              "ms": 35.40000009536743,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "profile": "styles-no-stubs",
+              "ms": 32.09999990463257,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 31.899999618530273,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 30,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "profile": "styles-no-stubs",
+              "ms": 40,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 42,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 33,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 34,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 38,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-no-stubs",
+              "ms": 37,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "profile": "styles-no-stubs",
+              "ms": 39,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 36,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 34,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "profile": "styles-no-stubs",
+              "ms": 51,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 41,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 44,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 33,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 38,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-no-stubs",
+              "ms": 39,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "profile": "styles-no-stubs",
+              "ms": 36,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "styles-stubs",
+              "ms": 39,
+              "numbers": 10000,
+              "formulas": 10000,
+              "formattedBlanks": 2000
+            },
+            {
+              "profile": "no-styles-no-stubs",
+              "ms": 38,
+              "numbers": 10000,
+              "formulas": 0,
+              "formattedBlanks": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T08:39:29.455Z"
+}

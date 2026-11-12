@@ -1,0 +1,78 @@
+{
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 343,
+    "sha256": "6158a7900d6f2a60d0d5ddaaa98ff630aeaa26795d8223e7c4e1b17fa6343f61"
+  },
+  "hashes": [
+    "e57aa881d578c8a739a66ca4e5a9afed71ce1a3d4b823841d0df852007fe586c",
+    "e1bc93d7b11901ff045d90e14ce5f37ad3f692319e35c40df6a5c05d4da9dd48"
+  ],
+  "cells": 100000,
+  "scope": "Local Node paired XML-only scan, 100k synthetic scalar XML rows, six alternating pairs after warmup. Baseline reconstructs the pre-change inspection condition, not a clean commit. Does not parse workbook data, read ZIP, run in browsers/Workers or measure peak memory.",
+  "results": [
+    {
+      "name": "active",
+      "bytes": 5666917,
+      "pairs": [
+        {
+          "previous": 36.394957999999974,
+          "current": 59.60916699999996
+        },
+        {
+          "previous": 33.98441600000001,
+          "current": 49.270083
+        },
+        {
+          "previous": 34.19799999999998,
+          "current": 48.740125000000035
+        },
+        {
+          "previous": 35.04191700000001,
+          "current": 58.50754100000006
+        },
+        {
+          "previous": 32.902124999999955,
+          "current": 48.00720799999999
+        },
+        {
+          "previous": 32.67654200000004,
+          "current": 48.185874999999896
+        }
+      ]
+    },
+    {
+      "name": "control",
+      "bytes": 5666848,
+      "pairs": [
+        {
+          "previous": 34.483208000000104,
+          "current": 38.782207999999855
+        },
+        {
+          "previous": 38.63579099999993,
+          "current": 37.559541999999965
+        },
+        {
+          "previous": 34.42004199999997,
+          "current": 45.567416000000094
+        },
+        {
+          "previous": 34.168707999999924,
+          "current": 38.95100000000002
+        },
+        {
+          "previous": 34.241374999999834,
+          "current": 38.493208000000095
+        },
+        {
+          "previous": 34.64270899999997,
+          "current": 41.56729199999995
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "startedAt": "2026-11-12T10:33:00.556Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 378,
+    "sha256": "0c47c2330d4f6e3102ee2ae577a8fc2deec27409741412a37a12c9a6c3fd3696"
+  },
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js"
+      ],
+      "errors": []
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js"
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js"
+      ],
+      "errors": []
+    }
+  ],
+  "scope": "Actual local candidate archives, isolated pnpm/Vite host under a subpath, three headless browsers. No registry publication of OpenSheet, strict CSP, SSR, native keyboard, memory or physical-device acceptance.",
+  "example": {
+    "package.json": "7187f33235f2346f3dbeb8f9027fc77e392ebe0fb6b45fd688955f1ee3a4c58d",
+    "index.html": "bdc971340a218ac33a641f6a371ebe6e64b64e3be807970d2e3e47d67964f06f",
+    "main.js": "b12a2e68596d39000f440f52511d0a9fb4772e5511564e2f096ab5aab5b21507",
+    "vite.config.js": "c426b6aa74865f556261f03b5ef08ecc8c9f1357b89c788711adade7e8c31373"
+  },
+  "archives": [
+    {
+      "name": "opensheet.tgz",
+      "sha256": "930bc023cdb4810677bd856dfe0d51a0057074678e7cc2d6b989530545996752"
+    },
+    {
+      "name": "core.tgz",
+      "sha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2"
+    },
+    {
+      "name": "formula.tgz",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "plugin-sdk.tgz",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "renderer.tgz",
+      "sha256": "ae82bb322e13e8f013adcc3fc0a908ee8063b4ceeaf452c3354f2a057f8b8b21"
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/local-candidate-host-final-2026-11-12.consumer-lock.yaml",
+    "sha256": "92492dc6cbab3105aca326d0b943c581308159a7169164cdd72f7f62dde07a8b",
+    "frozenReinstall": "passed"
+  },
+  "finishedAt": "2026-11-12T10:33:12.773Z"
+}

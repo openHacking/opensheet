@@ -24,6 +24,7 @@ let toolbarMenuId = 0;
 export interface ToolbarActions {
   getWorkbook(): Workbook;
   getSelection(): Selection | null;
+  getSelectionState(): { owner: object; version: number } | undefined;
   run(action: () => unknown): void;
 }
 export class Toolbar {
@@ -53,6 +54,7 @@ export class Toolbar {
       () => this.setMoreOpen(this.moreMenu.hidden),
       'More tools',
       Ellipsis,
+      false,
     );
     this.moreButton.setAttribute('aria-haspopup', 'true');
     this.moreButton.setAttribute('aria-expanded', 'false');
@@ -98,8 +100,47 @@ export class Toolbar {
       this.layoutToolbar();
     });
   }
-  private button(label: string, action: () => void, title = label, icon?: IconNode) {
-    return button(label, () => this.actions.run(action), title, icon, this.abort.signal);
+  private button(label: string, action: () => void, title = label, icon?: IconNode, stable = true) {
+    return button(
+      label,
+      () => (stable ? this.runStable(action) : this.actions.run(action)),
+      title,
+      icon,
+      this.abort.signal,
+    );
+  }
+  private runStable(action: () => unknown) {
+    const book = this.actions.getWorkbook();
+    const revision = book.revision;
+    const pending = book.persistenceState.pending;
+    const selected = this.actions.getSelection();
+    const selection = selected && { ...selected };
+    const state = this.actions.getSelectionState();
+    this.actions.run(() => {
+      const current = this.actions.getSelection();
+      const currentState = this.actions.getSelectionState();
+      if (pending || book.persistenceState.pending)
+        throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
+      if (
+        this.actions.getWorkbook() !== book ||
+        book.revision !== revision ||
+        state?.owner !== currentState?.owner ||
+        state?.version !== currentState?.version ||
+        (selection === null) !== (current === null) ||
+        (selection &&
+          current &&
+          (selection.sheetId !== current.sheetId ||
+            selection.startRow !== current.startRow ||
+            selection.endRow !== current.endRow ||
+            selection.startColumn !== current.startColumn ||
+            selection.endColumn !== current.endColumn))
+      )
+        throw new OpenSheetError(
+          'REVISION_CONFLICT',
+          'Selection or workbook changed. Select the range again.',
+        );
+      return action();
+    });
   }
   private setMoreOpen(open: boolean) {
     this.moreMenu.hidden = !open;
@@ -128,12 +169,47 @@ export class Toolbar {
     const range = () => {
       const s = this.actions.getSelection();
       if (!s) throw new Error('No selection');
-      return this.actions.getWorkbook().getSheetById(s.sheetId)!.range(s);
+      const book = this.actions.getWorkbook();
+      if (book.persistenceState.pending)
+        throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
+      return book.getSheetById(s.sheetId)!.range(s);
     };
     const style = async (s: CellStyle) => await range().setStyle(s);
+    const toggle = async (property: 'bold' | 'italic' | 'underline' | 'wrap') => {
+      const selected = this.actions.getSelection();
+      if (!selected) throw new Error('No selection');
+      const selection = { ...selected };
+      const book = this.actions.getWorkbook();
+      const revision = book.revision;
+      const state = this.actions.getSelectionState();
+      const cell = book.isLoaded(selection.sheetId, selection.startRow, selection.startColumn)
+        ? book.peekCell(selection.sheetId, selection.startRow, selection.startColumn)
+        : await book.getCell(selection.sheetId, selection.startRow, selection.startColumn);
+      const currentState = this.actions.getSelectionState();
+      if (
+        this.disposed ||
+        this.actions.getWorkbook() !== book ||
+        book.revision !== revision ||
+        state?.owner !== currentState?.owner ||
+        state?.version !== currentState?.version
+      )
+        throw new OpenSheetError(
+          'REVISION_CONFLICT',
+          'Selection or workbook changed. Select the range again.',
+        );
+      const next = !book.getStyle(cell?.styleId)[property];
+      await book.execute({
+        protocolVersion: 1,
+        commandId: crypto.randomUUID(),
+        workbookId: book.id,
+        baseRevision: revision,
+        type: 'core.cells.style',
+        payload: { sheetId: selection.sheetId, range: selection, style: { [property]: next } },
+      });
+    };
     group(
-      this.button('', async () => await this.actions.getWorkbook().undo(), 'Undo', Undo2),
-      this.button('', async () => await this.actions.getWorkbook().redo(), 'Redo', Redo2),
+      this.button('', async () => await this.actions.getWorkbook().undo(), 'Undo', Undo2, false),
+      this.button('', async () => await this.actions.getWorkbook().redo(), 'Redo', Redo2, false),
     );
     const fmt = document.createElement('select');
     fmt.setAttribute('aria-label', 'Number format');
@@ -149,43 +225,14 @@ export class Toolbar {
       o.textContent = label;
       fmt.append(o);
     }
-    fmt.addEventListener(
-      'change',
-      () => this.actions.run(() => style({ numberFormat: fmt.value })),
-      { signal: this.abort.signal },
-    );
+    fmt.addEventListener('change', () => this.runStable(() => style({ numberFormat: fmt.value })), {
+      signal: this.abort.signal,
+    });
     group(fmt);
     group(
-      this.button(
-        '',
-        () => {
-          const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
-          return style({ bold: !this.actions.getWorkbook().getStyle(c?.styleId).bold });
-        },
-        'Bold',
-        Bold,
-      ),
-      this.button(
-        '',
-        () => {
-          const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
-          return style({ italic: !this.actions.getWorkbook().getStyle(c?.styleId).italic });
-        },
-        'Italic',
-        Italic,
-      ),
-      this.button(
-        '',
-        () => {
-          const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
-          return style({ underline: !this.actions.getWorkbook().getStyle(c?.styleId).underline });
-        },
-        'Underline',
-        Underline,
-      ),
+      this.button('', () => toggle('bold'), 'Bold', Bold),
+      this.button('', () => toggle('italic'), 'Italic', Italic),
+      this.button('', () => toggle('underline'), 'Underline', Underline),
     );
     const color = document.createElement('input');
     color.type = 'color';
@@ -194,7 +241,7 @@ export class Toolbar {
     color.setAttribute('aria-label', 'Cell background');
     color.addEventListener(
       'input',
-      () => this.actions.run(() => style({ background: color.value })),
+      () => this.runStable(() => style({ background: color.value })),
       { signal: this.abort.signal },
     );
     group(
@@ -207,16 +254,7 @@ export class Toolbar {
       this.button('Merge', async () => await range().merge(), 'Merge', Merge),
       this.button('Unmerge', async () => await range().unmerge(), 'Unmerge', Split),
       this.button('Borders', () => style({ border: true }), 'Borders', Square),
-      this.button(
-        'Wrap',
-        () => {
-          const s = this.actions.getSelection()!,
-            c = this.actions.getWorkbook().peekCell(s.sheetId, s.startRow, s.startColumn);
-          return style({ wrap: !this.actions.getWorkbook().getStyle(c?.styleId).wrap });
-        },
-        'Wrap text',
-        WrapText,
-      ),
+      this.button('Wrap', () => toggle('wrap'), 'Wrap text', WrapText),
       this.button('Fill', async () => await range().fillDown(), 'Fill down', ArrowDown),
     );
     group(
@@ -224,7 +262,10 @@ export class Toolbar {
         'Row',
         async () => {
           const s = this.actions.getSelection()!;
-          await this.actions.getWorkbook().getSheetById(s.sheetId)!.insertRows(s.startRow);
+          const book = this.actions.getWorkbook();
+          if (book.persistenceState.pending)
+            throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
+          await book.getSheetById(s.sheetId)!.insertRows(s.startRow);
         },
         'Insert row',
         Rows3,
@@ -233,7 +274,10 @@ export class Toolbar {
         'Column',
         async () => {
           const s = this.actions.getSelection()!;
-          await this.actions.getWorkbook().getSheetById(s.sheetId)!.insertColumns(s.startColumn);
+          const book = this.actions.getWorkbook();
+          if (book.persistenceState.pending)
+            throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
+          await book.getSheetById(s.sheetId)!.insertColumns(s.startColumn);
         },
         'Insert column',
         Columns3,
@@ -246,7 +290,11 @@ export class Toolbar {
           const s = this.actions.getSelection()!,
             book = this.actions.getWorkbook(),
             current = book.sheetData(s.sheetId).freeze;
-          await book.getSheetById(s.sheetId)!.setFreeze(current.rows ? 0 : 1, 0);
+          if (book.persistenceState.pending)
+            throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
+          await book
+            .getSheetById(s.sheetId)!
+            .setFreeze(current.rows === 1 ? 0 : 1, current.columns);
         },
         'Freeze first row',
         PanelTop,

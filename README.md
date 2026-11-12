@@ -35,7 +35,7 @@ Files are processed in your browser. No account, uploads or telemetry. Edits are
 
 ## Usage
 
-**Version 0.1.1 is a development preview.** Install the browser package with `npm install opensheet`, or use `@opensheetjs/core` for workbooks without an editor. See [Contributing](CONTRIBUTING.md) for workspace setup.
+**This workspace is the unreleased 0.2.0-dev.0 development candidate.** The published 0.1.1 preview can be installed with `npm install opensheet`; it does not include all changes described by this working tree. Use `@opensheetjs/core` for workbooks without an editor. See [Contributing](CONTRIBUTING.md) for workspace setup and the [changelog](CHANGELOG.md) for upgrade boundaries.
 
 ```ts
 import { createOpenSheet } from 'opensheet';
@@ -75,7 +75,8 @@ For browser workbooks without a UI, import `createWorkbook` from `@opensheetjs/c
 
 ## Documentation
 
-- [API guide](docs/api.md) and [plugin guide](docs/plugins.md)
+- [Roadmap](ROADMAP.md), [execution backlog](TODO.md) and [competitive research](docs/competitive-research.md)
+- [API guide](docs/api.md), [Node and headless use](docs/node-usage.md), and [plugin guide](docs/plugins.md)
 - [Implementation status and limitations](docs/implementation-status.md)
 - [Architecture](docs/01-architecture.md) and [data model](docs/02-data-and-commands.md)
 - [Verification](docs/verification.md), [changelog](CHANGELOG.md) and [Agent navigation](llms.txt)
@@ -83,7 +84,7 @@ For browser workbooks without a UI, import `createWorkbook` from `@opensheetjs/c
 
 ## Current limitations
 
-OpenSheet does not promise lossless Excel compatibility. Complex styles, charts, macros, array formulas and other unsupported file features have explicit limits. Keep native JSON for supported OpenSheet data. Formula evaluation and number formatting cover a subset of Excel behavior. The project has not reached a stable v1 API or completed full performance and assistive-technology validation. Workbooks require browser Workers, IndexedDB and Web Locks. Caches are bounded; explicit complete JSON exports and the SheetJS XLSX boundary can require more memory. See [implementation status](docs/implementation-status.md) and [performance protocol](docs/performance.md).
+OpenSheet does not promise lossless Excel compatibility. Complex styles, charts, macros, array formulas and other unsupported file features have explicit limits. Keep native JSON for supported OpenSheet data. Formula evaluation and number formatting cover a subset of Excel behavior. The project has not reached a stable v1 API or completed full performance and assistive-technology validation. Workbooks require browser Workers, IndexedDB, Web Locks and BroadcastChannel. Caches are bounded; explicit complete JSON exports and the SheetJS XLSX boundary can require more memory. See [implementation status](docs/implementation-status.md) and [performance protocol](docs/performance.md).
 
 ## Contributing
 

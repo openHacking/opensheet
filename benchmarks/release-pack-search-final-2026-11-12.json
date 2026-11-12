@@ -1,0 +1,123 @@
+{
+  "startedAt": "2026-11-12T15:08:00.727Z",
+  "version": "0.2.0-dev.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 382,
+    "sha256": "4894626eee216355fc2e6480c3e84b6d01822b4fbbc25d97c8e586d9f1b42b8f"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "bd9789a4553a68fae4f49fcfa7f49aa52ffb24c17bbbee96f4035fa45d65a803"
+  },
+  "node": "v22.19.0",
+  "packages": [
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14",
+      "repeatSha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14",
+      "identical": true,
+      "files": 16,
+      "bytes": 57197
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "ddde7f75c80220fa71f8b345324c8817c70ebb3fe8c76ee1683cad893eba85c4",
+      "repeatSha256": "ddde7f75c80220fa71f8b345324c8817c70ebb3fe8c76ee1683cad893eba85c4",
+      "identical": true,
+      "files": 60,
+      "bytes": 232936
+    },
+    {
+      "name": "@opensheetjs/formats",
+      "version": "0.2.0-dev.0",
+      "sha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6",
+      "repeatSha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6",
+      "identical": true,
+      "files": 17,
+      "bytes": 18880
+    },
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13",
+      "repeatSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13",
+      "identical": true,
+      "files": 28,
+      "bytes": 45837
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "93cce086a38fe8a10c989b3acdfb99149b14c412ce3663306d1abd69b19eaa72",
+      "repeatSha256": "93cce086a38fe8a10c989b3acdfb99149b14c412ce3663306d1abd69b19eaa72",
+      "identical": true,
+      "files": 16,
+      "bytes": 41227
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce",
+      "repeatSha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce",
+      "identical": true,
+      "files": 11,
+      "bytes": 16072
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.2.0-dev.0",
+      "sha256": "03f0785aa891db5667ae972999c557e478ddf82b930f005600c19c12aae02681",
+      "repeatSha256": "03f0785aa891db5667ae972999c557e478ddf82b930f005600c19c12aae02681",
+      "identical": true,
+      "files": 6,
+      "bytes": 6310
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "16ab4b620c6fee7d96e021837c2d778d7a7f8a6c34a5532669c21a5e90d1d4ac",
+      "repeatSha256": "16ab4b620c6fee7d96e021837c2d778d7a7f8a6c34a5532669c21a5e90d1d4ac",
+      "identical": true,
+      "files": 21,
+      "bytes": 73985
+    },
+    {
+      "name": "@opensheetjs/testing",
+      "version": "0.2.0-dev.0",
+      "sha256": "b6947cad4ad15fdc764bdbf6af70512ab71222c09bf0c273573c491063bad909",
+      "repeatSha256": "b6947cad4ad15fdc764bdbf6af70512ab71222c09bf0c273573c491063bad909",
+      "identical": true,
+      "files": 6,
+      "bytes": 6529
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.2.0-dev.0",
+      "sha256": "7a9c62822dce992812aa4d9070281b3aa67c51eac37b6963daa6134527439a04",
+      "repeatSha256": "7a9c62822dce992812aa4d9070281b3aa67c51eac37b6963daa6134527439a04",
+      "identical": true,
+      "files": 6,
+      "bytes": 6309
+    }
+  ],
+  "scope": "Two staged pnpm packs of each built workspace package, compared to direct pnpm pack, plus an isolated consumer installed with prefer-offline. Byte reproducibility is observed on this host, not independently built or signed provenance. No publication, browser lifecycle, cross-version migration or registry installation of OpenSheet.",
+  "lock": {
+    "path": "benchmarks/release-pack-search-final-2026-11-12.consumer-lock.yaml",
+    "sha256": "a6f5bc674b5c1d25ce49a47aef93e3fe782d561f34960bfd5847e9ab9191fc40"
+  },
+  "consumer": {
+    "imported": 10,
+    "values": [
+      [
+        7,
+        8
+      ]
+    ],
+    "types": "passed"
+  },
+  "finishedAt": "2026-11-12T15:08:17.543Z"
+}

@@ -1,0 +1,99 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 270,
+    "sha256": "b31f629daa977c023a9abeb27fd253ff615ec3dc16a7dcbf52b6ee00067d8b13"
+  },
+  "adapterBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 10,
+    "sha256": "2bbe9e96d4d55511d5d64c0d4f4babc2ab1db29476ca01c8e69857c982308ad2"
+  },
+  "formulaBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 23,
+    "sha256": "785a117587a1d584f73d8c5fd9acd8c1c42479fb16f2f07e7701d8ae9e6f7875"
+  },
+  "observations": [
+    {
+      "formula": "AVERAGE(TRUE,2)",
+      "openSheet": 2,
+      "actual": 1.5,
+      "readerFormula": "AVERAGE(TRUE(),2)",
+      "agrees": false
+    },
+    {
+      "formula": "AVERAGE(FALSE,2)",
+      "openSheet": 2,
+      "actual": 1,
+      "readerFormula": "AVERAGE(FALSE(),2)",
+      "agrees": false
+    },
+    {
+      "formula": "AVERAGE(\"7\",2)",
+      "openSheet": 2,
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "readerFormula": "AVERAGE(\"7\",2)",
+      "agrees": false
+    },
+    {
+      "formula": "AVERAGE(\"bad\",2)",
+      "openSheet": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "readerFormula": "AVERAGE(\"bad\",2)",
+      "agrees": true
+    },
+    {
+      "formula": "AVERAGE(\"\",2)",
+      "openSheet": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "readerFormula": "AVERAGE(\"\",2)",
+      "agrees": true
+    },
+    {
+      "formula": "AVERAGE(A1,2)",
+      "openSheet": 2,
+      "actual": 1.5,
+      "readerFormula": "AVERAGE(A1,2)",
+      "agrees": false
+    },
+    {
+      "formula": "AVERAGE(A2,2)",
+      "openSheet": 2,
+      "actual": 2,
+      "readerFormula": "AVERAGE(A2,2)",
+      "agrees": true
+    },
+    {
+      "formula": "AVERAGE(A3,2)",
+      "openSheet": 1,
+      "actual": 1,
+      "readerFormula": "AVERAGE(A3,2)",
+      "agrees": true
+    }
+  ],
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-average-reader-AIv6u0/average.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-average-reader-AIv6u0/out/average.xlsx using filter : Calc MS Excel 2007 XML\n",
+  "artifacts": [
+    {
+      "name": "average-coercion-reader-2026-11-11.source.xlsx",
+      "sha256": "ba7e4b9244ba5daaa8dd9dabf0f8078aa16bf29020a6be9d0b4c6fff273bb261"
+    },
+    {
+      "name": "average-coercion-reader-2026-11-11.recalculated.xlsx",
+      "sha256": "c4e799760667f7a9335917bf6db158eca709af006906aab0f7859eba0848acd9"
+    }
+  ],
+  "limitations": "Synthetic single-cell scalar cases; LibreOfficeDev headless, XLSX generated and decoded with SheetJS. No actual Excel, locale or general formula compatibility claim."
+}

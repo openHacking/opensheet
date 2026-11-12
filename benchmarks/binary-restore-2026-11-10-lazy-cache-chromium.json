@@ -1,0 +1,36 @@
+{
+  "browser": "153.0.8010.12",
+  "engine": "chromium",
+  "cpu": "Apple M4",
+  "os": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 249,
+    "sha256": "472c5c199737c7712a11464f2a2ceaf417075390fd469d6d5ed576b3f3c0affc"
+  },
+  "startedAt": "2026-11-10T10:19:33.033Z",
+  "profile": "Headless Vite source Worker; one sequential sample; no memory measurement",
+  "format": "binary",
+  "cells": 1000000,
+  "pages": 628,
+  "backupBytes": 2757197,
+  "storedBytes": 4356448,
+  "importMs": 2387.300000190735,
+  "reopenMs": 76.09999990463257,
+  "phases": {
+    "import-source-stage": 219.30000019073486,
+    "import-scratch-write": 51.200002670288086,
+    "import-scratch-read": 20.999999046325684,
+    "import-decode": 1705.2000079154968,
+    "import-pages": 344.5999960899353,
+    "import-scratch-delete": 67.79999589920044
+  },
+  "revision": 1,
+  "verifiedBytes": true,
+  "values": [
+    0,
+    6432,
+    999999
+  ],
+  "scratch": false
+}

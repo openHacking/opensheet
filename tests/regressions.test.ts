@@ -28,6 +28,39 @@ it('copies overlapping ranges atomically and fills relative formulas', async () 
   await b.undo();
   expect(await s.range('B2:B4').getValues()).toEqual([[null], [null], [null]]);
 });
+it('fills only from the first row, including blank cells, and restores overwritten values', async () => {
+  const book = await createWorkbook();
+  try {
+    const sheet = book.getSheets()[0];
+    await sheet.range('A1:C3').setValues([
+      [2, null, 'top'],
+      [9, 'old', 'middle'],
+      [8, 'old2', 'bottom'],
+    ]);
+    await sheet.range('C1').setFormulas([['A1*2']]);
+    await sheet.range('A1:C3').fillDown();
+    expect(await sheet.range('A1:C3').getValues()).toEqual([
+      [2, null, 4],
+      [2, null, 4],
+      [2, null, 4],
+    ]);
+    await book.undo();
+    expect(await sheet.range('A1:C3').getValues()).toEqual([
+      [2, null, 4],
+      [9, 'old', 'middle'],
+      [8, 'old2', 'bottom'],
+    ]);
+    await book.redo();
+    expect(await sheet.range('A1:C3').getValues()).toEqual([
+      [2, null, 4],
+      [2, null, 4],
+      [2, null, 4],
+    ]);
+  } finally {
+    await book.deleteStorage();
+    await book.close();
+  }
+});
 it('validates commands that add externally supplied sheets', async () => {
   const b = await createWorkbook(),
     bad = createSheet('Bad');

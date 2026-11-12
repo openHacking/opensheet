@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-30T17:10:50.730Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "logicalCores": 10,
+  "memoryBytes": 17179869184,
+  "powerMode": "unrecorded",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 220,
+    "sha256": "58b312c168a5091f7f6e68b2aeb3f45bca9c5753d084b9e7328d08282ed6a0b3"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "cd9f9b76741ba8f746e38bf3ae89a896848453834fdd9c7231e04132281f020f"
+  },
+  "count": 50000,
+  "rounds": 5,
+  "scope": "Warmed Node process; 50,000 synchronous formatted values per sample. Does not include Worker transport, browser paint, workbook reads, memory or interactive latency.",
+  "results": [
+    {
+      "format": "0.00",
+      "checksum": 1737241830,
+      "samplesMs": [
+        5139.902999999999,
+        5290.8854169999995,
+        7469.615209,
+        6264.7824169999985,
+        2844.8112089999995
+      ]
+    },
+    {
+      "format": "#,##0.00",
+      "checksum": 1737241830,
+      "samplesMs": [
+        2755.6850830000003,
+        2598.956915999999,
+        3879.6654590000035,
+        1885.4474580000024,
+        1687.2369160000017
+      ]
+    },
+    {
+      "format": "0.0%",
+      "checksum": 226226544,
+      "samplesMs": [
+        1906.1592919999966,
+        2816.052042000003,
+        1901.736665999997,
+        1661.8124160000007,
+        1398.1324170000007
+      ]
+    },
+    {
+      "format": "$0.00",
+      "checksum": 1172784660,
+      "samplesMs": [
+        1402.423999999999,
+        1467.666167000003,
+        1634.5633339999986,
+        2478.3673750000016,
+        1785.9912919999988
+      ]
+    },
+    {
+      "format": "yyyy-mm-dd hh:mm",
+      "checksum": 1294518797,
+      "samplesMs": [
+        55.51458299999649,
+        34.00287499999831,
+        36.49025000000256,
+        34.006625000001804,
+        35.16204200000357
+      ]
+    },
+    {
+      "format": "m/d/yy h:mm",
+      "checksum": 4276775917,
+      "samplesMs": [
+        25.2587910000002,
+        29.360834000006435,
+        47.026582999998936,
+        25.509624999998778,
+        46.40141700000095
+      ]
+    }
+  ],
+  "finishedAt": "2026-10-30T17:11:50.982Z"
+}

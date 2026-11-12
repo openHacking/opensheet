@@ -1,0 +1,26 @@
+{
+  "startedAt": "2026-11-12T05:36:30.005Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 361,
+    "sha256": "588b9b90d70d5b88a119544adef0620328a2c19181d906576d5d43210e9c84ed"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "baf36dde108d3aabef8ab8fbebf8d9d5345cb8b58b1f94e5a6b11a8e94de32b0"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "engine": "chromium",
+  "cells": 20000,
+  "scope": "Production preview; real Worker and IndexedDB merge of 20,000 existing annotated blank cells. All notes verified before, after, undo, redo and reopen. No paired baseline, process peak memory, native input or other devices.",
+  "rounds": [
+    {
+      "round": 1,
+      "error": "Error: page.evaluate: OpenSheetError: Read ranges in batches of at most 16384 cells\n    at Sn.worker.onmessage (http://127.0.0.1:5186/assets/index-C0YfBpG_.js:57:85717)"
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

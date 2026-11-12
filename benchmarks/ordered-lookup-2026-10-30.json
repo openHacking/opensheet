@@ -1,0 +1,204 @@
+{
+  "startedAt": "2026-10-30T10:54:35.176Z",
+  "rows": 10000,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 213,
+    "sha256": "37261cdb93cf28961c19a048f1a26a42104164bec94aa490006b3f5936af80a0"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "4f793d3231585c5feea1f1da3353214a6b98b6f3609c845ea19a77ad0dab2a9c"
+  },
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless Chromium on a local development server. Separate acknowledged edit and recalculation/viewport read timings; no Worker heap or reference-device claim.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "target": 250,
+          "editMs": 18.600000143051147,
+          "calculationMs": 15.200000047683716
+        },
+        {
+          "target": 350,
+          "editMs": 2.5,
+          "calculationMs": 10.5
+        },
+        {
+          "target": 450,
+          "editMs": 3.5999999046325684,
+          "calculationMs": 9.599999904632568
+        },
+        {
+          "target": 550,
+          "editMs": 3.1000001430511475,
+          "calculationMs": 8.899999856948853
+        },
+        {
+          "target": 650,
+          "editMs": 2.9000000953674316,
+          "calculationMs": 10.200000047683716
+        },
+        {
+          "target": 750,
+          "editMs": 2.200000047683716,
+          "calculationMs": 11
+        },
+        {
+          "target": 850,
+          "editMs": 2.6999998092651367,
+          "calculationMs": 11.400000095367432
+        },
+        {
+          "target": 950,
+          "editMs": 3.4000000953674316,
+          "calculationMs": 10.799999952316284
+        },
+        {
+          "target": 1050,
+          "editMs": 3.799999952316284,
+          "calculationMs": 10.400000095367432
+        },
+        {
+          "target": 1150,
+          "editMs": 3.299999952316284,
+          "calculationMs": 9.399999856948853
+        }
+      ],
+      "undone": 1050,
+      "redone": 1150,
+      "reopened": 1150
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "target": 250,
+          "editMs": 16.40000009536743,
+          "calculationMs": 11.899999856948853
+        },
+        {
+          "target": 350,
+          "editMs": 1.9000000953674316,
+          "calculationMs": 10
+        },
+        {
+          "target": 450,
+          "editMs": 3.0999999046325684,
+          "calculationMs": 7.5
+        },
+        {
+          "target": 550,
+          "editMs": 1.9000000953674316,
+          "calculationMs": 7.5
+        },
+        {
+          "target": 650,
+          "editMs": 2.299999952316284,
+          "calculationMs": 7.1000001430511475
+        },
+        {
+          "target": 750,
+          "editMs": 3,
+          "calculationMs": 9.5
+        },
+        {
+          "target": 850,
+          "editMs": 2.0999999046325684,
+          "calculationMs": 8.599999904632568
+        },
+        {
+          "target": 950,
+          "editMs": 2.1000001430511475,
+          "calculationMs": 8.700000047683716
+        },
+        {
+          "target": 1050,
+          "editMs": 3.0999999046325684,
+          "calculationMs": 8
+        },
+        {
+          "target": 1150,
+          "editMs": 1.7000000476837158,
+          "calculationMs": 7.799999952316284
+        }
+      ],
+      "undone": 1050,
+      "redone": 1150,
+      "reopened": 1150
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "target": 250,
+          "editMs": 13.100000143051147,
+          "calculationMs": 10.200000047683716
+        },
+        {
+          "target": 350,
+          "editMs": 1.5999999046325684,
+          "calculationMs": 8.400000095367432
+        },
+        {
+          "target": 450,
+          "editMs": 1.8999998569488525,
+          "calculationMs": 7.299999952316284
+        },
+        {
+          "target": 550,
+          "editMs": 2.1000001430511475,
+          "calculationMs": 8.200000047683716
+        },
+        {
+          "target": 650,
+          "editMs": 1.7999999523162842,
+          "calculationMs": 7.3999998569488525
+        },
+        {
+          "target": 750,
+          "editMs": 2.200000047683716,
+          "calculationMs": 7.299999952316284
+        },
+        {
+          "target": 850,
+          "editMs": 2,
+          "calculationMs": 8.700000047683716
+        },
+        {
+          "target": 950,
+          "editMs": 1.9000000953674316,
+          "calculationMs": 7
+        },
+        {
+          "target": 1050,
+          "editMs": 1.5,
+          "calculationMs": 7.299999952316284
+        },
+        {
+          "target": 1150,
+          "editMs": 2.0999999046325684,
+          "calculationMs": 7.1000001430511475
+        }
+      ],
+      "undone": 1050,
+      "redone": 1150,
+      "reopened": 1150
+    }
+  ]
+}

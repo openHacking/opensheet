@@ -1,0 +1,180 @@
+{
+  "startedAt": "2026-10-30T14:16:41.631Z",
+  "rows": 100000,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 214,
+    "sha256": "8445aac4113ff223f7d631c1c96fade107476f56074f23aabfef58a9cc49e942"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "f6fd7047a1a9b427a91670a5918ac91eb15197813439ae5c6a2ad94784e83074"
+  },
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless Chromium, local development server; complete Worker search RPC time, no Worker memory or cross-device claim.",
+  "rounds": [
+    {
+      "round": 1,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 213.5,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 120.70000004768372,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 234,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 153.5,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    },
+    {
+      "round": 2,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 173.69999980926514,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 104.5,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 275.5,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 118.60000014305115,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    },
+    {
+      "round": 3,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 170.29999995231628,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 171.09999990463257,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 140.5,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 121.70000004768372,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    }
+  ]
+}

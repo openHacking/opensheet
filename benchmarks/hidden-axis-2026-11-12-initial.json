@@ -1,0 +1,894 @@
+{
+  "startedAt": "2026-11-11T17:44:34.256Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 290,
+    "sha256": "9c02b3249c6837dbf9a80ccb0d57a94dda8226ab34562a3bd51d37a3bcbd4dfb"
+  },
+  "scope": "Paired synthetic browser enumeration only; excludes layout rebuild, canvas paint, workbook, memory and reference-device acceptance. Old linear loop is reconstructed in the same page. Repeated batches alternate order and verify every returned index.",
+  "browsers": {
+    "chromium": {
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "fixture": "visible",
+          "round": 0,
+          "variant": "linear",
+          "ms": 15,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 6.400000095367432,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 1,
+          "variant": "linear",
+          "ms": 4.699999809265137,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 2,
+          "variant": "linear",
+          "ms": 4.699999809265137,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 4.800000190734863,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 5,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 3,
+          "variant": "linear",
+          "ms": 4.699999809265137,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 4,
+          "variant": "linear",
+          "ms": 4.600000381469727,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 5.199999809265137,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 4.900000095367432,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 5,
+          "variant": "linear",
+          "ms": 4.599999904632568,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 0,
+          "variant": "linear",
+          "ms": 5.699999809265137,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 29,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 27.40000009536743,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 1,
+          "variant": "linear",
+          "ms": 6.299999713897705,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 2,
+          "variant": "linear",
+          "ms": 6.400000095367432,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 27.200000286102295,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 27.199999809265137,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 3,
+          "variant": "linear",
+          "ms": 6.400000095367432,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 4,
+          "variant": "linear",
+          "ms": 6.400000095367432,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 27.299999713897705,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 27.200000286102295,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 5,
+          "variant": "linear",
+          "ms": 6.399999618530273,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 0,
+          "variant": "linear",
+          "ms": 15.300000190734863,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 0.09999990463256836,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 1,
+          "variant": "linear",
+          "ms": 15.299999713897705,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 2,
+          "variant": "linear",
+          "ms": 15.300000190734863,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 3,
+          "variant": "linear",
+          "ms": 15.199999809265137,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 4,
+          "variant": "linear",
+          "ms": 15.400000095367432,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 5,
+          "variant": "linear",
+          "ms": 15.300000190734863,
+          "iterations": 200,
+          "verified": 200
+        }
+      ]
+    },
+    "firefox": {
+      "version": "155.0",
+      "samples": [
+        {
+          "fixture": "visible",
+          "round": 0,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 1,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 2,
+          "variant": "linear",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 3,
+          "variant": "linear",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 4,
+          "variant": "linear",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 5,
+          "variant": "linear",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 0,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 43,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 45,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 1,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 2,
+          "variant": "linear",
+          "ms": 10,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 42,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 42,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 3,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 4,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 41,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 42,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 5,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 0,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 1,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 2,
+          "variant": "linear",
+          "ms": 25,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 3,
+          "variant": "linear",
+          "ms": 23,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 4,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 5,
+          "variant": "linear",
+          "ms": 25,
+          "iterations": 200,
+          "verified": 200
+        }
+      ]
+    },
+    "webkit": {
+      "version": "26.6",
+      "samples": [
+        {
+          "fixture": "visible",
+          "round": 0,
+          "variant": "linear",
+          "ms": 14,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 12,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 1,
+          "variant": "linear",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 2,
+          "variant": "linear",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 10,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 3,
+          "variant": "linear",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 4,
+          "variant": "linear",
+          "ms": 6,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 11,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 10,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "visible",
+          "round": 5,
+          "variant": "linear",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 0,
+          "variant": "linear",
+          "ms": 15,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 31,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 31,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 1,
+          "variant": "linear",
+          "ms": 11,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 2,
+          "variant": "linear",
+          "ms": 9,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 27,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 28,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 3,
+          "variant": "linear",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 4,
+          "variant": "linear",
+          "ms": 8,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 27,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 27,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "alternating",
+          "round": 5,
+          "variant": "linear",
+          "ms": 7,
+          "iterations": 50000,
+          "verified": 1700000
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 0,
+          "variant": "linear",
+          "ms": 23,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 0,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 1,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 1,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 2,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 2,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 3,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 3,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 4,
+          "variant": "linear",
+          "ms": 23,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 4,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 5,
+          "variant": "optimized",
+          "ms": 0,
+          "iterations": 200,
+          "verified": 200
+        },
+        {
+          "fixture": "frozen-hidden",
+          "round": 5,
+          "variant": "linear",
+          "ms": 24,
+          "iterations": 200,
+          "verified": 200
+        }
+      ]
+    }
+  },
+  "finishedAt": "2026-11-11T17:44:38.138Z"
+}

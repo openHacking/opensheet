@@ -111,23 +111,177 @@
           "filter": {
             "anyOf": [
               {
-                "type": "object",
-                "properties": {
-                  "column": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 9007199254740991
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "column": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      "query": {
+                        "type": "string",
+                        "maxLength": 1000
+                      }
+                    },
+                    "required": [
+                      "column",
+                      "query"
+                    ],
+                    "additionalProperties": false
                   },
-                  "query": {
-                    "type": "string",
-                    "maxLength": 1000
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "all",
+                          "any"
+                        ]
+                      },
+                      "headerRows": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "criteria": {
+                        "minItems": 1,
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "column": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                },
+                                "operator": {
+                                  "type": "string",
+                                  "enum": [
+                                    "eq",
+                                    "neq"
+                                  ]
+                                },
+                                "value": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "maxLength": 1000
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "column",
+                                "operator",
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "column": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                },
+                                "operator": {
+                                  "type": "string",
+                                  "enum": [
+                                    "gt",
+                                    "gte",
+                                    "lt",
+                                    "lte"
+                                  ]
+                                },
+                                "value": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "column",
+                                "operator",
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "column": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                },
+                                "operator": {
+                                  "type": "string",
+                                  "enum": [
+                                    "contains",
+                                    "notContains",
+                                    "startsWith",
+                                    "endsWith"
+                                  ]
+                                },
+                                "value": {
+                                  "type": "string",
+                                  "maxLength": 1000
+                                }
+                              },
+                              "required": [
+                                "column",
+                                "operator",
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "column": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                },
+                                "operator": {
+                                  "type": "string",
+                                  "enum": [
+                                    "isBlank",
+                                    "isNotBlank",
+                                    "isError",
+                                    "isNotError"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "column",
+                                "operator"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "mode",
+                      "headerRows",
+                      "criteria"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "column",
-                  "query"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "null"
@@ -519,6 +673,7 @@
                             "properties": {
                               "target": {
                                 "type": "string",
+                                "minLength": 1,
                                 "maxLength": 4096
                               },
                               "tooltip": {

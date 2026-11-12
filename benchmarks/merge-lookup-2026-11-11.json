@@ -1,0 +1,105 @@
+{
+  "startedAt": "2026-11-11T05:51:18.523Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 264,
+    "sha256": "f3002a1d7eeb352cc14d6be1b40e8724082092b9d22b0e48d4919499eb595583"
+  },
+  "scope": "Node lookup-only synthetic benchmark; 100,000 positions, 5,000 non-overlapping one-row merges in reverse order. Includes index construction, verifies each lookup against precomputed expected result. Excludes rendering, workbook loading, browser Workers, process peak memory, other merge geometries and hardware.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "variant": "linear",
+          "ms": 332.679708,
+          "verified": 100000
+        },
+        {
+          "variant": "indexed",
+          "ms": 3.3595419999999194,
+          "verified": 100000
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "variant": "indexed",
+          "ms": 3.7467920000000277,
+          "verified": 100000
+        },
+        {
+          "variant": "linear",
+          "ms": 308.45495800000003,
+          "verified": 100000
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "variant": "linear",
+          "ms": 297.122833,
+          "verified": 100000
+        },
+        {
+          "variant": "indexed",
+          "ms": 1.965791999999965,
+          "verified": 100000
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "samples": [
+        {
+          "variant": "indexed",
+          "ms": 2.945500000000038,
+          "verified": 100000
+        },
+        {
+          "variant": "linear",
+          "ms": 292.55150000000003,
+          "verified": 100000
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "samples": [
+        {
+          "variant": "linear",
+          "ms": 292.2024590000001,
+          "verified": 100000
+        },
+        {
+          "variant": "indexed",
+          "ms": 1.0780829999998787,
+          "verified": 100000
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "samples": [
+        {
+          "variant": "indexed",
+          "ms": 1.627666999999974,
+          "verified": 100000
+        },
+        {
+          "variant": "linear",
+          "ms": 293.0755839999997,
+          "verified": 100000
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T05:51:20.523Z"
+}

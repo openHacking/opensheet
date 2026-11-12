@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.2.0-dev.0",
   "schemaVersion": 3,
   "pluginApiVersion": "0.1.0",
   "entrypoints": {
@@ -16,11 +16,17 @@
       "validateWorkbookFile",
       "FileReader",
       "BinaryReader",
+      "verifyBinary",
+      "verifyJSON",
+      "compareBinaryBackup",
       "commandSchemas"
     ],
     "@opensheetjs/adapter-sheetjs": [
       "fromSheetJS",
-      "toSheetJS"
+      "toSheetJS",
+      "writeXlsx",
+      "unsupportedXlsxSheetName",
+      "XLSX_SHEET_NAME_MESSAGE"
     ],
     "@opensheetjs/formats": [
       "exportRange",
@@ -47,6 +53,9 @@
     "streamBinary"
   ],
   "commands": [
+    "core.cells.pasteTile",
+    "core.cells.paste",
+    "core.cells.annotation",
     "core.cells.replace",
     "core.cells.set",
     "core.cells.style",
@@ -54,9 +63,14 @@
     "core.cells.merge",
     "core.cells.unmerge",
     "core.cells.copy",
+    "core.cells.copySpecial",
+    "core.cells.fillSeries",
     "core.cells.fillDown",
     "core.axis.insert",
     "core.axis.delete",
+    "core.axis.resize",
+    "core.axis.visibility",
+    "core.axis.visibilityAll",
     "core.axis.meta",
     "core.sheet.add",
     "core.sheet.remove",

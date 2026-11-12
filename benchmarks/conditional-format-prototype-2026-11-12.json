@@ -1,0 +1,44 @@
+{
+  "startedAt": "2026-11-11T20:47:04.413Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 313,
+    "sha256": "57c403153b1b7d7021a25c4952af28c0a4d108f3488888c56c859d4264d3bc4c"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "In-process Node prototype only; 1,000 loaded numeric cells and 1,000 fully overlapping matching rules, no stop conditions. Validation and fixture construction are excluded. Does not measure browser rendering, storage, memory peak, text or formula rules.",
+  "samples": [
+    {
+      "round": 1,
+      "elapsedMs": 18.641042000000027,
+      "comparisons": 1000000,
+      "verified": 1000
+    },
+    {
+      "round": 2,
+      "elapsedMs": 15.152625,
+      "comparisons": 1000000,
+      "verified": 1000
+    },
+    {
+      "round": 3,
+      "elapsedMs": 15.140000000000043,
+      "comparisons": 1000000,
+      "verified": 1000
+    },
+    {
+      "round": 4,
+      "elapsedMs": 15.188916000000006,
+      "comparisons": 1000000,
+      "verified": 1000
+    },
+    {
+      "round": 5,
+      "elapsedMs": 15.632667000000026,
+      "comparisons": 1000000,
+      "verified": 1000
+    }
+  ]
+}

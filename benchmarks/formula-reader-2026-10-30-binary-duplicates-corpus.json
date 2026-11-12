@@ -1,0 +1,1897 @@
+{
+  "schemaVersion": 1,
+  "dateSystem": "1900",
+  "date": "2026-10-30T13:55:29.814Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "sourceCommit": "fb76c4ee10f0de3e6e78f9c2d141a2cc1921423a",
+  "sourceDirty": true,
+  "provenance": "Synthetic public formula corpus; expected results hand-authored, cached actual results produced by LibreOffice conversion, decoded by SheetJS. No OpenSheet-generated expected values.",
+  "fixtureSha256": "06c9d0bca59c7dd08969c83c4f2541f767f3d8af4320a218bd12c92c76e2e1e2",
+  "sourceWorkbook": "formula-reader-2026-10-30-binary-duplicates-corpus.source.xlsx",
+  "sourceSha256": "724ddb48be393571a347cc59755c12e9585c45d86c8a1f1a47140a34deb95eb8",
+  "recalculatedWorkbook": "formula-reader-2026-10-30-binary-duplicates-corpus.recalculated.xlsx",
+  "recalculatedSha256": "f88a6459feb51f0f057721aeae6575fa5e86074ee6bcf858d0b7f53affbee4bc",
+  "conversionLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-9HHdCm/semantics.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-9HHdCm/recalculated/semantics.xlsx using filter : Calc MS Excel 2007 XML",
+  "observations": [
+    {
+      "expression": "ROUNDUP(3.14159,3)",
+      "tag": "ms-roundup",
+      "expected": 3.142,
+      "actual": 3.142,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(3.14159,3)"
+    },
+    {
+      "expression": "ROUNDUP(-3.14159,1)",
+      "tag": "ms-roundup",
+      "expected": -3.2,
+      "actual": -3.2,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(-3.14159,1)"
+    },
+    {
+      "expression": "ROUNDUP(31415.92654,-2)",
+      "tag": "ms-roundup",
+      "expected": 31500,
+      "actual": 31500,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(31415.92654,-2)"
+    },
+    {
+      "expression": "ROUNDUP(1.1,2)",
+      "tag": "decimal-quantization",
+      "expected": 1.1,
+      "actual": 1.1,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(1.1,2)"
+    },
+    {
+      "expression": "ROUNDUP(1.005,2)",
+      "tag": "decimal-quantization",
+      "expected": 1.01,
+      "actual": 1.01,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(1.005,2)"
+    },
+    {
+      "expression": "ROUNDUP(1.23,1.9)",
+      "tag": "truncated-digits",
+      "expected": 1.3,
+      "actual": 1.3,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(1.23,1.9)"
+    },
+    {
+      "expression": "ROUNDDOWN(-3.14159,1)",
+      "tag": "ms-rounddown",
+      "expected": -3.1,
+      "actual": -3.1,
+      "agrees": true,
+      "readerFormula": "ROUNDDOWN(-3.14159,1)"
+    },
+    {
+      "expression": "ROUNDDOWN(31415.92654,-2)",
+      "tag": "ms-rounddown",
+      "expected": 31400,
+      "actual": 31400,
+      "agrees": true,
+      "readerFormula": "ROUNDDOWN(31415.92654,-2)"
+    },
+    {
+      "expression": "ROUNDDOWN(0.29,2)",
+      "tag": "decimal-quantization",
+      "expected": 0.29,
+      "actual": 0.29,
+      "agrees": true,
+      "readerFormula": "ROUNDDOWN(0.29,2)"
+    },
+    {
+      "expression": "ROUNDDOWN(1.005,2)",
+      "tag": "decimal-quantization",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "ROUNDDOWN(1.005,2)"
+    },
+    {
+      "expression": "ROUNDUP(0,-1000)",
+      "tag": "binary64-boundary",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(0,-1000)"
+    },
+    {
+      "expression": "ROUNDDOWN(1,-1000)",
+      "tag": "binary64-boundary",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "ROUNDDOWN(1,-1000)"
+    },
+    {
+      "expression": "ROUNDUP(1,-1000)",
+      "tag": "binary64-boundary",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 0,
+      "agrees": false,
+      "readerFormula": "ROUNDUP(1,-1000)"
+    },
+    {
+      "expression": "ROUNDUP(1e308,2)",
+      "tag": "binary64-boundary",
+      "expected": 1e+308,
+      "actual": 1e+308,
+      "agrees": true,
+      "readerFormula": "ROUNDUP(1E+308,2)"
+    },
+    {
+      "expression": "INT(-8.9)",
+      "tag": "ms-int",
+      "expected": -9,
+      "actual": -9,
+      "agrees": true,
+      "readerFormula": "INT(-8.9)"
+    },
+    {
+      "expression": "INT(8.9)",
+      "tag": "ms-int",
+      "expected": 8,
+      "actual": 8,
+      "agrees": true,
+      "readerFormula": "INT(8.9)"
+    },
+    {
+      "expression": "MOD(3,2)",
+      "tag": "ms-mod",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "MOD(3,2)"
+    },
+    {
+      "expression": "MOD(-3,2)",
+      "tag": "ms-mod",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "MOD(-3,2)"
+    },
+    {
+      "expression": "MOD(3,-2)",
+      "tag": "ms-mod",
+      "expected": -1,
+      "actual": -1,
+      "agrees": true,
+      "readerFormula": "MOD(3,-2)"
+    },
+    {
+      "expression": "MOD(-3,-2)",
+      "tag": "ms-mod",
+      "expected": -1,
+      "actual": -1,
+      "agrees": true,
+      "readerFormula": "MOD(-3,-2)"
+    },
+    {
+      "expression": "MOD(0.3,0.1)",
+      "tag": "decimal-quantization",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "MOD(0.3,0.1)"
+    },
+    {
+      "expression": "MOD(-0.3,0.2)",
+      "tag": "decimal-quantization",
+      "expected": 0.1,
+      "actual": 0.1,
+      "agrees": true,
+      "readerFormula": "MOD(-0.3,0.2)"
+    },
+    {
+      "expression": "MOD(2,0)",
+      "tag": "ms-mod",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "MOD(2,0)"
+    },
+    {
+      "expression": "IFNA(IFS(FALSE,1),\"missing\")",
+      "tag": "ms-ifna",
+      "expected": "missing",
+      "actual": "missing",
+      "agrees": true,
+      "readerFormula": "IFNA(IFS(FALSE(),1),\"missing\")"
+    },
+    {
+      "expression": "IFNA(1/0,\"missing\")",
+      "tag": "ms-ifna",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "IFNA(1/0,\"missing\")"
+    },
+    {
+      "expression": "IFNA(2,1/0)",
+      "tag": "lazy-ifna",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "IFNA(2,1/0)"
+    },
+    {
+      "expression": "IFS(FALSE,1,TRUE,2,TRUE,3)",
+      "tag": "ms-ifs",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "IFS(FALSE(),1,TRUE(),2,TRUE(),3)"
+    },
+    {
+      "expression": "IFS(FALSE,1)",
+      "tag": "ms-ifs",
+      "expected": {
+        "error": "#N/A"
+      },
+      "actual": {
+        "error": "#N/A"
+      },
+      "agrees": true,
+      "readerFormula": "IFS(FALSE(),1)"
+    },
+    {
+      "expression": "IFS(TRUE,7,TRUE,1/0)",
+      "tag": "lazy-ifs-profile",
+      "expected": 7,
+      "actual": 7,
+      "agrees": true,
+      "readerFormula": "IFS(TRUE(),7,TRUE(),1/0)"
+    },
+    {
+      "expression": "IFS(FALSE,1/0,TRUE,7)",
+      "tag": "lazy-ifs-profile",
+      "expected": 7,
+      "actual": 7,
+      "agrees": true,
+      "readerFormula": "IFS(FALSE(),1/0,TRUE(),7)"
+    },
+    {
+      "expression": "IFS(TRUE,7,FALSE)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 7,
+      "agrees": false,
+      "readerFormula": "IFS(TRUE(),7,FALSE())"
+    },
+    {
+      "expression": "IFS(1/0,7,TRUE,8)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "IFS(1/0,7,TRUE(),8)"
+    },
+    {
+      "expression": "DATE(1900,1,1)",
+      "tag": "date-1900",
+      "expected": 1,
+      "actual": 2,
+      "agrees": false,
+      "readerFormula": "DATE(1900,1,1)"
+    },
+    {
+      "expression": "DATE(1900,2,29)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 60,
+      "actual": 61,
+      "agrees": false,
+      "readerFormula": "DATE(1900,2,29)"
+    },
+    {
+      "expression": "DATE(1900,3,0)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 60,
+      "actual": 60,
+      "agrees": true,
+      "readerFormula": "DATE(1900,3,0)"
+    },
+    {
+      "expression": "DATE(1900,1,60)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 60,
+      "actual": 61,
+      "agrees": false,
+      "readerFormula": "DATE(1900,1,60)"
+    },
+    {
+      "expression": "DATE(1900,2,30)",
+      "tag": "date-overflow",
+      "expected": 61,
+      "actual": 62,
+      "agrees": false,
+      "readerFormula": "DATE(1900,2,30)"
+    },
+    {
+      "expression": "DATE(2024,13,1)",
+      "tag": "date-overflow",
+      "expected": 45658,
+      "actual": 45658,
+      "agrees": true,
+      "readerFormula": "DATE(2024,13,1)"
+    },
+    {
+      "expression": "DATE(2024,3,0)",
+      "tag": "date-overflow",
+      "expected": 45351,
+      "actual": 45351,
+      "agrees": true,
+      "readerFormula": "DATE(2024,3,0)"
+    },
+    {
+      "expression": "DATE(24,2,29)",
+      "tag": "date-year-offset",
+      "expected": 8826,
+      "actual": 45351,
+      "agrees": false,
+      "readerFormula": "DATE(24,2,29)"
+    },
+    {
+      "expression": "DATE(-1,1,1)",
+      "tag": "date-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": false,
+      "readerFormula": "DATE(-1,1,1)"
+    },
+    {
+      "expression": "DATE(10000,1,1)",
+      "tag": "date-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 2958466,
+      "agrees": false,
+      "readerFormula": "DATE(10000,1,1)"
+    },
+    {
+      "expression": "DATE(9999,12,31)",
+      "tag": "date-range",
+      "expected": 2958465,
+      "actual": 2958465,
+      "agrees": true,
+      "readerFormula": "DATE(9999,12,31)"
+    },
+    {
+      "expression": "YEAR(60)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 1900,
+      "actual": 1900,
+      "agrees": true,
+      "readerFormula": "YEAR(60)"
+    },
+    {
+      "expression": "MONTH(60)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "MONTH(60)"
+    },
+    {
+      "expression": "DAY(60)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 29,
+      "actual": 28,
+      "agrees": false,
+      "readerFormula": "DAY(60)"
+    },
+    {
+      "expression": "DAY(61)",
+      "tag": "date-1900",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "DAY(61)"
+    },
+    {
+      "expression": "YEAR(0)",
+      "tag": "date-zero",
+      "expected": 1900,
+      "actual": 1899,
+      "agrees": false,
+      "readerFormula": "YEAR(0)"
+    },
+    {
+      "expression": "MONTH(0)",
+      "tag": "date-zero",
+      "expected": 1,
+      "actual": 12,
+      "agrees": false,
+      "readerFormula": "MONTH(0)"
+    },
+    {
+      "expression": "DAY(0)",
+      "tag": "date-zero",
+      "expected": 0,
+      "actual": 30,
+      "agrees": false,
+      "readerFormula": "DAY(0)"
+    },
+    {
+      "expression": "DAY(45351.75)",
+      "tag": "date-fraction",
+      "expected": 29,
+      "actual": 29,
+      "agrees": true,
+      "readerFormula": "DAY(45351.75)"
+    },
+    {
+      "expression": "DAYS(61,59)",
+      "tag": "date-1900-leap-compatibility",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "DAYS(61,59)"
+    },
+    {
+      "expression": "DAYS(2.75,1.25)",
+      "tag": "date-fraction",
+      "expected": 1.5,
+      "actual": 1.5,
+      "agrees": true,
+      "readerFormula": "DAYS(2.75,1.25)"
+    },
+    {
+      "expression": "DAYS(\"2024-03-01\",\"2024-02-28\")",
+      "tag": "date-iso",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "DAYS(\"2024-03-01\",\"2024-02-28\")"
+    },
+    {
+      "expression": "YEAR(\"2024-02-29\")",
+      "tag": "date-iso",
+      "expected": 2024,
+      "actual": 2024,
+      "agrees": true,
+      "readerFormula": "YEAR(\"2024-02-29\")"
+    },
+    {
+      "expression": "DAY(\"2023-02-29\")",
+      "tag": "date-invalid-iso",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "DAY(\"2023-02-29\")"
+    },
+    {
+      "expression": "DAY(-1)",
+      "tag": "date-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 29,
+      "agrees": false,
+      "readerFormula": "DAY(-1)"
+    },
+    {
+      "expression": "YEAR(2958466)",
+      "tag": "date-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 10000,
+      "agrees": false,
+      "readerFormula": "YEAR(2958466)"
+    },
+    {
+      "expression": "SUMIF(A1:A7,\">1\")",
+      "tag": "conditional-numeric",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "SUMIF(A1:A7,\">1\")"
+    },
+    {
+      "expression": "SUMIFS(A1:A7,A1:A7,\">1\",A1:A7,\"<5\")",
+      "tag": "conditional-multiple",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "SUMIFS(A1:A7,A1:A7,\">1\",A1:A7,\"<5\")"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,\">1\")",
+      "tag": "conditional-numeric-text",
+      "expected": 2,
+      "actual": 1,
+      "agrees": false,
+      "readerFormula": "COUNTIF(A1:A7,\">1\")"
+    },
+    {
+      "expression": "COUNTIFS(A1:A7,\">1\",A1:A7,\"<5\")",
+      "tag": "conditional-multiple",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "COUNTIFS(A1:A7,\">1\",A1:A7,\"<5\")"
+    },
+    {
+      "expression": "AVERAGEIF(A1:A7,\">1\")",
+      "tag": "conditional-numeric",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "AVERAGEIF(A1:A7,\">1\")"
+    },
+    {
+      "expression": "AVERAGEIFS(A1:A7,A1:A7,\">1\",A1:A7,\"<5\")",
+      "tag": "conditional-multiple",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "AVERAGEIFS(A1:A7,A1:A7,\">1\",A1:A7,\"<5\")"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,\"\")",
+      "tag": "conditional-blanks",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNTIF(A1:A7,\"\")"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,0)",
+      "tag": "conditional-blanks",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "COUNTIF(A1:A7,0)"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,TRUE)",
+      "tag": "conditional-booleans",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "COUNTIF(A1:A7,TRUE())"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,\"*\")",
+      "tag": "conditional-wildcards",
+      "expected": 2,
+      "actual": 5,
+      "agrees": false,
+      "readerFormula": "COUNTIF(A1:A7,\"*\")"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,\"?\")",
+      "tag": "conditional-wildcards",
+      "expected": 1,
+      "actual": 2,
+      "agrees": false,
+      "readerFormula": "COUNTIF(A1:A7,\"?\")"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,\"#DIV/0!\")",
+      "tag": "conditional-errors",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "COUNTIF(A1:A7,\"#DIV/0!\")"
+    },
+    {
+      "expression": "SUMIF(A1:A7,\"#DIV/0!\")",
+      "tag": "conditional-errors",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "SUMIF(A1:A7,\"#DIV/0!\")"
+    },
+    {
+      "expression": "SUMIF(A1:A7,\">100\")",
+      "tag": "conditional-no-match",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "SUMIF(A1:A7,\">100\")"
+    },
+    {
+      "expression": "AVERAGEIF(A1:A7,\">100\")",
+      "tag": "conditional-no-match",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "AVERAGEIF(A1:A7,\">100\")"
+    },
+    {
+      "expression": "COUNTIFS(A1:A7,1,A1:A6,1)",
+      "tag": "conditional-shape",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "COUNTIFS(A1:A7,1,A1:A6,1)"
+    },
+    {
+      "expression": "SUMIFS(A1:A7,A1:A6,1)",
+      "tag": "conditional-shape",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "SUMIFS(A1:A7,A1:A6,1)"
+    },
+    {
+      "expression": "COUNTIFS(A1:A7,1,A1:A7)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "COUNTIFS(A1:A7,1,A1:A7)"
+    },
+    {
+      "expression": "SUMIF(A1:A3,\">1\",A3)",
+      "tag": "conditional-projected-range",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "SUMIF(A1:A3,\">1\",A3)"
+    },
+    {
+      "expression": "COUNTIF(A1:A7,1/0)",
+      "tag": "conditional-errors",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "COUNTIF(A1:A7,1/0)"
+    },
+    {
+      "expression": "IFERROR(COUNTIF(A1:A7,1/0),\"caught\")",
+      "tag": "conditional-error-fallback",
+      "expected": "caught",
+      "actual": "caught",
+      "agrees": true,
+      "readerFormula": "IFERROR(COUNTIF(A1:A7,1/0),\"caught\")"
+    },
+    {
+      "expression": "IFERROR(SUMIF(A1:A7,\"#DIV/0!\"),\"caught\")",
+      "tag": "conditional-error-fallback",
+      "expected": "caught",
+      "actual": "caught",
+      "agrees": true,
+      "readerFormula": "IFERROR(SUMIF(A1:A7,\"#DIV/0!\"),\"caught\")"
+    },
+    {
+      "expression": "INDEX(A1:A7,3)",
+      "tag": "lookup-index",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "INDEX(A1:A7,3)"
+    },
+    {
+      "expression": "INDEX(A1:A7,4)",
+      "tag": "lookup-blank-result",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "INDEX(A1:A7,4)"
+    },
+    {
+      "expression": "INDEX(A1:A7,8)",
+      "tag": "lookup-index-range",
+      "expected": {
+        "error": "#REF!"
+      },
+      "actual": {
+        "error": "#REF!"
+      },
+      "agrees": true,
+      "readerFormula": "INDEX(A1:A7,8)"
+    },
+    {
+      "expression": "INDEX(A1:A7,0)",
+      "tag": "lookup-scalar-profile",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "INDEX(A1:A7,0)"
+    },
+    {
+      "expression": "MATCH(\"7\",A1:A5,0)",
+      "tag": "lookup-exact-type",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "MATCH(\"7\",A1:A5,0)"
+    },
+    {
+      "expression": "MATCH(7,A1:A5,0)",
+      "tag": "lookup-exact-type",
+      "expected": {
+        "error": "#N/A"
+      },
+      "actual": {
+        "error": "#N/A"
+      },
+      "agrees": true,
+      "readerFormula": "MATCH(7,A1:A5,0)"
+    },
+    {
+      "expression": "MATCH(2,A1:A5,0)",
+      "tag": "lookup-match",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MATCH(2,A1:A5,0)"
+    },
+    {
+      "expression": "MATCH(TRUE,A1:A5,0)",
+      "tag": "lookup-exact-type",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "MATCH(TRUE(),A1:A5,0)"
+    },
+    {
+      "expression": "MATCH(\"?\",A1:A5,0)",
+      "tag": "lookup-wildcard",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "MATCH(\"?\",A1:A5,0)"
+    },
+    {
+      "expression": "MATCH(2,A1:A5,1)",
+      "tag": "lookup-unsupported-mode",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "MATCH(2,A1:A5,1)"
+    },
+    {
+      "expression": "MATCH(3,G1:G5)",
+      "tag": "lookup-ordered-ascending",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MATCH(3,G1:G5)"
+    },
+    {
+      "expression": "MATCH(2,G1:G5,1)",
+      "tag": "lookup-ordered-duplicate",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MATCH(2,G1:G5,1)"
+    },
+    {
+      "expression": "MATCH(3,I1:I5,-1)",
+      "tag": "lookup-ordered-descending",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "MATCH(3,I1:I5,-1)"
+    },
+    {
+      "expression": "VLOOKUP(3,G1:H5,2)",
+      "tag": "lookup-ordered-ascending",
+      "expected": 21,
+      "actual": 21,
+      "agrees": true,
+      "readerFormula": "VLOOKUP(3,G1:H5,2)"
+    },
+    {
+      "expression": "VLOOKUP(2,G1:H5,2,TRUE)",
+      "tag": "lookup-ordered-duplicate",
+      "expected": 21,
+      "actual": 21,
+      "agrees": true,
+      "readerFormula": "VLOOKUP(2,G1:H5,2,TRUE())"
+    },
+    {
+      "expression": "XLOOKUP(4,G1:G5,H1:H5,\"missing\",0,2)",
+      "tag": "lookup-binary-ascending",
+      "expected": 40,
+      "actual": 40,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(4,G1:G5,H1:H5,\"missing\",0,2)"
+    },
+    {
+      "expression": "XLOOKUP(4,I1:I5,G1:G5,\"missing\",0,-2)",
+      "tag": "lookup-binary-descending",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(4,I1:I5,G1:G5,\"missing\",0,-2)"
+    },
+    {
+      "expression": "XLOOKUP(5,G1:G5,H1:H5,\"missing\",-1,2)",
+      "tag": "lookup-binary-smaller",
+      "expected": 40,
+      "actual": 40,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(5,G1:G5,H1:H5,\"missing\",-1,2)"
+    },
+    {
+      "expression": "XLOOKUP(3,I1:I5,G1:G5,\"missing\",1,-2)",
+      "tag": "lookup-binary-larger",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(3,I1:I5,G1:G5,\"missing\",1,-2)"
+    },
+    {
+      "expression": "XLOOKUP(0,G1:G5,H1:H5,\"missing\",-1,2)",
+      "tag": "lookup-binary-missing",
+      "expected": "missing",
+      "actual": "missing",
+      "agrees": true,
+      "readerFormula": "XLOOKUP(0,G1:G5,H1:H5,\"missing\",-1,2)"
+    },
+    {
+      "expression": "XLOOKUP(2,G1:G5,H1:H5,\"missing\",0,2)",
+      "tag": "lookup-binary-duplicate-ascending",
+      "expected": 20,
+      "actual": 20,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(2,G1:G5,H1:H5,\"missing\",0,2)"
+    },
+    {
+      "expression": "XLOOKUP(2.5,G1:G5,H1:H5,\"missing\",-1,2)",
+      "tag": "lookup-binary-duplicate-ascending",
+      "expected": 21,
+      "actual": 21,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(2.5,G1:G5,H1:H5,\"missing\",-1,2)"
+    },
+    {
+      "expression": "XLOOKUP(1.5,G1:G5,H1:H5,\"missing\",1,2)",
+      "tag": "lookup-binary-duplicate-ascending",
+      "expected": 20,
+      "actual": 20,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(1.5,G1:G5,H1:H5,\"missing\",1,2)"
+    },
+    {
+      "expression": "XLOOKUP(2,I1:I5,H1:H5,\"missing\",0,-2)",
+      "tag": "lookup-binary-duplicate-descending",
+      "expected": 21,
+      "actual": 40,
+      "agrees": false,
+      "readerFormula": "XLOOKUP(2,I1:I5,H1:H5,\"missing\",0,-2)"
+    },
+    {
+      "expression": "XLOOKUP(2.5,I1:I5,H1:H5,\"missing\",-1,-2)",
+      "tag": "lookup-binary-duplicate-descending",
+      "expected": 21,
+      "actual": 21,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(2.5,I1:I5,H1:H5,\"missing\",-1,-2)"
+    },
+    {
+      "expression": "XLOOKUP(1.5,I1:I5,H1:H5,\"missing\",1,-2)",
+      "tag": "lookup-binary-duplicate-descending",
+      "expected": 40,
+      "actual": 40,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(1.5,I1:I5,H1:H5,\"missing\",1,-2)"
+    },
+    {
+      "expression": "VLOOKUP(2,A1:A5,1,FALSE)",
+      "tag": "lookup-vlookup",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "VLOOKUP(2,A1:A5,1,FALSE())"
+    },
+    {
+      "expression": "VLOOKUP(\"7\",A1:A5,1,0)",
+      "tag": "lookup-vlookup",
+      "expected": "7",
+      "actual": "7",
+      "agrees": true,
+      "readerFormula": "VLOOKUP(\"7\",A1:A5,1,0)"
+    },
+    {
+      "expression": "VLOOKUP(2,A1:A5,2,FALSE)",
+      "tag": "lookup-index-range",
+      "expected": {
+        "error": "#REF!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": false,
+      "readerFormula": "VLOOKUP(2,A1:A5,2,FALSE())"
+    },
+    {
+      "expression": "VLOOKUP(2,A1:A5,1,TRUE)",
+      "tag": "lookup-unsupported-mode",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 2,
+      "agrees": false,
+      "readerFormula": "VLOOKUP(2,A1:A5,1,TRUE())"
+    },
+    {
+      "expression": "XLOOKUP(2,A1:A5,A1:A5)",
+      "tag": "lookup-xlookup",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(2,A1:A5,A1:A5)"
+    },
+    {
+      "expression": "XLOOKUP(99,A1:A5,A1:A5,\"missing\")",
+      "tag": "lookup-fallback",
+      "expected": "missing",
+      "actual": "missing",
+      "agrees": true,
+      "readerFormula": "XLOOKUP(99,A1:A5,A1:A5,\"missing\")"
+    },
+    {
+      "expression": "XLOOKUP(2,A1:A5,A1:A5,1/0)",
+      "tag": "lookup-lazy-fallback",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(2,A1:A5,A1:A5,1/0)"
+    },
+    {
+      "expression": "XLOOKUP(1,A1:A5,A1:A5,\"missing\",-1)",
+      "tag": "lookup-next-smaller",
+      "expected": 0,
+      "actual": true,
+      "agrees": false,
+      "readerFormula": "XLOOKUP(1,A1:A5,A1:A5,\"missing\",-1)"
+    },
+    {
+      "expression": "XLOOKUP(1,A1:A5,A1:A5,\"missing\",1)",
+      "tag": "lookup-next-larger",
+      "expected": 2,
+      "actual": true,
+      "agrees": false,
+      "readerFormula": "XLOOKUP(1,A1:A5,A1:A5,\"missing\",1)"
+    },
+    {
+      "expression": "XLOOKUP(\"?\",A1:A5,A1:A5,\"missing\",2)",
+      "tag": "lookup-wildcard",
+      "expected": "7",
+      "actual": "7",
+      "agrees": true,
+      "readerFormula": "XLOOKUP(\"?\",A1:A5,A1:A5,\"missing\",2)"
+    },
+    {
+      "expression": "XLOOKUP(2,A1:A5,A1:A4)",
+      "tag": "lookup-shape",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "XLOOKUP(2,A1:A5,A1:A4)"
+    },
+    {
+      "expression": "XLOOKUP(2,A1:A5,A1:A5,\"missing\",0,2)",
+      "tag": "lookup-unsupported-mode",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": "missing",
+      "agrees": false,
+      "readerFormula": "XLOOKUP(2,A1:A5,A1:A5,\"missing\",0,2)"
+    },
+    {
+      "expression": "IFNA(MATCH(99,A1:A5,0),\"missing\")",
+      "tag": "lookup-fallback",
+      "expected": "missing",
+      "actual": "missing",
+      "agrees": true,
+      "readerFormula": "IFNA(MATCH(99,A1:A5,0),\"missing\")"
+    },
+    {
+      "expression": "INDEX(D1:E5,3,2)",
+      "tag": "lookup-index-matrix",
+      "expected": 30,
+      "actual": 30,
+      "agrees": true,
+      "readerFormula": "INDEX(D1:E5,3,2)"
+    },
+    {
+      "expression": "MATCH(\"alpha\",D1:D5,0)",
+      "tag": "lookup-first-duplicate",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "MATCH(\"alpha\",D1:D5,0)"
+    },
+    {
+      "expression": "VLOOKUP(\"alpha\",D1:E5,2,FALSE)",
+      "tag": "lookup-first-duplicate",
+      "expected": 10,
+      "actual": 10,
+      "agrees": true,
+      "readerFormula": "VLOOKUP(\"alpha\",D1:E5,2,FALSE())"
+    },
+    {
+      "expression": "XLOOKUP(\"alpha\",D1:D5,E1:E5)",
+      "tag": "lookup-first-duplicate",
+      "expected": 10,
+      "actual": 10,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(\"alpha\",D1:D5,E1:E5)"
+    },
+    {
+      "expression": "XLOOKUP(\"alpha\",D1:D5,E1:E5,\"missing\",0,-1)",
+      "tag": "lookup-last-duplicate",
+      "expected": 30,
+      "actual": 30,
+      "agrees": true,
+      "readerFormula": "XLOOKUP(\"alpha\",D1:D5,E1:E5,\"missing\",0,-1)"
+    },
+    {
+      "expression": "XLOOKUP(25,E1:E5,D1:D5,\"missing\",-1)",
+      "tag": "lookup-next-smaller",
+      "expected": "beta",
+      "actual": "beta",
+      "agrees": true,
+      "readerFormula": "XLOOKUP(25,E1:E5,D1:D5,\"missing\",-1)"
+    },
+    {
+      "expression": "XLOOKUP(25,E1:E5,D1:D5,\"missing\",1)",
+      "tag": "lookup-next-larger",
+      "expected": "ALPHA",
+      "actual": "ALPHA",
+      "agrees": true,
+      "readerFormula": "XLOOKUP(25,E1:E5,D1:D5,\"missing\",1)"
+    },
+    {
+      "expression": "TRUE()",
+      "tag": "reader-boolean",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "TRUE()"
+    },
+    {
+      "expression": "FALSE()",
+      "tag": "reader-boolean",
+      "expected": false,
+      "actual": false,
+      "agrees": true,
+      "readerFormula": "FALSE()"
+    },
+    {
+      "expression": "TRUE(1)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "TRUE(1)"
+    },
+    {
+      "expression": "FALSE(1)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "FALSE(1)"
+    },
+    {
+      "expression": "LEFT(\"OpenSheet\",4)",
+      "tag": "ms-text",
+      "expected": "Open",
+      "actual": "Open",
+      "agrees": true,
+      "readerFormula": "LEFT(\"OpenSheet\",4)"
+    },
+    {
+      "expression": "LEFT(\"🙂中\",1)",
+      "tag": "unicode-code-points",
+      "expected": "🙂",
+      "actual": "🙂",
+      "agrees": true,
+      "readerFormula": "LEFT(\"🙂中\",1)"
+    },
+    {
+      "expression": "LEFT(\"abc\")",
+      "tag": "ms-text",
+      "expected": "a",
+      "actual": "a",
+      "agrees": true,
+      "readerFormula": "LEFT(\"abc\")"
+    },
+    {
+      "expression": "LEFT(\"abc\",0)",
+      "tag": "ms-text",
+      "expected": "",
+      "actual": "",
+      "agrees": true,
+      "readerFormula": "LEFT(\"abc\",0)"
+    },
+    {
+      "expression": "LEFT(\"abc\",-0.1)",
+      "tag": "ms-text",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "LEFT(\"abc\",-0.1)"
+    },
+    {
+      "expression": "RIGHT(\"OpenSheet\",5)",
+      "tag": "ms-text",
+      "expected": "Sheet",
+      "actual": "Sheet",
+      "agrees": true,
+      "readerFormula": "RIGHT(\"OpenSheet\",5)"
+    },
+    {
+      "expression": "RIGHT(\"🙂中\",2)",
+      "tag": "unicode-code-points",
+      "expected": "🙂中",
+      "actual": "🙂中",
+      "agrees": true,
+      "readerFormula": "RIGHT(\"🙂中\",2)"
+    },
+    {
+      "expression": "RIGHT(\"abc\")",
+      "tag": "ms-text",
+      "expected": "c",
+      "actual": "c",
+      "agrees": true,
+      "readerFormula": "RIGHT(\"abc\")"
+    },
+    {
+      "expression": "RIGHT(\"abc\",0)",
+      "tag": "ms-text",
+      "expected": "",
+      "actual": "",
+      "agrees": true,
+      "readerFormula": "RIGHT(\"abc\",0)"
+    },
+    {
+      "expression": "MID(\"a🙂bc\",2,2)",
+      "tag": "unicode-code-points",
+      "expected": "🙂b",
+      "actual": "🙂b",
+      "agrees": true,
+      "readerFormula": "MID(\"a🙂bc\",2,2)"
+    },
+    {
+      "expression": "MID(\"abc\",4,5)",
+      "tag": "ms-text",
+      "expected": "",
+      "actual": "",
+      "agrees": true,
+      "readerFormula": "MID(\"abc\",4,5)"
+    },
+    {
+      "expression": "MID(\"abc\",0,1)",
+      "tag": "ms-text",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "MID(\"abc\",0,1)"
+    },
+    {
+      "expression": "MID(\"abc\",1.9,1.9)",
+      "tag": "ms-text",
+      "expected": "a",
+      "actual": "a",
+      "agrees": true,
+      "readerFormula": "MID(\"abc\",1.9,1.9)"
+    },
+    {
+      "expression": "LEN(\"a🙂中\")",
+      "tag": "unicode-code-points",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "LEN(\"a🙂中\")"
+    },
+    {
+      "expression": "LEN(\"é\")",
+      "tag": "unicode-code-points",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "LEN(\"é\")"
+    },
+    {
+      "expression": "LEN(A4)",
+      "tag": "ms-text",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "LEN(A4)"
+    },
+    {
+      "expression": "TRIM(\"  first   second  \")",
+      "tag": "ms-trim",
+      "expected": "first second",
+      "actual": "first second",
+      "agrees": true,
+      "readerFormula": "TRIM(\"  first   second  \")"
+    },
+    {
+      "expression": "TRIM(\"  a  \")",
+      "tag": "ms-trim",
+      "expected": "  a ",
+      "actual": "  a ",
+      "agrees": true,
+      "readerFormula": "TRIM(\"  a  \")"
+    },
+    {
+      "expression": "TRIM(\"a\tb\")",
+      "tag": "ms-trim",
+      "expected": "a\tb",
+      "actual": "a\tb",
+      "agrees": true,
+      "readerFormula": "TRIM(\"a\tb\")"
+    },
+    {
+      "expression": "UPPER(\"Straße\")",
+      "tag": "unicode-case",
+      "expected": "STRASSE",
+      "actual": "STRAẞE",
+      "agrees": false,
+      "readerFormula": "UPPER(\"Straße\")"
+    },
+    {
+      "expression": "LOWER(\"OPEN中\")",
+      "tag": "unicode-case",
+      "expected": "open中",
+      "actual": "open中",
+      "agrees": true,
+      "readerFormula": "LOWER(\"OPEN中\")"
+    },
+    {
+      "expression": "CONCAT(\"x\",TRUE(),FALSE(),2)",
+      "tag": "ms-text",
+      "expected": "xTRUEFALSE2",
+      "actual": "x102",
+      "agrees": false,
+      "readerFormula": "CONCAT(\"x\",TRUE(),FALSE(),2)"
+    },
+    {
+      "expression": "_xlfn.CONCAT(\"x\",\"y\")",
+      "tag": "xlsx-function-prefix",
+      "expected": "xy",
+      "actual": "xy",
+      "agrees": true,
+      "readerFormula": "CONCAT(\"x\",\"y\")"
+    },
+    {
+      "expression": "CONCAT(A1:A5)",
+      "tag": "ms-text",
+      "expected": "TRUE72",
+      "actual": "172",
+      "agrees": false,
+      "readerFormula": "CONCAT(A1:A5)"
+    },
+    {
+      "expression": "CONCAT(A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "CONCAT(A6)"
+    },
+    {
+      "expression": "TEXTJOIN(\"-\",TRUE,A1:A5)",
+      "tag": "ms-textjoin",
+      "expected": "TRUE-7-2",
+      "actual": "1-7-2",
+      "agrees": false,
+      "readerFormula": "TEXTJOIN(\"-\",TRUE(),A1:A5)"
+    },
+    {
+      "expression": "TEXTJOIN(\"-\",FALSE,A1:A5)",
+      "tag": "ms-textjoin",
+      "expected": "TRUE-7-2--",
+      "actual": "1-7-2--",
+      "agrees": false,
+      "readerFormula": "TEXTJOIN(\"-\",FALSE(),A1:A5)"
+    },
+    {
+      "expression": "TEXTJOIN(0,TRUE,\"a\",\"b\")",
+      "tag": "ms-textjoin",
+      "expected": "a0b",
+      "actual": "a0b",
+      "agrees": true,
+      "readerFormula": "TEXTJOIN(0,TRUE(),\"a\",\"b\")"
+    },
+    {
+      "expression": "TEXTJOIN(\"\",FALSE,A4:A5)",
+      "tag": "ms-textjoin",
+      "expected": "",
+      "actual": "",
+      "agrees": true,
+      "readerFormula": "TEXTJOIN(\"\",FALSE(),A4:A5)"
+    },
+    {
+      "expression": "TEXTJOIN(\"-\",FALSE,A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "TEXTJOIN(\"-\",FALSE(),A6)"
+    },
+    {
+      "expression": "IFERROR(TEXTJOIN(\"-\",\"bad\",\"x\"),\"fallback\")",
+      "tag": "lazy-iferror",
+      "expected": "fallback",
+      "actual": "fallback",
+      "agrees": true,
+      "readerFormula": "IFERROR(TEXTJOIN(\"-\",\"bad\",\"x\"),\"fallback\")"
+    },
+    {
+      "expression": "SUM(2,4,-1)",
+      "tag": "arithmetic",
+      "expected": 5,
+      "actual": 5,
+      "agrees": true,
+      "readerFormula": "SUM(2,4,-1)"
+    },
+    {
+      "expression": "SUM(A1:A5)",
+      "tag": "numeric-reference",
+      "expected": 2,
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "SUM(A1:A5)"
+    },
+    {
+      "expression": "SUM(A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "SUM(A6)"
+    },
+    {
+      "expression": "SUM(1e308,1e308)",
+      "tag": "finite-result",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": {
+        "error": "#NUM!"
+      },
+      "agrees": true,
+      "readerFormula": "SUM(1E+308,1E+308)"
+    },
+    {
+      "expression": "AVERAGE(2,4)",
+      "tag": "arithmetic",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "AVERAGE(2,4)"
+    },
+    {
+      "expression": "AVERAGE(A1:A5)",
+      "tag": "numeric-reference",
+      "expected": 2,
+      "actual": 1.5,
+      "agrees": false,
+      "readerFormula": "AVERAGE(A1:A5)"
+    },
+    {
+      "expression": "AVERAGE(A4:A5)",
+      "tag": "empty-average",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "AVERAGE(A4:A5)"
+    },
+    {
+      "expression": "AVERAGE(1e308,1e308)",
+      "tag": "finite-result",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": {
+        "error": "#NUM!"
+      },
+      "agrees": true,
+      "readerFormula": "AVERAGE(1E+308,1E+308)"
+    },
+    {
+      "expression": "MIN(3,-2,1)",
+      "tag": "arithmetic",
+      "expected": -2,
+      "actual": -2,
+      "agrees": true,
+      "readerFormula": "MIN(3,-2,1)"
+    },
+    {
+      "expression": "MIN(A4:A5)",
+      "tag": "empty-min-max",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "MIN(A4:A5)"
+    },
+    {
+      "expression": "MAX(3,-2,1)",
+      "tag": "arithmetic",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MAX(3,-2,1)"
+    },
+    {
+      "expression": "MAX(A4:A5)",
+      "tag": "empty-min-max",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "MAX(A4:A5)"
+    },
+    {
+      "expression": "COUNT(1,\"x\",TRUE)",
+      "tag": "ms-count",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNT(1,\"x\",TRUE())"
+    },
+    {
+      "expression": "COUNT(\"7\",FALSE,\"\",1/0)",
+      "tag": "ms-count",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNT(\"7\",FALSE(),\"\",1/0)"
+    },
+    {
+      "expression": "COUNT(A1,A2,A3,A4,A5,A6,A7)",
+      "tag": "ms-count",
+      "expected": 1,
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "COUNT(A1,A2,A3,A4,A5,A6,A7)"
+    },
+    {
+      "expression": "COUNT(A1:A7)",
+      "tag": "ms-count",
+      "expected": 1,
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "COUNT(A1:A7)"
+    },
+    {
+      "expression": "COUNT(A1:A7,TRUE,\"2\")",
+      "tag": "ms-count",
+      "expected": 3,
+      "actual": 5,
+      "agrees": false,
+      "readerFormula": "COUNT(A1:A7,TRUE(),\"2\")"
+    },
+    {
+      "expression": "COUNTA(A1:A7)",
+      "tag": "nonblank-count",
+      "expected": 6,
+      "actual": 5,
+      "agrees": false,
+      "readerFormula": "COUNTA(A1:A7)"
+    },
+    {
+      "expression": "COUNTA(1/0,\"\")",
+      "tag": "nonblank-count",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNTA(1/0,\"\")"
+    },
+    {
+      "expression": "IF(TRUE,2,1/0)",
+      "tag": "lazy-if",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "IF(TRUE(),2,1/0)"
+    },
+    {
+      "expression": "IF(FALSE,1/0,3)",
+      "tag": "lazy-if",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "IF(FALSE(),1/0,3)"
+    },
+    {
+      "expression": "IF(FALSE,1)",
+      "tag": "lazy-if",
+      "expected": false,
+      "actual": false,
+      "agrees": true,
+      "readerFormula": "IF(FALSE(),1)"
+    },
+    {
+      "expression": "SUM(IF(TRUE,A1:A3,0))",
+      "tag": "scalar-only",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "SUM(IF(TRUE(),A1:A3,0))"
+    },
+    {
+      "expression": "IFERROR(1/0,5)",
+      "tag": "lazy-iferror",
+      "expected": 5,
+      "actual": 5,
+      "agrees": true,
+      "readerFormula": "IFERROR(1/0,5)"
+    },
+    {
+      "expression": "IFERROR(7,1/0)",
+      "tag": "lazy-iferror",
+      "expected": 7,
+      "actual": 7,
+      "agrees": true,
+      "readerFormula": "IFERROR(7,1/0)"
+    },
+    {
+      "expression": "AND(A1:A5)",
+      "tag": "ms-and-or",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "AND(A1:A5)"
+    },
+    {
+      "expression": "AND(A4:A5)",
+      "tag": "ms-and-or",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "AND(A4:A5)"
+    },
+    {
+      "expression": "AND(FALSE,\"bad\")",
+      "tag": "invalid-logical-text",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "AND(FALSE(),\"bad\")"
+    },
+    {
+      "expression": "AND(FALSE,A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "AND(FALSE(),A6)"
+    },
+    {
+      "expression": "AND(A1,A7)",
+      "tag": "ms-and-or",
+      "expected": false,
+      "actual": false,
+      "agrees": true,
+      "readerFormula": "AND(A1,A7)"
+    },
+    {
+      "expression": "OR(A2:A5)",
+      "tag": "ms-and-or",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "OR(A2:A5)"
+    },
+    {
+      "expression": "OR(A4:A5)",
+      "tag": "ms-and-or",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "OR(A4:A5)"
+    },
+    {
+      "expression": "OR(TRUE,\"bad\")",
+      "tag": "invalid-logical-text",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "OR(TRUE(),\"bad\")"
+    },
+    {
+      "expression": "OR(TRUE,A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "OR(TRUE(),A6)"
+    },
+    {
+      "expression": "NOT(FALSE)",
+      "tag": "boolean",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "NOT(FALSE())"
+    },
+    {
+      "expression": "NOT(A7)",
+      "tag": "boolean",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "NOT(A7)"
+    },
+    {
+      "expression": "ROUND(-1.25,1)",
+      "tag": "half-away-from-zero",
+      "expected": -1.3,
+      "actual": -1.3,
+      "agrees": true,
+      "readerFormula": "ROUND(-1.25,1)"
+    },
+    {
+      "expression": "ROUND(1234,-2)",
+      "tag": "half-away-from-zero",
+      "expected": 1200,
+      "actual": 1200,
+      "agrees": true,
+      "readerFormula": "ROUND(1234,-2)"
+    },
+    {
+      "expression": "ROUND(1,101)",
+      "tag": "large-positive-digits",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "ROUND(1,101)"
+    },
+    {
+      "expression": "ABS(-12.5)",
+      "tag": "arithmetic",
+      "expected": 12.5,
+      "actual": 12.5,
+      "agrees": true,
+      "readerFormula": "ABS(-12.5)"
+    },
+    {
+      "expression": "ABS(A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "ABS(A6)"
+    },
+    {
+      "expression": "ABS(A1:A2)",
+      "tag": "scalar-only",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "ABS(A1:A2)"
+    },
+    {
+      "expression": "SUM()",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 0,
+      "agrees": false,
+      "readerFormula": "SUM(0)"
+    },
+    {
+      "expression": "IF(TRUE)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": true,
+      "agrees": false,
+      "readerFormula": "IF(TRUE(),TRUE())"
+    },
+    {
+      "expression": "ABS(1,2)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "ABS(1,2)"
+    },
+    {
+      "expression": "UNSUPPORTED(A1:A7)",
+      "tag": "unsupported",
+      "expected": {
+        "error": "#NAME?"
+      },
+      "actual": {
+        "error": "#NAME?"
+      },
+      "agrees": true,
+      "readerFormula": "unsupported(A1:A7)"
+    },
+    {
+      "expression": "SUM(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "SUM(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AVERAGE(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AVERAGE(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MIN(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MIN(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MAX(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MAX(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AND(\"TRUE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AND(\"TRUE\")"
+    },
+    {
+      "expression": "OR(\"FALSE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "OR(\"FALSE\")"
+    }
+  ]
+}

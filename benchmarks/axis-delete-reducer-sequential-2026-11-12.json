@@ -1,0 +1,76 @@
+{
+  "startedAt": "2026-11-11T22:54:44.710Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 321,
+    "sha256": "bdd789b4667c403e893588331631214ffacd490677feb8d8968debfd547221d6"
+  },
+  "scriptSha256": "8e0c764ba953011f353656a88c2433bb24544b87e4f802fd4b707abc664db595",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Node reducer only; delete 19,999 of 20,000 populated rows, no formulas or merges; six alternating pairs with fresh snapshots. Control reconstructs array membership instead of Set membership; all remaining cells, order and metadata verified outside timing. Single process, JIT and GC variation; excludes Worker, persistence, UI, peak memory and independent devices.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 39.076458
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 12.622082999999975
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 10.447000000000003
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 86.91370899999998
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 87.896458
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 10.631665999999939
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 12.472958000000062
+    },
+    {
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 91.95966600000008
+    },
+    {
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 86.20829099999992
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 8.868625000000065
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 8.991209000000026
+    },
+    {
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 86.42429200000004
+    }
+  ],
+  "finishedAt": "2026-11-11T22:54:45.442Z"
+}

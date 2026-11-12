@@ -1,0 +1,75 @@
+{
+  "startedAt": "2026-11-12T09:38:32.255Z",
+  "browserName": "chromium",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 372,
+    "sha256": "7651ff7df0c7e23126c94388462a1cb2a8467bc31e2d8b7af3572d609e8ede8e"
+  },
+  "bundles": {
+    "control": "d24ebed279a8944c57c178bea914b0bb1ac4a1074eb611cb16208dca37d00041",
+    "current": "74fb565d0466d47a8849e7414ff9fc5bbe1c35df836d0e63ea3c299335ad21d2"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "smallMs": 272.09999990463257,
+      "smallTimers": 50,
+      "largeMs": 1.4000000953674316,
+      "largeTimers": 0,
+      "verified": 14848
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "smallMs": 5.900000095367432,
+      "smallTimers": 0,
+      "largeMs": 1,
+      "largeTimers": 2,
+      "verified": 14848
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "smallMs": 4.800000190734863,
+      "smallTimers": 0,
+      "largeMs": 1.0999999046325684,
+      "largeTimers": 2,
+      "verified": 14848
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "smallMs": 270.6000003814697,
+      "smallTimers": 50,
+      "largeMs": 3.6999998092651367,
+      "largeTimers": 0,
+      "verified": 14848
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "smallMs": 266.59999990463257,
+      "smallTimers": 50,
+      "largeMs": 4,
+      "largeTimers": 0,
+      "verified": 14848
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "smallMs": 4.900000095367432,
+      "smallTimers": 0,
+      "largeMs": 0.9000000953674316,
+      "largeTimers": 2,
+      "verified": 14848
+    }
+  ],
+  "scope": "Three alternating fresh-context pairs, real Worker and IndexedDB; 50 repeated blank 16x16 viewport reads and one 2048x1 narrow read. Control reconstructs the prior coordinate-based yield condition. Counts Worker setTimeout calls, verifies all returned cells, excludes setup, production UI, concurrent user input, peak memory and other devices.",
+  "browser": "153.0.8010.12",
+  "finishedAt": "2026-11-12T09:38:34.640Z"
+}

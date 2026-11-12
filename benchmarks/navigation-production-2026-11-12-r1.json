@@ -1,0 +1,99 @@
+{
+  "startedAt": "2026-11-12T01:48:31.459Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 340,
+    "sha256": "528952f0b128a9127a0728a4fd755b4afa188580b6012acdc2b870b71e23201b"
+  },
+  "localBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "c6c0c205cde52adcb462488dad7bc052b76537cfc08a6a62f86c3873f1c8bc79"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "url": "http://127.0.0.1:4192/",
+  "scope": "Headless app real Worker, 100k rows in the existing scene workbook; five alternating timed reads after warmup for a 10k contiguous run and an 85k-row sparse gap. Every destination checked. Source and local build fingerprints do not independently verify served assets. Excludes user input, selection paint, peak memory and other machines.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "dense": 2.200000286102295,
+          "sparse": 8.099999904632568
+        },
+        {
+          "sparse": 8,
+          "dense": 2.1999998092651367
+        },
+        {
+          "dense": 2.5,
+          "sparse": 7.699999809265137
+        },
+        {
+          "sparse": 10,
+          "dense": 1.9000000953674316
+        },
+        {
+          "dense": 2,
+          "sparse": 7.599999904632568
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "dense": 4,
+          "sparse": 11
+        },
+        {
+          "sparse": 11,
+          "dense": 4
+        },
+        {
+          "dense": 3,
+          "sparse": 11
+        },
+        {
+          "sparse": 10,
+          "dense": 4
+        },
+        {
+          "dense": 3,
+          "sparse": 11
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "dense": 4,
+          "sparse": 7
+        },
+        {
+          "sparse": 6,
+          "dense": 3
+        },
+        {
+          "dense": 3,
+          "sparse": 7
+        },
+        {
+          "sparse": 6,
+          "dense": 4
+        },
+        {
+          "dense": 3,
+          "sparse": 6
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-12T01:48:35.594Z"
+}

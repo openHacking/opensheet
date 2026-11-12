@@ -1,0 +1,141 @@
+{
+  "startedAt": "2026-11-12T01:50:12.227Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 340,
+    "sha256": "6168ea2c36ddd6faf6e2d46520866546fe5c76eb73a819a25ddd09b05cf8fa14"
+  },
+  "localBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "c6c0c205cde52adcb462488dad7bc052b76537cfc08a6a62f86c3873f1c8bc79"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "url": "http://127.0.0.1:4192/",
+  "scope": "Headless app real Worker, 100k rows in the existing scene workbook; five alternating timed reads after warmup for a 10k contiguous run and an 85k-row sparse gap. Three additional pairs time synthetic keydown through selection and grid.ready. Every fixture input and destination checked. Source and local build fingerprints do not independently verify served assets. Excludes native keyboard latency, pixel inspection, peak memory and other machines.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "dense": 2.6999998092651367,
+          "sparse": 9.300000190734863
+        },
+        {
+          "sparse": 9,
+          "dense": 2.9000000953674316
+        },
+        {
+          "dense": 2.4000000953674316,
+          "sparse": 8
+        },
+        {
+          "sparse": 9.5,
+          "dense": 2.299999713897705
+        },
+        {
+          "dense": 2,
+          "sparse": 7.5
+        }
+      ],
+      "uiSamples": [
+        {
+          "dense": 33.5,
+          "sparse": 33.19999980926514
+        },
+        {
+          "sparse": 31.799999713897705,
+          "dense": 32.30000019073486
+        },
+        {
+          "dense": 31.800000190734863,
+          "sparse": 33.09999990463257
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "dense": 4,
+          "sparse": 13
+        },
+        {
+          "sparse": 12,
+          "dense": 4
+        },
+        {
+          "dense": 4,
+          "sparse": 11
+        },
+        {
+          "sparse": 10,
+          "dense": 4
+        },
+        {
+          "dense": 3,
+          "sparse": 10
+        }
+      ],
+      "uiSamples": [
+        {
+          "dense": 27,
+          "sparse": 27
+        },
+        {
+          "sparse": 24,
+          "dense": 26
+        },
+        {
+          "dense": 24,
+          "sparse": 38
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "dense": 3,
+          "sparse": 6
+        },
+        {
+          "sparse": 7,
+          "dense": 2
+        },
+        {
+          "dense": 2,
+          "sparse": 7
+        },
+        {
+          "sparse": 7,
+          "dense": 3
+        },
+        {
+          "dense": 3,
+          "sparse": 6
+        }
+      ],
+      "uiSamples": [
+        {
+          "dense": 25,
+          "sparse": 26
+        },
+        {
+          "sparse": 26,
+          "dense": 25
+        },
+        {
+          "dense": 26,
+          "sparse": 26
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-12T01:50:23.023Z"
+}

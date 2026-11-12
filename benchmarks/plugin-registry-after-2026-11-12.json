@@ -1,0 +1,58 @@
+{
+  "node": "v22.19.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "results": [
+    {
+      "count": 2000,
+      "samples": [
+        {
+          "installMs": 4.136875,
+          "disposeMs": 0.648959000000005
+        },
+        {
+          "installMs": 4.632916000000002,
+          "disposeMs": 0.440334
+        },
+        {
+          "installMs": 2.472833999999999,
+          "disposeMs": 0.5255829999999975
+        }
+      ]
+    },
+    {
+      "count": 5000,
+      "samples": [
+        {
+          "installMs": 6.332666000000003,
+          "disposeMs": 0.6562089999999969
+        },
+        {
+          "installMs": 5.551499999999997,
+          "disposeMs": 2.0625830000000036
+        },
+        {
+          "installMs": 4.8189589999999995,
+          "disposeMs": 1.4929579999999945
+        }
+      ]
+    },
+    {
+      "count": 10000,
+      "samples": [
+        {
+          "installMs": 16.264291999999998,
+          "disposeMs": 2.6517079999999993
+        },
+        {
+          "installMs": 16.913667000000004,
+          "disposeMs": 3.012540999999999
+        },
+        {
+          "installMs": 14.379666999999998,
+          "disposeMs": 1.35991700000001
+        }
+      ]
+    }
+  ]
+}

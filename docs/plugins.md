@@ -47,4 +47,6 @@ Toolbar and commit registrations belong to the plugin and are cleaned in reverse
 
 Capabilities are not a sandbox. Plugins share host JavaScript permissions and must be trusted. Custom editors, formula functions, shortcut registries, storage providers and untrusted-plugin isolation are not supported extension points in 0.1.
 
-Start with headless tests for pure operations. Route writes through `ctx.workbook.execute` and check absent selections and error values. See the [command schema](../schemas/commands.schema.json) and [compile-checked example](../examples/plugin.ts).
+Start with headless tests for pure operations. Route writes through `ctx.workbook.execute` and check absent selections and error values. The [selection-sum action](../examples/plugin.ts) reads a bounded selection; the [activity counter](../examples/plugin-activity.ts) registers a commit listener and a toolbar action. Both use the public SDK entry point, declare API compatibility with `^0.1.0`, and are covered by the repository's Apache-2.0 license. The counter is per installation: replacing a workbook reinstalls the plugin and resets the count. Neither example is an independent adoption claim.
+
+The preview `checkPluginConformance` helper accepts a plugin factory and a disposable `PluginHost`, then reports named lifecycle and registry checks. It executes the plugin and cannot detect arbitrary plugin-owned leaks or await asynchronous cleanup; see the [SDK guide](../packages/plugin-sdk/README.md) for its scope. See also the [command schema](../schemas/commands.schema.json).

@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-11-11T21:10:00.196Z",
+  "engine": "webkit",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 316,
+    "sha256": "f11f327581899a192e296a5c5354ece878521d62114216980a6ff104d7180d25"
+  },
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Development-server source in a real Worker and IndexedDB; 1,000 numeric cells, one relative-reference formula rule, three rounds each with zero and 64 MiB cache reservations. Fixture setup excluded; all styles checked after timing. No renderer, main-thread frame timing, peak process memory, external devices or durable rule publication.",
+  "samples": [
+    {
+      "cacheBytes": 0,
+      "round": 1,
+      "elapsedMs": 152,
+      "verified": 1000,
+      "stagedCellReads": 1000
+    },
+    {
+      "cacheBytes": 0,
+      "round": 2,
+      "elapsedMs": 120,
+      "verified": 1000,
+      "stagedCellReads": 1000
+    },
+    {
+      "cacheBytes": 0,
+      "round": 3,
+      "elapsedMs": 126,
+      "verified": 1000,
+      "stagedCellReads": 1000
+    },
+    {
+      "cacheBytes": 67108864,
+      "round": 1,
+      "elapsedMs": 3,
+      "verified": 1000,
+      "stagedCellReads": 1000
+    },
+    {
+      "cacheBytes": 67108864,
+      "round": 2,
+      "elapsedMs": 2,
+      "verified": 1000,
+      "stagedCellReads": 1000
+    },
+    {
+      "cacheBytes": 67108864,
+      "round": 3,
+      "elapsedMs": 4,
+      "verified": 1000,
+      "stagedCellReads": 1000
+    }
+  ],
+  "browser": "26.6"
+}

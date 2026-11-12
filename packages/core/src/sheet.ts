@@ -1,7 +1,9 @@
+import type { WorksheetFilter } from './filter-schema.js';
+import type { SortColumn } from './sort-values.js';
 import { parseRange } from './address.js';
-import { checkBounds } from './model.js';
+import { checkBounds, checkDimensions } from './model.js';
 import { Range } from './range.js';
-import { assert, type Rect, type SheetSnapshot } from './types.js';
+import { assert, type Rect } from './types.js';
 import type { Workbook } from './workbook.js';
 
 export class Sheet {
@@ -10,21 +12,26 @@ export class Sheet {
     public readonly id: string,
   ) {}
   get name() {
-    return this.workbook.sheetData(this.id).name;
+    return this.workbook.sheetCommandName(this.id);
   }
   get rowCount() {
-    return this.workbook.sheetData(this.id).rowOrder.length;
+    return this.workbook.sheetCommandState(this.id).rows;
   }
   get columnCount() {
-    return this.workbook.sheetData(this.id).columnOrder.length;
+    return this.workbook.sheetCommandState(this.id).columns;
   }
   range(input: string | Rect) {
     const r = parseRange(input);
-    checkBounds(this.workbook.sheetData(this.id) as SheetSnapshot, r);
+    const dimensions = this.workbook.sheetCommandState(this.id);
+    checkDimensions(dimensions.rows, dimensions.columns, r);
     return new Range(this, r);
   }
   getUsedRange() {
-    return this.range(this.workbook.usedRange(this.id));
+    const used = this.workbook.usedRange(this.id);
+    assert(used, 'INVALID_ARGUMENT', 'Sheet has no committed range');
+    const range = parseRange(used);
+    checkBounds(this.workbook.sheetData(this.id), range);
+    return new Range(this, range);
   }
   insertRows(index: number, count = 1) {
     return this.axis('row', index, count, true);
@@ -44,6 +51,8 @@ export class Sheet {
       'INVALID_ARGUMENT',
       'Invalid count',
     );
+    const sheet = this.workbook.sheetCommandState(this.id);
+    const next = axis === 'row' ? sheet.nextRowId : sheet.nextColumnId;
     return this.workbook.execute({
       type: insert ? 'core.axis.insert' : 'core.axis.delete',
       payload: {
@@ -52,13 +61,7 @@ export class Sheet {
         index,
         ...(insert
           ? {
-              ids: Array.from(
-                { length: count },
-                (_, i) =>
-                  (axis === 'row'
-                    ? this.workbook.sheetData(this.id).nextRowId
-                    : this.workbook.sheetData(this.id).nextColumnId) + i,
-              ),
+              ids: Array.from({ length: count }, (_, i) => next + i),
             }
           : { count }),
       },
@@ -76,6 +79,42 @@ export class Sheet {
   setColumnHidden(index: number, hidden: boolean) {
     return this.meta('column', index, { hidden });
   }
+  setRowsHeight(index: number, count: number, size: number) {
+    return this.resize('row', index, count, size);
+  }
+  setColumnsWidth(index: number, count: number, size: number) {
+    return this.resize('column', index, count, size);
+  }
+  private resize(axis: 'row' | 'column', index: number, count: number, size: number) {
+    return this.workbook.execute({
+      type: 'core.axis.resize',
+      payload: { sheetId: this.id, axis, index, count, size },
+    });
+  }
+  setRowsHidden(index: number, count: number, hidden: boolean) {
+    return this.visibility('row', index, count, hidden);
+  }
+  setColumnsHidden(index: number, count: number, hidden: boolean) {
+    return this.visibility('column', index, count, hidden);
+  }
+  setAllRowsHidden(hidden: boolean) {
+    return this.workbook.execute({
+      type: 'core.axis.visibilityAll',
+      payload: { sheetId: this.id, axis: 'row', hidden },
+    });
+  }
+  setAllColumnsHidden(hidden: boolean) {
+    return this.workbook.execute({
+      type: 'core.axis.visibilityAll',
+      payload: { sheetId: this.id, axis: 'column', hidden },
+    });
+  }
+  private visibility(axis: 'row' | 'column', index: number, count: number, hidden: boolean) {
+    return this.workbook.execute({
+      type: 'core.axis.visibility',
+      payload: { sheetId: this.id, axis, index, count, hidden },
+    });
+  }
   private meta(axis: string, index: number, props: object) {
     return this.workbook.execute({
       type: 'core.axis.meta',
@@ -88,16 +127,26 @@ export class Sheet {
       payload: { sheetId: this.id, rows, columns },
     });
   }
-  setFilter(filter: { column: number; query: string } | null) {
+  setFilter(filter: WorksheetFilter) {
     return this.workbook.execute({
       type: 'core.sheet.filter',
       payload: { sheetId: this.id, filter },
     });
   }
-  sort(range: string | Rect, column: number, direction: 'asc' | 'desc' = 'asc') {
+  sort(
+    range: string | Rect,
+    column: number | readonly SortColumn[],
+    direction: 'asc' | 'desc' = 'asc',
+  ) {
     return this.workbook.execute({
       type: 'core.sheet.sort',
-      payload: { sheetId: this.id, range: parseRange(range), column, direction },
+      payload: {
+        sheetId: this.id,
+        range: parseRange(range),
+        ...(typeof column === 'number'
+          ? { column, direction }
+          : { keys: column.map((key) => ({ ...key })) }),
+      },
     });
   }
 }

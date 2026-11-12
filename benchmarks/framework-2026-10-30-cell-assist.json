@@ -1,0 +1,813 @@
+{
+  "startedAt": "2026-10-30T03:43:45.216Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 211,
+    "sha256": "54c8ae8a5f547eb9de58439822c14c0f0b1bc887611cff08646d888f79d3ea78"
+  },
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "611f93b08b42f0dee946a7a337f49881447738251600251e826ae43f7a69b1bc"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "5857ff061cc4469064132b22448c347875ccdc5ae058622fbdc3c7e5e6603a99"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "65e884fb0e0d8e9d791ceb55a6060e47baa01ef8634e2e43f75e27ae622e9eed"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "975aed732c6fd8b4ade76eef8b6f1a660018bbac7982a0b2a6d0d641b064c6fa"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "2185301df51bcb1e4b16c714ee74f0ea00f2efc7f644d7697e8f237d6012c4db"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.1.1",
+      "sha256": "333ea8aed0683dc3e7dd9a0c5c9a3ebf0457b45fb0856612abef9c9d62e90b0e"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.1.1",
+      "sha256": "e4f25b043d6fe54270fc2db847e4af8abf387727656878d9fffd50ddaa139d9d"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "development",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "deployment": {
+        "violations": [],
+        "styles": [],
+        "workers": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "development",
+      "framework": "vue",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "deployment": {
+        "violations": [],
+        "styles": [],
+        "workers": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "production",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "production",
+      "framework": "vue",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "hydration",
+      "framework": "react",
+      "checks": [
+        "hydrates the server-rendered host without replacement or mismatch",
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "hydration",
+      "framework": "vue",
+      "checks": [
+        "hydrates the server-rendered host without replacement or mismatch",
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "mode": "development",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "deployment": {
+        "violations": [],
+        "styles": [],
+        "workers": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "mode": "development",
+      "framework": "vue",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "deployment": {
+        "violations": [],
+        "styles": [],
+        "workers": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "mode": "production",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "mode": "production",
+      "framework": "vue",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "mode": "hydration",
+      "framework": "react",
+      "checks": [
+        "hydrates the server-rendered host without replacement or mismatch",
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "mode": "hydration",
+      "framework": "vue",
+      "checks": [
+        "hydrates the server-rendered host without replacement or mismatch",
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "mode": "development",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "deployment": {
+        "violations": [],
+        "styles": [],
+        "workers": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "mode": "development",
+      "framework": "vue",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "deployment": {
+        "violations": [],
+        "styles": [],
+        "workers": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "mode": "production",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "mode": "production",
+      "framework": "vue",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "mode": "hydration",
+      "framework": "react",
+      "checks": [
+        "hydrates the server-rendered host without replacement or mismatch",
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "mode": "hydration",
+      "framework": "vue",
+      "checks": [
+        "hydrates the server-rendered host without replacement or mismatch",
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host",
+        "pending action rejection after unmount is silent"
+      ],
+      "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      "deployment": {
+        "violations": [],
+        "styles": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/main-DctAON_O.css"
+        ],
+        "workers": [
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js",
+          "http://127.0.0.1:5192/embedded/sheets/assets/engine.worker-Dg15qEbS.js"
+        ]
+      },
+      "status": "passed"
+    }
+  ],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no OpenSheet source aliases; explicit Zod CSP configuration shim. Development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "f9b9e96d095ffe4ecca0b6750511a77649b228a2ba788e07f302d54d44d91beb",
+  "configSha256": "8d84b397d2ed62b22ae3545a9ea9bd71fe0cfd4761cce05d92b476b8bab6055d",
+  "cspShimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6",
+  "ssrFixtureSha256": "7b7dc10e3c6ea527f554c0d7be9b64a5e2617685b454896cacaf8e251303e1ba",
+  "lock": {
+    "file": "/Volumes/github/private/opensheet/benchmarks/framework-2026-10-30-cell-assist.consumer-lock.yaml",
+    "sha256": "95e2ef321dda7745f0132d239fe2b5a77789166fb356a2296d2b84094524d14f"
+  },
+  "ssr": {
+    "react": "<div class=\"os-framework-host\"></div>",
+    "vue": "<div class=\"os-framework-host\"></div>",
+    "ready": 0,
+    "status": "passed"
+  },
+  "finishedAt": "2026-10-30T03:44:41.055Z"
+}

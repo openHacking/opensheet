@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-30T16:28:22.475Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "provenance": "CC0 synthetic OpenSheet error cells, exported with SheetJS adapter; LibreOffice converted the XLSX to CSV and independently saved to XLSX. CSV is the reader display observation; the saved XLSX is decoded with SheetJS.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 217,
+    "sha256": "080981e26af56259cf71b52c1e6a506f16ec3e8ae3540e40610b4423f17dd508"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "9ddadaff102e78fb083aeb20d6001797c1361015fe6d6ba8ec73e1f7d12e6cd4"
+  },
+  "inputErrors": [
+    "#DIV/0!",
+    "#N/A",
+    "#CYCLE!",
+    "#SPILL!"
+  ],
+  "expectedDisplay": [
+    "#DIV/0!",
+    "#N/A",
+    "#VALUE!",
+    "#VALUE!"
+  ],
+  "strictCode": "UNSUPPORTED_FEATURE",
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 4,
+      "approximated": 2,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "ERROR_CODE_APPROXIMATED",
+        "feature": "error",
+        "message": "Unsupported spreadsheet error converted to #VALUE!",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_5dca94385485492794445a23a4e65037",
+        "address": "A3",
+        "count": 2
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "csv": "\"#DIV/0!\"\n\"#N/A\"\n\"#VALUE!\"\n\"#VALUE!\"\n",
+  "observations": [
+    {
+      "cell": "A1",
+      "type": "e",
+      "value": 7,
+      "text": "#DIV/0!"
+    },
+    {
+      "cell": "A2",
+      "type": "e",
+      "value": 42,
+      "text": "#N/A"
+    },
+    {
+      "cell": "A3",
+      "type": "e",
+      "value": 15,
+      "text": "#VALUE!"
+    },
+    {
+      "cell": "A4",
+      "type": "e",
+      "value": 15,
+      "text": "#VALUE!"
+    }
+  ],
+  "importReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 5,
+      "approximated": 0,
+      "dropped": 1,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "UNSUPPORTED_METADATA",
+        "feature": "!margins",
+        "message": "Worksheet metadata !margins is not preserved",
+        "action": "dropped",
+        "severity": "warning",
+        "sheetId": "sheet_fbc75abfbf2b461eb6293a71da7b77a3",
+        "count": 1
+      },
+      {
+        "code": "DATA_INTERCHANGE",
+        "feature": "xlsx-container",
+        "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+        "action": "preserved",
+        "severity": "info",
+        "count": 1
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "logs": [
+    "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-errors-j7aZgK/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-errors-j7aZgK/source.csv using filter : Text - txt - csv (StarCalc):44,34,76,1",
+    "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-errors-j7aZgK/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-errors-j7aZgK/save/source.xlsx using filter : Calc MS Excel 2007 XML"
+  ],
+  "artifacts": {
+    "exported": {
+      "file": "/Volumes/github/private/opensheet/benchmarks/error-interop-2026-10-31.xlsx",
+      "sha256": "ac2763542a6c23fa62bacb928461b5914563cd89415ce568b4c70c3971da08a9"
+    },
+    "csv": {
+      "file": "/Volumes/github/private/opensheet/benchmarks/error-interop-2026-10-31.csv",
+      "sha256": "8fd4e28152828d4cc5c67bb631676a7a3347167e983a174593545458271802f9"
+    },
+    "saved": {
+      "file": "/Volumes/github/private/opensheet/benchmarks/error-interop-2026-10-31.recalculated.xlsx",
+      "sha256": "b450bacae1bc874f714bc87c00ca0f9ab401066cf4b74f480b2725f9d4392896"
+    }
+  }
+}

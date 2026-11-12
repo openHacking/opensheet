@@ -1,0 +1,183 @@
+{
+  "startedAt": "2026-11-12T04:27:38.492Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 352,
+    "sha256": "30a8415823ab35185d953e30b3a18cf62efe1d52b47a18d9d13f362622e2bf66"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 30000,
+  "scope": "Alternating in-process Node adapter conversions with synthetic repeated formulas. Control removes only the new per-formula name scan; name-index construction remains. No XLSX parsing, browser Worker, peak memory or end-to-end UI.",
+  "samples": [
+    {
+      "scenario": "no-names",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 88.65366700000004,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 69.92587499999996,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 46.32887500000004,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 60.18495800000005,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 41.45187499999997,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 48.883917,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 42.83437499999991,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 47.93124999999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 47.08887500000003,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 59.09304200000008,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 51.46716700000002,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 44.65479099999993,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 51.033500000000004,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 65.498875,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 78.52654100000018,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 61.55345800000009,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 55.806082999999944,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 72.7227499999999,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 65.46345799999995,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 53.17008299999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 41.24320899999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 47.81574999999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 47.93333400000006,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 37.66508399999998,
+      "verified": 30000
+    }
+  ]
+}

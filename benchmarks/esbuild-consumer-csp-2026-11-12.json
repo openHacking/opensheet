@@ -1,0 +1,115 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 370,
+    "sha256": "59cd78704e867ee14af92ba23c9de3c571e4be4b94d8a6a0fd4d65fe46a03c19"
+  },
+  "startedAt": "2026-11-12T08:47:41.594Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed core and formula packages; separate esbuild browser and Worker bundles, strict CSP with Zod jitless shim, localhost subpath and real IndexedDB/Web Locks. No editor, CSS, SSR framework, other bundlers or devices.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "6efd1f057d7f6ac16cb12d22cbce4db756740ed762745e29fdcb4e471d679152"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "930b155e29db6512e55ed698e23540036f3e5ba7819b4aa20c8ee72f26b8a2bd"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": []
+    },
+    {
+      "engine": "firefox",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": []
+    },
+    {
+      "engine": "webkit",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": []
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/esbuild-consumer-csp-2026-11-12.consumer-lock.yaml",
+    "sha256": "e95730cb099fb9c54f7a5532916a5a79b4577d30d03030e8f21fa96687da200b"
+  },
+  "assets": {
+    "bundleBytes": 921809,
+    "bundleSha256": "5308636dca19b653202c75817470ce53019ef5c7bbbae43eed185360eeeef94d",
+    "workerBytes": 1100424,
+    "workerSha256": "f0f2ecedc2403cf2efc88d61571ec6ac1fa143990e4271943ee1bc7f5d810873",
+    "inputs": 101
+  },
+  "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'",
+  "shimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6"
+}

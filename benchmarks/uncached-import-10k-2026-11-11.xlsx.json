@@ -1,0 +1,11 @@
+{
+  "generator": "openpyxl",
+  "openpyxl": "3.1.5",
+  "python": "3.14.3 (main, Mar 17 2026, 07:56:24) [Clang 17.0.0 (clang-1700.0.13.5)]",
+  "rows": 10000,
+  "uncachedFormulas": 10000,
+  "formattedBlankCells": 2000,
+  "bytes": 147397,
+  "sha256": "7365e2a66f434eb937d64a5cac5496da3472d64c41ecabf5445423172a31d417",
+  "independentReadback": "all formulas and number formats checked with openpyxl"
+}

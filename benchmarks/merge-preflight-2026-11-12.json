@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-11-12T05:32:29.252Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 360,
+    "sha256": "083e1a15dea016b72e390de37b5141a844146060323a7104dc1d944dd33ec0b0"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "cells": 20000,
+  "scope": "Alternating local Node snapshot reducer merges of 20,000 blank annotated cells. Control reconstructs the previous one-pass implementation; input clone and output verification are outside timing. No Worker, IndexedDB, browser, user input or peak memory.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "before",
+      "elapsedMs": 9.886334000000033,
+      "verified": 20000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 62.633375,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 18.029583000000002,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "before",
+      "elapsedMs": 8.345250000000078,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "before",
+      "elapsedMs": 7.035417000000052,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 22.149124999999913,
+      "verified": 20000
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 16.77579199999991,
+      "verified": 20000
+    },
+    {
+      "round": 4,
+      "variant": "before",
+      "elapsedMs": 6.1725410000001375,
+      "verified": 20000
+    }
+  ]
+}

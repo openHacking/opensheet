@@ -1,0 +1,1373 @@
+{
+  "startedAt": "2026-11-12T00:51:46.279Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 335,
+    "sha256": "c9947e3f08c60591acab177037b5656b716e0ec0f7bc086c1c041a70bb5d5afa"
+  },
+  "scope": "Headless development server, 256 rows; alternating searches with and without AbortSignal, all results checked. Compares current paths, not an old build; excludes memory and other devices.",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 3.5999999046325684
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 8.099999904632568
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 54.200000286102295
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 2.299999713897705
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 2.200000286102295
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 8.399999618530273
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 8.600000381469727
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 2.3999996185302734
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 2.1000003814697266
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 8.399999618530273
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 8.400000095367432
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 2.3000001907348633
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0.19999980926513672
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0.10000038146972656
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0.10000038146972656
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 8.599999904632568
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 8.600000381469727
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 2.1999998092651367
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 8.199999809265137
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 8.5
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 2.200000286102295
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 2.299999713897705
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 6.5
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 8.600000381469727
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 2.1999998092651367
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 2.1999998092651367
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 8.400000095367432
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0.20000028610229492
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0.19999980926513672
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 0.10000038146972656
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 3.299999713897705
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 47
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 8.800000190734863
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 2.5
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 8.5
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 6.900000095367432
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 2.5
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 2.5
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 9.099999904632568
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 8.700000286102295
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 2.4000000953674316
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0.19999980926513672
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0.20000028610229492
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0.09999990463256836
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0.20000028610229492
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0.09999990463256836
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 26
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 57
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 23
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 25
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 26
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 23
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 8
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 23
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 18
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 24
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 55
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 25
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 27
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 14
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 26
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 25
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 52
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 24
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 23
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 21
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 24
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 7
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 10
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 11
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 6
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 8
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 5
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 9
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 6
+            },
+            {
+              "name": "long",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 7
+            },
+            {
+              "name": "long",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 6
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 0,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 0,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 1,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 2,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 3,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 3,
+              "ms": 1
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 4,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": true,
+              "pair": 5,
+              "ms": 0
+            },
+            {
+              "name": "short",
+              "cooperative": false,
+              "pair": 5,
+              "ms": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

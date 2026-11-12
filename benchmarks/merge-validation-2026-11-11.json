@@ -1,0 +1,121 @@
+{
+  "startedAt": "2026-11-11T05:57:57.646Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 266,
+    "sha256": "1781be9bbb3500b6bbe18bc1c606e2b650011073e223c9b034b812e80817c921"
+  },
+  "hashes": {
+    "previous": "6ca8a31232662d997ce1d547145b639d6e273c95b811950617b7419d95672bea",
+    "current": "d17d792075b24d9c6132b8806386e4fb202c19b850f31bfda4a75662b5d6c0a7"
+  },
+  "scope": "In-process Node whole-snapshot validation, 10,000 touching one-row merges in reverse order; reconstructed previous pairwise check vs current sweep. Includes JSON validation and schema parsing. Checks every merge and rejects an overlap outside timing. Excludes persistence, file decoding, browser Worker, peak memory and other merge geometries.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "variant": "previous",
+          "ms": 157.92925000000002,
+          "verified": 10000,
+          "rejected": true
+        },
+        {
+          "variant": "current",
+          "ms": 16.32641600000011,
+          "verified": 10000,
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "variant": "current",
+          "ms": 10.769583000000011,
+          "verified": 10000,
+          "rejected": true
+        },
+        {
+          "variant": "previous",
+          "ms": 105.89187499999991,
+          "verified": 10000,
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "variant": "previous",
+          "ms": 77.01999999999998,
+          "verified": 10000,
+          "rejected": true
+        },
+        {
+          "variant": "current",
+          "ms": 6.769958000000088,
+          "verified": 10000,
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "samples": [
+        {
+          "variant": "current",
+          "ms": 7.264874999999847,
+          "verified": 10000,
+          "rejected": true
+        },
+        {
+          "variant": "previous",
+          "ms": 80.491041,
+          "verified": 10000,
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "samples": [
+        {
+          "variant": "previous",
+          "ms": 72.72908300000017,
+          "verified": 10000,
+          "rejected": true
+        },
+        {
+          "variant": "current",
+          "ms": 5.866459000000077,
+          "verified": 10000,
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "samples": [
+        {
+          "variant": "current",
+          "ms": 7.0696660000000975,
+          "verified": 10000,
+          "rejected": true
+        },
+        {
+          "variant": "previous",
+          "ms": 72.34512500000005,
+          "verified": 10000,
+          "rejected": true
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T05:57:58.979Z"
+}

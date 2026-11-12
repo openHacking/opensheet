@@ -1,14 +1,26 @@
-import { chromium } from '@playwright/test';
-import { writeFileSync } from 'node:fs';
+import { chromium, firefox, webkit } from '@playwright/test';
+import { sourceFingerprint, localBuildFingerprint } from './benchmark-fingerprint.mjs';
+import { existsSync, writeFileSync } from 'node:fs';
 const url = process.argv.find((v) => v.startsWith('--url='))?.slice(6) ?? 'http://127.0.0.1:4174/';
+const outputPath = process.argv.find((v) => v.startsWith('--output='))?.slice(9);
+const engine = process.argv.find((v) => v.startsWith('--browser='))?.slice(10) ?? 'chromium';
+if (!outputPath || existsSync(outputPath)) throw new Error('Supply a new --output path');
+if (!['chromium', 'firefox', 'webkit'].includes(engine)) throw new Error('Invalid browser');
 const count = Number(process.argv.find((v) => v.startsWith('--cells='))?.slice(8) ?? 1000000);
 if (!Number.isSafeInteger(count) || count < 10000 || count > 10000000 || count % 10000)
   throw new Error('Invalid size');
-const browser = await chromium.launch();
+const source = sourceFingerprint(),
+  build = localBuildFingerprint();
+const browser = await { chromium, firefox, webkit }[engine].launch();
 try {
   const page = await browser.newPage();
   await page.goto(url + '#performance');
-  await page.waitForFunction(() => !document.querySelector('#scene-select')?.disabled);
+  await page.waitForFunction(
+    () =>
+      document.querySelector('#scene-title')?.textContent === 'Performance Lab' &&
+      !document.querySelector('#scene-select')?.disabled &&
+      !!window.opensheet,
+  );
   const result = await page.evaluate(async (count) => {
     const app = window.opensheet,
       book = app.getWorkbook();
@@ -95,12 +107,15 @@ try {
   const output = {
     date: new Date().toISOString(),
     browser: browser.version(),
+    engine,
+    source,
+    build,
     url,
     fixture:
       'deterministic 100-column mixed workload; complete JSON materialization and JSON Blob/binary Blob round trips; count plus all-cell order-independent input checksum',
     result,
   };
-  writeFileSync('benchmarks/native-io.json', JSON.stringify(output, null, 2) + '\n');
+  writeFileSync(outputPath, JSON.stringify(output, null, 2) + '\n', { flag: 'wx' });
   console.log(JSON.stringify(output, null, 2));
 } finally {
   await browser.close();

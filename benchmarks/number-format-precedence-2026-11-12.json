@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-12T03:33:04.458Z",
+  "provenance": "Synthetic cells exported by OpenSheet; LibreOffice saved the XLSX and openpyxl inspected both files. Excel and visual rendering are not tested.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 346,
+    "sha256": "3b6f5ffef2848228fcd5767a43b8b610c565df62499145a7fbb90f9e293b6d36"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "453030320154cc73ceb9045943fbdfd16594da15e8d997f787656625a96b9920"
+  },
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "independent": {
+    "version": "3.1.5",
+    "files": [
+      [
+        {
+          "address": "A1",
+          "value": 0.25,
+          "format": "0%",
+          "link": null
+        },
+        {
+          "address": "A2",
+          "value": 0.25,
+          "format": "0.00",
+          "link": null
+        },
+        {
+          "address": "A3",
+          "value": "https://example.com/",
+          "format": "0.00",
+          "link": "https://example.com/"
+        }
+      ],
+      [
+        {
+          "address": "A1",
+          "value": 0.25,
+          "format": "0%",
+          "link": null
+        },
+        {
+          "address": "A2",
+          "value": 0.25,
+          "format": "0.00",
+          "link": null
+        },
+        {
+          "address": "A3",
+          "value": null,
+          "format": "0.00",
+          "link": null
+        }
+      ]
+    ]
+  },
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 3,
+      "approximated": 1,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "BLANK_LINK_INTEROP",
+        "feature": "link",
+        "message": "Hyperlinks on blank cells may be lost when another spreadsheet application saves the file",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_61f8884ceadd4340af9093eca1a114e9",
+        "address": "A3",
+        "count": 1
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-number-precedence-115bOk/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-number-precedence-115bOk/saved/source.xlsx using filter : Calc MS Excel 2007 XML",
+  "artifacts": {
+    "exported": {
+      "file": "number-format-precedence-2026-11-12.xlsx",
+      "sha256": "b95f4bde865440e03672a5520a847aadd50b99dc255c3a0a818ffd2193084cbb"
+    },
+    "saved": {
+      "file": "number-format-precedence-2026-11-12.saved.xlsx",
+      "sha256": "ce961e49db3ad845e48c28c3ed0dd7b2fc3c3d442402528b4c4081d0338a85d8"
+    }
+  }
+}

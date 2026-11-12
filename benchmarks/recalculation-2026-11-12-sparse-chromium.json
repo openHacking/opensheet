@@ -1,0 +1,326 @@
+{
+  "startedAt": "2026-11-11T16:53:15.021Z",
+  "engine": "chromium",
+  "rows": 128,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 286,
+    "sha256": "f7e40c3138f276a357418c87f565a131784232864e1cda92b6029e663476186a"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "1acd41821531e617d3b1f56583c86c6467accc3e8f827b3168e62f00a45cc532"
+  },
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "url": "http://127.0.0.1:5186/#budget",
+  "scope": "Headless browser, served application; acknowledged edits and full output reads are separate. Served asset identity is not independently verified. No worker memory, internal phase attribution or cross-device acceptance.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "target": 2,
+          "editMs": 2.1999998092651367,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.3000001907348633
+            },
+            {
+              "name": "chain",
+              "readMs": 0.6999998092651367
+            },
+            {
+              "name": "overlap",
+              "readMs": 5
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "editMs": 2.3000001907348633,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.1999998092651367
+            },
+            {
+              "name": "chain",
+              "readMs": 0.6000003814697266
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.6999998092651367
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "editMs": 1.9000000953674316,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.299999713897705
+            },
+            {
+              "name": "chain",
+              "readMs": 0.5
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.700000286102295
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "editMs": 2.5999999046325684,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1
+            },
+            {
+              "name": "chain",
+              "readMs": 0.6999998092651367
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.1000003814697266
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "editMs": 1.799999713897705,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.0999999046325684
+            },
+            {
+              "name": "chain",
+              "readMs": 0.5
+            },
+            {
+              "name": "overlap",
+              "readMs": 2.8999996185302734
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512,
+      "undoRedo": true,
+      "reopenedSamples": 4
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "target": 2,
+          "editMs": 2.8000001907348633,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.299999713897705
+            },
+            {
+              "name": "chain",
+              "readMs": 0.7000002861022949
+            },
+            {
+              "name": "overlap",
+              "readMs": 4.699999809265137
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "editMs": 2.1999998092651367,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1
+            },
+            {
+              "name": "chain",
+              "readMs": 0.7000002861022949
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.799999713897705
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "editMs": 2.3000001907348633,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 0.9000000953674316
+            },
+            {
+              "name": "chain",
+              "readMs": 0.5999999046325684
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.1999998092651367
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "editMs": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.1000003814697266
+            },
+            {
+              "name": "chain",
+              "readMs": 0.7999997138977051
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.200000286102295
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "editMs": 1.6999998092651367,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.0999999046325684
+            },
+            {
+              "name": "chain",
+              "readMs": 0.5
+            },
+            {
+              "name": "overlap",
+              "readMs": 3
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512,
+      "undoRedo": true,
+      "reopenedSamples": 4
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "target": 2,
+          "editMs": 2.3000001907348633,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.0999999046325684
+            },
+            {
+              "name": "chain",
+              "readMs": 0.6999998092651367
+            },
+            {
+              "name": "overlap",
+              "readMs": 3
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "editMs": 3.700000286102295,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.299999713897705
+            },
+            {
+              "name": "chain",
+              "readMs": 0.8000001907348633
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.6999998092651367
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "editMs": 2.0999999046325684,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.1000003814697266
+            },
+            {
+              "name": "chain",
+              "readMs": 0.6999998092651367
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.5999999046325684
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "editMs": 3.8000001907348633,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1.0999999046325684
+            },
+            {
+              "name": "chain",
+              "readMs": 0.5999999046325684
+            },
+            {
+              "name": "overlap",
+              "readMs": 3.0999999046325684
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "editMs": 4.200000286102295,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 1
+            },
+            {
+              "name": "chain",
+              "readMs": 0.5999999046325684
+            },
+            {
+              "name": "overlap",
+              "readMs": 4.800000190734863
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512,
+      "undoRedo": true,
+      "reopenedSamples": 4
+    }
+  ]
+}

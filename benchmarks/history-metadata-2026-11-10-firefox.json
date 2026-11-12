@@ -1,0 +1,91 @@
+{
+  "startedAt": "2026-11-10T08:03:44.383Z",
+  "engine": "firefox",
+  "workload": "metadata",
+  "browser": "155.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 248,
+    "sha256": "f2ea292f26f637e4c93920b23449945141d238719328f53018c3ccc94e491e8c"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "91fb7c0090d6bb7ed10de3ae10363066ab7dbd16bd64d207b713f57ba5027f3d"
+  },
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless local production preview; three fresh contexts, 100 sheet renames with distinct stored metadata and complete undo/redo checks. Reopen includes editor attachment and first viewport, not just history validation. No Worker heap or cross-device claim.",
+  "rounds": [
+    {
+      "round": 1,
+      "setupMs": 483,
+      "reopenMs": [
+        116,
+        117,
+        108
+      ],
+      "undoMs": 662,
+      "redoMs": 645,
+      "verifiedCellsPerFullCheck": 1,
+      "undoSteps": 100,
+      "redoSteps": 100,
+      "stats": {
+        "bytes": 1095331,
+        "cacheBytes": 1354,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 189868
+      }
+    },
+    {
+      "round": 2,
+      "setupMs": 452,
+      "reopenMs": [
+        121,
+        119,
+        120
+      ],
+      "undoMs": 676,
+      "redoMs": 664,
+      "verifiedCellsPerFullCheck": 1,
+      "undoSteps": 100,
+      "redoSteps": 100,
+      "stats": {
+        "bytes": 1095331,
+        "cacheBytes": 1354,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 0
+      }
+    },
+    {
+      "round": 3,
+      "setupMs": 460,
+      "reopenMs": [
+        112,
+        120,
+        158
+      ],
+      "undoMs": 715,
+      "redoMs": 632,
+      "verifiedCellsPerFullCheck": 1,
+      "undoSteps": 100,
+      "redoSteps": 100,
+      "stats": {
+        "bytes": 1095331,
+        "cacheBytes": 1354,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 189868
+      }
+    }
+  ]
+}

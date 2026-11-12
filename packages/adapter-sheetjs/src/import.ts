@@ -2,6 +2,7 @@ import {
   createWorkbookFile,
   LIMITS,
   OpenSheetError,
+  address,
   parseAddress,
   validateWorkbookFile,
   encodeFileCells,
@@ -10,6 +11,9 @@ import {
 } from '@opensheetjs/core';
 import { importCell } from './cells.js';
 import { add, finish, report } from './report.js';
+import { reportWorksheetLosses } from './worksheet-losses.js';
+import { createPrecedenceNormalizer } from './formula.js';
+import { definedNameIndex, referencesDefinedName } from './defined-name-scan.js';
 import type { AdapterOptions, CompatibilityReport, Issue, SheetJSWorkbook } from './types.js';
 export function fromSheetJS(
   input: SheetJSWorkbook,
@@ -22,56 +26,111 @@ export function fromSheetJS(
     input.SheetNames.length > LIMITS.sheets
   )
     throw new OpenSheetError('LIMIT_EXCEEDED', 'Invalid number of sheets');
+  const definedNames = input.Workbook?.Names;
+  if (definedNames != null && !Array.isArray(definedNames))
+    throw new OpenSheetError('INVALID_ARGUMENT', 'Invalid defined-name collection');
+  if (definedNames)
+    for (let i = 0; i < definedNames.length; i++) {
+      const entry = definedNames[i];
+      if (
+        !Object.hasOwn(definedNames, i) ||
+        !entry ||
+        typeof entry !== 'object' ||
+        typeof entry.Name !== 'string' ||
+        !entry.Name
+      )
+        throw new OpenSheetError('INVALID_ARGUMENT', 'Invalid defined-name collection');
+    }
   const snapshot = createWorkbookFile();
   snapshot.sheets = [];
   snapshot.dateSystem = input.Workbook?.WBProps?.date1904 ? '1904' : '1900';
   const r = report();
-  let total = 0;
+  const nameIndex = definedNameIndex(definedNames ?? [], input.SheetNames.length);
+  const qualifiedLocalNames = new Map(
+    input.SheetNames.flatMap((name, index) => {
+      const names = nameIndex.local.get(index);
+      return typeof name === 'string' && (names || nameIndex.global.size)
+        ? [[name.toUpperCase(), names ?? new Set<string>()] as const]
+        : [];
+    }),
+  );
+  if (nameIndex.incomplete)
+    add(r, {
+      code: 'DEFINED_NAME_SCAN_INCOMPLETE',
+      feature: 'defined-name-reference',
+      message: 'Some defined names could not be included in the formula reference scan',
+      action: 'approximated',
+      severity: 'warning',
+    });
+  const normalize = createPrecedenceNormalizer();
+  const freezes = reportWorksheetLosses(input.files, r, input.SheetNames, input.Workbook?.Sheets);
   for (const [index, name] of input.SheetNames.entries()) {
-    const ws = input.Sheets[name];
-    if (!ws || typeof ws !== 'object')
-      throw new OpenSheetError('INVALID_ARGUMENT', 'Missing worksheet');
-    const entries: Array<[number, number, any]> = [];
+    const ws =
+      input.Sheets && typeof input.Sheets === 'object' && Object.hasOwn(input.Sheets, name)
+        ? input.Sheets[name]
+        : undefined;
+    if (!ws || typeof ws !== 'object') {
+      const label = typeof name === 'string' && name.length <= 31 ? ` ${JSON.stringify(name)}` : '';
+      throw new OpenSheetError(
+        'INVALID_ARGUMENT',
+        `Missing worksheet${label}; the file may be incomplete or the parser could not read it`,
+      );
+    }
     let maxRow = 1,
       maxCol = 1;
     const collect = (row: number, col: number, c: any) => {
       if (c === undefined || c === null) return;
       if (row >= LIMITS.rows || col >= LIMITS.columns)
         throw new OpenSheetError('LIMIT_EXCEEDED', 'Workbook exceeds preview limits');
-      entries.push([row, col, c]);
       maxRow = Math.max(maxRow, row + 1);
       maxCol = Math.max(maxCol, col + 1);
     };
-    const dense = Array.isArray(ws) ? ws : ws['!data'];
-    if (dense) {
-      if (dense.length > LIMITS.rows)
-        throw new OpenSheetError('LIMIT_EXCEEDED', 'Dense worksheet too large');
-      for (let row = 0; row < dense.length; row++) {
-        if (!dense[row]) continue;
-        if (dense[row].length > LIMITS.columns)
-          throw new OpenSheetError('LIMIT_EXCEEDED', 'Too many columns');
-        for (let col = 0; col < dense[row].length; col++) collect(row, col, dense[row][col]);
+    const hasDense = Array.isArray(ws) || Object.hasOwn(ws, '!data');
+    const dense = Array.isArray(ws) ? ws : hasDense ? ws['!data'] : undefined;
+    const visitCells = (visit: (row: number, col: number, cell: any) => void) => {
+      if (hasDense) {
+        if (!Array.isArray(dense))
+          throw new OpenSheetError('INVALID_ARGUMENT', 'Invalid dense worksheet data');
+        if (dense.length > LIMITS.rows)
+          throw new OpenSheetError('LIMIT_EXCEEDED', 'Dense worksheet too large');
+        for (let row = 0; row < dense.length; row++) {
+          if (dense[row] === undefined || dense[row] === null) continue;
+          if (!Array.isArray(dense[row]))
+            throw new OpenSheetError('INVALID_ARGUMENT', 'Invalid dense worksheet row');
+          if (dense[row].length > LIMITS.columns)
+            throw new OpenSheetError('LIMIT_EXCEEDED', 'Too many columns');
+          for (let col = 0; col < dense[row].length; col++) visit(row, col, dense[row][col]);
+        }
+      } else {
+        for (const a of Object.keys(ws)) {
+          if (a.startsWith('!')) continue;
+          const p = parseAddress(a);
+          visit(p.row, p.column, ws[a]);
+        }
       }
-    } else
-      for (const [a, c] of Object.entries(ws)) {
-        if (a.startsWith('!')) continue;
-        const p = parseAddress(a);
-        collect(p.row, p.column, c);
-      }
-    const merges = Array.isArray(ws['!merges']) ? ws['!merges'] : [];
+    };
+    visitCells(collect);
+    const merges =
+      Object.hasOwn(ws, '!merges') && Array.isArray(ws['!merges']) ? ws['!merges'] : [];
     if (merges.length > 10000) throw new OpenSheetError('LIMIT_EXCEEDED', 'Too many merged ranges');
     for (const m of merges) {
       if (!m.s || !m.e) throw new OpenSheetError('INVALID_ARGUMENT', 'Invalid merge');
       maxRow = Math.max(maxRow, m.e.r + 1);
       maxCol = Math.max(maxCol, m.e.c + 1);
     }
-    const rowMeta = ws['!rows'] ?? [],
-      colMeta = ws['!cols'] ?? [];
+    const rowMeta = (Object.hasOwn(ws, '!rows') && ws['!rows']) || [],
+      colMeta = (Object.hasOwn(ws, '!cols') && ws['!cols']) || [];
     maxRow = Math.max(maxRow, rowMeta.length);
     maxCol = Math.max(maxCol, colMeta.length);
+    const freeze = freezes.get(name);
+    if (freeze) {
+      maxRow = Math.max(maxRow, freeze.rows + 1);
+      maxCol = Math.max(maxCol, freeze.columns + 1);
+    }
     const sh = createWorkbookFile({
       sheets: [{ name, rows: Math.max(100, maxRow), columns: Math.max(26, maxCol) }],
     }).sheets[0];
+    if (freeze) sh.freeze = freeze;
     sh.hidden = !!input.Workbook?.Sheets?.[index]?.Hidden;
     snapshot.sheets.push(sh);
     const blocks = new Map<string, CellRecord[]>();
@@ -91,14 +150,31 @@ export function fromSheetJS(
         sheetId: sh.id,
         address: a,
       });
-    for (const [row, col, c] of entries) {
-      const { record, readOnly } = importCell(c, row, col, snapshot.dateSystem, issue);
+    visitCells((row, col, c) => {
+      if (c === undefined || c === null) return;
+      const { record, readOnly } = importCell(c, row, col, snapshot.dateSystem, issue, normalize);
+      if (
+        record.input.type === 'formula' &&
+        referencesDefinedName(
+          record.input.expression,
+          nameIndex.global,
+          nameIndex.local.get(index),
+          qualifiedLocalNames,
+        )
+      )
+        issue(
+          'DEFINED_NAME_REFERENCE_DROPPED',
+          'defined-name-reference',
+          'Formula references a defined name that is not preserved',
+          'dropped',
+          address(row, col),
+        );
       if (readOnly) snapshot.extensions['opensheet.readOnly'] = true;
-      const address = `${Math.floor(row / 64)}/${Math.floor(col / 32)}`;
-      if (!blocks.has(address)) blocks.set(address, []);
-      blocks.get(address)!.push(record);
+      const blockKey = `${Math.floor(row / 64)}/${Math.floor(col / 32)}`;
+      if (!blocks.has(blockKey)) blocks.set(blockKey, []);
+      blocks.get(blockKey)!.push(record);
       r.summary.exact++;
-    }
+    });
     sh.blocks = [...blocks].map(([address, cells]) => {
       const [row, column] = address.split('/').map(Number);
       return { row, column, data: encodeFileCells(cells, new Map()) };
@@ -112,21 +188,29 @@ export function fromSheetJS(
     rowMeta.forEach((m: any, i: number) => {
       if (m)
         (sh.rows.meta ??= {})[i] = {
-          ...(m.hpx ? { size: m.hpx } : m.hpt ? { size: (m.hpt * 96) / 72 } : {}),
+          ...(typeof m.hpt === 'number'
+            ? { size: (m.hpt * 96) / 72 }
+            : typeof m.hpx === 'number'
+              ? { size: m.hpx }
+              : {}),
           ...(m.hidden ? { hidden: true } : {}),
         };
     });
     colMeta.forEach((m: any, i: number) => {
       if (m) {
         (sh.columns.meta ??= {})[i] = {
-          ...(m.wpx ? { size: m.wpx } : m.wch ? { size: m.wch * 7 + 5 } : {}),
+          ...(typeof m.wpx === 'number'
+            ? { size: m.wpx }
+            : typeof m.wch === 'number'
+              ? { size: m.wch * 7 + 5 }
+              : {}),
           ...(m.hidden ? { hidden: true } : {}),
         };
-        if (m.wch && !m.wpx)
+        if (typeof m.width === 'number' || (typeof m.wch === 'number' && typeof m.wpx !== 'number'))
           issue(
             'WIDTH_APPROXIMATED',
             'column-width',
-            'Character width approximated using 7 px glyphs',
+            'Spreadsheet column width is font-dependent and its pixel width is approximate',
             'approximated',
           );
       }
@@ -143,13 +227,14 @@ export function fromSheetJS(
       action: 'dropped',
       severity: 'warning',
     });
-  if (input.Workbook?.Names?.length)
+  if (definedNames?.length)
     add(r, {
       code: 'NAMES_UNSUPPORTED',
       feature: 'defined-names',
       message: 'Defined names are not preserved',
       action: 'dropped',
       severity: 'warning',
+      count: definedNames.length,
     });
   add(r, {
     code: 'DATA_INTERCHANGE',

@@ -1,0 +1,3391 @@
+{
+  "startedAt": "2026-10-30T15:45:15.089Z",
+  "cycles": 100,
+  "fixture": "metadata",
+  "url": "http://127.0.0.1:5186/",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 215,
+    "sha256": "bc867134ed9756e5dc14207f6c4485b53bf7eac429615700a5d87677e72c51bc"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "cb200ea2f48972d10f2792f44553667588505a40c9d49e7fd8d7450fb2914c39"
+  },
+  "host": {
+    "node": "v22.19.0",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Fresh isolated browser contexts. Each cycle creates, edits, reattaches twice, replaces, reopens and disposes an editor; owned storage is deleted. Tracks newly constructed Workers/BroadcastChannels/ResizeObservers and workbook data/commit subscriptions. Counts measure explicit terminate/close/disconnect/unsubscribe calls, not physical process retention. Chromium main-target heap/DOM samples follow requested GC every 10 cycles; Worker/process heap is unavailable. No hard heap threshold or universal leak-free certification.",
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 188,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 198.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 198.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 4,
+          "durationMs": 198.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 5,
+          "durationMs": 214.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 6,
+          "durationMs": 195.79999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 7,
+          "durationMs": 198,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 8,
+          "durationMs": 215.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 9,
+          "durationMs": 232.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 10,
+          "durationMs": 214.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 11,
+          "durationMs": 223.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 12,
+          "durationMs": 214.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 13,
+          "durationMs": 263.89999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 14,
+          "durationMs": 199.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 15,
+          "durationMs": 198.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 16,
+          "durationMs": 198.79999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 17,
+          "durationMs": 214.80000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 18,
+          "durationMs": 197.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 19,
+          "durationMs": 199,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 20,
+          "durationMs": 231.10000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 21,
+          "durationMs": 190.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 22,
+          "durationMs": 198.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 23,
+          "durationMs": 198.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 24,
+          "durationMs": 232.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 25,
+          "durationMs": 198.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 26,
+          "durationMs": 198.60000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 27,
+          "durationMs": 215,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 28,
+          "durationMs": 231.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 29,
+          "durationMs": 198.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 30,
+          "durationMs": 198.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 31,
+          "durationMs": 236.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 32,
+          "durationMs": 265.2000000476837,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 33,
+          "durationMs": 214.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 34,
+          "durationMs": 182.79999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 35,
+          "durationMs": 198.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 36,
+          "durationMs": 215.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 37,
+          "durationMs": 197.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 38,
+          "durationMs": 199.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 39,
+          "durationMs": 216,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 40,
+          "durationMs": 182,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 41,
+          "durationMs": 203.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 42,
+          "durationMs": 198.89999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 43,
+          "durationMs": 198.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 44,
+          "durationMs": 231.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 45,
+          "durationMs": 198.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 46,
+          "durationMs": 182.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 47,
+          "durationMs": 198.89999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 48,
+          "durationMs": 198.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 49,
+          "durationMs": 182.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 50,
+          "durationMs": 198.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 51,
+          "durationMs": 199.89999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 52,
+          "durationMs": 215.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 53,
+          "durationMs": 514.1000001430511,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 54,
+          "durationMs": 212.79999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 55,
+          "durationMs": 199.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 56,
+          "durationMs": 198.10000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 57,
+          "durationMs": 180,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 58,
+          "durationMs": 182.79999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 59,
+          "durationMs": 198.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 60,
+          "durationMs": 181.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 61,
+          "durationMs": 191.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 62,
+          "durationMs": 182.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 63,
+          "durationMs": 181.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 64,
+          "durationMs": 182.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 65,
+          "durationMs": 183.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 66,
+          "durationMs": 181.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 67,
+          "durationMs": 182.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 68,
+          "durationMs": 199.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 69,
+          "durationMs": 180.60000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 70,
+          "durationMs": 182.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 71,
+          "durationMs": 196.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 72,
+          "durationMs": 182.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 73,
+          "durationMs": 198.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 74,
+          "durationMs": 216.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 75,
+          "durationMs": 198,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 76,
+          "durationMs": 199.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 77,
+          "durationMs": 182.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 78,
+          "durationMs": 182.10000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 79,
+          "durationMs": 181.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 80,
+          "durationMs": 181.89999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 81,
+          "durationMs": 216.60000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 82,
+          "durationMs": 198.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 83,
+          "durationMs": 199.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 84,
+          "durationMs": 181.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 85,
+          "durationMs": 199.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 86,
+          "durationMs": 198,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 87,
+          "durationMs": 199.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 88,
+          "durationMs": 230.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 89,
+          "durationMs": 216,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 90,
+          "durationMs": 180.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 91,
+          "durationMs": 184.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 92,
+          "durationMs": 199.39999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 93,
+          "durationMs": 197.80000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 94,
+          "durationMs": 199.29999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 95,
+          "durationMs": 198.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 96,
+          "durationMs": 214.70000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 97,
+          "durationMs": 183.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 98,
+          "durationMs": 198.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 99,
+          "durationMs": 198.79999995231628,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 100,
+          "durationMs": 181.39999985694885,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 3508156,
+            "totalSize": 4521984,
+            "embedderHeapUsedSize": 2027848,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 761,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 10,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4018068,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1688528,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 20,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4095208,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1692792,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 30,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4096676,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1699072,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 40,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4096496,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1701216,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 50,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4097176,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1689328,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 60,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4098008,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1695432,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 70,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4102148,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1697640,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 80,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4101188,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1702000,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 90,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4102216,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1702672,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        },
+        {
+          "cycle": 100,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4099952,
+            "totalSize": 5046272,
+            "embedderHeapUsedSize": 1702680,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 759,
+            "jsEventListeners": 152
+          }
+        }
+      ],
+      "databaseCleanup": "deleted"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 242,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 4,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 5,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 6,
+          "durationMs": 211,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 7,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 8,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 9,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 10,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 11,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 12,
+          "durationMs": 249,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 13,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 14,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 15,
+          "durationMs": 315,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 16,
+          "durationMs": 371,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 17,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 18,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 19,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 20,
+          "durationMs": 292,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 21,
+          "durationMs": 299,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 22,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 23,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 24,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 25,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 26,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 27,
+          "durationMs": 211,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 28,
+          "durationMs": 211,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 29,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 30,
+          "durationMs": 226,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 31,
+          "durationMs": 313,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 32,
+          "durationMs": 263,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 33,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 34,
+          "durationMs": 251,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 35,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 36,
+          "durationMs": 264,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 37,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 38,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 39,
+          "durationMs": 289,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 40,
+          "durationMs": 303,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 41,
+          "durationMs": 262,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 42,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 43,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 44,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 45,
+          "durationMs": 331,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 46,
+          "durationMs": 301,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 47,
+          "durationMs": 382,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 48,
+          "durationMs": 278,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 49,
+          "durationMs": 251,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 50,
+          "durationMs": 277,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 51,
+          "durationMs": 341,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 52,
+          "durationMs": 292,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 53,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 54,
+          "durationMs": 305,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 55,
+          "durationMs": 385,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 56,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 57,
+          "durationMs": 263,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 58,
+          "durationMs": 278,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 59,
+          "durationMs": 263,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 60,
+          "durationMs": 291,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 61,
+          "durationMs": 264,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 62,
+          "durationMs": 290,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 63,
+          "durationMs": 278,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 64,
+          "durationMs": 279,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 65,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 66,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 67,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 68,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 69,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 70,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 71,
+          "durationMs": 271,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 72,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 73,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 74,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 75,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 76,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 77,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 78,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 79,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 80,
+          "durationMs": 251,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 81,
+          "durationMs": 223,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 82,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 83,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 84,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 85,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 86,
+          "durationMs": 279,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 87,
+          "durationMs": 251,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 88,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 89,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 90,
+          "durationMs": 278,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 91,
+          "durationMs": 283,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 92,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 93,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 94,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 95,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 96,
+          "durationMs": 277,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 97,
+          "durationMs": 314,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 98,
+          "durationMs": 331,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 99,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 100,
+          "durationMs": 212,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 10,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 20,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 30,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 40,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 50,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 60,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 70,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 80,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 90,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 100,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        }
+      ],
+      "databaseCleanup": "deleted"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 313,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 318,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 301,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 4,
+          "durationMs": 451,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 5,
+          "durationMs": 450,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 6,
+          "durationMs": 358,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 7,
+          "durationMs": 515,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 8,
+          "durationMs": 435,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 9,
+          "durationMs": 356,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 10,
+          "durationMs": 436,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 11,
+          "durationMs": 283,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 12,
+          "durationMs": 305,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 13,
+          "durationMs": 305,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 14,
+          "durationMs": 358,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 15,
+          "durationMs": 317,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 16,
+          "durationMs": 382,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 17,
+          "durationMs": 464,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 18,
+          "durationMs": 543,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 19,
+          "durationMs": 444,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 20,
+          "durationMs": 425,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 21,
+          "durationMs": 285,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 22,
+          "durationMs": 317,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 23,
+          "durationMs": 356,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 24,
+          "durationMs": 370,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 25,
+          "durationMs": 371,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 26,
+          "durationMs": 420,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 27,
+          "durationMs": 384,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 28,
+          "durationMs": 354,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 29,
+          "durationMs": 344,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 30,
+          "durationMs": 329,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 31,
+          "durationMs": 302,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 32,
+          "durationMs": 304,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 33,
+          "durationMs": 276,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 34,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 35,
+          "durationMs": 318,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 36,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 37,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 38,
+          "durationMs": 263,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 39,
+          "durationMs": 292,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 40,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 41,
+          "durationMs": 251,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 42,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 43,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 44,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 45,
+          "durationMs": 264,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 46,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 47,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 48,
+          "durationMs": 226,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 49,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 50,
+          "durationMs": 253,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 51,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 52,
+          "durationMs": 279,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 53,
+          "durationMs": 277,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 54,
+          "durationMs": 264,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 55,
+          "durationMs": 291,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 56,
+          "durationMs": 291,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 57,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 58,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 59,
+          "durationMs": 264,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 60,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 61,
+          "durationMs": 317,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 62,
+          "durationMs": 277,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 63,
+          "durationMs": 333,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 64,
+          "durationMs": 303,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 65,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 66,
+          "durationMs": 211,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 67,
+          "durationMs": 224,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 68,
+          "durationMs": 223,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 69,
+          "durationMs": 264,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 70,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 71,
+          "durationMs": 291,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 72,
+          "durationMs": 345,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 73,
+          "durationMs": 277,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 74,
+          "durationMs": 278,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 75,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 76,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 77,
+          "durationMs": 249,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 78,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 79,
+          "durationMs": 237,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 80,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 81,
+          "durationMs": 251,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 82,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 83,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 84,
+          "durationMs": 291,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 85,
+          "durationMs": 238,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 86,
+          "durationMs": 266,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 87,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 88,
+          "durationMs": 239,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 89,
+          "durationMs": 226,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 90,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 91,
+          "durationMs": 236,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 92,
+          "durationMs": 225,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 93,
+          "durationMs": 304,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 94,
+          "durationMs": 329,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 95,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 96,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 97,
+          "durationMs": 318,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 98,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 99,
+          "durationMs": 265,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 100,
+          "durationMs": 252,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 10,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 20,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 30,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 40,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 50,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 60,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 70,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 80,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 90,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 100,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        }
+      ],
+      "databaseCleanup": "deleted"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "f13fc5bc04acbc63296ba5528e185a7e7f2de7cca2bea698535d7d04c3d4cc80"
+    },
+    {
+      "file": "assets/engine.worker-DRfd3J4J.js",
+      "sha256": "c411c20948cee72b76123fd4269394e6ef1114567dcfdb438815a696630b4204"
+    },
+    {
+      "file": "assets/file.worker-nG-DUQZr.js",
+      "sha256": "352bd046bd8331b93f986f8c1982a972795809240e88100a3c1c95c8d4f3b2a8"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-C8qQwSWF.css",
+      "sha256": "7eb4ba9abc7b789cea69670a7587a43f189c204d07d58540229d58c66872bd23"
+    },
+    {
+      "file": "assets/index-CoXj5cPg.js",
+      "sha256": "6791bef9b6c37a60c511de31010d415685e7063d9ce249c5ff8cdebdfaafa574"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-YQ4lDkt_.js",
+      "sha256": "641458ad92d6b9c702268ddafc2acc96ebbd06f7bc0e851ee5384e32837ae630"
+    }
+  ],
+  "finishedAt": "2026-10-30T15:46:39.286Z"
+}

@@ -1,0 +1,180 @@
+{
+  "startedAt": "2026-10-30T14:35:14.465Z",
+  "rows": 100000,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 214,
+    "sha256": "6d590c572795193954c55e2333ceaa0f8574e427643d4efbe920bf146992d8bb"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "64afcf33e0b4d6e2af1f065f191174cf73b0c0cb1ba7a879b741142eef0e34a9"
+  },
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless Chromium, local development server; complete Worker search RPC time, no Worker memory or cross-device claim.",
+  "rounds": [
+    {
+      "round": 1,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 224.89999985694885,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 224.40000009536743,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 181.79999995231628,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 152.20000004768372,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    },
+    {
+      "round": 2,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 287.09999990463257,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 230,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 186.70000004768372,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 226.60000014305115,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    },
+    {
+      "round": 3,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 250.39999985694885,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 250.60000014305115,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 185.89999985694885,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 165.40000009536743,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    }
+  ]
+}

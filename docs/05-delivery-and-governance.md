@@ -10,7 +10,7 @@ Keep the core usable independently of UI or hosted infrastructure. Public featur
 
 ## Validation gates
 
-CI runs formatting, strict types, unit/property tests, production builds, schemas and package-consumer checks. Browser regression uses Chromium and WebKit. Generated schemas, API manifest and bundled notices must be reproducible. Add fixtures for new command semantics and format interoperability.
+CI runs formatting, strict types, unit/property tests, production builds, schemas and package-consumer checks. Browser regression includes Chromium, Firefox and WebKit. Generated schemas, API manifest and bundled notices must be reproducible. Add fixtures for new command semantics and format interoperability.
 
 Performance evaluation needs environment records, realistic data, repeated trials and percentiles. Screen-reader, native IME, framework-host and real spreadsheet-reader testing remain separate acceptance tasks. Do not treat synthetic tests as manual certification.
 
@@ -26,4 +26,4 @@ Prioritize correctness, calculation isolation/incremental indexing, accessibilit
 
 ## Repository operations
 
-Use protected review and validation practices as maintainer access permits. Pages deploys only tested main-branch artifacts through GitHub Actions. Development workflows belong in CONTRIBUTING.md. The initial npm release is published manually; no automated registry publication or signing workflow is configured.
+Use protected review and validation practices as maintainer access permits. Pages deploys only tested main-branch artifacts through GitHub Actions. Development workflows belong in CONTRIBUTING.md. The initial npm release is published manually; no automated registry publication or signing workflow is configured. The [candidate packaging rehearsal](candidate-packaging.md) creates and verifies local archives without publishing them.

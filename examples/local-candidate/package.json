@@ -1,0 +1,24 @@
+{
+  "name": "opensheet-local-candidate-host",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.22.0",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "opensheet": "file:./archives/opensheet.tgz"
+  },
+  "devDependencies": {
+    "vite": "7.3.7"
+  },
+  "pnpm": {
+    "overrides": {
+      "@opensheetjs/core": "file:./archives/core.tgz",
+      "@opensheetjs/formula": "file:./archives/formula.tgz",
+      "@opensheetjs/plugin-sdk": "file:./archives/plugin-sdk.tgz",
+      "@opensheetjs/renderer": "file:./archives/renderer.tgz"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "engine": "chromium",
+  "startedAt": "2026-11-11T02:04:36.453Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 252,
+    "sha256": "0fd69b86d78a848a263e856c69cca692d6b8a03dfb6a6e1e98c75eaa6d03fcba"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "a05419bada35818b9eb50eb5e6a1da5109eaa42712fc7b869537e773616754c9"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Timing includes Worker commit acknowledgement, excludes verification and UI frame analysis.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 209.69999980926514
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 220.5
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 213.10000038146973
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

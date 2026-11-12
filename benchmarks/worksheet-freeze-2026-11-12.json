@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-11-11T19:59:23.957Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 305,
+    "sha256": "09896b490373462d5843d196e6c7eefcea88656807e2b024c5506ba4cd1a5f19"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "xmlBytes": 5129920,
+  "xmlCells": 100000,
+  "rulesPerType": 1000,
+  "limitations": "In-process Node conversion of a one-cell parsed worksheet; synthetic 100,000-cell raw XML with or without a frozen pane is only inspected, not parsed into cells. No ZIP, browser, Worker, full import or isolated peak-memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "no-pane",
+      "elapsedMs": 45.49354199999999
+    },
+    {
+      "round": 1,
+      "variant": "pane",
+      "elapsedMs": 65.591791
+    },
+    {
+      "round": 2,
+      "variant": "pane",
+      "elapsedMs": 64.06450000000001
+    },
+    {
+      "round": 2,
+      "variant": "no-pane",
+      "elapsedMs": 32.038792
+    },
+    {
+      "round": 3,
+      "variant": "no-pane",
+      "elapsedMs": 31.179666999999995
+    },
+    {
+      "round": 3,
+      "variant": "pane",
+      "elapsedMs": 57.93991699999992
+    },
+    {
+      "round": 4,
+      "variant": "pane",
+      "elapsedMs": 58.74445800000001
+    },
+    {
+      "round": 4,
+      "variant": "no-pane",
+      "elapsedMs": 30.441374999999994
+    },
+    {
+      "round": 5,
+      "variant": "no-pane",
+      "elapsedMs": 31.633292000000097
+    },
+    {
+      "round": 5,
+      "variant": "pane",
+      "elapsedMs": 58.69008400000007
+    }
+  ]
+}

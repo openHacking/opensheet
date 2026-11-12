@@ -1,0 +1,80 @@
+{
+  "startedAt": "2026-10-23T02:03:32.470Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 205,
+    "sha256": "aeaee355a1d9b579b0bf8acdc7f4b1a02601ffe7fc00eb10a2babb79c43017a9"
+  },
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "a883ef4cfe94b262d8f0dffc8137838a78716764ffd43240b9c34a99cd3addca"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "412e8eba50343744cc794df46e71ddd3e0e9b5f9ac2d23f6fabe9d8bf1e63e49"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "8e50132b5bb5c55b84ddf1e6cb8efa4e19419a29ffbd6aa14650e316408b77a5"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "975aed732c6fd8b4ade76eef8b6f1a660018bbac7982a0b2a6d0d641b064c6fa"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "aca067f7c137970e9c0787b80789126aeae33e8c4242c7b2b0f8f9dd3d7f0ff5"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.1.1",
+      "sha256": "4f7ae0de4b28eb0fb07a03bf960a9e3c860d24b66ea32c6a3fe0bb33ad5e1bcb"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.1.1",
+      "sha256": "408e4b65f8b776d0ea037a628922603be2a675ce89bb0e3acb6f1e202aba1175"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "development",
+      "framework": "react",
+      "checks": [],
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: Host initialization failed\n\n0 !== 1\n",
+      "pageErrors": [],
+      "observation": {
+        "ready": 0,
+        "errors": [
+          {
+            "version": 0,
+            "message": "OpenSheetError: Storage worker failed"
+          }
+        ],
+        "workerUrls": [
+          "http://127.0.0.1:5191/node_modules/.vite/deps/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.vite/deps/engine.worker.js?worker_file&type=module"
+        ],
+        "workers": 0,
+        "createdWorkers": 2,
+        "grids": 0
+      }
+    }
+  ],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no source aliases; development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "14159ca51fa99a662036da32d608108d0b0ec5d8ccc208040f524fc944b8a1cb",
+  "lock": {
+    "file": "/Volumes/github/private/opensheet/benchmarks/framework-2026-10-23-worker-diagnostic.consumer-lock.yaml",
+    "sha256": "e6e1f68e4c3767847a19953d011976575e4fd7195413b5985d635dc151e399be"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Host initialization failed\n\n0 !== 1\n"
+}

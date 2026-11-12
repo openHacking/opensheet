@@ -1,0 +1,59 @@
+{
+  "startedAt": "2026-11-12T05:39:55.056Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 362,
+    "sha256": "190dcb177d8b980401f7f25ec27d95108d1680473975eaae82422467b2c8596a"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "engine": "firefox",
+  "cells": 20000,
+  "scope": "Development-server direct Workbook with opt-in Worker operation timing; three fresh contexts, one merge each. Every note checked before/after, undo, redo and reopen. Timing includes instrumentation and scheduling, not CPU attribution; no paired baseline, production assets, native input or process peak memory.",
+  "rounds": [
+    {
+      "round": 1,
+      "mergeMs": 381,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 374,
+        "roundTripMs": 374,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1228378
+    },
+    {
+      "round": 2,
+      "mergeMs": 240,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 234,
+        "roundTripMs": 234,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1228378
+    },
+    {
+      "round": 3,
+      "mergeMs": 224,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 218,
+        "roundTripMs": 219,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1228378
+    }
+  ],
+  "browser": "155.0"
+}

@@ -1,0 +1,44 @@
+{
+  "startedAt": "2026-11-11T20:59:28.382Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 315,
+    "sha256": "b4205e4bdecf0ca0c5b315c8ed4249748b8eb3c8dd8c193e9f46a36c60f2b092"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "In-process Node prototype: stages 200,000 synthetic numeric cells and two rule entries to an in-memory sink. Timing excludes fixture generation and full page verification. No IndexedDB, Worker, crash recovery, browser responsiveness or peak memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "elapsedMs": 150.881666,
+      "pages": 313,
+      "verified": 200000
+    },
+    {
+      "round": 2,
+      "elapsedMs": 112.22341700000004,
+      "pages": 313,
+      "verified": 200000
+    },
+    {
+      "round": 3,
+      "elapsedMs": 87.35408300000006,
+      "pages": 313,
+      "verified": 200000
+    },
+    {
+      "round": 4,
+      "elapsedMs": 127.04620799999998,
+      "pages": 313,
+      "verified": 200000
+    },
+    {
+      "round": 5,
+      "elapsedMs": 99.42095799999993,
+      "pages": 313,
+      "verified": 200000
+    }
+  ]
+}

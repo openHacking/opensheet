@@ -1,0 +1,283 @@
+{
+  "startedAt": "2026-11-11T18:20:10.919Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 294,
+    "sha256": "44488c5201ac8dfe3c467123bd9da7ab6f175b0cf38f6f30a25a77c8e321a274"
+  },
+  "bundleSha256": "efc2aea6b2f394ee08a6b530c52b0139c18895fb89ebb8992361788d74a256a4",
+  "scope": "Paired synthetic in-page directory construction and serialization. Control omits the new early budget check; it is not a previous commit. All 100,000 generated entries and serialized output are verified after timing. Excludes page encoding, Worker transfer, storage, process memory and reference devices.",
+  "browsers": {
+    "chromium": {
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "round": 0,
+          "variant": "control",
+          "ms": 7.799999713897705,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 0,
+          "variant": "checked",
+          "ms": 11.099999904632568,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 1,
+          "variant": "checked",
+          "ms": 10.199999809265137,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 1,
+          "variant": "control",
+          "ms": 5.400000095367432,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 2,
+          "variant": "control",
+          "ms": 4.699999809265137,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 2,
+          "variant": "checked",
+          "ms": 8.099999904632568,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 3,
+          "variant": "checked",
+          "ms": 8.5,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 3,
+          "variant": "control",
+          "ms": 4.300000190734863,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 4,
+          "variant": "control",
+          "ms": 4.5,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 4,
+          "variant": "checked",
+          "ms": 8,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 5,
+          "variant": "checked",
+          "ms": 8.5,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 5,
+          "variant": "control",
+          "ms": 4.200000286102295,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        }
+      ]
+    },
+    "firefox": {
+      "version": "155.0",
+      "samples": [
+        {
+          "round": 0,
+          "variant": "control",
+          "ms": 12,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 0,
+          "variant": "checked",
+          "ms": 16,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 1,
+          "variant": "checked",
+          "ms": 13,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 1,
+          "variant": "control",
+          "ms": 11,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 2,
+          "variant": "control",
+          "ms": 11,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 2,
+          "variant": "checked",
+          "ms": 17,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 3,
+          "variant": "checked",
+          "ms": 14,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 3,
+          "variant": "control",
+          "ms": 11,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 4,
+          "variant": "control",
+          "ms": 10,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 4,
+          "variant": "checked",
+          "ms": 12,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 5,
+          "variant": "checked",
+          "ms": 14,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 5,
+          "variant": "control",
+          "ms": 9,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        }
+      ]
+    },
+    "webkit": {
+      "version": "26.6",
+      "samples": [
+        {
+          "round": 0,
+          "variant": "control",
+          "ms": 4,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 0,
+          "variant": "checked",
+          "ms": 13,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 1,
+          "variant": "checked",
+          "ms": 10,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 1,
+          "variant": "control",
+          "ms": 4,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 2,
+          "variant": "control",
+          "ms": 4,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 2,
+          "variant": "checked",
+          "ms": 11,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 3,
+          "variant": "checked",
+          "ms": 11,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 3,
+          "variant": "control",
+          "ms": 4,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 4,
+          "variant": "control",
+          "ms": 5,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 4,
+          "variant": "checked",
+          "ms": 11,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 5,
+          "variant": "checked",
+          "ms": 10,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        },
+        {
+          "round": 5,
+          "variant": "control",
+          "ms": 4,
+          "entries": 100000,
+          "encodedBytes": 6944868
+        }
+      ]
+    }
+  },
+  "finishedAt": "2026-11-11T18:20:13.890Z"
+}

@@ -1,0 +1,227 @@
+{
+  "startedAt": "2026-10-23T01:43:29.892Z",
+  "cycles": 3,
+  "url": "http://127.0.0.1:5186/",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 204,
+    "sha256": "e08b60c68a7feeea227272c97c6428d05b9b83a863ad3c1d63e8a9793c8480d5"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "4a1feaeb6ff6ec692742e6e6e091bffe8d8475029a447915914c9f98af4a6b98"
+  },
+  "host": {
+    "node": "v22.19.0",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Fresh isolated browser contexts. Each cycle creates, edits, reattaches twice, replaces, reopens and disposes an editor; owned storage is deleted. Tracks newly constructed Workers/BroadcastChannels/ResizeObservers and workbook data/commit subscriptions. Counts measure explicit terminate/close/disconnect/unsubscribe calls, not physical process retention. Chromium main-target heap/DOM samples follow requested GC every 10 cycles; Worker/process heap is unavailable. No hard heap threshold or universal leak-free certification.",
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 189.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 162.60000014305115,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 164.20000004768372,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "heap": {
+            "usedSize": 3389416,
+            "totalSize": 3997696,
+            "embedderHeapUsedSize": 1601640,
+            "backingStorageSize": 315322
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 719,
+            "jsEventListeners": 109
+          }
+        },
+        {
+          "cycle": 3,
+          "heap": {
+            "usedSize": 3779596,
+            "totalSize": 4521984,
+            "embedderHeapUsedSize": 1652752,
+            "backingStorageSize": 315381
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 720,
+            "jsEventListeners": 109
+          }
+        }
+      ],
+      "databaseCleanup": "deleted"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.6",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 171,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 157,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 171,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 3,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        }
+      ],
+      "databaseCleanup": "deleted"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 170,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 185,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 171,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        },
+        {
+          "cycle": 3,
+          "unavailable": "No CDP main-target GC/heap measurement for this engine"
+        }
+      ],
+      "databaseCleanup": "deleted"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "ce67329cfbf841e5b827b247341dcbb09f5d6c1ff6c59e5ea6aabdc5d676da08"
+    },
+    {
+      "file": "assets/engine.worker-DxxRYJs5.js",
+      "sha256": "721b3de63008bf82c536bfca2047a28bec90edfea26e1bcdde96c0d1550f26b9"
+    },
+    {
+      "file": "assets/file.worker-qEXIn2bt.js",
+      "sha256": "7f03bc135b63696bb3faf92e0c769fdd3c1cb74fa064edeaf91ff2e5e3d4cb49"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-CAloCnKr.css",
+      "sha256": "881ca890a82740fb03a21ff0bf3480db45f72d2327674549a25e5a92d6c66423"
+    },
+    {
+      "file": "assets/index-DTei8Awg.js",
+      "sha256": "622136245d4dc283f097ca5a95690bb23ef88344d03f572e2257dfa24c75e4f5"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-YQ4lDkt_.js",
+      "sha256": "641458ad92d6b9c702268ddafc2acc96ebbd06f7bc0e851ee5384e32837ae630"
+    }
+  ],
+  "finishedAt": "2026-10-23T01:43:37.631Z"
+}

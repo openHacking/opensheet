@@ -1,0 +1,1421 @@
+{
+  "config": {
+    "argv": [
+      "/Users/openhacking/.nvm/versions/node/v22.19.0/bin/node",
+      "/Volumes/github/private/opensheet/node_modules/.pnpm/@playwright+test@1.63.0/node_modules/@playwright/test/cli.js",
+      "test",
+      "tests/e2e/startup-recovery.spec.ts",
+      "-g",
+      "concurrent first scene loads|another tab scene reference",
+      "--workers=2",
+      "--repeat-each=5",
+      "--reporter=json",
+      "--trace=retain-on-failure"
+    ],
+    "configFile": "/Volumes/github/private/opensheet/playwright.config.ts",
+    "rootDir": "/Volumes/github/private/opensheet/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Volumes/github/private/opensheet/test-results",
+        "repeatEach": 5,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Volumes/github/private/opensheet/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/github/private/opensheet/test-results",
+        "repeatEach": 5,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Volumes/github/private/opensheet/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/github/private/opensheet/test-results",
+        "repeatEach": 5,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Volumes/github/private/opensheet/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": {
+      "command": "pnpm dev",
+      "url": "http://127.0.0.1:5173",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "startup-recovery.spec.ts",
+      "file": "startup-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1985,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:03.705Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-3c37986e931709b63b12",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1242,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:05.964Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-22689339721d351dee65",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1912,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:03.696Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-d12d86a73d4d962209f6",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 980,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:05.891Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-45d8cc55676087d14ddd",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1339,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:07.294Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-83cf514f82d06415ba7f",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1030,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:08.741Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-8516a9fcda03dbd2fbc6",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1367,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:07.648Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-06597eba87c377597ae8",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 931,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:09.138Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-5e35db9bb37502b6d87e",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:10.241Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-2d6fb33dc0bc905d12fc",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 614,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:11.638Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-acbaccd09fa5ee674957",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1989,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"other_3f5c09d5-0036-4045-802e-7da6be08d85f\"\u001b[39m\nReceived: \u001b[31m\"wb_6dcc7929a70943c88f2840464403afd1\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"other_3f5c09d5-0036-4045-802e-7da6be08d85f\"\u001b[39m\nReceived: \u001b[31m\"wb_6dcc7929a70943c88f2840464403afd1\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:892:89",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 89,
+                      "line": 892
+                    },
+                    "snippet": "  890 |     'Injected pre-attachment failure',\n  891 |   );\n> 892 |   expect(await recovery.evaluate(() => localStorage.getItem('opensheet.scene.budget'))).toBe(\n      |                                                                                         ^\n  893 |     fixture.otherId,\n  894 |   );\n  895 |   const hasCandidate = await recovery.evaluate(async (id) => {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 89,
+                        "line": 892
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"other_3f5c09d5-0036-4045-802e-7da6be08d85f\"\u001b[39m\nReceived: \u001b[31m\"wb_6dcc7929a70943c88f2840464403afd1\"\u001b[39m\n\n  890 |     'Injected pre-attachment failure',\n  891 |   );\n> 892 |   expect(await recovery.evaluate(() => localStorage.getItem('opensheet.scene.budget'))).toBe(\n      |                                                                                         ^\n  893 |     fixture.otherId,\n  894 |   );\n  895 |   const hasCandidate = await recovery.evaluate(async (id) => {\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:892:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:10.506Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-failed-ba-477af-another-tab-scene-reference-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-failed-ba-477af-another-tab-scene-reference-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 89,
+                    "line": 892
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-7159941c0be8714e188a",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4645,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:956:82",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 82,
+                      "line": 956
+                    },
+                    "snippet": "  954 |   });\n  955 |   await page.goto('/#budget', { waitUntil: 'commit' });\n> 956 |   await expect.poll(() => page.evaluate(() => (window as any).sceneLockEntered)).toBe(true);\n      |                                                                                  ^\n  957 |   await second.goto('/#budget', { waitUntil: 'commit' });\n  958 |   await expect\n  959 |     .poll(() =>"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 82,
+                        "line": 956
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  954 |   });\n  955 |   await page.goto('/#budget', { waitUntil: 'commit' });\n> 956 |   await expect.poll(() => page.evaluate(() => (window as any).sceneLockEntered)).toBe(true);\n      |                                                                                  ^\n  957 |   await second.goto('/#budget', { waitUntil: 'commit' });\n  958 |   await expect\n  959 |     .poll(() =>\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:956:82"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:13.329Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-webkit/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-webkit/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 82,
+                    "line": 956
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-dc72f241bdee37a98e76",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 1848,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"other_e5cac7a9-a160-4655-b26b-91e0f647a82b\"\u001b[39m\nReceived: \u001b[31m\"wb_54744bbb820846d587d41798055c4730\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"other_e5cac7a9-a160-4655-b26b-91e0f647a82b\"\u001b[39m\nReceived: \u001b[31m\"wb_54744bbb820846d587d41798055c4730\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:892:89",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 89,
+                      "line": 892
+                    },
+                    "snippet": "  890 |     'Injected pre-attachment failure',\n  891 |   );\n> 892 |   expect(await recovery.evaluate(() => localStorage.getItem('opensheet.scene.budget'))).toBe(\n      |                                                                                         ^\n  893 |     fixture.otherId,\n  894 |   );\n  895 |   const hasCandidate = await recovery.evaluate(async (id) => {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 89,
+                        "line": 892
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"other_e5cac7a9-a160-4655-b26b-91e0f647a82b\"\u001b[39m\nReceived: \u001b[31m\"wb_54744bbb820846d587d41798055c4730\"\u001b[39m\n\n  890 |     'Injected pre-attachment failure',\n  891 |   );\n> 892 |   expect(await recovery.evaluate(() => localStorage.getItem('opensheet.scene.budget'))).toBe(\n      |                                                                                         ^\n  893 |     fixture.otherId,\n  894 |   );\n  895 |   const hasCandidate = await recovery.evaluate(async (id) => {\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:892:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:12.668Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-failed-ba-477af-another-tab-scene-reference-webkit-repeat1/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-failed-ba-477af-another-tab-scene-reference-webkit-repeat1/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 89,
+                    "line": 892
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-c07996488f669a4de0bd",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1161,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:15.045Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-ff4ce9fa448d2a6ac41c",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1418,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:16.642Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-b890aa2c5d941049d693",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:18.202Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-4fb6261c0f0e44c70c65",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1681,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:18.596Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-c058d179c0500e027d7a",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1396,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:20.456Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-e913b1e4de1b21e1d4b0",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:19.835Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-ada721118d2c9f60e520",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1391,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:21.579Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-57ff717d509a877eeca0",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2381,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:22.198Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-e5ae0820519f9f16ea05",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1583,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7ma7d8e7d9761e475b880144970dd905a0\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m490322a1e8794923bee8340203d364b4\u001b[27m\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7ma7d8e7d9761e475b880144970dd905a0\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m490322a1e8794923bee8340203d364b4\u001b[27m\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 19,
+                      "line": 979
+                    },
+                    "snippet": "  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 19,
+                        "line": 979
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7ma7d8e7d9761e475b880144970dd905a0\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m490322a1e8794923bee8340203d364b4\u001b[27m\"\u001b[39m\n\n  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:25.401Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 19,
+                    "line": 979
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-af0991f32a76e29c01be",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2655,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:23.295Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-d5e54d5563f76c64052f",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 1156,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7ma7b0561c1c424f5abab792203534a7e7\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m8ad783009fdb4a34af6539d33b95b8de\u001b[27m\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7ma7b0561c1c424f5abab792203534a7e7\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m8ad783009fdb4a34af6539d33b95b8de\u001b[27m\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 19,
+                      "line": 979
+                    },
+                    "snippet": "  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 19,
+                        "line": 979
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7ma7b0561c1c424f5abab792203534a7e7\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m8ad783009fdb4a34af6539d33b95b8de\u001b[27m\"\u001b[39m\n\n  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:26.327Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat1/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat1/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 19,
+                    "line": 979
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-769a2371c67d75d81272",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2246,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:27.533Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-38e8d95e46ba993db984",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1309,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7m9edfbd045f4b45bf870e555f64b0d6b1\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7mfb1e0760b22b417694acc5913c341afb\u001b[27m\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7m9edfbd045f4b45bf870e555f64b0d6b1\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7mfb1e0760b22b417694acc5913c341afb\u001b[27m\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 19,
+                      "line": 979
+                    },
+                    "snippet": "  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 19,
+                        "line": 979
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7m9edfbd045f4b45bf870e555f64b0d6b1\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7mfb1e0760b22b417694acc5913c341afb\u001b[27m\"\u001b[39m\n\n  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:30.184Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat2/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat2/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 19,
+                    "line": 979
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-55deb04e668c6c7722b7",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2568,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:28.084Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-31b56f17e39a4a2e20fb",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 891,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7m7207a338ffcb4e578d30cf4e06f9c124\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m16cceb6ba0f6456e9d7bf0102b62edb8\u001b[27m\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7m7207a338ffcb4e578d30cf4e06f9c124\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m16cceb6ba0f6456e9d7bf0102b62edb8\u001b[27m\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 19,
+                      "line": 979
+                    },
+                    "snippet": "  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 19,
+                        "line": 979
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7m7207a338ffcb4e578d30cf4e06f9c124\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m16cceb6ba0f6456e9d7bf0102b62edb8\u001b[27m\"\u001b[39m\n\n  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:31.066Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat3/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat3/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 19,
+                    "line": 979
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-12bae3c679ad70f7881f",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        },
+        {
+          "title": "failed backup attachment does not overwrite another tab scene reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1690,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:32.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-c46c21a5364c0fa55340",
+          "file": "startup-recovery.spec.ts",
+          "line": 801,
+          "column": 1
+        },
+        {
+          "title": "concurrent first scene loads share one saved workbook",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 797,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7mb7c1106a46924a54a65eff7242eaa2c9\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m3f4ff29f032643989702e93758d48626\u001b[27m\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7mb7c1106a46924a54a65eff7242eaa2c9\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m3f4ff29f032643989702e93758d48626\u001b[27m\"\u001b[39m\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19",
+                    "location": {
+                      "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                      "column": 19,
+                      "line": 979
+                    },
+                    "snippet": "  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                        "column": 19,
+                        "line": 979
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"wb_\u001b[7mb7c1106a46924a54a65eff7242eaa2c9\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"wb_\u001b[7m3f4ff29f032643989702e93758d48626\u001b[27m\"\u001b[39m\n\n  977 |     page.evaluate(() => localStorage.getItem('opensheet.scene.budget')),\n  978 |   ]);\n> 979 |   expect(firstId).toBe(saved);\n      |                   ^\n  980 |   expect(secondId).toBe(saved);\n  981 |   await second.close();\n  982 | });\n    at /Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts:979:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-12T13:14:34.090Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat4/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Volumes/github/private/opensheet/test-results/startup-recovery-concurren-c21b7-ds-share-one-saved-workbook-firefox-repeat4/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Volumes/github/private/opensheet/tests/e2e/startup-recovery.spec.ts",
+                    "column": 19,
+                    "line": 979
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6d7f4d85e76fd10ef396-1dfb75ef07095335ff1e",
+          "file": "startup-recovery.spec.ts",
+          "line": 939,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-12T13:14:02.945Z",
+    "duration": 32208.592,
+    "expected": 22,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  }
+}

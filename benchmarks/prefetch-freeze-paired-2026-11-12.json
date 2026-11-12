@@ -1,0 +1,565 @@
+{
+  "startedAt": "2026-11-11T23:29:23.135Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 324,
+    "sha256": "c5125bd28b8a2a7b02cac061abb328254d9af8040334098a602beb3705fcbb4e"
+  },
+  "scriptSha256": "602ccfa341e4a2b3a156e5ce4bb575647c021dab8a790fed30aa6e3a8ebfa9e9",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Paired development-server standalone workbook, real Worker/IndexedDB, one fully populated 64x32 numeric page and four synchronous listeners. Baseline disables only deep freezing of the returned page. Three alternating pairs of fresh contexts per browser, 15 samples each after three warmups; viewport cache cleared and every value and callback count checked outside timing. Excludes UI paint, peak memory, real devices and other workloads. No claim of complete old-commit equivalence; one host, power mode unrecorded.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "pairs": [
+        {
+          "round": 1,
+          "variants": [
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                8.099999904632568,
+                4.699999809265137,
+                2.8000001907348633,
+                4.599999904632568,
+                4.099999904632568,
+                4.5,
+                5,
+                3.0999999046325684,
+                3.3000001907348633,
+                3,
+                3.8999996185302734,
+                3.200000286102295,
+                3.4000000953674316,
+                3.9000000953674316,
+                2.8999996185302734
+              ]
+            },
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4.199999809265137,
+                3.200000286102295,
+                3.1999998092651367,
+                4.199999809265137,
+                3.8000001907348633,
+                3.299999713897705,
+                3.3000001907348633,
+                3.5,
+                3.5999999046325684,
+                3.4000000953674316,
+                4.099999904632568,
+                3.4000000953674316,
+                3.1999998092651367,
+                3.6000003814697266
+              ]
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "variants": [
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                3.6999998092651367,
+                3.4000000953674316,
+                3.5,
+                3.200000286102295,
+                3.299999713897705,
+                3.0999999046325684,
+                3.3000001907348633,
+                3.6999998092651367,
+                3.0999999046325684,
+                2.9000000953674316,
+                3.0999999046325684,
+                3.200000286102295,
+                2.9000000953674316,
+                3.0999999046325684,
+                3.5999999046325684
+              ]
+            },
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                6.300000190734863,
+                3.299999713897705,
+                2.6999998092651367,
+                2.700000286102295,
+                2.700000286102295,
+                3,
+                2.700000286102295,
+                2.6000003814697266,
+                2.5,
+                2.8000001907348633,
+                2.8999996185302734,
+                2.9000000953674316,
+                2.5999999046325684,
+                2.5999999046325684,
+                2.5
+              ]
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "variants": [
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                2.799999713897705,
+                3,
+                2.8000001907348633,
+                2.9000000953674316,
+                2.9000000953674316,
+                2.6000003814697266,
+                2.9000000953674316,
+                2.799999713897705,
+                2.8000001907348633,
+                2.6999998092651367,
+                2.9000000953674316,
+                2.6000003814697266,
+                2.700000286102295,
+                2.5,
+                2.700000286102295
+              ]
+            },
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4.100000381469727,
+                3.6000003814697266,
+                3.1000003814697266,
+                3.3000001907348633,
+                3.1000003814697266,
+                3.200000286102295,
+                3.299999713897705,
+                3.5999999046325684,
+                3.299999713897705,
+                3.5,
+                3.3999996185302734,
+                3.0999999046325684,
+                3.0999999046325684,
+                3.0999999046325684,
+                3.200000286102295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "pairs": [
+        {
+          "round": 1,
+          "variants": [
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                3,
+                3,
+                4,
+                4,
+                3,
+                4,
+                3,
+                3,
+                3,
+                3,
+                4,
+                3,
+                3,
+                5
+              ]
+            },
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4,
+                3,
+                5,
+                3,
+                5,
+                4,
+                3,
+                4,
+                4,
+                5,
+                3,
+                4,
+                4,
+                5
+              ]
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "variants": [
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                5,
+                4,
+                4,
+                4,
+                5,
+                3,
+                5,
+                4,
+                5,
+                4,
+                6,
+                4,
+                5,
+                4,
+                5
+              ]
+            },
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4,
+                4,
+                3,
+                2,
+                3,
+                4,
+                4,
+                3,
+                3,
+                2,
+                2,
+                3,
+                3,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "variants": [
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                3,
+                4,
+                3,
+                5,
+                5,
+                4,
+                4,
+                5,
+                4,
+                4,
+                5,
+                2,
+                4,
+                4,
+                5
+              ]
+            },
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4,
+                5,
+                5,
+                4,
+                3,
+                6,
+                4,
+                4,
+                5,
+                5,
+                4,
+                4,
+                4,
+                4
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "pairs": [
+        {
+          "round": 1,
+          "variants": [
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                3,
+                3,
+                3,
+                2,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3
+              ]
+            },
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4,
+                4,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "variants": [
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4,
+                3,
+                3,
+                3,
+                3,
+                3,
+                4,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                4
+              ]
+            },
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                3,
+                3,
+                3,
+                3,
+                3,
+                2,
+                2,
+                2,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "variants": [
+            {
+              "variant": "baseline",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "6c214c7750cb9ae2d96ab2c7df1c3f4a2f20bd110aa465082a29b3cb4628e420"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                2,
+                2,
+                2,
+                3,
+                3,
+                3
+              ]
+            },
+            {
+              "variant": "current",
+              "hashes": [
+                {
+                  "original": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d",
+                  "served": "174d3bf3971cf8977867efa0bf3f5b4be58bd080dfca0b2a809f034600b26a6d"
+                }
+              ],
+              "calls": 72,
+              "samples": [
+                4,
+                4,
+                3,
+                4,
+                3,
+                3,
+                3,
+                3,
+                4,
+                3,
+                3,
+                3,
+                4,
+                3,
+                5
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T23:29:33.382Z"
+}

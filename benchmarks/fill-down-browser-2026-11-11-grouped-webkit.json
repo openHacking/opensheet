@@ -1,0 +1,36 @@
+{
+  "engine": "webkit",
+  "startedAt": "2026-11-11T02:07:45.552Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 252,
+    "sha256": "b8c658858a7fcfd3bf03404136246ab8d0fa94ff42d69f88ea2bc455bfefabd7"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "de13552751752e45e745545506b7ebbc983e50f7a9864c1900f5e0a6ec7c6960"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Timing includes Worker commit acknowledgement, excludes verification and UI frame analysis.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 153
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 172
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 159
+    }
+  ],
+  "browser": "26.6"
+}

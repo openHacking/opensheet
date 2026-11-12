@@ -1,10 +1,20 @@
 import { columnIndex } from './address.js';
 import { fail } from './errors.js';
 import type { AST, Reference } from './types.js';
+import { FORMULA_COLUMNS, FORMULA_ROWS } from './reference-bounds.js';
 
 const tokenRE =
   /\s*("(?:[^"]|"")*"|'(?:[^']|'')*'|#(?:REF!|DIV\/0!|VALUE!|NAME\?|N\/A|NUM!|CYCLE!|LIMIT!)|\$?[A-Za-z]+\$?[1-9]\d*|(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|[A-Za-z_][A-Za-z_0-9.]*|<=|>=|<>|[+\-*/^&=<>%(),:!])/gy;
 export function parseFormula(expression: string): AST {
+  return parse(expression, false);
+}
+
+/** Parse the spreadsheet precedence profile without changing native formula semantics. */
+export function parseSpreadsheetFormula(expression: string): AST {
+  return parse(expression, true);
+}
+
+function parse(expression: string, spreadsheet: boolean): AST {
   if (expression.length > 32768) fail('#LIMIT!');
   const text = expression.replace(/^=/, '').trim();
   const tokens: string[] = [];
@@ -26,7 +36,7 @@ export function parseFormula(expression: string): AST {
     if (!m) fail('#REF!');
     const row = Number(m![4]) - 1,
       column = columnIndex(m![2]);
-    if (row >= 1048576 || column >= 16384) fail('#REF!');
+    if (row >= FORMULA_ROWS || column >= FORMULA_COLUMNS) fail('#REF!');
     return {
       kind: 'ref',
       row,
@@ -58,7 +68,8 @@ export function parseFormula(expression: string): AST {
     if (t === '(') {
       n = expr(0);
       if (next() !== ')') fail();
-    } else if (t === '+' || t === '-') n = { kind: 'unary', op: t, value: expr(5) };
+    } else if (t === '+' || t === '-')
+      n = { kind: 'unary', op: t, value: expr(spreadsheet ? 6 : 5) };
     else if (t.startsWith('"')) n = { kind: 'literal', value: t.slice(1, -1).replace(/""/g, '"') };
     else if (t.startsWith('#')) n = { kind: 'literal', value: { error: t } };
     else if (peek() === '!') {
@@ -76,11 +87,13 @@ export function parseFormula(expression: string): AST {
         } while (true);
       }
       if (next() !== ')') fail();
-      n = { kind: 'call', name: t.toUpperCase(), args };
+      n = { kind: 'call', name: t.toUpperCase().replace(/^_XLFN\.(?:_XLWS\.)?/, ''), args };
     } else if (/^\$?[A-Za-z]+\$?\d+$/.test(t)) n = reference(t);
     else if (/^(TRUE|FALSE)$/i.test(t)) n = { kind: 'literal', value: t.toUpperCase() === 'TRUE' };
-    else if (/^\d|^\.\d/.test(t)) n = { kind: 'literal', value: Number(t) };
-    else fail('#NAME?');
+    else if (/^\d|^\.\d/.test(t)) {
+      const value = Number(t);
+      n = { kind: 'literal', value: Number.isFinite(value) ? value : { error: '#NUM!' } };
+    } else fail('#NAME?');
     if (n!.kind === 'ref' && peek() === ':') {
       next();
       const end = reference(next(), n!.sheet);
@@ -98,7 +111,7 @@ export function parseFormula(expression: string): AST {
     while (peek() && precedence[peek()] >= min) {
       const op = next(),
         p = precedence[op];
-      left = { kind: 'binary', op, left, right: expr(p + (op === '^' ? 0 : 1)) };
+      left = { kind: 'binary', op, left, right: expr(p + (op === '^' && !spreadsheet ? 0 : 1)) };
     }
     return left;
   }

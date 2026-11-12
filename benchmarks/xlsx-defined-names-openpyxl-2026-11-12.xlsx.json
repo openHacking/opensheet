@@ -1,0 +1,17 @@
+{
+  "producer": "openpyxl",
+  "version": "3.1.5",
+  "sha256": "d00a231550c550f295c612e73b608af753fbe442d44aecde54a82504caa6d19b",
+  "globalNames": [
+    "GlobalValue",
+    "OtherValue"
+  ],
+  "localNames": [
+    "LocalValue"
+  ],
+  "values": [
+    11,
+    22,
+    33
+  ]
+}

@@ -2,6 +2,7 @@ import { address, columnName, type Selection, type Workbook } from '@opensheetjs
 import { LEFT, TOP } from './geometry.js';
 import type { GridLayout } from './layout.js';
 import type { GridSelection } from './selection.js';
+import { formulaReferenceColor } from './formula-references.js';
 export function paintGrid(
   book: Workbook,
   sheetId: string,
@@ -13,6 +14,7 @@ export function paintGrid(
   canvas: HTMLCanvasElement,
   ariaCell: HTMLElement,
   scroll: HTMLElement,
+  references: readonly Selection[] = [],
 ) {
   const position = (row: number, column: number) =>
     layout.position(row, column, book.sheetData(sheetId).freeze, scroll);
@@ -36,17 +38,8 @@ export function paintGrid(
     f = sh.freeze;
   const freezeX = LEFT + layout.columnOffsets[f.columns],
     freezeY = TOP + layout.rowOffsets[f.rows];
-  const visible = (offsets: number[], scroll: number, extent: number, frozen: number) => {
-    const out: number[] = [];
-    for (let i = 0; i < Math.min(frozen, offsets.length - 1) && offsets[i] < extent; i++)
-      if (offsets[i + 1] > offsets[i]) out.push(i);
-    const start = Math.max(frozen, layout.index(offsets, scroll + offsets[frozen]));
-    for (let i = start; i < offsets.length - 1 && offsets[i] - scroll < extent; i++)
-      if (offsets[i + 1] > offsets[i]) out.push(i);
-    return out;
-  };
-  const rows = visible(layout.rowOffsets, scroll.scrollTop, h - TOP, f.rows),
-    cols = visible(layout.columnOffsets, scroll.scrollLeft, w - LEFT, f.columns);
+  const rows = layout.visiblePositions(layout.rowOffsets, scroll.scrollTop, h - TOP, f.rows),
+    cols = layout.visiblePositions(layout.columnOffsets, scroll.scrollLeft, w - LEFT, f.columns);
   const drawCell = (r: number, c: number) => {
     const merge = selection.mergeAt(r, c);
     if (merge && (r !== merge.startRow || c !== merge.startColumn)) return;
@@ -87,10 +80,20 @@ export function paintGrid(
         ctx.strokeStyle = style.border ? '#8ca098' : '#e9eeeb';
         ctx.lineWidth = 1;
         ctx.strokeRect(pos.x + 0.5, pos.y + 0.5, cw, rh);
+        if (cell?.note !== undefined) {
+          const marker = Math.min(7 * zoom, cw / 3, rh / 3);
+          ctx.fillStyle = '#b45309';
+          ctx.beginPath();
+          ctx.moveTo(pos.x + cw - marker, pos.y + 1);
+          ctx.lineTo(pos.x + cw - 1, pos.y + 1);
+          ctx.lineTo(pos.x + cw - 1, pos.y + marker);
+          ctx.closePath();
+          ctx.fill();
+        }
         ctx.beginPath();
         ctx.rect(pos.x + 3, pos.y + 1, Math.max(0, cw - 6), Math.max(0, rh - 2));
         ctx.clip();
-        ctx.fillStyle = style.color ?? '#293d35';
+        ctx.fillStyle = style.color ?? (cell?.link ? '#1d4ed8' : '#293d35');
         ctx.font = `${style.italic ? 'italic ' : ''}${style.bold ? '600 ' : ''}${(style.fontSize ?? 13) * zoom}px Inter, -apple-system, sans-serif`;
         ctx.textBaseline = 'middle';
         const raw = book.peekValue(sheetId, r, c);
@@ -113,7 +116,7 @@ export function paintGrid(
           if (line) lines.push(line);
           lines.forEach((part, i) => ctx.fillText(part, x, pos.y + lineHeight * (i + 0.6)));
         } else ctx.fillText(text.replace(/\r?\n/g, ' '), x, pos.y + rh / 2);
-        if (style.underline) {
+        if (style.underline || cell?.link) {
           const length = Math.min(ctx.measureText(text).width, cw - 20);
           ctx.fillRect(
             align === 'right' ? x - length : align === 'center' ? x - length / 2 : x,
@@ -157,6 +160,35 @@ export function paintGrid(
     ctx.lineWidth = 2;
     ctx.strokeRect(x + 1, y + 1, endX - x - 2, endY - y - 2);
     ctx.restore();
+  }
+  for (let index = 0; index < references.length; index++) {
+    const ref = references[index]!;
+    if (
+      ref.sheetId !== sheetId ||
+      ref.endRow >= layout.rowOffsets.length ||
+      ref.endColumn >= layout.columnOffsets.length
+    )
+      continue;
+    for (const [scrollX, scrollY, x1, y1, x2, y2] of [
+      [0, 0, LEFT, TOP, freezeX, freezeY],
+      [1, 0, freezeX, TOP, w, freezeY],
+      [0, 1, LEFT, freezeY, freezeX, h],
+      [1, 1, freezeX, freezeY, w, h],
+    ]) {
+      if (x2 <= x1 || y2 <= y1) continue;
+      const x = LEFT + layout.columnOffsets[ref.startColumn] - (scrollX ? scroll.scrollLeft : 0),
+        y = TOP + layout.rowOffsets[ref.startRow] - (scrollY ? scroll.scrollTop : 0),
+        endX = LEFT + layout.columnOffsets[ref.endColumn] - (scrollX ? scroll.scrollLeft : 0),
+        endY = TOP + layout.rowOffsets[ref.endRow] - (scrollY ? scroll.scrollTop : 0);
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x1, y1, x2 - x1, y2 - y1);
+      ctx.clip();
+      ctx.strokeStyle = formulaReferenceColor(index);
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 1, y + 1, endX - x - 2, endY - y - 2);
+      ctx.restore();
+    }
   }
   ctx.fillStyle = '#f6f8f6';
   ctx.fillRect(0, 0, w, TOP);
@@ -215,5 +247,6 @@ export function paintGrid(
   element.setAttribute('aria-colcount', String(sh.columnOrder.length));
   ariaCell.setAttribute('aria-rowindex', String(s.startRow + 1));
   ariaCell.setAttribute('aria-colindex', String(s.startColumn + 1));
-  ariaCell.textContent = `${address(s.startRow, s.startColumn)}: ${book.peekDisplay(sheetId, s.startRow, s.startColumn)}`;
+  const selectedCell = book.peekCell(sheetId, s.startRow, s.startColumn);
+  ariaCell.textContent = `${address(s.startRow, s.startColumn)}: ${book.peekDisplay(sheetId, s.startRow, s.startColumn)}${selectedCell?.note !== undefined ? '. Has note' : ''}${selectedCell?.link ? '. Has link' : ''}`;
 }

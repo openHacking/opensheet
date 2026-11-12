@@ -1,0 +1,164 @@
+{
+  "engine": "firefox",
+  "startedAt": "2026-11-11T05:46:59.251Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 262,
+    "sha256": "2a769442208dc42bf45500f48932227b1fa0ea09597c307f16b7c99653424105"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "39b7e66bf61f68425f3a2a4bbafc367aeaa694defbb6ad765a08fc578c888c9d"
+  },
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "36d9fbf2687c7f9219ee24372a32cb683e3a74aae33a968ec01c8bed7e77aea6"
+    },
+    {
+      "file": "assets/backup-verifier.worker-DhlqK9SE.js",
+      "sha256": "76f172f3073d317cb2a88b0d0b316216b5ca84c1c826d3d11e0b1b11f7358497"
+    },
+    {
+      "file": "assets/engine.worker-Dbv6h2si.js",
+      "sha256": "b7be6892940c46a55a01d384770e3931e385a6bd5596c91b63387e686fedeba5"
+    },
+    {
+      "file": "assets/file.worker-_2S-V3TM.js",
+      "sha256": "33c7b58b60efc3d6316e4a7d942ef35ff2b7613a40c5bb1b6ea24bf8c93a2470"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-CH-GyCuf.css",
+      "sha256": "f9c41385f166904c5bd618673e0ddbffc461c2f6a266fbff5c1dedf1e7a954eb"
+    },
+    {
+      "file": "assets/index-wcF5xk-5.js",
+      "sha256": "c5039faaca91399c4288a2c4de7791fcfba458e40149c3bf7fceb5b65dbcbe24"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-YQ4lDkt_.js",
+      "sha256": "641458ad92d6b9c702268ddafc2acc96ebbd06f7bc0e851ee5384e32837ae630"
+    }
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 1000000,
+      "bytes": 16574280,
+      "before": [
+        1,
+        873,
+        873,
+        256
+      ],
+      "after": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "otherBefore": [
+        1,
+        5,
+        5,
+        0
+      ],
+      "otherAfter": [
+        1,
+        5,
+        5,
+        0
+      ],
+      "otherRawUnchanged": true,
+      "otherReopened": true,
+      "deleteMs": 12
+    },
+    {
+      "round": 2,
+      "cells": 1000000,
+      "bytes": 16574280,
+      "before": [
+        1,
+        873,
+        873,
+        256
+      ],
+      "after": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "otherBefore": [
+        1,
+        5,
+        5,
+        0
+      ],
+      "otherAfter": [
+        1,
+        5,
+        5,
+        0
+      ],
+      "otherRawUnchanged": true,
+      "otherReopened": true,
+      "deleteMs": 11
+    },
+    {
+      "round": 3,
+      "cells": 1000000,
+      "bytes": 16574280,
+      "before": [
+        1,
+        873,
+        873,
+        256
+      ],
+      "after": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "otherBefore": [
+        1,
+        5,
+        5,
+        0
+      ],
+      "otherAfter": [
+        1,
+        5,
+        5,
+        0
+      ],
+      "otherRawUnchanged": true,
+      "otherReopened": true,
+      "deleteMs": 11
+    }
+  ],
+  "scope": "Local headless production preview; 1m generated cells and 256 synthetic scratch records. Timing covers deletion through acknowledgement, excludes fixture generation and verification. No isolated process/Worker peak memory, physical power-loss, hardware or competing-workload measurements.",
+  "browser": "155.0",
+  "finishedAt": "2026-11-11T05:47:07.255Z"
+}

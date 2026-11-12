@@ -1,0 +1,93 @@
+{
+  "startedAt": "2026-10-30T15:46:53.038Z",
+  "cycles": 100,
+  "fixture": "metadata",
+  "url": "http://127.0.0.1:5186/",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 215,
+    "sha256": "be78e5c3f59c41230c81aa98b8cc52da49d21e2aa8d11070fdf2a612697f5545"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "cb200ea2f48972d10f2792f44553667588505a40c9d49e7fd8d7450fb2914c39"
+  },
+  "host": {
+    "node": "v22.19.0",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Fresh isolated browser contexts. Each cycle creates, edits, reattaches twice, replaces, reopens and disposes an editor; owned storage is deleted. Tracks newly constructed Workers/BroadcastChannels/ResizeObservers and workbook data/commit subscriptions. Counts measure explicit terminate/close/disconnect/unsubscribe calls, not physical process retention. Chromium main-target heap/DOM samples follow requested GC every 10 cycles; Worker/process heap is unavailable. No hard heap threshold or universal leak-free certification.",
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "cycles": [],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 3508640,
+            "totalSize": 4521984,
+            "embedderHeapUsedSize": 2027144,
+            "backingStorageSize": 353422
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 761,
+            "jsEventListeners": 152
+          }
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "f13fc5bc04acbc63296ba5528e185a7e7f2de7cca2bea698535d7d04c3d4cc80"
+    },
+    {
+      "file": "assets/engine.worker-DRfd3J4J.js",
+      "sha256": "c411c20948cee72b76123fd4269394e6ef1114567dcfdb438815a696630b4204"
+    },
+    {
+      "file": "assets/file.worker-nG-DUQZr.js",
+      "sha256": "352bd046bd8331b93f986f8c1982a972795809240e88100a3c1c95c8d4f3b2a8"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-C8qQwSWF.css",
+      "sha256": "7eb4ba9abc7b789cea69670a7587a43f189c204d07d58540229d58c66872bd23"
+    },
+    {
+      "file": "assets/index-CoXj5cPg.js",
+      "sha256": "6791bef9b6c37a60c511de31010d415685e7063d9ce249c5ff8cdebdfaafa574"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-YQ4lDkt_.js",
+      "sha256": "641458ad92d6b9c702268ddafc2acc96ebbd06f7bc0e851ee5384e32837ae630"
+    }
+  ],
+  "error": "Error: page.evaluate: Error: Lifecycle metadata mismatch\n    at window.__lifecycleCycle (eval at evaluate (:311:30), <anonymous>:121:23)\n    at async <anonymous>:337:30"
+}

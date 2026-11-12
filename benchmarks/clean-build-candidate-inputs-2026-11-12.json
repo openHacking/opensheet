@@ -1,0 +1,113 @@
+{
+  "startedAt": "2026-11-12T10:09:25.208Z",
+  "node": "v22.19.0",
+  "pnpm": "10.22.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 375,
+    "sha256": "9ed3f5edc93a9d6d397f0d55254a73960697e939cffeeb4a2240b571f360b593"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "source": {
+        "files": 185,
+        "sha256": "458fe57220fb91ec461ded519e83bc2b2832a5e5f7074af07782b683ab92d698"
+      },
+      "packages": [
+        {
+          "name": "adapter-sheetjs",
+          "sha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14"
+        },
+        {
+          "name": "core",
+          "sha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2"
+        },
+        {
+          "name": "formats",
+          "sha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6"
+        },
+        {
+          "name": "formula",
+          "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+        },
+        {
+          "name": "opensheet",
+          "sha256": "930bc023cdb4810677bd856dfe0d51a0057074678e7cc2d6b989530545996752"
+        },
+        {
+          "name": "plugin-sdk",
+          "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+        },
+        {
+          "name": "react",
+          "sha256": "03f0785aa891db5667ae972999c557e478ddf82b930f005600c19c12aae02681"
+        },
+        {
+          "name": "renderer",
+          "sha256": "ae82bb322e13e8f013adcc3fc0a908ee8063b4ceeaf452c3354f2a057f8b8b21"
+        },
+        {
+          "name": "testing",
+          "sha256": "b6947cad4ad15fdc764bdbf6af70512ab71222c09bf0c273573c491063bad909"
+        },
+        {
+          "name": "vue",
+          "sha256": "43cd77d24f9099182c3d33884fb7dd2e8d8b381e02d7ac7bcaafe6711b9cba5d"
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "source": {
+        "files": 185,
+        "sha256": "458fe57220fb91ec461ded519e83bc2b2832a5e5f7074af07782b683ab92d698"
+      },
+      "packages": [
+        {
+          "name": "adapter-sheetjs",
+          "sha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14"
+        },
+        {
+          "name": "core",
+          "sha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2"
+        },
+        {
+          "name": "formats",
+          "sha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6"
+        },
+        {
+          "name": "formula",
+          "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+        },
+        {
+          "name": "opensheet",
+          "sha256": "930bc023cdb4810677bd856dfe0d51a0057074678e7cc2d6b989530545996752"
+        },
+        {
+          "name": "plugin-sdk",
+          "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+        },
+        {
+          "name": "react",
+          "sha256": "03f0785aa891db5667ae972999c557e478ddf82b930f005600c19c12aae02681"
+        },
+        {
+          "name": "renderer",
+          "sha256": "ae82bb322e13e8f013adcc3fc0a908ee8063b4ceeaf452c3354f2a057f8b8b21"
+        },
+        {
+          "name": "testing",
+          "sha256": "b6947cad4ad15fdc764bdbf6af70512ab71222c09bf0c273573c491063bad909"
+        },
+        {
+          "name": "vue",
+          "sha256": "43cd77d24f9099182c3d33884fb7dd2e8d8b381e02d7ac7bcaafe6711b9cba5d"
+        }
+      ]
+    }
+  ],
+  "scope": "Two fresh temporary workspace copies, frozen-lockfile prefer-offline installs, package builds and staged packs on one host using the same pnpm store and toolchain. Not independent hardware, a clean git commit, cross-platform provenance, registry publication or browser acceptance.",
+  "identical": true,
+  "finishedAt": "2026-11-12T10:09:46.713Z"
+}

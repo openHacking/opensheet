@@ -1,3 +1,4 @@
+import { filterColumns } from './filter.js';
 import {
   snapshotSchema,
   assert,
@@ -8,7 +9,7 @@ import {
   type SheetSnapshot,
   type Rect,
 } from './types.js';
-import { intersects, validateRect } from './address.js';
+import { validateRect } from './address.js';
 export function createSheet(name: string, rows = 100, columns = 26): SheetSnapshot {
   assert(
     Number.isInteger(rows) &&
@@ -126,23 +127,37 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
       'Invalid freeze',
     );
     if (sh.filter)
-      assert(sh.filter.column < sh.columnOrder.length, 'INVALID_ARGUMENT', 'Invalid filter');
-    sh.merges.forEach((r, i) => {
-      checkBounds(sh, r);
       assert(
-        !sh.merges.slice(0, i).some((x) => intersects(x, r)),
+        filterColumns(sh.filter).every((column) => column < sh.columnOrder.length) &&
+          ('column' in sh.filter || sh.filter.headerRows <= sh.rowOrder.length),
         'INVALID_ARGUMENT',
-        'Overlapping merges',
+        'Invalid filter',
       );
-    });
+    for (const range of sh.merges) checkBounds(sh, range);
+    // Sweep in row order. For each column, the greatest prior end row is
+    // sufficient to detect overlap; touching edges remain valid. Preserve the
+    // original merge order and bound work by the schema's 10,000 rectangles
+    // and the sheet's 1,000 columns rather than comparing every pair.
+    if (sh.merges.length > 1) {
+      const ends = new Int32Array(sh.columnOrder.length);
+      for (const range of sh.merges.slice().sort((a, b) => a.startRow - b.startRow)) {
+        for (let column = range.startColumn; column < range.endColumn; column++) {
+          assert(ends[column] <= range.startRow, 'INVALID_ARGUMENT', 'Overlapping merges');
+          ends[column] = range.endRow;
+        }
+      }
+    }
   }
   return s;
 }
-export function checkBounds(sheet: SheetSnapshot, rect: Rect): void {
+export function checkDimensions(rows: number, columns: number, rect: Rect): void {
   validateRect(rect);
   assert(
-    rect.endRow <= sheet.rowOrder.length && rect.endColumn <= sheet.columnOrder.length,
+    rect.endRow <= rows && rect.endColumn <= columns,
     'INVALID_RANGE',
     'Range exceeds sheet dimensions',
   );
+}
+export function checkBounds(sheet: SheetSnapshot, rect: Rect): void {
+  checkDimensions(sheet.rowOrder.length, sheet.columnOrder.length, rect);
 }

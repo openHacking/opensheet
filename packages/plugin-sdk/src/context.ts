@@ -4,10 +4,25 @@ export function createPluginContext(
   plugin: Plugin,
   host: PluginHost,
   cleanups: Array<() => void>,
+  active: { value: boolean },
 ): PluginContext {
+  const id = plugin.id;
+  const capabilities = new Set(plugin.capabilities);
+  const assertActive = () => {
+    if (!active.value)
+      throw new OpenSheetError('PLUGIN_CONFLICT', `Plugin ${id} is no longer active`);
+  };
+  const report = (error: unknown) => {
+    try {
+      host.onError(error);
+    } catch {
+      // Error observers must not turn rejected actions into unhandled rejections.
+    }
+  };
   const require = (cap: Capability) => {
-    if (!plugin.capabilities.includes(cap))
-      throw new OpenSheetError('PLUGIN_CONFLICT', `Plugin ${plugin.id} did not declare ${cap}`);
+    assertActive();
+    if (!capabilities.has(cap))
+      throw new OpenSheetError('PLUGIN_CONFLICT', `Plugin ${id} did not declare ${cap}`);
   };
   const context: PluginContext = {
     selection: {
@@ -44,10 +59,11 @@ export function createPluginContext(
             host.addToolbar({
               ...action,
               run() {
+                if (!active.value) return;
                 try {
-                  Promise.resolve(action.run()).catch((e) => host.onError(e));
+                  Promise.resolve(action.run()).catch(report);
                 } catch (e) {
-                  host.onError(e);
+                  report(e);
                 }
               },
             }),
@@ -64,6 +80,7 @@ export function createPluginContext(
       cleanups.push(host.getWorkbook().onCommit(fn));
     },
     addCleanup(fn) {
+      assertActive();
       cleanups.push(fn);
     },
   };

@@ -1,0 +1,12 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 370,
+    "sha256": "07cd8340400e6b4537c708871813b222915b30e11bcdcd0a1e5900fa7b50a391"
+  },
+  "startedAt": "2026-11-12T08:44:13.707Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed core and formula packages; esbuild browser bundle with explicit Worker copy, localhost subpath and real IndexedDB/Web Locks. No editor, CSS, CSP, SSR framework, other bundlers or devices.",
+  "packages": [],
+  "results": []
+}

@@ -2,5 +2,10 @@ import { defineConfig } from 'vitest/config';
 import { aliases } from './scripts/aliases';
 export default defineConfig({
   resolve: { alias: aliases },
-  test: { setupFiles: ['tests/storage-setup.ts'], include: ['tests/**/*.test.ts'] },
+  test: {
+    setupFiles: ['tests/storage-setup.ts'],
+    include: ['tests/**/*.test.ts'],
+    // Bound simultaneous in-memory workbook/storage fixtures on shared machines.
+    maxWorkers: 4,
+  },
 });

@@ -1,0 +1,79 @@
+{
+  "startedAt": "2026-10-22T23:23:42.744Z",
+  "rows": 100,
+  "columns": 4,
+  "rounds": 1,
+  "url": "http://127.0.0.1:5186/",
+  "sourceCommit": "fb76c4ee10f0de3e6e78f9c2d141a2cc1921423a",
+  "sourceDirty": true,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 192,
+    "sha256": "201606667a17b7aae442df4be5539993c0b6b3e10c16baafda2d42064d26616d"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "f652c14de59f0763483ff7c3d51ffb971322c1e00bbec28938393018bccad082"
+  },
+  "platform": "darwin",
+  "arch": "arm64",
+  "osRelease": "25.5.0",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "powerMode": "AC",
+  "headless": true,
+  "limitations": "Total operation timings, not internal phase profiling. Main-document frame/heap samples exclude Worker retained memory. No performance pass threshold is asserted.",
+  "results": [
+    {
+      "round": 1,
+      "timings": {
+        "populateMs": 23.700000047683716,
+        "filterMs": 10.5,
+        "clearFilterMs": 3.700000047683716,
+        "formulaMultiSortMs": 171.79999995231628,
+        "sortedVerificationMs": 2.8999998569488525,
+        "sortedFilterMs": 1.5,
+        "undoMs": 6.200000047683716,
+        "redoMs": 5.799999952316284,
+        "reopenMs": 53.700000047683716,
+        "reopenedVerificationMs": 1.5
+      },
+      "verifiedCells": 400,
+      "verification": "passed",
+      "storage": {
+        "bytes": 16725,
+        "cacheBytes": 153262,
+        "budgetBytes": 268435456,
+        "viewportCacheBytes": 152064
+      },
+      "frameSamples": [
+        14.899999809265182,
+        16.700000000000045,
+        16.59999999999991,
+        16.799999999999955,
+        16.700000000000045,
+        16.59999999999991,
+        16.600000000000136,
+        16.700000000000045,
+        16.699999999999818,
+        16.700000000000045,
+        16.600000000000136,
+        16.59999999999991,
+        16.799999999999955,
+        16.600000000000136,
+        16.699999999999818,
+        16.700000000000045,
+        16.600000000000136
+      ],
+      "frameP95Ms": 16.799999999999955,
+      "sampledMainHeapBytes": 10000000
+    }
+  ],
+  "browserVersion": "153.0.8010.12",
+  "finishedAt": "2026-10-22T23:23:47.334Z"
+}

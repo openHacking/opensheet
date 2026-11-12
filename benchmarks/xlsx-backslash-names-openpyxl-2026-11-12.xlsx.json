@@ -1,0 +1,22 @@
+{
+  "producer": "openpyxl",
+  "version": "3.1.5",
+  "sha256": "043c368b337869c6660264080ffa19752355a58dfb62cdc5f696ef7e6e085639",
+  "global": [
+    "\\Budget"
+  ],
+  "local": [
+    "\\本地"
+  ],
+  "dataFormulas": [
+    "=\\Budget+1",
+    "=\\本地+1",
+    "=\"\\Budget\""
+  ],
+  "otherFormulas": [
+    "='Data'!\\Budget+1",
+    "='Data'!\\本地+1",
+    "='Data'!$A$1",
+    "='[external.xlsx]Data'!\\Budget"
+  ]
+}

@@ -1,50 +1,50 @@
 import * as XLSX from 'xlsx';
+import { validateZip } from './zip-guard.js';
 import { fromSheetJS } from '@opensheetjs/adapter-sheetjs';
 import { workbookFileSchema } from '@opensheetjs/core';
-self.onmessage = (event: MessageEvent<{ buffer: ArrayBuffer; name: string }>) => {
+self.onmessage = async (
+  event: MessageEvent<{ buffer: ArrayBuffer; name: string; profile?: boolean }>,
+) => {
   try {
-    const { buffer, name } = event.data;
+    const { buffer, name, profile } = event.data;
+    const now = () => (profile === true ? performance.now() : 0);
+    const started = now();
     if (buffer.byteLength > 20 * 1024 * 1024) throw new Error('Files are limited to 20 MiB.');
     if (/\.json$/i.test(name)) {
       const file = workbookFileSchema.parse(JSON.parse(new TextDecoder().decode(buffer)));
       self.postMessage({ file, report: null });
       return;
     }
-    if (/\.xlsx$/i.test(name)) {
-      const view = new DataView(buffer);
-      let eocd = -1;
-      for (let i = buffer.byteLength - 22; i >= Math.max(0, buffer.byteLength - 65557); i--)
-        if (view.getUint32(i, true) === 0x06054b50) {
-          eocd = i;
-          break;
-        }
-      if (eocd < 0) throw new Error('Invalid XLSX ZIP container');
-      const count = view.getUint16(eocd + 10, true);
-      let position = view.getUint32(eocd + 16, true),
-        expanded = 0;
-      if (count > 10000) throw new Error('Too many ZIP entries');
-      for (let i = 0; i < count; i++) {
-        if (position + 46 > buffer.byteLength || view.getUint32(position, true) !== 0x02014b50)
-          throw new Error('Invalid ZIP directory');
-        expanded += view.getUint32(position + 24, true);
-        if (expanded > 200 * 1024 * 1024) throw new Error('Expanded file exceeds 200 MiB');
-        position +=
-          46 +
-          view.getUint16(position + 28, true) +
-          view.getUint16(position + 30, true) +
-          view.getUint16(position + 32, true);
-      }
-    }
+    const storedSizes = await validateZip(buffer, /\.xlsx$/i.test(name));
+    const header = new DataView(buffer);
+    for (const { offset, size } of storedSizes) header.setUint32(offset, size, true);
+    const verified = now();
     const workbook = XLSX.read(buffer, {
       type: 'array',
       cellNF: true,
       dense: true,
       cellFormula: true,
+      sheetStubs: true,
       cellStyles: true,
       bookVBA: true,
+      bookFiles: true,
     });
+    const parsed = now();
     const imported = fromSheetJS(workbook);
-    self.postMessage(imported);
+    const adapted = now();
+    self.postMessage(
+      profile === true
+        ? {
+            ...imported,
+            profile: {
+              zipMs: verified - started,
+              parseMs: parsed - verified,
+              adaptMs: adapted - parsed,
+              totalMs: adapted - started,
+            },
+          }
+        : imported,
+    );
   } catch (error) {
     self.postMessage({ error: error instanceof Error ? error.message : String(error) });
   }

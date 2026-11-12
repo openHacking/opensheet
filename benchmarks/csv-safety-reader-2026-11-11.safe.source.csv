@@ -1,0 +1,15 @@
+equals,'=1+1
+plus,'+1
+minus,'-1
+at,'@SUM(1;1)
+leading-space,'  =1+1
+tab,'	text
+cr,"'text"
+lf,"'
+text"
+fullwidth-equals,'＝1+1
+fullwidth-plus,'＋1
+fullwidth-minus,'－1
+fullwidth-at,'＠SUM(1;1)
+separator-and-quote,"plain,""=1+1"
+number,-5

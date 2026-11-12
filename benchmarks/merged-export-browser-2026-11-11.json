@@ -1,0 +1,349 @@
+{
+  "startedAt": "2026-11-11T05:54:55.262Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 265,
+    "sha256": "a4a05e0fa2631c70fdb8d78bc281fe0cade9e30cb1e1d243fe4eb199fcdaa474"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "96cc86bcb85d22feeea58fa2e580f8a8390224b0345f741f7beaad6959d72ba9"
+  },
+  "variantHashes": {
+    "linear": "f2337dee426efe30c223e5bf4de87413db07c1491fb536c90ba37c7e7e808bff",
+    "indexed": "07375d74cd0a2c3d86d2063f0a74d90040f0c55771827d5833d04e6698c43d02"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Local headless production preview, asset hashes verified. Separately bundled variants reconstruct only previous linear merge lookup. 64,000 blank cells, 1,000 horizontal merges, 3 fresh contexts per browser, alternating variant and format order. Times include Worker reads, rendering and output accumulation; output equality and complete HTML structure checked after timing. No memory, input latency, rich contents, other merge geometries or device claims.",
+  "artifacts": [
+    {
+      "path": "index.html",
+      "sha256": "13a6c5f326b42e08fcb395964db504fff3a64fa94b3baeead27b6fa8a50b7aef"
+    },
+    {
+      "path": "assets/backup-verifier.worker-DhlqK9SE.js",
+      "sha256": "76f172f3073d317cb2a88b0d0b316216b5ca84c1c826d3d11e0b1b11f7358497"
+    },
+    {
+      "path": "assets/engine.worker-Dbv6h2si.js",
+      "sha256": "b7be6892940c46a55a01d384770e3931e385a6bd5596c91b63387e686fedeba5"
+    },
+    {
+      "path": "assets/file.worker-_2S-V3TM.js",
+      "sha256": "33c7b58b60efc3d6316e4a7d942ef35ff2b7613a40c5bb1b6ea24bf8c93a2470"
+    },
+    {
+      "path": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "path": "assets/index-CH-GyCuf.css",
+      "sha256": "f9c41385f166904c5bd618673e0ddbffc461c2f6a266fbff5c1dedf1e7a954eb"
+    },
+    {
+      "path": "assets/index-DQNaIe4e.js",
+      "sha256": "2f8ddeab3cac634f8220d90734ff114459f0ec06f402b0cad81a746c12989901"
+    },
+    {
+      "path": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "path": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "path": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "path": "assets/xlsx-YQ4lDkt_.js",
+      "sha256": "641458ad92d6b9c702268ddafc2acc96ebbd06f7bc0e851ee5384e32837ae630"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 1259.9000000953674,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 268.5,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 1206.5999999046326,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 263.30000019073486,
+              "verifiedRows": 1000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 377.59999990463257,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 1190.7999997138977,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 292.59999990463257,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 1286.5999999046326,
+              "verifiedRows": 1000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 1298,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 278.2999997138977,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 1266.5,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 255.90000009536743,
+              "verifiedRows": 1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 580,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 321,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 498,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 346,
+              "verifiedRows": 1000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 396,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 522,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 343,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 541,
+              "verifiedRows": 1000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 512,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 314,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 476,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 300,
+              "verifiedRows": 1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 743,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 188,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 671,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 178,
+              "verifiedRows": 1000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 310,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 714,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 187,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 700,
+              "verifiedRows": 1000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "format": "html",
+              "variant": "linear",
+              "ms": 760,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "html",
+              "variant": "indexed",
+              "ms": 192,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "linear",
+              "ms": 670,
+              "verifiedRows": 1000
+            },
+            {
+              "format": "latex",
+              "variant": "indexed",
+              "ms": 172,
+              "verifiedRows": 1000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T05:55:20.947Z"
+}

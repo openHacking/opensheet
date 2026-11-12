@@ -9,6 +9,727 @@
       ],
       "properties": {
         "type": {
+          "const": "core.cells.pasteTile"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "range": {
+              "type": "object",
+              "properties": {
+                "startRow": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "startColumn": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endRow": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endColumn": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "startRow",
+                "startColumn",
+                "endRow",
+                "endColumn"
+              ],
+              "additionalProperties": false
+            },
+            "rows": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 100000
+            },
+            "columns": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 1000
+            },
+            "cells": {
+              "minItems": 1,
+              "maxItems": 200000,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "anyOf": [
+                      {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "blank"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "string"
+                              },
+                              "value": {
+                                "type": "string",
+                                "maxLength": 32768
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "number"
+                              },
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "boolean"
+                              },
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "error"
+                              },
+                              "code": {
+                                "type": "string",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "code"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "const": "formula"
+                          },
+                          "expression": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 32768
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "expression"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "style": {
+                    "type": "object",
+                    "properties": {
+                      "bold": {
+                        "type": "boolean"
+                      },
+                      "italic": {
+                        "type": "boolean"
+                      },
+                      "underline": {
+                        "type": "boolean"
+                      },
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[\\da-fA-F]{6}$"
+                      },
+                      "background": {
+                        "type": "string",
+                        "pattern": "^#[\\da-fA-F]{6}$"
+                      },
+                      "fontSize": {
+                        "type": "number",
+                        "minimum": 8,
+                        "maximum": 72
+                      },
+                      "align": {
+                        "type": "string",
+                        "enum": [
+                          "left",
+                          "center",
+                          "right"
+                        ]
+                      },
+                      "wrap": {
+                        "type": "boolean"
+                      },
+                      "border": {
+                        "type": "boolean"
+                      },
+                      "numberFormat": {
+                        "type": "string",
+                        "maxLength": 200
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "note": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 32768
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "link": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "target": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 4096
+                          },
+                          "tooltip": {
+                            "type": "string",
+                            "maxLength": 1000
+                          }
+                        },
+                        "required": [
+                          "target"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "row": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99999
+                      },
+                      "column": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 999
+                      }
+                    },
+                    "required": [
+                      "row",
+                      "column"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sheetId",
+            "range",
+            "rows",
+            "columns",
+            "cells"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
+          "const": "core.cells.paste"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "cells": {
+              "minItems": 1,
+              "maxItems": 200000,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "row": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "column": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "input": {
+                    "anyOf": [
+                      {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "blank"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "string"
+                              },
+                              "value": {
+                                "type": "string",
+                                "maxLength": 32768
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "number"
+                              },
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "boolean"
+                              },
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "error"
+                              },
+                              "code": {
+                                "type": "string",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "code"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "const": "formula"
+                          },
+                          "expression": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 32768
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "expression"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "style": {
+                    "type": "object",
+                    "properties": {
+                      "bold": {
+                        "type": "boolean"
+                      },
+                      "italic": {
+                        "type": "boolean"
+                      },
+                      "underline": {
+                        "type": "boolean"
+                      },
+                      "color": {
+                        "type": "string",
+                        "pattern": "^#[\\da-fA-F]{6}$"
+                      },
+                      "background": {
+                        "type": "string",
+                        "pattern": "^#[\\da-fA-F]{6}$"
+                      },
+                      "fontSize": {
+                        "type": "number",
+                        "minimum": 8,
+                        "maximum": 72
+                      },
+                      "align": {
+                        "type": "string",
+                        "enum": [
+                          "left",
+                          "center",
+                          "right"
+                        ]
+                      },
+                      "wrap": {
+                        "type": "boolean"
+                      },
+                      "border": {
+                        "type": "boolean"
+                      },
+                      "numberFormat": {
+                        "type": "string",
+                        "maxLength": 200
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "note": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 32768
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "link": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "target": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 4096
+                          },
+                          "tooltip": {
+                            "type": "string",
+                            "maxLength": 1000
+                          }
+                        },
+                        "required": [
+                          "target"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "row",
+                  "column"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sheetId",
+            "cells"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
+          "const": "core.cells.annotation"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "sheetId": {
+                  "type": "string"
+                },
+                "range": {
+                  "type": "object",
+                  "properties": {
+                    "startRow": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "startColumn": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endRow": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endColumn": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "startRow",
+                    "startColumn",
+                    "endRow",
+                    "endColumn"
+                  ],
+                  "additionalProperties": false
+                },
+                "note": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 32768
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "link": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "target": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        "tooltip": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": [
+                        "target"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "sheetId",
+                "range",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "sheetId": {
+                  "type": "string"
+                },
+                "range": {
+                  "type": "object",
+                  "properties": {
+                    "startRow": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "startColumn": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endRow": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endColumn": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "startRow",
+                    "startColumn",
+                    "endRow",
+                    "endColumn"
+                  ],
+                  "additionalProperties": false
+                },
+                "note": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 32768
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "link": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "target": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        "tooltip": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": [
+                        "target"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "sheetId",
+                "range",
+                "link"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
           "const": "core.cells.replace"
         },
         "payload": {
@@ -180,6 +901,143 @@
                         "additionalProperties": false
                       }
                     ]
+                  },
+                  "expected": {
+                    "type": "object",
+                    "properties": {
+                      "rowId": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
+                      },
+                      "columnId": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
+                      },
+                      "input": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "const": "blank"
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "const": "string"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "maxLength": 32768
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "const": "number"
+                                      },
+                                      "value": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "const": "boolean"
+                                      },
+                                      "value": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "const": "error"
+                                      },
+                                      "code": {
+                                        "type": "string",
+                                        "maxLength": 50
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "code"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "const": "formula"
+                                  },
+                                  "expression": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 32768
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "expression"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "rowId",
+                      "columnId"
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "required": [
@@ -593,6 +1451,191 @@
       ],
       "properties": {
         "type": {
+          "const": "core.cells.copySpecial"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "range": {
+              "type": "object",
+              "properties": {
+                "startRow": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "startColumn": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endRow": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endColumn": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "startRow",
+                "startColumn",
+                "endRow",
+                "endColumn"
+              ],
+              "additionalProperties": false
+            },
+            "target": {
+              "type": "object",
+              "properties": {
+                "startRow": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "startColumn": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endRow": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endColumn": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "startRow",
+                "startColumn",
+                "endRow",
+                "endColumn"
+              ],
+              "additionalProperties": false
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "values",
+                "formulas",
+                "formats"
+              ]
+            }
+          },
+          "required": [
+            "sheetId",
+            "range",
+            "target",
+            "mode"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
+          "const": "core.cells.fillSeries"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "range": {
+              "type": "object",
+              "properties": {
+                "startRow": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "startColumn": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endRow": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endColumn": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "startRow",
+                "startColumn",
+                "endRow",
+                "endColumn"
+              ],
+              "additionalProperties": false
+            },
+            "start": {
+              "type": "number"
+            },
+            "step": {
+              "default": 1,
+              "type": "number"
+            },
+            "axis": {
+              "default": "row",
+              "type": "string",
+              "enum": [
+                "row",
+                "column"
+              ]
+            },
+            "calendar": {
+              "type": "string",
+              "enum": [
+                "month",
+                "year"
+              ]
+            }
+          },
+          "required": [
+            "sheetId",
+            "range",
+            "start",
+            "step",
+            "axis"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
           "const": "core.cells.fillDown"
         },
         "payload": {
@@ -735,6 +1778,146 @@
             "axis",
             "index",
             "count"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
+          "const": "core.axis.resize"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "axis": {
+              "type": "string",
+              "enum": [
+                "row",
+                "column"
+              ]
+            },
+            "index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "count": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "size": {
+              "type": "number",
+              "minimum": 20,
+              "maximum": 2000
+            }
+          },
+          "required": [
+            "sheetId",
+            "axis",
+            "index",
+            "count",
+            "size"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
+          "const": "core.axis.visibility"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "axis": {
+              "type": "string",
+              "enum": [
+                "row",
+                "column"
+              ]
+            },
+            "index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "count": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "hidden": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "sheetId",
+            "axis",
+            "index",
+            "count",
+            "hidden"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "payload"
+      ],
+      "properties": {
+        "type": {
+          "const": "core.axis.visibilityAll"
+        },
+        "payload": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "sheetId": {
+              "type": "string"
+            },
+            "axis": {
+              "type": "string",
+              "enum": [
+                "row",
+                "column"
+              ]
+            },
+            "hidden": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "sheetId",
+            "axis",
+            "hidden"
           ],
           "additionalProperties": false
         }
@@ -991,6 +2174,7 @@
                         "properties": {
                           "target": {
                             "type": "string",
+                            "minLength": 1,
                             "maxLength": 4096
                           },
                           "tooltip": {
@@ -1202,23 +2386,177 @@
                 "filter": {
                   "anyOf": [
                     {
-                      "type": "object",
-                      "properties": {
-                        "column": {
-                          "type": "integer",
-                          "minimum": 0,
-                          "maximum": 9007199254740991
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "column": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            "query": {
+                              "type": "string",
+                              "maxLength": 1000
+                            }
+                          },
+                          "required": [
+                            "column",
+                            "query"
+                          ],
+                          "additionalProperties": false
                         },
-                        "query": {
-                          "type": "string",
-                          "maxLength": 1000
+                        {
+                          "type": "object",
+                          "properties": {
+                            "mode": {
+                              "type": "string",
+                              "enum": [
+                                "all",
+                                "any"
+                              ]
+                            },
+                            "headerRows": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 100000
+                            },
+                            "criteria": {
+                              "minItems": 1,
+                              "maxItems": 64,
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "column": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "eq",
+                                          "neq"
+                                        ]
+                                      },
+                                      "value": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "maxLength": 1000
+                                          },
+                                          {
+                                            "type": "number"
+                                          },
+                                          {
+                                            "type": "boolean"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "column",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "column": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "gt",
+                                          "gte",
+                                          "lt",
+                                          "lte"
+                                        ]
+                                      },
+                                      "value": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "column",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "column": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "contains",
+                                          "notContains",
+                                          "startsWith",
+                                          "endsWith"
+                                        ]
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "maxLength": 1000
+                                      }
+                                    },
+                                    "required": [
+                                      "column",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "column": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "isBlank",
+                                          "isNotBlank",
+                                          "isError",
+                                          "isNotError"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "column",
+                                      "operator"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "mode",
+                            "headerRows",
+                            "criteria"
+                          ],
+                          "additionalProperties": false
                         }
-                      },
-                      "required": [
-                        "column",
-                        "query"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "null"
@@ -1372,23 +2710,177 @@
             "filter": {
               "anyOf": [
                 {
-                  "type": "object",
-                  "properties": {
-                    "column": {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 9007199254740991
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "column": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "query": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": [
+                        "column",
+                        "query"
+                      ],
+                      "additionalProperties": false
                     },
-                    "query": {
-                      "type": "string",
-                      "maxLength": 1000
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mode": {
+                          "type": "string",
+                          "enum": [
+                            "all",
+                            "any"
+                          ]
+                        },
+                        "headerRows": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "criteria": {
+                          "minItems": 1,
+                          "maxItems": 64,
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "column": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  "operator": {
+                                    "type": "string",
+                                    "enum": [
+                                      "eq",
+                                      "neq"
+                                    ]
+                                  },
+                                  "value": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "maxLength": 1000
+                                      },
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "boolean"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "column",
+                                  "operator",
+                                  "value"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "column": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  "operator": {
+                                    "type": "string",
+                                    "enum": [
+                                      "gt",
+                                      "gte",
+                                      "lt",
+                                      "lte"
+                                    ]
+                                  },
+                                  "value": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "column",
+                                  "operator",
+                                  "value"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "column": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  "operator": {
+                                    "type": "string",
+                                    "enum": [
+                                      "contains",
+                                      "notContains",
+                                      "startsWith",
+                                      "endsWith"
+                                    ]
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "maxLength": 1000
+                                  }
+                                },
+                                "required": [
+                                  "column",
+                                  "operator",
+                                  "value"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "column": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  "operator": {
+                                    "type": "string",
+                                    "enum": [
+                                      "isBlank",
+                                      "isNotBlank",
+                                      "isError",
+                                      "isNotError"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "column",
+                                  "operator"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "mode",
+                        "headerRows",
+                        "criteria"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "column",
-                    "query"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "null"
@@ -1417,63 +2909,140 @@
         },
         "payload": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "type": "object",
-          "properties": {
-            "sheetId": {
-              "type": "string"
-            },
-            "range": {
+          "anyOf": [
+            {
               "type": "object",
               "properties": {
-                "startRow": {
+                "sheetId": {
+                  "type": "string"
+                },
+                "range": {
+                  "type": "object",
+                  "properties": {
+                    "startRow": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "startColumn": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endRow": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endColumn": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "startRow",
+                    "startColumn",
+                    "endRow",
+                    "endColumn"
+                  ],
+                  "additionalProperties": false
+                },
+                "column": {
                   "type": "integer",
                   "minimum": 0,
                   "maximum": 9007199254740991
                 },
-                "startColumn": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 9007199254740991
-                },
-                "endRow": {
-                  "type": "integer",
-                  "exclusiveMinimum": 0,
-                  "maximum": 9007199254740991
-                },
-                "endColumn": {
-                  "type": "integer",
-                  "exclusiveMinimum": 0,
-                  "maximum": 9007199254740991
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "asc",
+                    "desc"
+                  ]
                 }
               },
               "required": [
-                "startRow",
-                "startColumn",
-                "endRow",
-                "endColumn"
+                "sheetId",
+                "range",
+                "column",
+                "direction"
               ],
               "additionalProperties": false
             },
-            "column": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
-            },
-            "direction": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+            {
+              "type": "object",
+              "properties": {
+                "sheetId": {
+                  "type": "string"
+                },
+                "range": {
+                  "type": "object",
+                  "properties": {
+                    "startRow": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "startColumn": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endRow": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "endColumn": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "startRow",
+                    "startColumn",
+                    "endRow",
+                    "endColumn"
+                  ],
+                  "additionalProperties": false
+                },
+                "keys": {
+                  "minItems": 1,
+                  "maxItems": 64,
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "column": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      "direction": {
+                        "type": "string",
+                        "enum": [
+                          "asc",
+                          "desc"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "column",
+                      "direction"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "sheetId",
+                "range",
+                "keys"
+              ],
+              "additionalProperties": false
             }
-          },
-          "required": [
-            "sheetId",
-            "range",
-            "column",
-            "direction"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "additionalProperties": false

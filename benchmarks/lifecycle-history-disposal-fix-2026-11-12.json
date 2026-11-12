@@ -1,0 +1,2647 @@
+{
+  "startedAt": "2026-11-12T10:57:07.756Z",
+  "cycles": 100,
+  "fixture": "history",
+  "url": "http://127.0.0.1:5188/",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 381,
+    "sha256": "77d648752ef06d66c80403c69b94e9a23783cac53f606d0a6cb9fa9a9ec5b3e4"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "85cf1de31d12b3b408d4e0a41b2ca0943f062676d4c2be1f5e6141c7199a86f0"
+  },
+  "host": {
+    "node": "v22.19.0",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Fresh isolated browser contexts. Each cycle creates, edits, reattaches twice, replaces, reopens and disposes an editor; owned storage is deleted. Tracks newly constructed Workers/BroadcastChannels/ResizeObservers and workbook data/commit/dispose subscriptions. Counts measure explicit terminate/close/disconnect/unsubscribe calls, not physical process retention. Chromium main-target heap/DOM samples follow requested GC every 10 cycles; Worker heap is unavailable. Browser process RSS is sampled and checkpointed after requested main-target GC; shared pages can be counted repeatedly and Worker memory is not isolated. No hard heap threshold or universal leak-free certification.",
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "cycles": [
+        {
+          "cycle": 1,
+          "durationMs": 271.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 2,
+          "durationMs": 280.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 3,
+          "durationMs": 265.2999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 4,
+          "durationMs": 265.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 5,
+          "durationMs": 265.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 6,
+          "durationMs": 265.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 7,
+          "durationMs": 265.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 8,
+          "durationMs": 265.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 9,
+          "durationMs": 265.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 10,
+          "durationMs": 265.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 11,
+          "durationMs": 265.80000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 12,
+          "durationMs": 265.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 13,
+          "durationMs": 265.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 14,
+          "durationMs": 264.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 15,
+          "durationMs": 265.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 16,
+          "durationMs": 265.7000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 17,
+          "durationMs": 265.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 18,
+          "durationMs": 282.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 19,
+          "durationMs": 265.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 20,
+          "durationMs": 265.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 21,
+          "durationMs": 257.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 22,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 23,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 24,
+          "durationMs": 249.7000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 25,
+          "durationMs": 248.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 26,
+          "durationMs": 249.7000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 27,
+          "durationMs": 250.2000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 28,
+          "durationMs": 247.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 29,
+          "durationMs": 248.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 30,
+          "durationMs": 232.2000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 31,
+          "durationMs": 235.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 32,
+          "durationMs": 249,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 33,
+          "durationMs": 249,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 34,
+          "durationMs": 250.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 35,
+          "durationMs": 248,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 36,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 37,
+          "durationMs": 232.39999961853027,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 38,
+          "durationMs": 232.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 39,
+          "durationMs": 250.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 40,
+          "durationMs": 247.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 41,
+          "durationMs": 235.10000038146973,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 42,
+          "durationMs": 249.7000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 43,
+          "durationMs": 247.7999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 44,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 45,
+          "durationMs": 249.80000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 46,
+          "durationMs": 248.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 47,
+          "durationMs": 232.2000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 48,
+          "durationMs": 232.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 49,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 50,
+          "durationMs": 232.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 51,
+          "durationMs": 237.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 52,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 53,
+          "durationMs": 232.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 54,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 55,
+          "durationMs": 250.7000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 56,
+          "durationMs": 247.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 57,
+          "durationMs": 249.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 58,
+          "durationMs": 249,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 59,
+          "durationMs": 232.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 60,
+          "durationMs": 232.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 61,
+          "durationMs": 235.10000038146973,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 62,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 63,
+          "durationMs": 265.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 64,
+          "durationMs": 250.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 65,
+          "durationMs": 247.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 66,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 67,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 68,
+          "durationMs": 232.39999961853027,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 69,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 70,
+          "durationMs": 250.2999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 71,
+          "durationMs": 248.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 72,
+          "durationMs": 250.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 73,
+          "durationMs": 248.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 74,
+          "durationMs": 249.89999961853027,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 75,
+          "durationMs": 247.7000002861023,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 76,
+          "durationMs": 250.7999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 77,
+          "durationMs": 247.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 78,
+          "durationMs": 249.59999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 79,
+          "durationMs": 248.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 80,
+          "durationMs": 232.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 81,
+          "durationMs": 237.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 82,
+          "durationMs": 232.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 83,
+          "durationMs": 250.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 84,
+          "durationMs": 247.2999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 85,
+          "durationMs": 232.90000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 86,
+          "durationMs": 250,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 87,
+          "durationMs": 247.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 88,
+          "durationMs": 233,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 89,
+          "durationMs": 248.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 90,
+          "durationMs": 249.19999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 91,
+          "durationMs": 237.09999990463257,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 92,
+          "durationMs": 232.2999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 93,
+          "durationMs": 232.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 94,
+          "durationMs": 250.7999997138977,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 95,
+          "durationMs": 247.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 96,
+          "durationMs": 265.5,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 97,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 98,
+          "durationMs": 250.69999980926514,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 99,
+          "durationMs": 247.30000019073486,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        },
+        {
+          "cycle": 100,
+          "durationMs": 232.40000009536743,
+          "counts": {
+            "workers": 0,
+            "channels": 0,
+            "observers": 0,
+            "subscriptions": 0
+          }
+        }
+      ],
+      "memorySamples": [
+        {
+          "cycle": 0,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 3290640,
+            "totalSize": 4259840,
+            "embedderHeapUsedSize": 1688224,
+            "backingStorageSize": 413693
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 10,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4289352,
+            "totalSize": 5308416,
+            "embedderHeapUsedSize": 1854048,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 20,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4357392,
+            "totalSize": 5308416,
+            "embedderHeapUsedSize": 1756120,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 30,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4353064,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1761776,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 40,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4359352,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1751056,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 50,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4359892,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1756688,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 60,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4353140,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1766592,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 70,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4360444,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1763184,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 80,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4361804,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1763184,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 90,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4362200,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1763184,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        },
+        {
+          "cycle": 100,
+          "instances": {
+            "editor": 1,
+            "workbook": 1,
+            "grid": 1
+          },
+          "heap": {
+            "usedSize": 4364876,
+            "totalSize": 5570560,
+            "embedderHeapUsedSize": 1763208,
+            "backingStorageSize": 413742
+          },
+          "dom": {
+            "documents": 2,
+            "nodes": 855,
+            "jsEventListeners": 168
+          }
+        }
+      ],
+      "processMemoryCheckpoints": [
+        {
+          "cycle": 0,
+          "sample": {
+            "elapsedMs": 326,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 91226112
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 45744128
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 177455104
+              }
+            },
+            "totalRssBytes": 383090688
+          }
+        },
+        {
+          "cycle": 10,
+          "sample": {
+            "elapsedMs": 3164,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 102203392
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46579712
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214745088
+              }
+            },
+            "totalRssBytes": 432209920
+          }
+        },
+        {
+          "cycle": 20,
+          "sample": {
+            "elapsedMs": 5989,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110575616
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46743552
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 213729280
+              }
+            },
+            "totalRssBytes": 439713792
+          }
+        },
+        {
+          "cycle": 30,
+          "sample": {
+            "elapsedMs": 8578,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110903296
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46809088
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214908928
+              }
+            },
+            "totalRssBytes": 438222848
+          }
+        },
+        {
+          "cycle": 40,
+          "sample": {
+            "elapsedMs": 11145,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 115638272
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46825472
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 216432640
+              }
+            },
+            "totalRssBytes": 444497920
+          }
+        },
+        {
+          "cycle": 50,
+          "sample": {
+            "elapsedMs": 13674,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 120225792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 217645056
+              }
+            },
+            "totalRssBytes": 450330624
+          }
+        },
+        {
+          "cycle": 60,
+          "sample": {
+            "elapsedMs": 16208,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 125435904
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 218103808
+              }
+            },
+            "totalRssBytes": 455999488
+          }
+        },
+        {
+          "cycle": 70,
+          "sample": {
+            "elapsedMs": 18764,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 130465792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46940160
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219414528
+              }
+            },
+            "totalRssBytes": 462422016
+          }
+        },
+        {
+          "cycle": 80,
+          "sample": {
+            "elapsedMs": 21375,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46989312
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219594752
+              }
+            },
+            "totalRssBytes": 467550208
+          }
+        },
+        {
+          "cycle": 90,
+          "sample": {
+            "elapsedMs": 23942,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47366144
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219250688
+              }
+            },
+            "totalRssBytes": 467582976
+          }
+        },
+        {
+          "cycle": 100,
+          "sample": {
+            "elapsedMs": 26632,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135282688
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47513600
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 220069888
+              }
+            },
+            "totalRssBytes": 468484096
+          }
+        }
+      ],
+      "databaseCleanup": "deleted",
+      "processMemory": {
+        "intervalMs": 1000,
+        "rssSemantics": "Sum of browser process RSS; shared pages may be counted multiple times. Renderer processes may contain both page and Worker; separate attribution is unavailable.",
+        "samples": [
+          {
+            "elapsedMs": 298,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 91226112
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 45744128
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 177291264
+              }
+            },
+            "totalRssBytes": 382926848
+          },
+          {
+            "elapsedMs": 326,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 91226112
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 45744128
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 177455104
+              }
+            },
+            "totalRssBytes": 383090688
+          },
+          {
+            "elapsedMs": 1042,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 95830016
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46202880
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 216776704
+              }
+            },
+            "totalRssBytes": 427491328
+          },
+          {
+            "elapsedMs": 2044,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 99139584
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46530560
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 223395840
+              }
+            },
+            "totalRssBytes": 437747712
+          },
+          {
+            "elapsedMs": 3033,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 102187008
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46579712
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 226689024
+              }
+            },
+            "totalRssBytes": 444137472
+          },
+          {
+            "elapsedMs": 3137,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 102203392
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46579712
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214745088
+              }
+            },
+            "totalRssBytes": 432209920
+          },
+          {
+            "elapsedMs": 3164,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 102203392
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46579712
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214745088
+              }
+            },
+            "totalRssBytes": 432209920
+          },
+          {
+            "elapsedMs": 4036,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 104726528
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46645248
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 224231424
+              }
+            },
+            "totalRssBytes": 444284928
+          },
+          {
+            "elapsedMs": 5030,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 107937792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68681728
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46743552
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 224739328
+              }
+            },
+            "totalRssBytes": 448102400
+          },
+          {
+            "elapsedMs": 5962,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110575616
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46743552
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 213729280
+              }
+            },
+            "totalRssBytes": 439713792
+          },
+          {
+            "elapsedMs": 5989,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110575616
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46743552
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 213729280
+              }
+            },
+            "totalRssBytes": 439713792
+          },
+          {
+            "elapsedMs": 6039,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110592000
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 68665344
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46743552
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214532096
+              }
+            },
+            "totalRssBytes": 440532992
+          },
+          {
+            "elapsedMs": 7034,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110755840
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46809088
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 222494720
+              }
+            },
+            "totalRssBytes": 445661184
+          },
+          {
+            "elapsedMs": 8035,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110870528
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46809088
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 224493568
+              }
+            },
+            "totalRssBytes": 447774720
+          },
+          {
+            "elapsedMs": 8553,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110903296
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46809088
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214908928
+              }
+            },
+            "totalRssBytes": 438222848
+          },
+          {
+            "elapsedMs": 8578,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 110903296
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46809088
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 214908928
+              }
+            },
+            "totalRssBytes": 438222848
+          },
+          {
+            "elapsedMs": 9033,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 111378432
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46825472
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 221593600
+              }
+            },
+            "totalRssBytes": 445399040
+          },
+          {
+            "elapsedMs": 10033,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 114655232
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46825472
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 224067584
+              }
+            },
+            "totalRssBytes": 451149824
+          },
+          {
+            "elapsedMs": 11040,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 115638272
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46825472
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 225591296
+              }
+            },
+            "totalRssBytes": 453656576
+          },
+          {
+            "elapsedMs": 11120,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 115638272
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46825472
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 216432640
+              }
+            },
+            "totalRssBytes": 444497920
+          },
+          {
+            "elapsedMs": 11145,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 115638272
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46825472
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 216432640
+              }
+            },
+            "totalRssBytes": 444497920
+          },
+          {
+            "elapsedMs": 12042,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 115720192
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47005696
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 222871552
+              }
+            },
+            "totalRssBytes": 451198976
+          },
+          {
+            "elapsedMs": 13041,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 118620160
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 225263616
+              }
+            },
+            "totalRssBytes": 456343552
+          },
+          {
+            "elapsedMs": 13651,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 120225792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 217645056
+              }
+            },
+            "totalRssBytes": 450330624
+          },
+          {
+            "elapsedMs": 13674,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 120225792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 217645056
+              }
+            },
+            "totalRssBytes": 450330624
+          },
+          {
+            "elapsedMs": 14046,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 121536512
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 223117312
+              }
+            },
+            "totalRssBytes": 457113600
+          },
+          {
+            "elapsedMs": 15045,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 124928000
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 225656832
+              }
+            },
+            "totalRssBytes": 463044608
+          },
+          {
+            "elapsedMs": 16044,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 125435904
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 228474880
+              }
+            },
+            "totalRssBytes": 466370560
+          },
+          {
+            "elapsedMs": 16184,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 125435904
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 218103808
+              }
+            },
+            "totalRssBytes": 455999488
+          },
+          {
+            "elapsedMs": 16208,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 125435904
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46858240
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 218103808
+              }
+            },
+            "totalRssBytes": 455999488
+          },
+          {
+            "elapsedMs": 17047,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 125534208
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46891008
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 224804864
+              }
+            },
+            "totalRssBytes": 462831616
+          },
+          {
+            "elapsedMs": 18048,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 128679936
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46891008
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 226033664
+              }
+            },
+            "totalRssBytes": 467206144
+          },
+          {
+            "elapsedMs": 18739,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 130465792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46940160
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219414528
+              }
+            },
+            "totalRssBytes": 462422016
+          },
+          {
+            "elapsedMs": 18764,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 130465792
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46940160
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219414528
+              }
+            },
+            "totalRssBytes": 462422016
+          },
+          {
+            "elapsedMs": 19046,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 131219456
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65601536
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46940160
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 223576064
+              }
+            },
+            "totalRssBytes": 467337216
+          },
+          {
+            "elapsedMs": 20044,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 134397952
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46989312
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 226672640
+              }
+            },
+            "totalRssBytes": 473677824
+          },
+          {
+            "elapsedMs": 21044,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46989312
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 227442688
+              }
+            },
+            "totalRssBytes": 475398144
+          },
+          {
+            "elapsedMs": 21350,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46989312
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219594752
+              }
+            },
+            "totalRssBytes": 467550208
+          },
+          {
+            "elapsedMs": 21375,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 46989312
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219594752
+              }
+            },
+            "totalRssBytes": 467550208
+          },
+          {
+            "elapsedMs": 22047,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47005696
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 225968128
+              }
+            },
+            "totalRssBytes": 473939968
+          },
+          {
+            "elapsedMs": 23048,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47366144
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 227344384
+              }
+            },
+            "totalRssBytes": 475676672
+          },
+          {
+            "elapsedMs": 23918,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47366144
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219250688
+              }
+            },
+            "totalRssBytes": 467582976
+          },
+          {
+            "elapsedMs": 23942,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47366144
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 219250688
+              }
+            },
+            "totalRssBytes": 467582976
+          },
+          {
+            "elapsedMs": 24053,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135348224
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47366144
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 223051776
+              }
+            },
+            "totalRssBytes": 471384064
+          },
+          {
+            "elapsedMs": 25052,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135380992
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47398912
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 227065856
+              }
+            },
+            "totalRssBytes": 475463680
+          },
+          {
+            "elapsedMs": 26053,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135921664
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47415296
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 229457920
+              }
+            },
+            "totalRssBytes": 478412800
+          },
+          {
+            "elapsedMs": 26573,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135921664
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47513600
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 220069888
+              }
+            },
+            "totalRssBytes": 469123072
+          },
+          {
+            "elapsedMs": 26632,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 135282688
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 65617920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47513600
+              },
+              "renderer": {
+                "count": 1,
+                "rssBytes": 220069888
+              }
+            },
+            "totalRssBytes": 468484096
+          },
+          {
+            "elapsedMs": 26683,
+            "roles": {
+              "browser": {
+                "count": 1,
+                "rssBytes": 132317184
+              },
+              "gpu": {
+                "count": 1,
+                "rssBytes": 53329920
+              },
+              "utility": {
+                "count": 1,
+                "rssBytes": 47136768
+              }
+            },
+            "totalRssBytes": 232783872
+          }
+        ],
+        "errors": []
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "168b99ab2b84e4ebfc873ba97e710b69adbf7cf52e928a4f1414e2f64b021e70"
+    },
+    {
+      "file": "assets/backup-verifier.worker-DBq6jpi_.js",
+      "sha256": "70acf08491d9b302cae7ea757276f3a2eab3a3ec2a5b73f9ee11e4d563e90c04"
+    },
+    {
+      "file": "assets/engine.worker-BT0-sNIz.js",
+      "sha256": "1b56f2feaca4ae44bfe93635d928b43d25bccaed6c7aaa70085df3d568f6d8dd"
+    },
+    {
+      "file": "assets/file.worker-CJwOAud6.js",
+      "sha256": "969bbaa6a8ee9dcd7c09f27193e729a0c36a47377b7506522830417b8e580d4d"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-BD6TrBHh.css",
+      "sha256": "b85f88fe13978d93499c5ed6169cdace3c6fd9c018cc50edcc3324fff4a5b6d3"
+    },
+    {
+      "file": "assets/index-DyVJzq8u.js",
+      "sha256": "6837a5d81753a34d8f8a9abd9611d02f6b5816b5291bc13ad6d58d850b7f2785"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-export.worker-BdVPzkU6.js",
+      "sha256": "462ca6f456d70b7ce80acad99331d8cb48a1bc4fb72fc357521ab4e1c8469543"
+    }
+  ],
+  "finishedAt": "2026-11-12T10:57:34.785Z"
+}

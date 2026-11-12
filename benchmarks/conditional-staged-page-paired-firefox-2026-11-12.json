@@ -1,0 +1,72 @@
+{
+  "startedAt": "2026-11-11T21:17:14.554Z",
+  "engine": "firefox",
+  "mode": "page",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 317,
+    "sha256": "c441255881a4f7c53ed9ba811c72d42ae55baaea14d24a71b06669dab4886f49"
+  },
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Three alternating fresh-context pairs, real Worker and IndexedDB, 1,000 numeric cells and one relative formula predicate, zero cache reservation. Control is the same source with only the per-viewport page reuse disabled. Setup and all-value checking are outside timing. No production bundle, renderer, frame timing, peak process memory, other devices or formula-heavy values.",
+  "bundles": {
+    "control": "5f63e9212a4ec4d55b747f21feb6661e836d89443c34ad6831dde17c160087b7",
+    "current": "d6dc83fd53c0a8b0deb3184519f92e2a9490a494d4c7f7aacb9f03fdefca0bea"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 143,
+      "reads": 1000,
+      "pageReads": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 25,
+      "reads": 1000,
+      "pageReads": 16,
+      "verified": 1000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 27,
+      "reads": 1000,
+      "pageReads": 16,
+      "verified": 1000
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 110,
+      "reads": 1000,
+      "pageReads": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 109,
+      "reads": 1000,
+      "pageReads": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 26,
+      "reads": 1000,
+      "pageReads": 16,
+      "verified": 1000
+    }
+  ],
+  "browser": "155.0"
+}

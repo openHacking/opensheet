@@ -1,12 +1,10 @@
 import { escapeLatex } from '../escape.js';
+import { mergeLookup } from './merge-index.js';
 import type { PreparedRange } from '../prepare.js';
 import type { ExportResult } from '../types.js';
 export function renderLatex(prepared: PreparedRange): ExportResult {
   const { book, sheet, rows, b, data, report, requiredPackages, opt } = prepared;
-  const merged = (r: number, c: number) =>
-    data.merges.find(
-      (m) => r >= m.startRow && r < m.endRow && c >= m.startColumn && c < m.endColumn,
-    );
+  const merged = mergeLookup(data.merges, b, rows.length);
   if (opt.booktabs !== false) requiredPackages.push('booktabs');
   const lines = rows.map((row, i) => {
     const out: string[] = [];

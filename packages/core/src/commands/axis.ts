@@ -1,5 +1,10 @@
 import { assert, LIMITS, type Command, type WorkbookSnapshot } from '../types.js';
-import { sheetFor, transformAll } from './helpers.js';
+import {
+  sheetFor,
+  structuralRangeReferences,
+  structuralReferences,
+  transformAll,
+} from './helpers.js';
 export function axisCommand(s: WorkbookSnapshot, command: Command): void {
   const p = command.payload as any; // Validated before dispatch.
   const sh = sheetFor(s, p.sheetId);
@@ -30,7 +35,6 @@ export function axisCommand(s: WorkbookSnapshot, command: Command): void {
           'INVALID_ARGUMENT',
           'Axis IDs must be allocated monotonically',
         );
-        sh[next] += count;
       }
       if (insert)
         assert(
@@ -46,22 +50,27 @@ export function axisCommand(s: WorkbookSnapshot, command: Command): void {
           'INVALID_RANGE',
           'Unmerge cells before editing this axis',
         );
+      const deleted = insert ? [] : order.slice(p.index, p.index + count);
+      const removed = new Set(deleted);
       transformAll(
         s,
-        (r) => {
-          if (r.sheet !== sh.name) return r;
-          const at = row ? r.row : r.column;
-          if (!insert && at >= p.index && at < p.index + count) return null;
-          const changed =
-            at >= p.index ? at + (insert ? count : at >= p.index + count ? -count : 0) : at;
-          return { ...r, [row ? 'row' : 'column']: changed };
-        },
+        structuralReferences(command, sh.name),
         sh.name,
+        structuralRangeReferences(command, sh.name),
+        insert
+          ? undefined
+          : (sheet, cell) => sheet.id === sh.id && removed.has(row ? cell.rowId : cell.columnId),
       );
-      const deleted = insert ? [] : order.slice(p.index, p.index + count);
-      order.splice(p.index, insert ? 0 : count, ...(insert ? p.ids : []));
-      for (const k of Object.keys(sh.cells))
-        if (deleted.includes(row ? sh.cells[k].rowId : sh.cells[k].columnId)) delete sh.cells[k];
+      if (insert) sh[row ? 'nextRowId' : 'nextColumnId'] += count;
+      if (insert) {
+        // Avoid exceeding engine-specific argument limits for large inserts.
+        for (let i = 0; i < p.ids.length; i += 8192)
+          order.splice(p.index + i, 0, ...p.ids.slice(i, i + 8192));
+      } else {
+        order.splice(p.index, count);
+        for (const k of Object.keys(sh.cells))
+          if (removed.has(row ? sh.cells[k].rowId : sh.cells[k].columnId)) delete sh.cells[k];
+      }
       for (const id of deleted) delete (row ? sh.rows : sh.columns)[id];
       sh.merges.forEach((m) => {
         if (m[start] >= p.index) {
@@ -76,10 +85,52 @@ export function axisCommand(s: WorkbookSnapshot, command: Command): void {
           ? Math.max(p.index, sh.freeze[f] + (insert ? count : -count))
           : sh.freeze[f],
       );
-      if (!row && sh.filter) {
-        if (!insert && sh.filter.column >= p.index && sh.filter.column < p.index + count)
-          sh.filter = null;
-        else if (sh.filter.column >= p.index) sh.filter.column += insert ? count : -count;
+      if (sh.filter) {
+        const filter = sh.filter;
+        if (!row) {
+          const removed = (column: number) =>
+            !insert && column >= p.index && column < p.index + count;
+          const shifted = (column: number) =>
+            column >= p.index ? column + (insert ? count : -count) : column;
+          if ('column' in filter) {
+            if (removed(filter.column)) sh.filter = null;
+            else filter.column = shifted(filter.column);
+          } else {
+            filter.criteria = filter.criteria.filter((criterion) => !removed(criterion.column));
+            for (const criterion of filter.criteria) criterion.column = shifted(criterion.column);
+            if (!filter.criteria.length) sh.filter = null;
+          }
+        } else if ('headerRows' in filter && p.index < filter.headerRows) {
+          filter.headerRows = insert
+            ? filter.headerRows + count
+            : Math.max(p.index, filter.headerRows - count);
+        }
+      }
+      break;
+    }
+    case 'core.axis.resize': {
+      const order = p.axis === 'row' ? sh.rowOrder : sh.columnOrder;
+      assert(p.index + p.count <= order.length, 'INVALID_RANGE', 'Unknown row/column');
+      const meta = p.axis === 'row' ? sh.rows : sh.columns;
+      for (let i = p.index; i < p.index + p.count; i++) {
+        const id = order[i];
+        if (meta[id]?.size === p.size) continue;
+        meta[id] = { ...meta[id], size: p.size };
+      }
+      break;
+    }
+    case 'core.axis.visibility':
+    case 'core.axis.visibilityAll': {
+      const order = p.axis === 'row' ? sh.rowOrder : sh.columnOrder;
+      const start = command.type === 'core.axis.visibilityAll' ? 0 : p.index;
+      const end = command.type === 'core.axis.visibilityAll' ? order.length : p.index + p.count;
+      assert(end <= order.length, 'INVALID_RANGE', 'Unknown row/column');
+      const meta = p.axis === 'row' ? sh.rows : sh.columns;
+      for (let i = start; i < end; i++) {
+        const id = order[i];
+        if (!p.hidden && !meta[id]?.hidden) continue;
+        if (p.hidden && meta[id]?.hidden) continue;
+        meta[id] = { ...meta[id], hidden: p.hidden };
       }
       break;
     }

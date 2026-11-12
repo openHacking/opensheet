@@ -1,6 +1,6 @@
 {
   "name": "@opensheetjs/core",
-  "version": "0.1.1",
+  "version": "0.2.0-dev.0",
   "type": "module",
   "license": "Apache-2.0",
   "files": [
@@ -19,7 +19,7 @@
   "sideEffects": false,
   "dependencies": {
     "immer": "11.1.21",
-    "zod": "4.6.5",
+    "zod": "4.6.6",
     "@opensheetjs/formula": "workspace:*"
   },
   "repository": {

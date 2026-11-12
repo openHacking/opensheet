@@ -1,0 +1,696 @@
+{
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 337,
+    "sha256": "0b0c08f1dd29be952bc0b8bc7487c4a07bf93853ec94e4cf394bdbe0b6b39848"
+  },
+  "hashes": [
+    "5ac205c1cf48fa75c2cc0f79afd500a33ee1c2a0321b113f36f4bea5c59eba75",
+    "8552fa776601e36e203eef1b62ad6201e503cf502d1fdce0dca840b70bc49786",
+    "eda27f0769130bab387d77357b7366df9160c33c55fdd1733347d23379ace730"
+  ],
+  "count": 10000,
+  "bytes": 899991,
+  "scope": "Diagnostic only: current reader versus a deliberately unsafe variant that skips metadata decoding/validation. Synthetic one-byte page payloads; not a valid workbook, production change, browser measurement or peak-memory measurement.",
+  "results": [
+    {
+      "mode": "metadata-diagnostic",
+      "pairs": [
+        {
+          "current": {
+            "ms": 48.54525000000001,
+            "start": 443.655125,
+            "end": 492.200375,
+            "heapBefore": 49997072,
+            "heapAfter": 75609088,
+            "rssBefore": 176439296,
+            "rssAfter": 189415424,
+            "gcOverlapMs": 5.824917316436768
+          },
+          "withoutMetadataValidation": {
+            "ms": 20.49733299999997,
+            "start": 492.349,
+            "end": 512.846333,
+            "heapBefore": 75655072,
+            "heapAfter": 66747496,
+            "rssBefore": 189431808,
+            "rssAfter": 185024512,
+            "gcOverlapMs": 0.902458667755127
+          }
+        },
+        {
+          "current": {
+            "ms": 39.45775000000003,
+            "start": 533.406042,
+            "end": 572.863792,
+            "heapBefore": 62838648,
+            "heapAfter": 68159680,
+            "rssBefore": 185368576,
+            "rssAfter": 191119360,
+            "gcOverlapMs": 1.186042308807373
+          },
+          "withoutMetadataValidation": {
+            "ms": 19.631749999999897,
+            "start": 513.027583,
+            "end": 532.659333,
+            "heapBefore": 66783152,
+            "heapAfter": 78655368,
+            "rssBefore": 185040896,
+            "rssAfter": 185761792,
+            "gcOverlapMs": 0.36070919036865234
+          }
+        },
+        {
+          "current": {
+            "ms": 44.4865410000001,
+            "start": 572.972417,
+            "end": 617.458958,
+            "heapBefore": 68204888,
+            "heapAfter": 93096112,
+            "rssBefore": 191135744,
+            "rssAfter": 211648512,
+            "gcOverlapMs": 6.542124271392822
+          },
+          "withoutMetadataValidation": {
+            "ms": 19.844208999999978,
+            "start": 617.582833,
+            "end": 637.427042,
+            "heapBefore": 93141872,
+            "heapAfter": 84157528,
+            "rssBefore": 211664896,
+            "rssAfter": 208781312,
+            "gcOverlapMs": 0.986875057220459
+          }
+        },
+        {
+          "current": {
+            "ms": 40.801000000000045,
+            "start": 659.108083,
+            "end": 699.909083,
+            "heapBefore": 81473784,
+            "heapAfter": 86768760,
+            "rssBefore": 209944576,
+            "rssAfter": 215711744,
+            "gcOverlapMs": 1.4637932777404785
+          },
+          "withoutMetadataValidation": {
+            "ms": 20.06220799999994,
+            "start": 637.533542,
+            "end": 657.59575,
+            "heapBefore": 84182936,
+            "heapAfter": 96109840,
+            "rssBefore": 208781312,
+            "rssAfter": 210305024,
+            "gcOverlapMs": 0.5387082099914551
+          }
+        },
+        {
+          "current": {
+            "ms": 49.092209000000025,
+            "start": 700.020208,
+            "end": 749.112417,
+            "heapBefore": 86816232,
+            "heapAfter": 111619832,
+            "rssBefore": 215728128,
+            "rssAfter": 236240896,
+            "gcOverlapMs": 9.137542247772217
+          },
+          "withoutMetadataValidation": {
+            "ms": 20.21412500000008,
+            "start": 749.2415,
+            "end": 769.455625,
+            "heapBefore": 111665768,
+            "heapAfter": 102780472,
+            "rssBefore": 236257280,
+            "rssAfter": 233390080,
+            "gcOverlapMs": 0.9616665840148926
+          }
+        },
+        {
+          "current": {
+            "ms": 41.74275,
+            "start": 791.434333,
+            "end": 833.177083,
+            "heapBefore": 100663000,
+            "heapAfter": 105902632,
+            "rssBefore": 235159552,
+            "rssAfter": 240812032,
+            "gcOverlapMs": 1.554375171661377
+          },
+          "withoutMetadataValidation": {
+            "ms": 21.376916999999935,
+            "start": 769.539708,
+            "end": 790.916625,
+            "heapBefore": 102805480,
+            "heapAfter": 115235456,
+            "rssBefore": 233390080,
+            "rssAfter": 235634688,
+            "gcOverlapMs": 0.424041748046875
+          }
+        },
+        {
+          "current": {
+            "ms": 45.96995900000002,
+            "start": 833.275083,
+            "end": 879.245042,
+            "heapBefore": 105947624,
+            "heapAfter": 130800720,
+            "rssBefore": 240812032,
+            "rssAfter": 261373952,
+            "gcOverlapMs": 6.386499881744385
+          },
+          "withoutMetadataValidation": {
+            "ms": 21.03045899999995,
+            "start": 879.363333,
+            "end": 900.393792,
+            "heapBefore": 130846696,
+            "heapAfter": 121961168,
+            "rssBefore": 261373952,
+            "rssAfter": 258539520,
+            "gcOverlapMs": 1.103917121887207
+          }
+        },
+        {
+          "current": {
+            "ms": 42.413291999999956,
+            "start": 921.425375,
+            "end": 963.838667,
+            "heapBefore": 119816912,
+            "heapAfter": 125269184,
+            "rssBefore": 260259840,
+            "rssAfter": 266076160,
+            "gcOverlapMs": 2.0842089653015137
+          },
+          "withoutMetadataValidation": {
+            "ms": 20.223792000000003,
+            "start": 900.487375,
+            "end": 920.711167,
+            "heapBefore": 121986176,
+            "heapAfter": 134477008,
+            "rssBefore": 258539520,
+            "rssAfter": 260718592,
+            "gcOverlapMs": 0.41883325576782227
+          }
+        },
+        {
+          "current": {
+            "ms": 47.51529100000005,
+            "start": 963.930792,
+            "end": 1011.446083,
+            "heapBefore": 125314176,
+            "heapAfter": 150149064,
+            "rssBefore": 266076160,
+            "rssAfter": 286703616,
+            "gcOverlapMs": 7.680291652679443
+          },
+          "withoutMetadataValidation": {
+            "ms": 20.748166000000083,
+            "start": 1011.557292,
+            "end": 1032.305458,
+            "heapBefore": 150194368,
+            "heapAfter": 141309400,
+            "rssBefore": 286703616,
+            "rssAfter": 283836416,
+            "gcOverlapMs": 1.162750244140625
+          }
+        },
+        {
+          "current": {
+            "ms": 43.193708000000015,
+            "start": 1052.565042,
+            "end": 1095.75875,
+            "heapBefore": 139153496,
+            "heapAfter": 144460920,
+            "rssBefore": 285573120,
+            "rssAfter": 291258368,
+            "gcOverlapMs": 1.7839159965515137
+          },
+          "withoutMetadataValidation": {
+            "ms": 19.58616700000016,
+            "start": 1032.386208,
+            "end": 1051.972375,
+            "heapBefore": 141336480,
+            "heapAfter": 153804504,
+            "rssBefore": 283836416,
+            "rssAfter": 286031872,
+            "gcOverlapMs": 0.48370838165283203
+          }
+        },
+        {
+          "current": {
+            "ms": 51.50954200000001,
+            "start": 1095.97,
+            "end": 1147.479542,
+            "heapBefore": 144515048,
+            "heapAfter": 169346720,
+            "rssBefore": 291258368,
+            "rssAfter": 311803904,
+            "gcOverlapMs": 7.329916954040527
+          },
+          "withoutMetadataValidation": {
+            "ms": 21.686540999999806,
+            "start": 1147.659542,
+            "end": 1169.346083,
+            "heapBefore": 169392944,
+            "heapAfter": 160496968,
+            "rssBefore": 311820288,
+            "rssAfter": 308281344,
+            "gcOverlapMs": 1.106168270111084
+          }
+        },
+        {
+          "current": {
+            "ms": 48.31487500000003,
+            "start": 1191.258292,
+            "end": 1239.573167,
+            "heapBefore": 158339648,
+            "heapAfter": 163620280,
+            "rssBefore": 310099968,
+            "rssAfter": 315752448,
+            "gcOverlapMs": 2.9819579124450684
+          },
+          "withoutMetadataValidation": {
+            "ms": 21.001792000000023,
+            "start": 1169.467625,
+            "end": 1190.469417,
+            "heapBefore": 160522632,
+            "heapAfter": 173015856,
+            "rssBefore": 308297728,
+            "rssAfter": 310509568,
+            "gcOverlapMs": 0.46895790100097656
+          }
+        }
+      ]
+    }
+  ],
+  "gcEvents": [
+    {
+      "start": 355.857125,
+      "duration": 0.7210421562194824,
+      "kind": 1
+    },
+    {
+      "start": 367.43475,
+      "duration": 0.5025830268859863,
+      "kind": 1
+    },
+    {
+      "start": 385.794833,
+      "duration": 2.048874855041504,
+      "kind": 1
+    },
+    {
+      "start": 389.193542,
+      "duration": 0.13000011444091797,
+      "kind": 8
+    },
+    {
+      "start": 392.483375,
+      "duration": 5.416125297546387,
+      "kind": 4
+    },
+    {
+      "start": 405.816083,
+      "duration": 0.37091684341430664,
+      "kind": 1
+    },
+    {
+      "start": 411.521625,
+      "duration": 0.22079229354858398,
+      "kind": 1
+    },
+    {
+      "start": 428.920583,
+      "duration": 0.48541688919067383,
+      "kind": 1
+    },
+    {
+      "start": 441.503,
+      "duration": 0.572667121887207,
+      "kind": 1
+    },
+    {
+      "start": 453.140833,
+      "duration": 0.7768750190734863,
+      "kind": 1
+    },
+    {
+      "start": 468.662417,
+      "duration": 2.9162497520446777,
+      "kind": 1
+    },
+    {
+      "start": 476.724875,
+      "duration": 1.6740422248840332,
+      "kind": 1
+    },
+    {
+      "start": 482.778625,
+      "duration": 0.4577503204345703,
+      "kind": 1
+    },
+    {
+      "start": 497.388583,
+      "duration": 0.5008339881896973,
+      "kind": 1
+    },
+    {
+      "start": 507.964708,
+      "duration": 0.4016246795654297,
+      "kind": 1
+    },
+    {
+      "start": 521.712583,
+      "duration": 0.36070919036865234,
+      "kind": 1
+    },
+    {
+      "start": 532.773292,
+      "duration": 0.5364580154418945,
+      "kind": 1
+    },
+    {
+      "start": 544.261833,
+      "duration": 0.2104167938232422,
+      "kind": 1
+    },
+    {
+      "start": 558.00925,
+      "duration": 0.4707918167114258,
+      "kind": 1
+    },
+    {
+      "start": 562.881167,
+      "duration": 0.12849998474121094,
+      "kind": 1
+    },
+    {
+      "start": 572.015833,
+      "duration": 0.37633371353149414,
+      "kind": 1
+    },
+    {
+      "start": 582.993,
+      "duration": 0.5908331871032715,
+      "kind": 1
+    },
+    {
+      "start": 596.625208,
+      "duration": 3.7048749923706055,
+      "kind": 1
+    },
+    {
+      "start": 604.051042,
+      "duration": 2.043333053588867,
+      "kind": 1
+    },
+    {
+      "start": 610.508625,
+      "duration": 0.20308303833007812,
+      "kind": 1
+    },
+    {
+      "start": 623.63775,
+      "duration": 0.5352921485900879,
+      "kind": 1
+    },
+    {
+      "start": 634.63075,
+      "duration": 0.4515829086303711,
+      "kind": 1
+    },
+    {
+      "start": 646.7845,
+      "duration": 0.5387082099914551,
+      "kind": 1
+    },
+    {
+      "start": 657.671208,
+      "duration": 1.2491250038146973,
+      "kind": 1
+    },
+    {
+      "start": 670.154542,
+      "duration": 0.21137523651123047,
+      "kind": 1
+    },
+    {
+      "start": 684.455458,
+      "duration": 0.6010842323303223,
+      "kind": 1
+    },
+    {
+      "start": 689.540542,
+      "duration": 0.1543750762939453,
+      "kind": 1
+    },
+    {
+      "start": 699.007958,
+      "duration": 0.49695873260498047,
+      "kind": 1
+    },
+    {
+      "start": 710.648083,
+      "duration": 1.5320839881896973,
+      "kind": 1
+    },
+    {
+      "start": 725.647417,
+      "duration": 4.643625259399414,
+      "kind": 1
+    },
+    {
+      "start": 734.142917,
+      "duration": 2.752957820892334,
+      "kind": 1
+    },
+    {
+      "start": 741.33475,
+      "duration": 0.20887517929077148,
+      "kind": 1
+    },
+    {
+      "start": 755.167375,
+      "duration": 0.5140419006347656,
+      "kind": 1
+    },
+    {
+      "start": 766.889958,
+      "duration": 0.44762468338012695,
+      "kind": 1
+    },
+    {
+      "start": 779.044625,
+      "duration": 0.424041748046875,
+      "kind": 1
+    },
+    {
+      "start": 790.9645,
+      "duration": 0.40016698837280273,
+      "kind": 1
+    },
+    {
+      "start": 802.345625,
+      "duration": 0.301999568939209,
+      "kind": 1
+    },
+    {
+      "start": 817.228042,
+      "duration": 0.5509581565856934,
+      "kind": 1
+    },
+    {
+      "start": 822.282958,
+      "duration": 0.14291715621948242,
+      "kind": 1
+    },
+    {
+      "start": 832.251667,
+      "duration": 0.5585002899169922,
+      "kind": 1
+    },
+    {
+      "start": 843.804167,
+      "duration": 0.45395803451538086,
+      "kind": 1
+    },
+    {
+      "start": 857.683042,
+      "duration": 3.3677501678466797,
+      "kind": 1
+    },
+    {
+      "start": 864.88825,
+      "duration": 2.322291851043701,
+      "kind": 1
+    },
+    {
+      "start": 871.831292,
+      "duration": 0.24249982833862305,
+      "kind": 1
+    },
+    {
+      "start": 886.075958,
+      "duration": 0.647791862487793,
+      "kind": 1
+    },
+    {
+      "start": 897.734292,
+      "duration": 0.45612525939941406,
+      "kind": 1
+    },
+    {
+      "start": 909.977125,
+      "duration": 0.41883325576782227,
+      "kind": 1
+    },
+    {
+      "start": 920.761708,
+      "duration": 0.5977497100830078,
+      "kind": 1
+    },
+    {
+      "start": 931.860125,
+      "duration": 0.24987506866455078,
+      "kind": 1
+    },
+    {
+      "start": 947.005083,
+      "duration": 0.8703341484069824,
+      "kind": 1
+    },
+    {
+      "start": 952.406625,
+      "duration": 0.24091672897338867,
+      "kind": 1
+    },
+    {
+      "start": 962.664542,
+      "duration": 0.7230830192565918,
+      "kind": 1
+    },
+    {
+      "start": 974.573958,
+      "duration": 0.6686668395996094,
+      "kind": 1
+    },
+    {
+      "start": 988.7795,
+      "duration": 4.189125061035156,
+      "kind": 1
+    },
+    {
+      "start": 996.667333,
+      "duration": 2.4949169158935547,
+      "kind": 1
+    },
+    {
+      "start": 1004.192292,
+      "duration": 0.32758283615112305,
+      "kind": 1
+    },
+    {
+      "start": 1018.093833,
+      "duration": 0.6600003242492676,
+      "kind": 1
+    },
+    {
+      "start": 1029.683708,
+      "duration": 0.5027499198913574,
+      "kind": 1
+    },
+    {
+      "start": 1041.714292,
+      "duration": 0.48370838165283203,
+      "kind": 1
+    },
+    {
+      "start": 1052.022167,
+      "duration": 0.4697909355163574,
+      "kind": 1
+    },
+    {
+      "start": 1063.332417,
+      "duration": 0.2801661491394043,
+      "kind": 1
+    },
+    {
+      "start": 1078.827083,
+      "duration": 0.5769171714782715,
+      "kind": 1
+    },
+    {
+      "start": 1084.871708,
+      "duration": 0.2876248359680176,
+      "kind": 1
+    },
+    {
+      "start": 1094.7475,
+      "duration": 0.6392078399658203,
+      "kind": 1
+    },
+    {
+      "start": 1105.862583,
+      "duration": 0.7255001068115234,
+      "kind": 1
+    },
+    {
+      "start": 1123.902083,
+      "duration": 4.226749897003174,
+      "kind": 1
+    },
+    {
+      "start": 1132.34525,
+      "duration": 2.034791946411133,
+      "kind": 1
+    },
+    {
+      "start": 1139.727417,
+      "duration": 0.34287500381469727,
+      "kind": 1
+    },
+    {
+      "start": 1154.437458,
+      "duration": 0.6120843887329102,
+      "kind": 1
+    },
+    {
+      "start": 1166.556958,
+      "duration": 0.49408388137817383,
+      "kind": 1
+    },
+    {
+      "start": 1179.254875,
+      "duration": 0.46895790100097656,
+      "kind": 1
+    },
+    {
+      "start": 1190.511208,
+      "duration": 0.6818342208862305,
+      "kind": 1
+    },
+    {
+      "start": 1202.832375,
+      "duration": 0.3984999656677246,
+      "kind": 1
+    },
+    {
+      "start": 1220.509,
+      "duration": 1.514625072479248,
+      "kind": 1
+    },
+    {
+      "start": 1227.508792,
+      "duration": 0.424832820892334,
+      "kind": 1
+    },
+    {
+      "start": 1238.442125,
+      "duration": 0.6440000534057617,
+      "kind": 1
+    }
+  ]
+}

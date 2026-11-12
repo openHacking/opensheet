@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-30T17:08:35.690Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "provenance": "CC0 synthetic numeric date/time cells exported through OpenSheet and SheetJS; display text independently produced by LibreOffice CSV conversion. Excel and visual layout not tested.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 219,
+    "sha256": "93642cc668ea0be76d9020239853468457d26523790bf13d6c95a103de76bfa3"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "cd9f9b76741ba8f746e38bf3ae89a896848453834fdd9c7231e04132281f020f"
+  },
+  "results": [
+    {
+      "system": "1900",
+      "comparisons": [
+        {
+          "value": 45293.5,
+          "format": "yyyy-mm-dd hh:mm",
+          "opensheet": "2024-01-02 12:00",
+          "reader": "2024-01-02 12:00",
+          "agrees": true
+        },
+        {
+          "value": 45293.999999,
+          "format": "yyyy-mm-dd hh:mm",
+          "opensheet": "2024-01-03 00:00",
+          "reader": "2024-01-02 23:59",
+          "agrees": false
+        },
+        {
+          "value": 0.5,
+          "format": "hh:mm",
+          "opensheet": "12:00",
+          "reader": "12:00",
+          "agrees": true
+        },
+        {
+          "value": 60.5,
+          "format": "yyyy-mm-dd hh:mm:ss",
+          "opensheet": "1900-02-29 12:00:00",
+          "reader": "1900-02-28 12:00:00",
+          "agrees": false
+        },
+        {
+          "value": 0,
+          "format": "m/d/yy",
+          "opensheet": "1/0/00",
+          "reader": "1899-12-30",
+          "agrees": false
+        },
+        {
+          "value": 60,
+          "format": "mm/dd/yyyy",
+          "opensheet": "02/29/1900",
+          "reader": "02/28/1900",
+          "agrees": false
+        },
+        {
+          "value": 45293.5,
+          "format": "m/d/yy h:mm",
+          "opensheet": "1/2/24 12:00",
+          "reader": "2024-1-2 12:00",
+          "agrees": false
+        },
+        {
+          "value": 45293.999999,
+          "format": "m/d/yy h:mm",
+          "opensheet": "1/3/24 0:00",
+          "reader": "2024-1-2 23:59",
+          "agrees": false
+        }
+      ],
+      "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-datetime-kvFuxW/1900/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-datetime-kvFuxW/1900/source.csv using filter : Text - txt - csv (StarCalc):44,34,76,1"
+    },
+    {
+      "system": "1904",
+      "comparisons": [
+        {
+          "value": 45293.5,
+          "format": "yyyy-mm-dd hh:mm",
+          "opensheet": "2028-01-03 12:00",
+          "reader": "2028-01-03 12:00",
+          "agrees": true
+        },
+        {
+          "value": 45293.999999,
+          "format": "yyyy-mm-dd hh:mm",
+          "opensheet": "2028-01-04 00:00",
+          "reader": "2028-01-03 23:59",
+          "agrees": false
+        },
+        {
+          "value": 0.5,
+          "format": "hh:mm",
+          "opensheet": "12:00",
+          "reader": "12:00",
+          "agrees": true
+        },
+        {
+          "value": 60.5,
+          "format": "yyyy-mm-dd hh:mm:ss",
+          "opensheet": "1904-03-01 12:00:00",
+          "reader": "1904-03-01 12:00:00",
+          "agrees": true
+        },
+        {
+          "value": 0,
+          "format": "m/d/yy",
+          "opensheet": "1/1/04",
+          "reader": "1904-1-1",
+          "agrees": false
+        },
+        {
+          "value": 60,
+          "format": "mm/dd/yyyy",
+          "opensheet": "03/01/1904",
+          "reader": "03/01/1904",
+          "agrees": true
+        },
+        {
+          "value": 45293.5,
+          "format": "m/d/yy h:mm",
+          "opensheet": "1/3/28 12:00",
+          "reader": "2028-1-3 12:00",
+          "agrees": false
+        },
+        {
+          "value": 45293.999999,
+          "format": "m/d/yy h:mm",
+          "opensheet": "1/4/28 0:00",
+          "reader": "2028-1-3 23:59",
+          "agrees": false
+        }
+      ],
+      "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-datetime-kvFuxW/1904/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-datetime-kvFuxW/1904/source.csv using filter : Text - txt - csv (StarCalc):44,34,76,1"
+    }
+  ],
+  "artifacts": {
+    "1900xlsx": {
+      "file": "datetime-format-2026-10-31-slash.1900.xlsx",
+      "sha256": "9468296f79e69ee71deb90f942d2a32aea3efd86da7ae8cfaab43b75f9e0445c"
+    },
+    "1900csv": {
+      "file": "datetime-format-2026-10-31-slash.1900.csv",
+      "sha256": "508c1209336d095961a51b9039a9f00eacc0a295fb8525413c1e35b9856fae3d"
+    },
+    "1904xlsx": {
+      "file": "datetime-format-2026-10-31-slash.1904.xlsx",
+      "sha256": "6caf11f58e79e061ed5cd48cf6e7baf9fb0e55bb0cc56d52ea7362471a155e44"
+    },
+    "1904csv": {
+      "file": "datetime-format-2026-10-31-slash.1904.csv",
+      "sha256": "16c7386aebc137c5b9bddd7a24466db72df5481f82890d0ad259a45c31c1c961"
+    }
+  }
+}

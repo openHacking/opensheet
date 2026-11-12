@@ -45,6 +45,53 @@ export class GridLayout {
     }
     return Math.min(lo, offsets.length - 2);
   }
+  /** Visible nonzero-sized entries, including frozen and scrolling panes. */
+  visiblePositions(offsets: number[], scroll: number, extent: number, frozen: number) {
+    const out: number[] = [];
+    const end = offsets.length - 1;
+    const collect = (start: number, limit: number, shift: number) => {
+      for (let i = start; i < limit && offsets[i] - shift < extent; ) {
+        if (offsets[i + 1] > offsets[i]) {
+          out.push(i++);
+        } else if (i + 1 >= limit || offsets[i + 2] > offsets[i]) {
+          i++;
+        } else {
+          // Short runs are cheaper to scan; bound that scan before searching a long run.
+          const scanEnd = Math.min(i + 8, limit);
+          while (i < scanEnd && offsets[i + 1] === offsets[i]) i++;
+          if (i === scanEnd && i < limit && offsets[i + 1] === offsets[i])
+            i = Math.max(i + 1, this.index(offsets, offsets[i]));
+        }
+      }
+    };
+    collect(0, Math.min(frozen, end), 0);
+    collect(Math.max(frozen, this.index(offsets, scroll + offsets[frozen])), end, scroll);
+    return out;
+  }
+  /** Resolve a hidden position in the requested direction, falling back at an edge. */
+  visibleIndex(offsets: number[], index: number, direction: number) {
+    if (!direction || offsets[index] !== offsets[index + 1]) return index;
+    const target = offsets[index];
+    let lo = 0,
+      hi = offsets.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >>> 1;
+      if (offsets[mid] < target) lo = mid + 1;
+      else hi = mid;
+    }
+    const before = lo - 1;
+    hi = offsets.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >>> 1;
+      if (offsets[mid] <= target) lo = mid + 1;
+      else hi = mid;
+    }
+    const after = lo - 1;
+    const valid = (value: number) => value >= 0 && value < offsets.length - 1;
+    const first = direction < 0 ? before : after;
+    const fallback = direction < 0 ? after : before;
+    return valid(first) ? first : valid(fallback) ? fallback : index;
+  }
   hit(
     e: MouseEvent,
     element: HTMLElement,

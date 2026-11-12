@@ -1,0 +1,556 @@
+{
+  "startedAt": "2026-11-11T07:16:55.929Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 272,
+    "sha256": "84392daaca290f505634e2c1a51dd185951c12b37ea1835f788fe1aee8b5f704"
+  },
+  "workerSha256": "d85119318ae117c3bee71bb22def0c94e9770db35c0b474d063fcc8f164ca1ca",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless dedicated Worker predicate microbenchmark; one million contains checks per sample, repeating matching text, nonmatching text, number and null. Compared with and without a pre-folded query, 2 or 1000 characters; six alternating rounds with fresh workers. Excludes row reads, calculation, storage, rendering, filtering setup, memory and other devices; does not establish end-to-end performance.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 19.200000286102295,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 182.09999990463257,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 9.5,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 129.09999990463257,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 122.2999997138977,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 9.299999713897705,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 187.30000019073486,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 10.799999713897705,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 10.800000190734863,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 186,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 9.600000381469727,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 123.59999990463257,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 123.5,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 9.599999904632568,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 189.69999980926514,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 10.900000095367432,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 10.5,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 186.09999990463257,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 9.5,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 121.19999980926514,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 120.60000038146973,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 9.300000190734863,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 186.69999980926514,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 11.299999713897705,
+              "matches": 250000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 24,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 261,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 20,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 102,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 100,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 21,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 256,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 24,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 25,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 262,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 20,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 101,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 100,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 20,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 255,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 21,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 23,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 256,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 20,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 100,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 101,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 21,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 254,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 22,
+              "matches": 250000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 44,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 263,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 12,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 203,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 199,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 11,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 235,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 15,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 14,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 241,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 12,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 202,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 200,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 12,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 247,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 15,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 15,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 245,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 11,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 202,
+              "matches": 250000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "prepared": true,
+              "long": true,
+              "ms": 214,
+              "matches": 250000
+            },
+            {
+              "prepared": true,
+              "long": false,
+              "ms": 13,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": true,
+              "ms": 238,
+              "matches": 250000
+            },
+            {
+              "prepared": false,
+              "long": false,
+              "ms": 16,
+              "matches": 250000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T07:17:07.390Z"
+}

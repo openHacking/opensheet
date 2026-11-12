@@ -1,0 +1,89 @@
+{
+  "startedAt": "2026-10-23T02:09:06.940Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 205,
+    "sha256": "f380888b5d57ad8919a2f5a404c655f50faf7a6c59c2a9f61ca2ea1d0d95fd44"
+  },
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "a883ef4cfe94b262d8f0dffc8137838a78716764ffd43240b9c34a99cd3addca"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "412e8eba50343744cc794df46e71ddd3e0e9b5f9ac2d23f6fabe9d8bf1e63e49"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "8e50132b5bb5c55b84ddf1e6cb8efa4e19419a29ffbd6aa14650e316408b77a5"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "975aed732c6fd8b4ade76eef8b6f1a660018bbac7982a0b2a6d0d641b064c6fa"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "aca067f7c137970e9c0787b80789126aeae33e8c4242c7b2b0f8f9dd3d7f0ff5"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.1.1",
+      "sha256": "4f7ae0de4b28eb0fb07a03bf960a9e3c860d24b66ea32c6a3fe0bb33ad5e1bcb"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.1.1",
+      "sha256": "408e4b65f8b776d0ea037a628922603be2a675ce89bb0e3acb6f1e202aba1175"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "development",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "async initialization errors reach host"
+      ],
+      "status": "failed",
+      "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Late action', exact: true })\u001b[22m\n",
+      "pageErrors": [],
+      "observation": {
+        "ready": 1,
+        "errors": [],
+        "workerUrls": [
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ],
+        "workers": 1,
+        "createdWorkers": 10,
+        "grids": 1
+      }
+    }
+  ],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no source aliases; development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "14159ca51fa99a662036da32d608108d0b0ec5d8ccc208040f524fc944b8a1cb",
+  "configSha256": "614ecf67df6780727922b7db8f44b55bc7423ca7231cb22aa4feec04039dd156",
+  "lock": {
+    "file": "/Volumes/github/private/opensheet/benchmarks/framework-2026-10-23-configured-packages.consumer-lock.yaml",
+    "sha256": "e6e1f68e4c3767847a19953d011976575e4fd7195413b5985d635dc151e399be"
+  },
+  "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Late action', exact: true })\u001b[22m\n"
+}

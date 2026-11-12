@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-10T06:41:01.703Z",
+  "engine": "chromium",
+  "browser": "153.0.8010.12",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 243,
+    "sha256": "6c6a7f9b988ab529c4f419316a382f2b1f43f0db8bf3eec8f38acd5995ab1919"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "e242eab2ae5ea5f938805ce2c5ef66b74310546246c3ebc6cf155dbfb68a8215"
+  },
+  "bundleHash": "03025b195393ee97a7ced9af12088d693c8eb30e4369d1d693eece96072c3508",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Production app, separate minified source verifier bundle on the main page and the production backup Worker; one fresh context, complete native backups of deterministic fixture, verification/comparison summaries and animation-frame intervals. Optional profile uses an instrumented replica and read timings include async waits. Excludes fixture and initial export from timings; comparison includes its own export. No Worker/process memory, controlled power mode or cross-device acceptance.",
+  "result": {
+    "cells": 200000,
+    "jsonBytes": 4554620,
+    "binaryBytes": 2445921,
+    "json": {
+      "elapsedMs": 712.9000000953674,
+      "maxFrameMs": 16.800000000000182,
+      "frames": 45,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 128,
+        "cells": 200000
+      }
+    },
+    "binary": {
+      "elapsedMs": 544.2999997138977,
+      "maxFrameMs": 16.800000000000182,
+      "frames": 34,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 128,
+        "cells": 200000
+      }
+    },
+    "workerBinary": {
+      "elapsedMs": 567.7000002861023,
+      "maxFrameMs": 16.700000000000273,
+      "frames": 36,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 128,
+        "cells": 200000
+      }
+    },
+    "comparison": {
+      "elapsedMs": 966.2999997138977,
+      "maxFrameMs": 16.799999999999272,
+      "frames": 59,
+      "summary": {
+        "matches": true,
+        "revision": 1
+      }
+    }
+  }
+}

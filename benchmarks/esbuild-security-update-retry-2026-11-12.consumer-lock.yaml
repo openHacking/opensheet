@@ -1,0 +1,97 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  '@opensheetjs/formula': file:./tarballs/formula.tgz
+  '@opensheetjs/core': file:./tarballs/core.tgz
+  '@opensheetjs/renderer': file:./tarballs/renderer.tgz
+  '@opensheetjs/plugin-sdk': file:./tarballs/plugin-sdk.tgz
+  opensheet: file:./tarballs/opensheet.tgz
+
+importers:
+
+  .:
+    dependencies:
+      '@opensheetjs/core':
+        specifier: file:tarballs/core.tgz
+        version: file:tarballs/core.tgz
+      '@opensheetjs/formula':
+        specifier: file:tarballs/formula.tgz
+        version: file:tarballs/formula.tgz
+      '@opensheetjs/plugin-sdk':
+        specifier: file:tarballs/plugin-sdk.tgz
+        version: file:tarballs/plugin-sdk.tgz
+      '@opensheetjs/renderer':
+        specifier: file:tarballs/renderer.tgz
+        version: file:tarballs/renderer.tgz
+      opensheet:
+        specifier: file:tarballs/opensheet.tgz
+        version: file:tarballs/opensheet.tgz
+      zod:
+        specifier: 4.6.6
+        version: 4.6.6
+
+packages:
+
+  '@opensheetjs/core@file:tarballs/core.tgz':
+    resolution: {integrity: sha512-wq98qmE2nNBc67i6mwuuufFhEyxLJO7bCZZr5btdo4f6gs0JGeyhdxtKmuK4CouHLwUqud5Q9IRjtQ+S+429dw==, tarball: file:tarballs/core.tgz}
+    version: 0.2.0-dev.0
+
+  '@opensheetjs/formula@file:tarballs/formula.tgz':
+    resolution: {integrity: sha512-k+Ojm0luSIJTbIh9fEu4NB6l4NhZ9k7LYxlnJHSn6nT3Xor4hvT7Q6PcqnTyBHX32CLmlZX+JyukyZTHYiUsMw==, tarball: file:tarballs/formula.tgz}
+    version: 0.2.0-dev.0
+
+  '@opensheetjs/plugin-sdk@file:tarballs/plugin-sdk.tgz':
+    resolution: {integrity: sha512-29DvHfkSbA00VcFG4DhuyCTRZpVteobbXUmLSKLfkXP03QaYKlWp+KKz94Jz7KUE6+97o5b66ZXO25xduaraSg==, tarball: file:tarballs/plugin-sdk.tgz}
+    version: 0.2.0-dev.0
+
+  '@opensheetjs/renderer@file:tarballs/renderer.tgz':
+    resolution: {integrity: sha512-Vl1vq7L/Y+JcbqISqZnFTo6ntQeXGmb6a5K9WF5kEcSe6vTZbaBAqALwRXi7X1SKbOMUgcdwovV2QrV9mwoUrQ==, tarball: file:tarballs/renderer.tgz}
+    version: 0.2.0-dev.0
+
+  immer@11.1.21:
+    resolution: {integrity: sha512-bZSadeCPGdaY5/qRLgr6mDSH1ra21rD3rqpiWk7+QTr4ayYPTE9qZYdLh/NdPhMe0wSrTvHD/Lk8q5EwhUs0aw==}
+
+  lucide@1.52.0:
+    resolution: {integrity: sha512-XlP0U+m3seobjTPfT0Ybg9YqJeTwSxx1I6R2Ty7vwpA/4HtibMbV28p9tW7AnIwb77YkTboK9x/OPBEqGAzCFg==}
+
+  opensheet@file:tarballs/opensheet.tgz:
+    resolution: {integrity: sha512-fU0SbYDd5y2k2mvbNfs08zb3FwhZJhaYyp+zJZQpYSEsIkhVfUrXpdax2FEhboQUbxN0D8zHAE5pK2u9wS8Wyg==, tarball: file:tarballs/opensheet.tgz}
+    version: 0.2.0-dev.0
+
+  zod@4.6.6:
+    resolution: {integrity: sha512-4UmzQUF5fxvfcYHlbjBmejU+w+hbDnWFx4aS8kBx7nPBHcO2SqPbpAG8snbdg+Xse4pRefR98hgjFgIMCI/UhA==}
+
+snapshots:
+
+  '@opensheetjs/core@file:tarballs/core.tgz':
+    dependencies:
+      '@opensheetjs/formula': file:tarballs/formula.tgz
+      immer: 11.1.21
+      zod: 4.6.6
+
+  '@opensheetjs/formula@file:tarballs/formula.tgz': {}
+
+  '@opensheetjs/plugin-sdk@file:tarballs/plugin-sdk.tgz':
+    dependencies:
+      '@opensheetjs/core': file:tarballs/core.tgz
+
+  '@opensheetjs/renderer@file:tarballs/renderer.tgz':
+    dependencies:
+      '@opensheetjs/core': file:tarballs/core.tgz
+
+  immer@11.1.21: {}
+
+  lucide@1.52.0: {}
+
+  opensheet@file:tarballs/opensheet.tgz:
+    dependencies:
+      '@opensheetjs/core': file:tarballs/core.tgz
+      '@opensheetjs/plugin-sdk': file:tarballs/plugin-sdk.tgz
+      '@opensheetjs/renderer': file:tarballs/renderer.tgz
+      lucide: 1.52.0
+
+  zod@4.6.6: {}

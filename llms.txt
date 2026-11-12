@@ -1,18 +1,21 @@
 # OpenSheet 0.1
 
-Open-source TypeScript spreadsheet. Current implementation docs take precedence over numbered design documents. Packages are not published to npm.
+Open-source TypeScript spreadsheet. Current implementation docs take precedence over design and planning documents. The workspace is the unreleased 0.2.0-dev.0 development candidate; 0.1.1 is a published preview.
 
 - README.md: project overview, demos and package map
 - CONTRIBUTING.md: local setup, development, validation and deployment
 - docs/api.md: public APIs and examples
 - docs/plugins.md: plugin lifecycle and capabilities
 - docs/implementation-status.md: supported behavior and limits
+- ROADMAP.md: proposed milestones and acceptance gates, not shipped capabilities
+- TODO.md: planned execution backlog, dependencies and definitions of done
+- docs/competitive-research.md: dated competitor evidence and strategic gaps
 - schemas/workbook.schema.json: native snapshot schema
 - schemas/commands.schema.json: local command schemas
 - api-manifest.json: entry points, commands and errors
 - examples/headless.ts: compile-checked headless usage
 - examples/plugin.ts: compile-checked plugin
 
-Main entry: opensheet; stylesheet: opensheet/style.css. Scoped packages: @opensheetjs/*. Use setValues for literal data and setFormulas for formulas. All writes go through commands. Transactions are synchronous. Numeric range ends are exclusive. Never mutate sheetData or claim full Excel compatibility. Dispose instances on unmount.
+Main entry: opensheet; stylesheet: opensheet/style.css. Scoped packages: @opensheetjs/*. Use setValues for literal data and setFormulas for formulas. All writes go through commands. Workbook I/O and transactions are asynchronous; await them and use the scoped transaction facade. Numeric range ends are exclusive. Never mutate internal records or claim full Excel compatibility. Dispose instances on unmount.
 
 Current engine: asynchronous Worker + IndexedDB, bounded caches and atomic staged revisions. API: docs/api.md. Performance example and measurement protocol: docs/performance.md.

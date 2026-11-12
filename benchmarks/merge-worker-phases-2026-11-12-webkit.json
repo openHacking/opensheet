@@ -1,0 +1,102 @@
+{
+  "startedAt": "2026-11-12T05:41:42.609Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 362,
+    "sha256": "84c488590a8da0c94f74cce45d452b6bb8287ca60326567ab921265af34831b1"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "engine": "webkit",
+  "profile": "profile",
+  "cells": 20000,
+  "scope": "Development-server direct Workbook with opt-in Worker operation timing; three fresh contexts, one merge each. Every note checked before/after, undo, redo and reopen. Timing includes instrumentation and scheduling, not CPU attribution; no paired baseline, production assets, native input or process peak memory.",
+  "rounds": [
+    {
+      "round": 1,
+      "mergeMs": 188,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 176,
+        "roundTripMs": 176,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 1
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 76
+        },
+        "publish": {
+          "count": 1,
+          "ms": 30
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1214653
+    },
+    {
+      "round": 2,
+      "mergeMs": 201,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 188,
+        "roundTripMs": 188,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 1
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 82
+        },
+        "publish": {
+          "count": 1,
+          "ms": 31
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1214653
+    },
+    {
+      "round": 3,
+      "mergeMs": 229,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 216,
+        "roundTripMs": 217,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 0
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 85
+        },
+        "publish": {
+          "count": 1,
+          "ms": 59
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1214653
+    }
+  ],
+  "browser": "26.6"
+}

@@ -1,0 +1,502 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-22T16:03:11.657Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "sourceCommit": "fb76c4ee10f0de3e6e78f9c2d141a2cc1921423a",
+  "sourceDirty": true,
+  "provenance": "Synthetic public formula corpus; expected results hand-authored, cached actual results produced by LibreOffice conversion, decoded by SheetJS. No OpenSheet-generated expected values.",
+  "fixtureSha256": "7fa8f6cec029f48f9e5d66bedd078595061e339725472381eeca9ae78fb6d219",
+  "sourceWorkbook": "formula-reader-2026-10-23.source.xlsx",
+  "sourceSha256": "effeecc4697115437e4ce3fd85a911fd95ebccaca59704e268d0410bcf482802",
+  "recalculatedWorkbook": "formula-reader-2026-10-23.recalculated.xlsx",
+  "recalculatedSha256": "cf5fb4e1feb6b20ee782529a896fa24596f2c7d522b830aa13a6ba5ddc7c06f5",
+  "conversionLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-ZQvssZ/semantics.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-ZQvssZ/recalculated/semantics.xlsx using filter : Calc MS Excel 2007 XML",
+  "observations": [
+    {
+      "expression": "SUM(2,4,-1)",
+      "tag": "arithmetic",
+      "expected": 5,
+      "actual": 5,
+      "agrees": true,
+      "readerFormula": "SUM(2,4,-1)"
+    },
+    {
+      "expression": "SUM(A1:A5)",
+      "tag": "numeric-reference",
+      "expected": 2,
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "SUM(A1:A5)"
+    },
+    {
+      "expression": "SUM(A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "SUM(A6)"
+    },
+    {
+      "expression": "SUM(1e308,1e308)",
+      "tag": "finite-result",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": {
+        "error": "#NUM!"
+      },
+      "agrees": true,
+      "readerFormula": "SUM(1E+308,1E+308)"
+    },
+    {
+      "expression": "AVERAGE(2,4)",
+      "tag": "arithmetic",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "AVERAGE(2,4)"
+    },
+    {
+      "expression": "AVERAGE(A1:A5)",
+      "tag": "numeric-reference",
+      "expected": 2,
+      "actual": 1.5,
+      "agrees": false,
+      "readerFormula": "AVERAGE(A1:A5)"
+    },
+    {
+      "expression": "AVERAGE(A4:A5)",
+      "tag": "empty-average",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "AVERAGE(A4:A5)"
+    },
+    {
+      "expression": "AVERAGE(1e308,1e308)",
+      "tag": "finite-result",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": {
+        "error": "#NUM!"
+      },
+      "agrees": true,
+      "readerFormula": "AVERAGE(1E+308,1E+308)"
+    },
+    {
+      "expression": "MIN(3,-2,1)",
+      "tag": "arithmetic",
+      "expected": -2,
+      "actual": -2,
+      "agrees": true,
+      "readerFormula": "MIN(3,-2,1)"
+    },
+    {
+      "expression": "MIN(A4:A5)",
+      "tag": "empty-min-max",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "MIN(A4:A5)"
+    },
+    {
+      "expression": "MAX(3,-2,1)",
+      "tag": "arithmetic",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MAX(3,-2,1)"
+    },
+    {
+      "expression": "MAX(A4:A5)",
+      "tag": "empty-min-max",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "MAX(A4:A5)"
+    },
+    {
+      "expression": "COUNT(1,\"x\",TRUE)",
+      "tag": "ms-count",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNT(1,\"x\",TRUE())"
+    },
+    {
+      "expression": "COUNT(\"7\",FALSE,\"\",1/0)",
+      "tag": "ms-count",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNT(\"7\",FALSE(),\"\",1/0)"
+    },
+    {
+      "expression": "COUNT(A1,A2,A3,A4,A5,A6,A7)",
+      "tag": "ms-count",
+      "expected": 1,
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "COUNT(A1,A2,A3,A4,A5,A6,A7)"
+    },
+    {
+      "expression": "COUNT(A1:A7)",
+      "tag": "ms-count",
+      "expected": 1,
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "COUNT(A1:A7)"
+    },
+    {
+      "expression": "COUNT(A1:A7,TRUE,\"2\")",
+      "tag": "ms-count",
+      "expected": 3,
+      "actual": 5,
+      "agrees": false,
+      "readerFormula": "COUNT(A1:A7,TRUE(),\"2\")"
+    },
+    {
+      "expression": "COUNTA(A1:A7)",
+      "tag": "nonblank-count",
+      "expected": 6,
+      "actual": 5,
+      "agrees": false,
+      "readerFormula": "COUNTA(A1:A7)"
+    },
+    {
+      "expression": "COUNTA(1/0,\"\")",
+      "tag": "nonblank-count",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "COUNTA(1/0,\"\")"
+    },
+    {
+      "expression": "IF(TRUE,2,1/0)",
+      "tag": "lazy-if",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "IF(TRUE(),2,1/0)"
+    },
+    {
+      "expression": "IF(FALSE,1/0,3)",
+      "tag": "lazy-if",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "IF(FALSE(),1/0,3)"
+    },
+    {
+      "expression": "IF(FALSE,1)",
+      "tag": "lazy-if",
+      "expected": false,
+      "actual": false,
+      "agrees": true,
+      "readerFormula": "IF(FALSE(),1)"
+    },
+    {
+      "expression": "SUM(IF(TRUE,A1:A3,0))",
+      "tag": "scalar-only",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 3,
+      "agrees": false,
+      "readerFormula": "SUM(IF(TRUE(),A1:A3,0))"
+    },
+    {
+      "expression": "IFERROR(1/0,5)",
+      "tag": "lazy-iferror",
+      "expected": 5,
+      "actual": 5,
+      "agrees": true,
+      "readerFormula": "IFERROR(1/0,5)"
+    },
+    {
+      "expression": "IFERROR(7,1/0)",
+      "tag": "lazy-iferror",
+      "expected": 7,
+      "actual": 7,
+      "agrees": true,
+      "readerFormula": "IFERROR(7,1/0)"
+    },
+    {
+      "expression": "AND(A1:A5)",
+      "tag": "ms-and-or",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "AND(A1:A5)"
+    },
+    {
+      "expression": "AND(A4:A5)",
+      "tag": "ms-and-or",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "AND(A4:A5)"
+    },
+    {
+      "expression": "AND(FALSE,\"bad\")",
+      "tag": "invalid-logical-text",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "AND(FALSE(),\"bad\")"
+    },
+    {
+      "expression": "AND(FALSE,A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "AND(FALSE(),A6)"
+    },
+    {
+      "expression": "AND(A1,A7)",
+      "tag": "ms-and-or",
+      "expected": false,
+      "actual": false,
+      "agrees": true,
+      "readerFormula": "AND(A1,A7)"
+    },
+    {
+      "expression": "OR(A2:A5)",
+      "tag": "ms-and-or",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "OR(A2:A5)"
+    },
+    {
+      "expression": "OR(A4:A5)",
+      "tag": "ms-and-or",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "OR(A4:A5)"
+    },
+    {
+      "expression": "OR(TRUE,\"bad\")",
+      "tag": "invalid-logical-text",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "OR(TRUE(),\"bad\")"
+    },
+    {
+      "expression": "OR(TRUE,A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "OR(TRUE(),A6)"
+    },
+    {
+      "expression": "NOT(FALSE)",
+      "tag": "boolean",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "NOT(FALSE())"
+    },
+    {
+      "expression": "NOT(A7)",
+      "tag": "boolean",
+      "expected": true,
+      "actual": true,
+      "agrees": true,
+      "readerFormula": "NOT(A7)"
+    },
+    {
+      "expression": "ROUND(-1.25,1)",
+      "tag": "half-away-from-zero",
+      "expected": -1.3,
+      "actual": -1.3,
+      "agrees": true,
+      "readerFormula": "ROUND(-1.25,1)"
+    },
+    {
+      "expression": "ROUND(1234,-2)",
+      "tag": "half-away-from-zero",
+      "expected": 1200,
+      "actual": 1200,
+      "agrees": true,
+      "readerFormula": "ROUND(1234,-2)"
+    },
+    {
+      "expression": "ROUND(1,101)",
+      "tag": "preview-limit",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 1,
+      "agrees": false,
+      "readerFormula": "ROUND(1,101)"
+    },
+    {
+      "expression": "ABS(-12.5)",
+      "tag": "arithmetic",
+      "expected": 12.5,
+      "actual": 12.5,
+      "agrees": true,
+      "readerFormula": "ABS(-12.5)"
+    },
+    {
+      "expression": "ABS(A6)",
+      "tag": "error-propagation",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "actual": {
+        "error": "#DIV/0!"
+      },
+      "agrees": true,
+      "readerFormula": "ABS(A6)"
+    },
+    {
+      "expression": "ABS(A1:A2)",
+      "tag": "scalar-only",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "ABS(A1:A2)"
+    },
+    {
+      "expression": "SUM()",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": 0,
+      "agrees": false,
+      "readerFormula": "SUM(0)"
+    },
+    {
+      "expression": "IF(TRUE)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": true,
+      "agrees": false,
+      "readerFormula": "IF(TRUE(),TRUE())"
+    },
+    {
+      "expression": "ABS(1,2)",
+      "tag": "arity",
+      "expected": {
+        "error": "#VALUE!"
+      },
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": true,
+      "readerFormula": "ABS(1,2)"
+    },
+    {
+      "expression": "UNSUPPORTED(A1:A7)",
+      "tag": "unsupported",
+      "expected": {
+        "error": "#NAME?"
+      },
+      "actual": {
+        "error": "#NAME?"
+      },
+      "agrees": true,
+      "readerFormula": "unsupported(A1:A7)"
+    },
+    {
+      "expression": "SUM(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "SUM(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AVERAGE(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AVERAGE(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MIN(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MIN(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MAX(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MAX(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AND(\"TRUE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AND(\"TRUE\")"
+    },
+    {
+      "expression": "OR(\"FALSE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "OR(\"FALSE\")"
+    }
+  ]
+}

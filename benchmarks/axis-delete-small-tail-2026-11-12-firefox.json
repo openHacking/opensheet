@@ -1,0 +1,65 @@
+{
+  "startedAt": "2026-11-11T23:05:21.644Z",
+  "browserName": "firefox",
+  "mode": "tail",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 323,
+    "sha256": "22d61cad396d665f0217361d36e5dcecda31e9024f7ef9b52ef00d155ee853f3"
+  },
+  "scriptSha256": "66d94a6bba59cdf374a8c118d6fbc3473437b085d773907598e803038ae63ff8",
+  "scope": "Real Worker and IndexedDB, 20,000 numeric rows, delete one row at the head or tail. Three alternating fresh-context pairs; control removes both the survivor scan and whole-page shortcut. Counts engine block calls, not physical IndexedDB reads. Setup, undo/redo and all-value verification excluded from timed deletion. Bundled source variants, no renderer, input latency, peak memory, independent hardware or power-mode record.",
+  "bundles": {
+    "control": "8908e120a8ee74539f174745c9d54ac71e1e0512a86776a48c0fcc7e91c7e500",
+    "current": "3985c44df36e246a45a910e6f0cea36d6aca2a03989876da8e3c21d1a9fd922c"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 8,
+      "blockCalls": 1,
+      "verified": 59998
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 10,
+      "blockCalls": 1,
+      "verified": 59998
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 7,
+      "blockCalls": 1,
+      "verified": 59998
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 7,
+      "blockCalls": 1,
+      "verified": 59998
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 8,
+      "blockCalls": 1,
+      "verified": 59998
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 8,
+      "blockCalls": 1,
+      "verified": 59998
+    }
+  ],
+  "browser": "155.0",
+  "finishedAt": "2026-11-11T23:05:33.473Z"
+}

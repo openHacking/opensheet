@@ -1,4 +1,4 @@
-import type { Commit, Selection } from '@opensheetjs/core';
+import type { Commit, Selection, PersistenceState } from '@opensheetjs/core';
 export interface OpenSheetOptions {
   container: string | HTMLElement;
   mode?: 'edit' | 'read';
@@ -7,6 +7,8 @@ export interface OpenSheetOptions {
 }
 export type EventMap = {
   'workbook:committed': Commit;
+  'workbook:persistence': PersistenceState;
+  'editor:draft': boolean;
   'selection:changed': Selection;
   'plugin:error': unknown;
   'lifecycle:disposed': undefined;

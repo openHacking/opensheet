@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-11-12T10:35:26.769Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 379,
+    "sha256": "5fb1ba06886a057fc7c90782919e39f46e60ee25c3ee4a16a9f3d76dd094f6d7"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "0c769ae4b3c066a62eb3d9b2b3a8fbb4c91ea9dff356cb2a71936dc5f2e12412"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "powerMode": "Now drawing from 'AC Power'",
+  "samples": [],
+  "bundles": {
+    "control": "a836d8ec25cc7ec6b3a64ce7eb30eedfb31304758600db83f61409329a6635bf",
+    "current": "43282cfa5c264510fa6f3d7d8d0e97027e97ed6cf0c02d2c695e5abd031d631f"
+  },
+  "scope": "Three alternating fresh Chromium contexts per variant, local production-preview UI with its engine Worker replaced by esbuild bundles of current source or reconstructed old read-yield condition. Each sample runs the 1m three-round lab including data, viewport and history checks. Worker bundling differs from the production Vite asset in both variants. No native input, process peak memory, other browsers/devices or independent release-commit acceptance.",
+  "browser": "153.0.8010.12",
+  "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#scene-title').filter({ hasText: 'Performance Lab' }) to be visible\u001b[22m\n"
+}

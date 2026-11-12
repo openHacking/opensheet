@@ -1,0 +1,589 @@
+{
+  "startedAt": "2026-11-11T05:17:28.089Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 259,
+    "sha256": "d0e17a22a7ce5b488432c663279f8e4712e0a4ba55e7294d6e40064ba3c58df0"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "4136f029a959aa2a079d77c173c5592f6a0aaf3ab1ac1783da16b2bb14cfc54b"
+  },
+  "harnessSha256": "8d9b7351a4891f56b6e64867bcde511c8bd1eb8aa4caf4f460b102663f1ba3d0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Production preview with matching served assets and a separately bundled current formats module; 100,000 synthetic unsafe text cells; alternating report/no-report streams in three fresh contexts per browser. Full output checked outside timed interval. Timing includes Worker reads, formatting, text accumulation and report callback. No XLSX, input latency or Worker/process peak memory measurement.",
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "89ba489aac2f5447fb6c099722e392752caa336dcb8ba589834345b0967b9225"
+    },
+    {
+      "file": "assets/backup-verifier.worker-DhlqK9SE.js",
+      "sha256": "76f172f3073d317cb2a88b0d0b316216b5ca84c1c826d3d11e0b1b11f7358497"
+    },
+    {
+      "file": "assets/engine.worker-Dbv6h2si.js",
+      "sha256": "b7be6892940c46a55a01d384770e3931e385a6bd5596c91b63387e686fedeba5"
+    },
+    {
+      "file": "assets/file.worker-_2S-V3TM.js",
+      "sha256": "33c7b58b60efc3d6316e4a7d942ef35ff2b7613a40c5bb1b6ea24bf8c93a2470"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-CH-GyCuf.css",
+      "sha256": "f9c41385f166904c5bd618673e0ddbffc461c2f6a266fbff5c1dedf1e7a954eb"
+    },
+    {
+      "file": "assets/index-DP5NFoDx.js",
+      "sha256": "dca725ef1088d0bd39d29d58b18a12e2ee1bdb2acef5bdd3db052cf76858bcd8"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-YQ4lDkt_.js",
+      "sha256": "641458ad92d6b9c702268ddafc2acc96ebbd06f7bc0e851ee5384e32837ae630"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "no-report",
+              "elapsedMs": 552.5,
+              "verified": 100000,
+              "report": null
+            },
+            {
+              "variant": "report",
+              "elapsedMs": 514.2999997138977,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "report",
+              "elapsedMs": 587.0999999046326,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            },
+            {
+              "variant": "no-report",
+              "elapsedMs": 512.3000001907349,
+              "verified": 100000,
+              "report": null
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "no-report",
+              "elapsedMs": 568.5999999046326,
+              "verified": 100000,
+              "report": null
+            },
+            {
+              "variant": "report",
+              "elapsedMs": 533.8000001907349,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "no-report",
+              "elapsedMs": 628,
+              "verified": 100000,
+              "report": null
+            },
+            {
+              "variant": "report",
+              "elapsedMs": 588,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "report",
+              "elapsedMs": 605,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            },
+            {
+              "variant": "no-report",
+              "elapsedMs": 594,
+              "verified": 100000,
+              "report": null
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "no-report",
+              "elapsedMs": 609,
+              "verified": 100000,
+              "report": null
+            },
+            {
+              "variant": "report",
+              "elapsedMs": 820,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "no-report",
+              "elapsedMs": 478,
+              "verified": 100000,
+              "report": null
+            },
+            {
+              "variant": "report",
+              "elapsedMs": 382,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "report",
+              "elapsedMs": 475,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            },
+            {
+              "variant": "no-report",
+              "elapsedMs": 382,
+              "verified": 100000,
+              "report": null
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "no-report",
+              "elapsedMs": 475,
+              "verified": 100000,
+              "report": null
+            },
+            {
+              "variant": "report",
+              "elapsedMs": 391,
+              "verified": 100000,
+              "report": {
+                "format": "csv",
+                "revision": 10,
+                "sanitized": 100000,
+                "sample": [
+                  "A1",
+                  "B1",
+                  "C1",
+                  "D1",
+                  "E1",
+                  "F1",
+                  "G1",
+                  "H1",
+                  "I1",
+                  "J1",
+                  "A2",
+                  "B2",
+                  "C2",
+                  "D2",
+                  "E2",
+                  "F2",
+                  "G2",
+                  "H2",
+                  "I2",
+                  "J2",
+                  "A3",
+                  "B3",
+                  "C3",
+                  "D3",
+                  "E3",
+                  "F3",
+                  "G3",
+                  "H3",
+                  "I3",
+                  "J3",
+                  "A4",
+                  "B4"
+                ],
+                "truncated": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T05:17:49.744Z"
+}

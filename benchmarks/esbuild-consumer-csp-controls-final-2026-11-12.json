@@ -1,0 +1,167 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 370,
+    "sha256": "7200665483fd8dc3fc85b3f5939b9a61efa5c73f51f2c46e1ed9938ca488208d"
+  },
+  "startedAt": "2026-11-12T08:49:16.630Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed core and formula packages; separate esbuild browser and Worker bundles, strict CSP with Zod jitless shim, localhost subpath and real IndexedDB/Web Locks. No editor, CSS, SSR framework, other bundlers or devices.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "6efd1f057d7f6ac16cb12d22cbce4db756740ed762745e29fdcb4e471d679152"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "930b155e29db6512e55ed698e23540036f3e5ba7819b4aa20c8ee72f26b8a2bd"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": [],
+      "negativeControl": {
+        "documentBlocked": true,
+        "workerBlocked": {
+          "blocked": true,
+          "violation": true
+        },
+        "events": [
+          {
+            "source": "document",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "source": "worker",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": [],
+      "negativeControl": {
+        "documentBlocked": true,
+        "workerBlocked": {
+          "blocked": true,
+          "violation": true
+        },
+        "events": [
+          {
+            "source": "document",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "source": "worker",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ]
+      }
+    },
+    {
+      "engine": "webkit",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": [],
+      "negativeControl": {
+        "documentBlocked": true,
+        "workerBlocked": {
+          "blocked": true,
+          "violation": false
+        },
+        "events": [
+          {
+            "source": "document",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ]
+      }
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/esbuild-consumer-csp-controls-final-2026-11-12.consumer-lock.yaml",
+    "sha256": "e95730cb099fb9c54f7a5532916a5a79b4577d30d03030e8f21fa96687da200b"
+  },
+  "assets": {
+    "bundleBytes": 921809,
+    "bundleSha256": "68f8f6c29c2b2bb7d705a8021157f830c0914a720bdef52a63ea7b79c98e9d83",
+    "workerBytes": 1100424,
+    "workerSha256": "120071c22d82c1f4bc844a83bfb9e67950f3aeaa5f0ff7842ebc95bc7e72041c",
+    "inputs": 101
+  },
+  "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'",
+  "shimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6"
+}

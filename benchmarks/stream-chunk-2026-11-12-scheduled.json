@@ -1,0 +1,17 @@
+{
+  "startedAt": "2026-11-11T17:58:03.326Z",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 291,
+    "sha256": "a317643f14e6bb6440caa352d7802c3c0b9270a3ffef5159ad795189a5979bed"
+  },
+  "bundleSha256": {
+    "scheduled": "a37ee5cdba75e69e2abb3125c1913b13114385ef82c91985caa2ac9face4a90f",
+    "noYield": "8e2e4aa549c150db305583b2d2b2d3f56d29cbbadd28ae5f93945cc4b9e3c866"
+  },
+  "scope": "Paired synthetic in-page parser benchmark. The noYield control replaces only task-level timer yields with microtask yields; it is not the old implementation and cannot provide the same cancellation guarantee. Alternating batches verify the decoded JSON payload and binary metadata. Excludes Worker transfer, persistence, large workbooks, peak memory and reference devices.",
+  "browsers": {}
+}

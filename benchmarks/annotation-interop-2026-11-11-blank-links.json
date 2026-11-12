@@ -1,0 +1,206 @@
+{
+  "date": "2026-11-11T03:30:23.014Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "provenance": "CC0 synthetic OpenSheet annotation cells exported via SheetJS; LibreOffice opened and saved XLSX. Observations reimported through SheetJS; no visual inspection.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 254,
+    "sha256": "2ec876f423eb971406d65e957ea2a70ca339a5df5054f3d3b1975f245e491add"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "a7ab3d7a7b416a31b57bb1293db77078ac0e42ea324bdd0c374263f2c241222c"
+  },
+  "strictCode": "UNSUPPORTED_FEATURE",
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 7,
+      "approximated": 0,
+      "dropped": 1,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "EMPTY_LINK_TOOLTIP_DROPPED",
+        "feature": "link",
+        "message": "An explicitly empty link tooltip is omitted by the XLSX writer",
+        "action": "dropped",
+        "severity": "warning",
+        "sheetId": "sheet_3ee7250c8d564d0fb7c3a421d688c0ab",
+        "address": "A5",
+        "count": 1
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "comparisons": [
+    {
+      "cell": "A1",
+      "agrees": true,
+      "emitted": {
+        "cell": "A1",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A1",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "",
+        "link": null
+      }
+    },
+    {
+      "cell": "A2",
+      "agrees": true,
+      "emitted": {
+        "cell": "A2",
+        "input": {
+          "type": "blank"
+        },
+        "note": "",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A2",
+        "input": {
+          "type": "blank"
+        },
+        "note": "",
+        "link": null
+      }
+    },
+    {
+      "cell": "A3",
+      "agrees": true,
+      "emitted": {
+        "cell": "A3",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "hello",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A3",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "hello",
+        "link": null
+      }
+    },
+    {
+      "cell": "A4",
+      "agrees": true,
+      "emitted": {
+        "cell": "A4",
+        "input": {
+          "type": "blank"
+        },
+        "note": "hello",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A4",
+        "input": {
+          "type": "blank"
+        },
+        "note": "hello",
+        "link": null
+      }
+    },
+    {
+      "cell": "A5",
+      "agrees": true,
+      "emitted": {
+        "cell": "A5",
+        "input": {
+          "type": "string",
+          "value": "link"
+        },
+        "note": null,
+        "link": {
+          "target": "https://example.com/"
+        }
+      },
+      "reopened": {
+        "cell": "A5",
+        "input": {
+          "type": "string",
+          "value": "link"
+        },
+        "note": null,
+        "link": {
+          "target": "https://example.com/"
+        }
+      }
+    },
+    {
+      "cell": "A6",
+      "agrees": false,
+      "emitted": {
+        "cell": "A6",
+        "input": {
+          "type": "blank"
+        },
+        "note": null,
+        "link": {
+          "target": "https://example.com/"
+        }
+      },
+      "reopened": {
+        "cell": "A6",
+        "input": {
+          "type": "blank"
+        },
+        "note": null,
+        "link": null
+      }
+    },
+    {
+      "cell": "A7",
+      "agrees": false,
+      "emitted": {
+        "cell": "A7",
+        "input": {
+          "type": "blank"
+        },
+        "note": "blank with link",
+        "link": {
+          "target": "https://example.com/"
+        }
+      },
+      "reopened": {
+        "cell": "A7",
+        "input": {
+          "type": "blank"
+        },
+        "note": "blank with link",
+        "link": null
+      }
+    }
+  ],
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-annotations-u9cvea/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-annotations-u9cvea/save/source.xlsx using filter : Calc MS Excel 2007 XML",
+  "artifacts": {
+    "exported": {
+      "file": "annotation-interop-2026-11-11-blank-links.xlsx",
+      "sha256": "21e9df7f6bf05baa41dd96687e60d986bb1f463d17804f76a8165280901795a6"
+    },
+    "saved": {
+      "file": "annotation-interop-2026-11-11-blank-links.reader.xlsx",
+      "sha256": "c558aa58295642c584f42e41b49eaeb0c33924d05c281c152b7622ddc053d7b8"
+    }
+  }
+}

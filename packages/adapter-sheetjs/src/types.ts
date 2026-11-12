@@ -3,6 +3,8 @@ export type SheetJSWorkbook = {
   Sheets: Record<string, any>;
   Workbook?: any;
   vbaraw?: unknown;
+  /** Optional raw XLSX parts returned by SheetJS with bookFiles enabled. */
+  files?: Record<string, { content?: Uint8Array }>;
 };
 export type Issue = {
   code: string;
@@ -19,5 +21,7 @@ export type CompatibilityReport = {
   sourceFormat: string;
   summary: { exact: number; approximated: number; dropped: number; blocked: number };
   issues: Issue[];
+  /** Occurrences omitted by the 200-group detail cap; summary always includes them. */
+  omittedIssueOccurrences?: number;
 };
 export type AdapterOptions = { unsupported?: 'report' | 'strict' };

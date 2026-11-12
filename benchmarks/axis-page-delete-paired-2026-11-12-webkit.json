@@ -1,0 +1,64 @@
+{
+  "startedAt": "2026-11-11T23:03:09.053Z",
+  "browserName": "webkit",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 322,
+    "sha256": "b82ab7412865384660ec6eec3d3545829bc6e1eea7e3aea45b9af0eec9543ac2"
+  },
+  "scriptSha256": "dd9b1d4a9eedbd3c99cdf23f6bbc1abbc6f48541d66a47f537ae7d1e6243669a",
+  "scope": "Real Worker and IndexedDB, 20,000 numeric rows, delete first 19,999. Three alternating fresh-context pairs; control disables only whole-page pointer removal. Counts engine block calls, not physical IndexedDB reads. Setup, undo/redo and all-value verification excluded from timed deletion. Bundled source variants, no renderer, input latency, peak memory, independent hardware or power-mode record.",
+  "bundles": {
+    "control": "b56c08c4067c6352703e0c399d3ab3f4678647bfb814f32afe1495b66ffff4db",
+    "current": "3985c44df36e246a45a910e6f0cea36d6aca2a03989876da8e3c21d1a9fd922c"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 105,
+      "blockCalls": 313,
+      "verified": 20002
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 21,
+      "blockCalls": 1,
+      "verified": 20002
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 14,
+      "blockCalls": 1,
+      "verified": 20002
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 85,
+      "blockCalls": 313,
+      "verified": 20002
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 93,
+      "blockCalls": 313,
+      "verified": 20002
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 18,
+      "blockCalls": 1,
+      "verified": 20002
+    }
+  ],
+  "browser": "26.6",
+  "finishedAt": "2026-11-11T23:03:21.172Z"
+}

@@ -1,0 +1,33 @@
+name: Feature request
+description: Describe a task that the current supported workflows do not meet.
+body:
+  - type: textarea
+    attributes:
+      label: Task and context
+      description: What are you trying to accomplish, and who needs to do it?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Current behavior and workaround
+      description: Include the OpenSheet version and what happens with the existing API or UI.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Desired outcome
+      description: Give a small example and observable success criteria. Use synthetic data only.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives and constraints
+      description: Mention relevant browsers, integrations, data size, accessibility or compatibility needs.
+  - type: checkboxes
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have checked the roadmap, implementation status and existing issues for related work.
+          required: true
+        - label: This report contains no private workbook data, secrets or security vulnerability details.
+          required: true

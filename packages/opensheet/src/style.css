@@ -1,3 +1,6 @@
+:where(.os-framework-host) {
+  height: 500px;
+}
 .opensheet {
   --os-green: #168462;
   --os-border: #e4eae6;
@@ -149,11 +152,40 @@
   gap: 4px;
 }
 .os-formula-bar {
+  position: relative;
   display: flex;
   align-items: center;
   flex-shrink: 0;
   min-height: 38px;
   border-bottom: 1px solid var(--os-border);
+}
+.os-formula-assist {
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  left: 100px;
+  right: 8px;
+  max-height: 260px;
+  overflow: auto;
+  padding: 8px;
+  background: white;
+  color: #263b31;
+  border: 1px solid #168462;
+  box-shadow: 0 4px 12px #0002;
+}
+.os-formula-assist [role='option'] {
+  padding: 5px;
+  cursor: pointer;
+}
+.os-formula-assist [aria-selected='true'] {
+  background: #e1efe7;
+  outline: 1px solid #168462;
+}
+.os-grid > .os-formula-assist {
+  pointer-events: none;
+}
+.os-grid > .os-formula-assist [role='option'] {
+  pointer-events: auto;
 }
 .os-namebox {
   width: 98px;
@@ -172,14 +204,68 @@
     italic 17px Georgia,
     serif;
 }
+.os-formula-field {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .os-formula-input {
   width: 100%;
+  min-width: 0;
   height: 37px;
   padding: 0 12px 0 0;
   outline: none;
   border: 0;
   color: #40574b;
   background: #fff;
+}
+.os-formula-reference-mirror {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  white-space: pre;
+  pointer-events: none;
+  color: transparent;
+  font: inherit;
+  line-height: 37px;
+  padding-right: 12px;
+}
+.os-formula-input,
+.os-formula-reference-mirror {
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+.os-formula-reference-mirror b {
+  font-weight: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.os-formula-error-button {
+  flex: 0 0 auto;
+  margin: 0 8px;
+  color: #9a3412;
+  background: #fff7ed;
+  border: 1px solid #c2410c;
+  border-radius: 4px;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+.opensheet .os-formula-error-button[hidden],
+.os-formula-error-details[hidden] {
+  display: none;
+}
+.os-formula-error-details {
+  position: absolute;
+  z-index: 31;
+  right: 8px;
+  top: 100%;
+  max-width: min(360px, calc(100% - 16px));
+  overflow-wrap: anywhere;
+  padding: 8px;
+  color: #431407;
+  background: #fff7ed;
+  border: 1px solid #c2410c;
 }
 .os-formula-input::placeholder {
   color: #a0aca4;
@@ -269,6 +355,63 @@
   display: none;
 }
 .os-cell-editor[hidden] {
+  display: none;
+}
+.os-draft-recovery:not([hidden]) {
+  position: absolute;
+  z-index: 10;
+  right: 16px;
+  top: 16px;
+  width: min(24rem, calc(100% - 32px));
+  max-height: min(20rem, calc(100% - 32px));
+  overflow: auto;
+  padding: 12px;
+  background: #fff;
+  color: #263b31;
+  border: 1px solid #8b5a00;
+  box-shadow: 0 2px 8px #0003;
+}
+.os-draft-recovery label {
+  display: block;
+}
+.os-draft-recovery textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 4rem;
+  margin: 6px 0;
+}
+.os-formula-draft-recovery:not([hidden]) {
+  top: 100%;
+}
+.os-cell-reference-mirror {
+  position: absolute;
+  z-index: 4;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  padding: 5px 8px;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  color: transparent;
+  font:
+    13px Inter,
+    sans-serif;
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+.os-cell-editor {
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+.os-cell-reference-mirror b {
+  font-weight: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.os-cell-reference-mirror[hidden] {
   display: none;
 }
 .os-footer {

@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-23T01:09:42.183Z",
+  "scope": "Node import stages on synthetic four-column XLSX, three sequential rounds per size. Not browser/Worker UI latency, a hard memory ceiling, or a universal capacity gate. Fixture generation is outside timings.",
+  "host": {
+    "node": "v22.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryBytes": 17179869184
+  },
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 202,
+    "sha256": "043d8ade43853eed1fa88504b471c5777a641768aae4454c13d91557912624ae"
+  },
+  "adapterBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 9,
+    "sha256": "a3b66c7fa3b765f85ddc035db85cf6d8faef73a3040bf4a9347cc0fee8b00eca"
+  },
+  "guardSha256": "a3f0ce8c7fdc2a668630bcc2446c6d869f9d5195b7e162cee40bd2961e8f2599",
+  "sheetjs": "0.20.3",
+  "cases": [
+    {
+      "rows": 1000,
+      "columns": 4,
+      "inputBytes": 66039,
+      "sha256": "3346cf3e66660e02d056825ccf73056a8933f34e664b1936b68c464468448a48",
+      "rounds": [
+        {
+          "guardMs": 13.895875000000046,
+          "parseMs": 18.87595799999997,
+          "adapterMs": 21.36379199999999,
+          "totalMs": 54.135625000000005,
+          "checksPassed": true
+        },
+        {
+          "guardMs": 3.429749999999956,
+          "parseMs": 11.293207999999993,
+          "adapterMs": 8.628417000000013,
+          "totalMs": 23.351374999999962,
+          "checksPassed": true
+        },
+        {
+          "guardMs": 2.8333749999999895,
+          "parseMs": 5.569749999999999,
+          "adapterMs": 12.772125000000017,
+          "totalMs": 21.175250000000005,
+          "checksPassed": true
+        }
+      ]
+    },
+    {
+      "rows": 10000,
+      "columns": 4,
+      "inputBytes": 587935,
+      "sha256": "9737f65bafe197af8639c2e58c835efc058fb175b553d16f81c907acb8b83b68",
+      "rounds": [
+        {
+          "guardMs": 15.927167000000054,
+          "parseMs": 49.79049999999995,
+          "adapterMs": 83.94066699999996,
+          "totalMs": 149.65833399999997,
+          "checksPassed": true
+        },
+        {
+          "guardMs": 15.368624999999952,
+          "parseMs": 48.68841700000007,
+          "adapterMs": 51.80499999999995,
+          "totalMs": 115.86204199999997,
+          "checksPassed": true
+        },
+        {
+          "guardMs": 13.975957999999991,
+          "parseMs": 47.59204199999999,
+          "adapterMs": 45.00199999999995,
+          "totalMs": 106.56999999999994,
+          "checksPassed": true
+        }
+      ]
+    },
+    {
+      "rows": 50000,
+      "columns": 4,
+      "inputBytes": 3004748,
+      "sha256": "40a9448e12c1921bf7c5489867018c1382c7ad95d7fed0d3f7a3085c578dbaaa",
+      "rounds": [
+        {
+          "guardMs": 63.39879199999996,
+          "parseMs": 236.84787500000016,
+          "adapterMs": 345.6864579999999,
+          "totalMs": 645.933125,
+          "checksPassed": true
+        },
+        {
+          "guardMs": 49.562875000000076,
+          "parseMs": 240.21049999999968,
+          "adapterMs": 238.84204200000022,
+          "totalMs": 528.615417,
+          "checksPassed": true
+        },
+        {
+          "guardMs": 76.07175000000007,
+          "parseMs": 253.58704199999966,
+          "adapterMs": 382.91712499999994,
+          "totalMs": 712.5759169999997,
+          "checksPassed": true
+        }
+      ]
+    }
+  ],
+  "processMaxRssKiB": 501520,
+  "memoryScope": "Process high-water mark includes fixture generation, previous rounds, parser, adapter and runtime; not isolated import memory."
+}

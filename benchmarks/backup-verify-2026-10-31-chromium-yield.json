@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-30T19:46:30.693Z",
+  "engine": "chromium",
+  "browser": "153.0.8010.12",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 234,
+    "sha256": "29859083d79ac0322b8d1fd57f2ea090a27c9c03d7bdb1eb79d76ffc42f1f83d"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "76e8f57066abbd2d2d1033581a6d97bc23ceb342a23c1fc4c37be47e08c01c74"
+  },
+  "bundleHash": "e9352c2602a609b27a783ef3d3365ccc71a5af76ed850fa1f1b657d6f525e461",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Production app, separate minified source verifier bundle on the main page; one fresh context, complete native backups of deterministic fixture, verification summary and animation-frame intervals. Excludes fixture/export from timings; no Worker/process memory, controlled power mode or cross-device acceptance.",
+  "result": {
+    "cells": 1000000,
+    "jsonBytes": 22772617,
+    "binaryBytes": 12219984,
+    "json": {
+      "elapsedMs": 3924.9000000953674,
+      "maxFrameMs": 16.80000000000109,
+      "frames": 237,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 628,
+        "cells": 1000000
+      }
+    },
+    "binary": {
+      "elapsedMs": 3361.0999999046326,
+      "maxFrameMs": 16.80000000000291,
+      "frames": 203,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 628,
+        "cells": 1000000
+      }
+    }
+  }
+}

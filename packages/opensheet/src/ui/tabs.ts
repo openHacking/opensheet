@@ -6,6 +6,7 @@ export interface TabActions {
   activeSheet(): string;
   setSheet(id: string): void;
   run(action: () => unknown): void;
+  preserveFormulaFocus(): boolean;
 }
 export class SheetTabs {
   readonly element = document.createElement('div');
@@ -29,6 +30,13 @@ export class SheetTabs {
         this.render();
       });
       b.setAttribute('role', 'tab');
+      b.addEventListener(
+        'pointerdown',
+        (event) => {
+          if (event.button === 0 && this.actions.preserveFormulaFocus()) event.preventDefault();
+        },
+        { signal: this.abort.signal },
+      );
       b.setAttribute('aria-selected', String(sheet.id === this.actions.activeSheet()));
       this.element.append(b);
     }

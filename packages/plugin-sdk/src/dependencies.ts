@@ -12,20 +12,29 @@ export function orderPlugins(plugins: Plugin[], has: (id: string) => boolean): P
   const order: Plugin[] = [],
     visiting = new Set<string>(),
     visited = new Set<string>();
-  const visit = (p: Plugin) => {
-    if (visited.has(p.id)) return;
-    if (visiting.has(p.id)) throw new OpenSheetError('PLUGIN_CONFLICT', 'Plugin dependency cycle');
-    visiting.add(p.id);
-    for (const id of p.requires ?? []) {
+  for (const root of plugins) {
+    if (visited.has(root.id)) continue;
+    const stack: Array<{ plugin: Plugin; next: number }> = [{ plugin: root, next: 0 }];
+    visiting.add(root.id);
+    while (stack.length) {
+      const frame = stack[stack.length - 1];
+      const dependencies = frame.plugin.requires ?? [];
+      if (frame.next === dependencies.length) {
+        stack.pop();
+        visiting.delete(frame.plugin.id);
+        visited.add(frame.plugin.id);
+        order.push(frame.plugin);
+        continue;
+      }
+      const id = dependencies[frame.next++];
       if (has(id)) continue;
       const dep = pending.get(id);
       if (!dep) throw new OpenSheetError('PLUGIN_CONFLICT', `Missing dependency ${id}`);
-      visit(dep);
+      if (visited.has(id)) continue;
+      if (visiting.has(id)) throw new OpenSheetError('PLUGIN_CONFLICT', 'Plugin dependency cycle');
+      visiting.add(id);
+      stack.push({ plugin: dep, next: 0 });
     }
-    visiting.delete(p.id);
-    visited.add(p.id);
-    order.push(p);
-  };
-  plugins.forEach(visit);
+  }
   return order;
 }

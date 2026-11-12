@@ -1,0 +1,270 @@
+{
+  "startedAt": "2026-11-12T04:10:29.507Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 349,
+    "sha256": "6c57275f4926c3b91c0958ea23e3b169c6bb5c0705bbf496aa2c902328567689"
+  },
+  "sourceHash": "dbe9f98b0fc42b7c5b3be0af11859d45cf2683e22532184b257bc3b6067ee180",
+  "controlHash": "38ba4aa41f7434ac0702e6d45a2203fa9e6e5fc4c99831365329b9919d06ff77",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "count": 30000,
+  "scope": "Single warmed Node process; control reconstructs only the previous formatValue numeric branch with the current formatter cache. Normal outputs compared for every input. Overflow control is intentionally incorrect. Excludes Worker, paint, process memory, other engines and devices.",
+  "samples": [
+    {
+      "case": "percent",
+      "round": 1,
+      "version": "previous",
+      "elapsedMs": 10.452541999999994,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 1,
+      "version": "current",
+      "elapsedMs": 10.653124999999989,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 2,
+      "version": "current",
+      "elapsedMs": 10.523874999999975,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 2,
+      "version": "previous",
+      "elapsedMs": 10.673584000000005,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 3,
+      "version": "previous",
+      "elapsedMs": 10.578958,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 3,
+      "version": "current",
+      "elapsedMs": 10.578624999999988,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 4,
+      "version": "current",
+      "elapsedMs": 10.369709,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 4,
+      "version": "previous",
+      "elapsedMs": 10.852291000000037,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 5,
+      "version": "previous",
+      "elapsedMs": 10.629999999999995,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 5,
+      "version": "current",
+      "elapsedMs": 10.450167000000022,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 6,
+      "version": "current",
+      "elapsedMs": 11.072416000000032,
+      "checksum": 326626
+    },
+    {
+      "case": "percent",
+      "round": 6,
+      "version": "previous",
+      "elapsedMs": 10.490084000000024,
+      "checksum": 326626
+    },
+    {
+      "case": "number",
+      "round": 1,
+      "version": "previous",
+      "elapsedMs": 10.867707999999993,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 1,
+      "version": "current",
+      "elapsedMs": 10.66095800000005,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 2,
+      "version": "current",
+      "elapsedMs": 10.896625000000029,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 2,
+      "version": "previous",
+      "elapsedMs": 10.67779200000001,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 3,
+      "version": "previous",
+      "elapsedMs": 10.803750000000036,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 3,
+      "version": "current",
+      "elapsedMs": 10.334249999999997,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 4,
+      "version": "current",
+      "elapsedMs": 10.416291999999999,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 4,
+      "version": "previous",
+      "elapsedMs": 10.318209000000024,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 5,
+      "version": "previous",
+      "elapsedMs": 10.309500000000014,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 5,
+      "version": "current",
+      "elapsedMs": 10.28941599999996,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 6,
+      "version": "current",
+      "elapsedMs": 10.20779200000004,
+      "checksum": 233658
+    },
+    {
+      "case": "number",
+      "round": 6,
+      "version": "previous",
+      "elapsedMs": 10.34787499999993,
+      "checksum": 233658
+    },
+    {
+      "case": "overflow",
+      "round": 1,
+      "version": "previous",
+      "elapsedMs": 9.642540999999937,
+      "checksum": 75000
+    },
+    {
+      "case": "overflow",
+      "round": 1,
+      "version": "current",
+      "elapsedMs": 61.13633400000003,
+      "checksum": 9465000
+    },
+    {
+      "case": "overflow",
+      "round": 2,
+      "version": "current",
+      "elapsedMs": 59.76633300000003,
+      "checksum": 9465000
+    },
+    {
+      "case": "overflow",
+      "round": 2,
+      "version": "previous",
+      "elapsedMs": 8.731250000000045,
+      "checksum": 75000
+    },
+    {
+      "case": "overflow",
+      "round": 3,
+      "version": "previous",
+      "elapsedMs": 9.383041999999932,
+      "checksum": 75000
+    },
+    {
+      "case": "overflow",
+      "round": 3,
+      "version": "current",
+      "elapsedMs": 61.52891599999998,
+      "checksum": 9465000
+    },
+    {
+      "case": "overflow",
+      "round": 4,
+      "version": "current",
+      "elapsedMs": 60.10954200000003,
+      "checksum": 9465000
+    },
+    {
+      "case": "overflow",
+      "round": 4,
+      "version": "previous",
+      "elapsedMs": 8.440457999999921,
+      "checksum": 75000
+    },
+    {
+      "case": "overflow",
+      "round": 5,
+      "version": "previous",
+      "elapsedMs": 8.431791999999973,
+      "checksum": 75000
+    },
+    {
+      "case": "overflow",
+      "round": 5,
+      "version": "current",
+      "elapsedMs": 60.506125,
+      "checksum": 9465000
+    },
+    {
+      "case": "overflow",
+      "round": 6,
+      "version": "current",
+      "elapsedMs": 59.80058399999996,
+      "checksum": 9465000
+    },
+    {
+      "case": "overflow",
+      "round": 6,
+      "version": "previous",
+      "elapsedMs": 8.449250000000006,
+      "checksum": 75000
+    }
+  ],
+  "finishedAt": "2026-11-12T04:10:30.391Z"
+}

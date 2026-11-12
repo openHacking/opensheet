@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "dateSystem": "1904",
+  "date": "2026-11-12T04:06:00.622Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "sourceCommit": "fb76c4ee10f0de3e6e78f9c2d141a2cc1921423a",
+  "sourceDirty": true,
+  "provenance": "Synthetic public formula corpus; expected results hand-authored, cached actual results produced by LibreOffice conversion, decoded by SheetJS. No OpenSheet-generated expected values.",
+  "fixtureSha256": "e68868fcaa9952fb00985a08e8634cd9c76c0bf22c12d0ea6825fcd63e0a5726",
+  "sourceWorkbook": "formula-reader-2026-11-12-1904-boundaries.source.xlsx",
+  "sourceSha256": "64f94b4149d29db9e9526f63a3f7800cbb42f84f4d7893db9689873494a4249d",
+  "recalculatedWorkbook": "formula-reader-2026-11-12-1904-boundaries.recalculated.xlsx",
+  "recalculatedSha256": "42d64a6feb02e5be4b8b12052e84222f2f145ef249a96184ac52c2d4fd2a792e",
+  "conversionLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-leGboR/semantics.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-leGboR/recalculated/semantics.xlsx using filter : Calc MS Excel 2007 XML",
+  "observations": [
+    {
+      "expression": "DATE(1904,1,1)",
+      "tag": "date-1904",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "DATE(1904,1,1)"
+    },
+    {
+      "expression": "DATE(1904,2,29)",
+      "tag": "date-1904",
+      "expected": 59,
+      "actual": 59,
+      "agrees": true,
+      "readerFormula": "DATE(1904,2,29)"
+    },
+    {
+      "expression": "DATE(1904,12,31)",
+      "tag": "date-1904-leap-year",
+      "expected": 365,
+      "actual": 365,
+      "agrees": true,
+      "readerFormula": "DATE(1904,12,31)"
+    },
+    {
+      "expression": "DATE(1905,1,1)",
+      "tag": "date-1904-year-boundary",
+      "expected": 366,
+      "actual": 366,
+      "agrees": true,
+      "readerFormula": "DATE(1905,1,1)"
+    },
+    {
+      "expression": "DATE(1908,1,1)",
+      "tag": "date-1904-year-boundary",
+      "expected": 1461,
+      "actual": 1461,
+      "agrees": true,
+      "readerFormula": "DATE(1908,1,1)"
+    },
+    {
+      "expression": "DATE(2000,2,29)",
+      "tag": "date-1904-century-leap",
+      "expected": 35123,
+      "actual": 35123,
+      "agrees": true,
+      "readerFormula": "DATE(2000,2,29)"
+    },
+    {
+      "expression": "DATE(2000,2,30)",
+      "tag": "date-1904-overflow",
+      "expected": 35124,
+      "actual": 35124,
+      "agrees": true,
+      "readerFormula": "DATE(2000,2,30)"
+    },
+    {
+      "expression": "DATE(2100,2,28)",
+      "tag": "date-1904-century-nonleap",
+      "expected": 71647,
+      "actual": 71647,
+      "agrees": true,
+      "readerFormula": "DATE(2100,2,28)"
+    },
+    {
+      "expression": "DATE(2100,2,29)",
+      "tag": "date-1904-century-nonleap",
+      "expected": 71648,
+      "actual": 71648,
+      "agrees": true,
+      "readerFormula": "DATE(2100,2,29)"
+    },
+    {
+      "expression": "DATE(2024,1,0)",
+      "tag": "date-1904-overflow",
+      "expected": 43829,
+      "actual": 43829,
+      "agrees": true,
+      "readerFormula": "DATE(2024,1,0)"
+    },
+    {
+      "expression": "DATE(2024,13,1)",
+      "tag": "date-1904-overflow",
+      "expected": 44196,
+      "actual": 44196,
+      "agrees": true,
+      "readerFormula": "DATE(2024,13,1)"
+    },
+    {
+      "expression": "DATE(2024,2,29)",
+      "tag": "date-1904",
+      "expected": 43889,
+      "actual": 43889,
+      "agrees": true,
+      "readerFormula": "DATE(2024,2,29)"
+    },
+    {
+      "expression": "DATE(9999,12,31)",
+      "tag": "date-1904-range",
+      "expected": 2957003,
+      "actual": 2957003,
+      "agrees": true,
+      "readerFormula": "DATE(9999,12,31)"
+    },
+    {
+      "expression": "DATE(1903,12,31)",
+      "tag": "date-1904-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": -1,
+      "agrees": false,
+      "readerFormula": "DATE(1903,12,31)"
+    },
+    {
+      "expression": "YEAR(0)",
+      "tag": "date-1904",
+      "expected": 1904,
+      "actual": 1904,
+      "agrees": true,
+      "readerFormula": "YEAR(0)"
+    },
+    {
+      "expression": "MONTH(0)",
+      "tag": "date-1904",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "MONTH(0)"
+    },
+    {
+      "expression": "DAY(0)",
+      "tag": "date-1904",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "DAY(0)"
+    },
+    {
+      "expression": "DAY(59)",
+      "tag": "date-1904",
+      "expected": 29,
+      "actual": 29,
+      "agrees": true,
+      "readerFormula": "DAY(59)"
+    },
+    {
+      "expression": "MONTH(60)",
+      "tag": "date-1904",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MONTH(60)"
+    },
+    {
+      "expression": "DAY(60)",
+      "tag": "date-1904",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "DAY(60)"
+    },
+    {
+      "expression": "YEAR(35123.75)",
+      "tag": "date-1904-fraction",
+      "expected": 2000,
+      "actual": 2000,
+      "agrees": true,
+      "readerFormula": "YEAR(35123.75)"
+    },
+    {
+      "expression": "MONTH(35123.75)",
+      "tag": "date-1904-fraction",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "MONTH(35123.75)"
+    },
+    {
+      "expression": "DAY(35123.75)",
+      "tag": "date-1904-fraction",
+      "expected": 29,
+      "actual": 29,
+      "agrees": true,
+      "readerFormula": "DAY(35123.75)"
+    },
+    {
+      "expression": "DAY(\"1904-02-29\")",
+      "tag": "date-1904-iso",
+      "expected": 29,
+      "actual": 29,
+      "agrees": true,
+      "readerFormula": "DAY(\"1904-02-29\")"
+    },
+    {
+      "expression": "DAYS(35124,35122)",
+      "tag": "date-1904-century-leap",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "DAYS(35124,35122)"
+    },
+    {
+      "expression": "YEAR(2957003.5)",
+      "tag": "date-1904-maximum-fraction",
+      "expected": 9999,
+      "actual": 9999,
+      "agrees": true,
+      "readerFormula": "YEAR(2957003.5)"
+    },
+    {
+      "expression": "MONTH(2957003.5)",
+      "tag": "date-1904-maximum-fraction",
+      "expected": 12,
+      "actual": 12,
+      "agrees": true,
+      "readerFormula": "MONTH(2957003.5)"
+    },
+    {
+      "expression": "DAY(2957003.5)",
+      "tag": "date-1904-maximum-fraction",
+      "expected": 31,
+      "actual": 31,
+      "agrees": true,
+      "readerFormula": "DAY(2957003.5)"
+    },
+    {
+      "expression": "DAYS(\"2024-03-01\",\"2024-02-28\")",
+      "tag": "date-1904-iso",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "DAYS(\"2024-03-01\",\"2024-02-28\")"
+    },
+    {
+      "expression": "YEAR(2957004)",
+      "tag": "date-1904-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 10000,
+      "agrees": false,
+      "readerFormula": "YEAR(2957004)"
+    },
+    {
+      "expression": "SUM(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "SUM(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AVERAGE(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AVERAGE(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MIN(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MIN(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MAX(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MAX(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AND(\"TRUE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AND(\"TRUE\")"
+    },
+    {
+      "expression": "OR(\"FALSE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "OR(\"FALSE\")"
+    }
+  ]
+}

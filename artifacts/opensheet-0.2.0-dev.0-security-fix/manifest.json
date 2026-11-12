@@ -1,0 +1,97 @@
+{
+  "version": "0.2.0-dev.0",
+  "createdAt": "2026-11-12T11:46:19.483Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 381,
+    "sha256": "de20b39b84007cbf6f2f04c34aadbd1583134e96575cf04d2413c704dff25304"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "748e062795afe9d4bf509b95ec46954c09666c78dd729324d1db383bc9a6ae4b"
+  },
+  "evidence": {
+    "clean": {
+      "path": "benchmarks/clean-build-security-fix-2026-11-12.json",
+      "sha256": "226695e4d2379075f02d616ae5fe26351d88a4f3816894f2d8ec11a31eeaaa12"
+    },
+    "consumer": {
+      "path": "benchmarks/release-pack-security-fix-2026-11-12.json",
+      "sha256": "c93297db97e4b9f4b200dd722d6e92117efdb3fed15cb5452e9981d55eb2c953"
+    }
+  },
+  "scope": "Unpublished development archives verified against same-host independent-directory builds and installed-consumer results; no signing, registry publication, cross-platform or release approval.",
+  "packages": [
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "file": "adapter-sheetjs.tgz",
+      "bytes": 57197,
+      "sha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "file": "core.tgz",
+      "bytes": 232391,
+      "sha256": "473aa95af1b1667c5fb96b56f0e5aa4da2d9c92fe081c428b040050cf3633a9f"
+    },
+    {
+      "name": "@opensheetjs/formats",
+      "version": "0.2.0-dev.0",
+      "file": "formats.tgz",
+      "bytes": 18880,
+      "sha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6"
+    },
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "file": "formula.tgz",
+      "bytes": 45837,
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "file": "opensheet.tgz",
+      "bytes": 41227,
+      "sha256": "93cce086a38fe8a10c989b3acdfb99149b14c412ce3663306d1abd69b19eaa72"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "file": "plugin-sdk.tgz",
+      "bytes": 16072,
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.2.0-dev.0",
+      "file": "react.tgz",
+      "bytes": 6310,
+      "sha256": "03f0785aa891db5667ae972999c557e478ddf82b930f005600c19c12aae02681"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "file": "renderer.tgz",
+      "bytes": 73985,
+      "sha256": "16ab4b620c6fee7d96e021837c2d778d7a7f8a6c34a5532669c21a5e90d1d4ac"
+    },
+    {
+      "name": "@opensheetjs/testing",
+      "version": "0.2.0-dev.0",
+      "file": "testing.tgz",
+      "bytes": 6529,
+      "sha256": "b6947cad4ad15fdc764bdbf6af70512ab71222c09bf0c273573c491063bad909"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.2.0-dev.0",
+      "file": "vue.tgz",
+      "bytes": 6309,
+      "sha256": "7a9c62822dce992812aa4d9070281b3aa67c51eac37b6963daa6134527439a04"
+    }
+  ]
+}

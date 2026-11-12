@@ -1,0 +1,132 @@
+{
+  "engine": "firefox",
+  "startedAt": "2026-11-11T22:41:12.380Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 320,
+    "sha256": "e1a0a16988abe3996d243d9bc45531e0d2b098d451ff406fef5e39a822d7aaa0"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "4b40228b6b90eeff21bb6495dbc31b78ecc6baf15d7b4073543e4525a22451fe"
+  },
+  "scriptSha256": "fd6ba6d64be18cd7c046353191571e128d7c0a78c88b5c0d367ff58e8d5c35e9",
+  "limitations": "Headless single-host samples; no paired baseline, independent hardware or peak Worker/process memory measurement. Frame intervals are main-document requestAnimationFrame observations during the API paste, not input latency or total process responsiveness. Excludes native clipboard permission and operating-system input.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 183,
+      "frameIntervals": [
+        0.2400000000000091,
+        15.259999999999991,
+        11.660000000000082,
+        15,
+        11.419999999999959,
+        15.259999999999991,
+        13.32000000000005,
+        13.339999999999918,
+        11.400000000000091,
+        15.259999999999991,
+        11.399999999999977,
+        15.279999999999973,
+        13.340000000000032,
+        13.319999999999936,
+        11.400000000000091
+      ]
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 164,
+      "frameIntervals": [
+        12.839999999999918,
+        13.220000000000027,
+        11.519999999999982,
+        15.240000000000009,
+        12.620000000000005,
+        12.519999999999982,
+        12.940000000000055,
+        15.259999999999991,
+        11.699999999999932,
+        14.960000000000036,
+        12.680000000000064,
+        14,
+        12.43999999999994
+      ]
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 182,
+      "frameIntervals": [
+        10.480000000000018,
+        14.979999999999961,
+        11.420000000000016,
+        15.240000000000009,
+        11.639999999999986,
+        15.039999999999964,
+        11.400000000000091,
+        15.259999999999991,
+        13.339999999999918,
+        13.32000000000005,
+        12.43999999999994,
+        14.220000000000027,
+        11.420000000000073,
+        15.259999999999991
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "index.html",
+      "sha256": "79f98611d9d6458b0888d0122224b606083422e37b2e9231b976bef9ab3575bd"
+    },
+    {
+      "file": "assets/backup-verifier.worker-Coh4tGgk.js",
+      "sha256": "6dff85bd1a9d88c883a6d333eb8a5735c03a0fce6c3d782d4f63bebb9986e8fc"
+    },
+    {
+      "file": "assets/engine.worker-DhIzpq3f.js",
+      "sha256": "63f0a4c4155e8d0dfa32370cf8270634006dc685cfdfcb9f2bae44d2e7108e6b"
+    },
+    {
+      "file": "assets/file.worker-BOPrWeQ4.js",
+      "sha256": "175bd469aae7b2c4fc56ffebaefa5771a4851b58d72382b7011dd65c53656a0e"
+    },
+    {
+      "file": "assets/icon.svg",
+      "sha256": "97b531f11fbbcbb9139eb2466a7d00a8c837fbb48652a2aca9feafa4efb62c8b"
+    },
+    {
+      "file": "assets/index-BD6TrBHh.css",
+      "sha256": "b85f88fe13978d93499c5ed6169cdace3c6fd9c018cc50edcc3324fff4a5b6d3"
+    },
+    {
+      "file": "assets/index-BpvtcGk3.js",
+      "sha256": "2645cd3cc7dbe1bbe5372ee7985cb60af9679e0f6105ae9e059057a5be165ef7"
+    },
+    {
+      "file": "assets/logo-dark.svg",
+      "sha256": "6f5d7e96d0f013b451d6a086a259c1c331c54f66d0589f2bcde4d975deab15b6"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "4af3263647bce5596c22e7d3a8dc1a9c58defc9b68473fb2c209ae4360988b09"
+    },
+    {
+      "file": "assets/social-preview.png",
+      "sha256": "93fa64cb735d1d788aa12222f414b1e2d84a8be452bfd6220bcd5ff7b29011f9"
+    },
+    {
+      "file": "assets/xlsx-export.worker-D0OQ0ohu.js",
+      "sha256": "34a80de59f3bfef61460479344cce9dfa2fda0d8c664c36594886e5407b27237"
+    }
+  ],
+  "browser": "155.0",
+  "finishedAt": "2026-11-11T22:41:26.395Z"
+}

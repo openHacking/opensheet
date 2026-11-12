@@ -1,0 +1,37 @@
+{
+  "startedAt": "2026-11-12T06:20:21.623Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 363,
+    "sha256": "83da633156abf4819648a24b3f5e2c998257aaa9bcd8b16ef31dbbac81be6fab"
+  },
+  "engine": "webkit",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Development-server direct Workbook and real Worker; 10 staged insertions of 10 rows at the start of a 99,900-row sheet plus a write at the expanded edge. Checks every axis ID, value, undo, redo and reopen. No paired baseline, production assets, process peak memory, native input or other devices.",
+  "rounds": [
+    {
+      "round": 1,
+      "collectionMs": 217,
+      "totalMs": 323,
+      "verifiedRows": 100000,
+      "bytes": 4241
+    },
+    {
+      "round": 2,
+      "collectionMs": 191,
+      "totalMs": 298,
+      "verifiedRows": 100000,
+      "bytes": 4241
+    },
+    {
+      "round": 3,
+      "collectionMs": 214,
+      "totalMs": 323,
+      "verifiedRows": 100000,
+      "bytes": 4241
+    }
+  ],
+  "browser": "26.6"
+}

@@ -1,0 +1,160 @@
+{
+  "startedAt": "2026-11-11T23:45:24.363Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 327,
+    "sha256": "4336fec9509a466e5118f3b36b2c5869386c00f0a6675052a14b1af25303843f"
+  },
+  "scriptSha256": "5bee6fa2d357e0beabfbc82ea6879369f256b56af91e9114c85235f38463b211",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Node-only Range matrix-to-command construction; 100,000 dense numeric or formula inputs, six alternating fresh-range pairs. Control reconstructs the prior flatMap implementation and silently skips sparse entries. Every generated input and coordinate is verified outside timing. Excludes Worker transfer, schema validation, persistence, UI, peak memory and independent hardware; sequential samples share JIT and GC.",
+  "samples": [
+    {
+      "fixture": "numeric",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 6.270459000000017
+    },
+    {
+      "fixture": "numeric",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 7.516500000000008
+    },
+    {
+      "fixture": "numeric",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 2.5624579999999924
+    },
+    {
+      "fixture": "numeric",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 9.223708999999985
+    },
+    {
+      "fixture": "numeric",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 10.409542000000044
+    },
+    {
+      "fixture": "numeric",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 3.3546249999999986
+    },
+    {
+      "fixture": "numeric",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 4.116167000000019
+    },
+    {
+      "fixture": "numeric",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 6.670583000000022
+    },
+    {
+      "fixture": "numeric",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 3.711291000000017
+    },
+    {
+      "fixture": "numeric",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 1.8264580000000024
+    },
+    {
+      "fixture": "numeric",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 1.3315840000000208
+    },
+    {
+      "fixture": "numeric",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 5.104667000000006
+    },
+    {
+      "fixture": "formula",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 6.1714999999999804
+    },
+    {
+      "fixture": "formula",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 9.345124999999996
+    },
+    {
+      "fixture": "formula",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 7.344042000000002
+    },
+    {
+      "fixture": "formula",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 7.731625000000008
+    },
+    {
+      "fixture": "formula",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 5.679916999999989
+    },
+    {
+      "fixture": "formula",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 6.415124999999989
+    },
+    {
+      "fixture": "formula",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 6.89187499999997
+    },
+    {
+      "fixture": "formula",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 4.819666999999981
+    },
+    {
+      "fixture": "formula",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 7.484167000000014
+    },
+    {
+      "fixture": "formula",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 6.789666999999952
+    },
+    {
+      "fixture": "formula",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 14.295917000000031
+    },
+    {
+      "fixture": "formula",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 4.834833000000003
+    }
+  ],
+  "finishedAt": "2026-11-11T23:45:24.689Z"
+}

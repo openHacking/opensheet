@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-30T16:49:16.537Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "provenance": "CC0 synthetic OpenSheet annotation cells exported via SheetJS; LibreOffice opened and saved XLSX. Observations reimported through SheetJS; no visual inspection.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 218,
+    "sha256": "744a895bb12cca72dde0b776e019b3ffb1eda0d619ba6e58c48ed9c68dacd17c"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "3eacf98f0be855458dbc8a98253d1ff1ba9fc5e54e2cec329ba26ce41019fe4c"
+  },
+  "strictCode": "UNSUPPORTED_FEATURE",
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 5,
+      "approximated": 0,
+      "dropped": 1,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "EMPTY_LINK_TOOLTIP_DROPPED",
+        "feature": "link",
+        "message": "An explicitly empty link tooltip is omitted by the XLSX writer",
+        "action": "dropped",
+        "severity": "warning",
+        "sheetId": "sheet_df2c0f17fe8e4e259952071eeada2407",
+        "address": "A5",
+        "count": 1
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "comparisons": [
+    {
+      "cell": "A1",
+      "agrees": true,
+      "emitted": {
+        "cell": "A1",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A1",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "",
+        "link": null
+      }
+    },
+    {
+      "cell": "A2",
+      "agrees": true,
+      "emitted": {
+        "cell": "A2",
+        "input": {
+          "type": "blank"
+        },
+        "note": "",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A2",
+        "input": {
+          "type": "blank"
+        },
+        "note": "",
+        "link": null
+      }
+    },
+    {
+      "cell": "A3",
+      "agrees": true,
+      "emitted": {
+        "cell": "A3",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "hello",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A3",
+        "input": {
+          "type": "string",
+          "value": "value"
+        },
+        "note": "hello",
+        "link": null
+      }
+    },
+    {
+      "cell": "A4",
+      "agrees": true,
+      "emitted": {
+        "cell": "A4",
+        "input": {
+          "type": "blank"
+        },
+        "note": "hello",
+        "link": null
+      },
+      "reopened": {
+        "cell": "A4",
+        "input": {
+          "type": "blank"
+        },
+        "note": "hello",
+        "link": null
+      }
+    },
+    {
+      "cell": "A5",
+      "agrees": true,
+      "emitted": {
+        "cell": "A5",
+        "input": {
+          "type": "string",
+          "value": "link"
+        },
+        "note": null,
+        "link": {
+          "target": "https://example.com/"
+        }
+      },
+      "reopened": {
+        "cell": "A5",
+        "input": {
+          "type": "string",
+          "value": "link"
+        },
+        "note": null,
+        "link": {
+          "target": "https://example.com/"
+        }
+      }
+    }
+  ],
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-annotations-Fq5GuQ/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-annotations-Fq5GuQ/save/source.xlsx using filter : Calc MS Excel 2007 XML",
+  "artifacts": {
+    "exported": {
+      "file": "annotation-interop-2026-10-31.xlsx",
+      "sha256": "65fad4752a157ea9e8fc2959de7de6ad80b91a58b723140acf9a51ace1d1f5dc"
+    },
+    "saved": {
+      "file": "annotation-interop-2026-10-31.reader.xlsx",
+      "sha256": "ca309f856a71d6c84329cb5e09db83ea4da7542f47c96d22331826f6f8ad2839"
+    }
+  }
+}

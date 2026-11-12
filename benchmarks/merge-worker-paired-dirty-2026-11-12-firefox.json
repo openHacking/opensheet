@@ -1,0 +1,194 @@
+{
+  "startedAt": "2026-11-12T05:48:54.752Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 362,
+    "sha256": "3bf3c75816bb25c4a21050e5c1832187c8cc6187c9586d49288b75c6ab300fff"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "engine": "firefox",
+  "profile": "profile",
+  "comparison": "paired",
+  "workload": "dirty",
+  "cells": 20000,
+  "scope": "Development-server direct Workbook with opt-in Worker operation timing; three fresh contexts per variant, one merge each. Paired mode reconstructs the prior unoptimized page writes in the served engine module. Every note checked before/after, undo, redo and reopen. Timing includes instrumentation and scheduling, not CPU attribution; no production assets, native input or process peak memory.",
+  "rounds": [
+    {
+      "round": 1,
+      "variant": "control",
+      "mergeMs": 245,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 237,
+        "roundTripMs": 238,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 3
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 127
+        },
+        "publish": {
+          "count": 1,
+          "ms": 48
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1280244
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "mergeMs": 219,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 207,
+        "roundTripMs": 208,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 2
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 97
+        },
+        "publish": {
+          "count": 1,
+          "ms": 40
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1280244
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "mergeMs": 231,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 221,
+        "roundTripMs": 221,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 1
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 104
+        },
+        "publish": {
+          "count": 1,
+          "ms": 44
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1280244
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "mergeMs": 225,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 211,
+        "roundTripMs": 212,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 1
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 112
+        },
+        "publish": {
+          "count": 1,
+          "ms": 39
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1280244
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "mergeMs": 668,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 657,
+        "roundTripMs": 659,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 5
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 427
+        },
+        "publish": {
+          "count": 1,
+          "ms": 50
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1280244
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "mergeMs": 330,
+      "timing": {
+        "method": "execute",
+        "queueMs": 0,
+        "executionMs": 324,
+        "roundTripMs": 323,
+        "activeAtArrival": "",
+        "queuedAhead": 0
+      },
+      "phases": {
+        "block": {
+          "count": 313,
+          "ms": 2
+        },
+        "storeBlock": {
+          "count": 313,
+          "ms": 150
+        },
+        "publish": {
+          "count": 1,
+          "ms": 68
+        }
+      },
+      "verifiedNotesPerCheck": 20000,
+      "bytes": 1280244
+    }
+  ],
+  "browser": "155.0"
+}

@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-12",
+  "command": "OPENSHEET_TEST_TIMING=1 pnpm exec vitest run tests/search-limit.test.ts --maxWorkers=1 --reporter=verbose --testTimeout=30000",
+  "scope": "Node process CPU across all threads; wall time includes scheduling; fake Worker and IndexedDB",
+  "samples": [
+    { "limitedSearchesWallMs": 80.87225, "limitedSearchesProcessCpuMs": 133.364, "clearRetryWallMs": 7.45675, "clearRetryProcessCpuMs": 7.535 },
+    { "limitedSearchesWallMs": 1419.323125, "limitedSearchesProcessCpuMs": 1617.938, "clearRetryWallMs": 347.276791, "clearRetryProcessCpuMs": 336.656 },
+    { "limitedSearchesWallMs": 1520.427125, "limitedSearchesProcessCpuMs": 1719.175, "clearRetryWallMs": 311.148041, "clearRetryProcessCpuMs": 305.612 }
+  ],
+  "limitations": "Sequential unpaired samples on one shared host; process CPU includes all threads, not only search; no browser Worker or peak memory measurement."
+}

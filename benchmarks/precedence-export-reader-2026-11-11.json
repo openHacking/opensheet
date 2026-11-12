@@ -1,0 +1,53 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "expressions": [
+    "2^3^2",
+    "-2^2",
+    "2^(-3^2)",
+    "(-2)^2"
+  ],
+  "expected": [
+    512,
+    -4,
+    0.001953125,
+    4
+  ],
+  "actual": [
+    512,
+    -4,
+    0.001953125,
+    4
+  ],
+  "exported": [
+    "(2^(3^2))",
+    "(-((2^2)))",
+    "(2^(-((3^2))))",
+    "((-(2))^2)"
+  ],
+  "issues": [
+    {
+      "code": "EXPORT_FORMULA_PRECEDENCE_NORMALIZED",
+      "feature": "formula-precedence",
+      "message": "Formula parentheses preserve OpenSheet exponent precedence",
+      "action": "preserved",
+      "severity": "info",
+      "sheetId": "sheet_48acfaf24a124941b5906a0cb0515df1",
+      "address": "A1",
+      "count": 4
+    },
+    {
+      "code": "RECALC_REQUIRED",
+      "feature": "formula",
+      "message": "Formula result requires recalculation in the target application",
+      "action": "approximated",
+      "severity": "warning",
+      "sheetId": "sheet_48acfaf24a124941b5906a0cb0515df1",
+      "address": "A1",
+      "count": 4
+    }
+  ],
+  "sourceSha256": "9d83f191a6864a74c91cfd04a1a0c53c24f6e967d7bfb9bef225a23521b75c0c",
+  "resultSha256": "115ea81cdd382e98441ad9eec79a4a904c77f22e65df7400cc578c0906f36f5e",
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-precedence-export-xKO5Mr/input.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-precedence-export-xKO5Mr/result/input.xlsx using filter : Calc MS Excel 2007 XML\n",
+  "scope": "Four synthetic native formulas exported through the adapter and independently recalculated by a LibreOffice development build; not Excel or general formula compatibility."
+}

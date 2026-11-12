@@ -1,0 +1,44 @@
+{
+  "startedAt": "2026-11-11T20:53:59.080Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 314,
+    "sha256": "f4e21cbc9fcd7115fd12330e5abdcbe2a5365f4d629c0460f55db3a2a6a9ae94"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "In-process Node prototype: one simple relative-reference predicate over 1,000 in-memory numeric cells, fresh bounded calculation session each round. Includes rule revalidation, input snapshot and asynchronous evaluation; excludes browser, storage, rendering, memory peak, complex formulas and large viewports.",
+  "samples": [
+    {
+      "round": 1,
+      "elapsedMs": 5.014208000000025,
+      "formulas": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 2,
+      "elapsedMs": 3.6278750000000173,
+      "formulas": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 3,
+      "elapsedMs": 3.05179099999998,
+      "formulas": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 4,
+      "elapsedMs": 2.8262089999999773,
+      "formulas": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 5,
+      "elapsedMs": 2.4506250000000023,
+      "formulas": 1000,
+      "verified": 1000
+    }
+  ]
+}

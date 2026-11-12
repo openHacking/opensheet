@@ -1,0 +1,86 @@
+{
+  "engine": "firefox",
+  "startedAt": "2026-11-11T19:41:22.698Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 302,
+    "sha256": "4a2314c3d5e89411ad5b25d23f209c1baa5d449156f32abb374b73227fbd3959"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "b92a07ea8ec6a1b243568aff25b621b4e3f80848605fc85e216d843dfe62318c"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Frame intervals are main-document requestAnimationFrame observations during the grid paste, not input latency or total process responsiveness. Measures a compact API command, excluding native clipboard permission and operating-system input.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 199,
+      "frameIntervals": [
+        13.980000000000018,
+        13.339999999999918,
+        13.340000000000032,
+        13.32000000000005,
+        11.339999999999918,
+        15.340000000000032,
+        13.32000000000005,
+        13.339999999999918,
+        13.32000000000005,
+        13.340000000000032,
+        13.339999999999918,
+        13.32000000000005,
+        13.340000000000032,
+        11.319999999999936,
+        15.340000000000032
+      ]
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 198,
+      "frameIntervals": [
+        13.259999999999991,
+        11.620000000000005,
+        13.420000000000016,
+        14.980000000000018,
+        13.300000000000011,
+        11.360000000000014,
+        15.319999999999936,
+        13.32000000000005,
+        12.740000000000009,
+        13.919999999999959,
+        11.340000000000032,
+        13.339999999999918,
+        15.340000000000032,
+        13.32000000000005,
+        13.339999999999918
+      ]
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 173,
+      "frameIntervals": [
+        7.400000000000034,
+        13.339999999999975,
+        13.319999999999993,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032,
+        13.340000000000032,
+        13.319999999999936
+      ]
+    }
+  ],
+  "browser": "155.0"
+}

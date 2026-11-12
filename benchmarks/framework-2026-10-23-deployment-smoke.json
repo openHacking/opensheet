@@ -1,0 +1,55 @@
+{
+  "startedAt": "2026-10-23T02:14:50.586Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 205,
+    "sha256": "6dbc2cf55f0b634a5e8b0d24cc66b0752a422bacea9f88f81e617baf8c5e1274"
+  },
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "a883ef4cfe94b262d8f0dffc8137838a78716764ffd43240b9c34a99cd3addca"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "412e8eba50343744cc794df46e71ddd3e0e9b5f9ac2d23f6fabe9d8bf1e63e49"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "8e50132b5bb5c55b84ddf1e6cb8efa4e19419a29ffbd6aa14650e316408b77a5"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "975aed732c6fd8b4ade76eef8b6f1a660018bbac7982a0b2a6d0d641b064c6fa"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "f92b6d73ee778a879eb28c4d1acea9009e3dee8ac4c89ef0613f7f968cdc053e"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.1.1",
+      "sha256": "4f7ae0de4b28eb0fb07a03bf960a9e3c860d24b66ea32c6a3fe0bb33ad5e1bcb"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.1.1",
+      "sha256": "408e4b65f8b776d0ea037a628922603be2a675ce89bb0e3acb6f1e202aba1175"
+    }
+  ],
+  "results": [],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no source aliases; development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "14159ca51fa99a662036da32d608108d0b0ec5d8ccc208040f524fc944b8a1cb",
+  "configSha256": "ecc0ea2d71282177511bb03ba8f81ea590d9d7e39ba50fa0c7b4448f41ccb99a",
+  "lock": {
+    "file": "/Volumes/github/private/opensheet/benchmarks/framework-2026-10-23-deployment-smoke.consumer-lock.yaml",
+    "sha256": "78606f1ac35d679bb3136b0226ee4541e33e521f2326c45da8daa8bde29b3f1a"
+  },
+  "error": "Error: Command failed: pnpm exec node ssr.mjs\nfile:///private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-framework-jlh3X7/ssr.mjs:14\nassert.equal(reader.getSheets().length, 1);\n                    ^\n\nTypeError: reader.getSheets is not a function\n    at file:///private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-framework-jlh3X7/ssr.mjs:14:21\n    at ModuleJob.run (node:internal/modules/esm/module_job:345:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:651:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.19.0\n",
+  "commandError": "file:///private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-framework-jlh3X7/ssr.mjs:14\nassert.equal(reader.getSheets().length, 1);\n                    ^\n\nTypeError: reader.getSheets is not a function\n    at file:///private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-framework-jlh3X7/ssr.mjs:14:21\n    at ModuleJob.run (node:internal/modules/esm/module_job:345:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:651:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.19.0\n"
+}

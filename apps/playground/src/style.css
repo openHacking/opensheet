@@ -336,6 +336,14 @@ h1 span {
   width: 4px;
   height: 4px;
 }
+.doc-meta button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .document-actions {
   display: flex;
   gap: 8px;
@@ -407,6 +415,10 @@ h1 span {
 }
 .search-wrap input::placeholder {
   color: #a1ae97;
+}
+.search-wrap input:focus-visible {
+  outline: 2px solid #19875f;
+  outline-offset: 3px;
 }
 .search-wrap button {
   border: 0;
@@ -517,7 +529,7 @@ h1 span {
   padding: 0 20px;
   border-bottom: 1px solid #edf1e8;
 }
-.source-tabs > button {
+.source-tabs .format-tabs > button {
   border: 0;
   border-bottom: 2px solid transparent;
   background: transparent;
@@ -525,7 +537,7 @@ h1 span {
   font-size: 10px;
   padding: 10px 0;
 }
-.source-tabs > button.selected {
+.source-tabs .format-tabs > button.selected {
   color: #46743b;
   border-bottom-color: #6b9a54;
 }
@@ -1548,4 +1560,80 @@ dialog::backdrop {
   font-size: 12px;
   line-height: 1.6;
   margin-bottom: 12px;
+}
+
+.sort-form {
+  display: grid;
+  gap: 14px;
+}
+.sort-form > p {
+  margin: 0;
+}
+.sort-level {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.sort-level > span {
+  min-width: 55px;
+}
+.sort-form button,
+.sort-form select {
+  min-height: 36px;
+  padding: 6px 10px;
+}
+.sort-form > button {
+  justify-self: start;
+}
+
+.annotation-form label {
+  display: grid;
+  gap: 6px;
+}
+.annotation-form input,
+.annotation-form textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 8px;
+}
+.annotation-form textarea {
+  resize: vertical;
+}
+
+.startup-recovery:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(20, 28, 20, 0.65);
+}
+.startup-recovery > div {
+  width: min(100%, 480px);
+  padding: 28px;
+  border-radius: 12px;
+  background: white;
+  color: #202820;
+}
+.startup-recovery h1 {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+.startup-recovery p {
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.startup-recovery [hidden] {
+  display: none;
+}
+
+.format-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
 }

@@ -1,0 +1,91 @@
+{
+  "startedAt": "2026-11-12T08:25:30.576Z",
+  "node": "v22.19.0",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 368,
+    "sha256": "08b165153ad9af1a4aee1fda6f7be3e156ffc9b303663bc07b77995ef7478844"
+  },
+  "coreBundleSha256": "e4c1260e802dcb29944ddd2fcdbd5b65513a14e8af8e7941373a3f1175be9b88",
+  "scope": "Three alternating fresh Node processes per mode. One million blank cells in a 1000x1000 range; timed work includes verifying every value. Heap is sampled between batches and RSS is process high-water, including startup. No browser, formulas, occupied pages, process-isolated baseline subtraction or reference devices.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "matrix",
+      "elapsedMs": 703.6413339999999,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9637264,
+      "observedHeap": 57190184,
+      "afterHeap": 57190528,
+      "retainedHeap": 9784176,
+      "maxRssKiB": 155008
+    },
+    {
+      "round": 1,
+      "variant": "batches",
+      "elapsedMs": 680.124917,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9637096,
+      "observedHeap": 53729768,
+      "afterHeap": 53531648,
+      "retainedHeap": 9857800,
+      "maxRssKiB": 154080
+    },
+    {
+      "round": 2,
+      "variant": "batches",
+      "elapsedMs": 685.0654589999999,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9644336,
+      "observedHeap": 53597952,
+      "afterHeap": 53405240,
+      "retainedHeap": 9857704,
+      "maxRssKiB": 153952
+    },
+    {
+      "round": 2,
+      "variant": "matrix",
+      "elapsedMs": 620.166417,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9644440,
+      "observedHeap": 57406512,
+      "afterHeap": 57406856,
+      "retainedHeap": 9784344,
+      "maxRssKiB": 154928
+    },
+    {
+      "round": 3,
+      "variant": "matrix",
+      "elapsedMs": 644.0400000000001,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9636768,
+      "observedHeap": 57555016,
+      "afterHeap": 57555360,
+      "retainedHeap": 9784248,
+      "maxRssKiB": 154464
+    },
+    {
+      "round": 3,
+      "variant": "batches",
+      "elapsedMs": 638.209958,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9637264,
+      "observedHeap": 53735592,
+      "afterHeap": 53510200,
+      "retainedHeap": 9857720,
+      "maxRssKiB": 154224
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 343,
+    "sha256": "1f17ff4e49d4969bb792aa0581640b0f5993ec4a29e58007b8248705eb5999a5"
+  },
+  "hashes": [
+    "df139c3c2a6d79b85e578ba9abf10404586c1ba1479f3fa3b00160537a11cbfe",
+    "204b9acdcd63ffe5b45a3b3efeba26b9aed569b618877f79902a481dce60dcef"
+  ],
+  "cells": 100000,
+  "scope": "Local Node paired XML-only scan, 100k synthetic scalar XML rows, six alternating pairs after warmup. Baseline reconstructs the pre-change inspection condition, not a clean commit. Does not parse workbook data, read ZIP, run in browsers/Workers or measure peak memory.",
+  "results": [
+    {
+      "name": "active",
+      "bytes": 5666917,
+      "pairs": [
+        {
+          "previous": 36.852667000000054,
+          "current": 68.96424999999999
+        },
+        {
+          "previous": 34.17541700000004,
+          "current": 62.319624999999974
+        },
+        {
+          "previous": 33.185833,
+          "current": 60.722417000000064
+        },
+        {
+          "previous": 33.4491670000001,
+          "current": 59.26262499999996
+        },
+        {
+          "previous": 32.542084000000045,
+          "current": 58.98445800000002
+        },
+        {
+          "previous": 32.388958,
+          "current": 59.681917
+        }
+      ]
+    },
+    {
+      "name": "control",
+      "bytes": 5666848,
+      "pairs": [
+        {
+          "previous": 33.174582999999984,
+          "current": 37.56450000000018
+        },
+        {
+          "previous": 37.628000000000156,
+          "current": 37.888999999999896
+        },
+        {
+          "previous": 33.76258299999995,
+          "current": 40.941291999999976
+        },
+        {
+          "previous": 35.387874999999894,
+          "current": 41.47141600000009
+        },
+        {
+          "previous": 33.8923749999999,
+          "current": 39.71704099999988
+        },
+        {
+          "previous": 34.64708399999995,
+          "current": 42.72004199999992
+        }
+      ]
+    }
+  ]
+}

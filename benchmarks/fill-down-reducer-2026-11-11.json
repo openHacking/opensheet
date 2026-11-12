@@ -1,0 +1,76 @@
+{
+  "startedAt": "2026-11-11T02:01:50.262Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 251,
+    "sha256": "28a14a81a134432a3f397812ad51f39dc777114ea3ac5498b8bcdfc37f0d294a"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "rows": 10000,
+  "columns": 10,
+  "limitations": "Node reducer only; excludes Worker RPC, storage, undo and browser memory. Alternating variants in one process; no isolated peak-memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 257.14541699999995
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 112.02729199999999
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 113.65745900000002
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 266.0735830000001
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 264.346041
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 111.02937500000007
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 111.2331670000001
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "elapsedMs": 238.82258399999978
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "elapsedMs": 254.4772499999999
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 109.76187500000015
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 113.58783300000005
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "elapsedMs": 236.52349999999979
+    }
+  ]
+}

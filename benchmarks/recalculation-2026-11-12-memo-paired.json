@@ -1,0 +1,574 @@
+{
+  "startedAt": "2026-11-11T17:05:38.544Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 288,
+    "sha256": "0e2ac749cefa56d90917568f07ef0d5d6c71a8eda8a25557b95dfb728b2d82da"
+  },
+  "hash": "deaa89557afaeec3571dc35c2f4ebc17e47b5460eb871ca142a74180d2dce98d",
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless dedicated Worker synthetic AsyncCalculation benchmark. Six alternating pairs per browser and 128/512 formulas over the same 32 scalar references; fresh calculator each sample, all outputs and exact source-read counts verified. Baseline uses the current calculator without a read session; this is not a prior commit. Excludes IndexedDB, real workbook scheduling, UI, cancellation, peak memory, reference devices and end-to-end latency.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 7.199999809265137,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 7.799999713897705,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 3.8000001907348633,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 5.599999904632568,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 7.900000095367432,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 1.4000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 5.900000095367432,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 1.3000001907348633,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 4.400000095367432,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 6.099999904632568,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 1.4000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 6,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 8,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 1.9000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 5.800000190734863,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 1.4000000953674316,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 3.700000286102295,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 6.5,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 2.1999998092651367,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 5.700000286102295,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 7.799999713897705,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 1.799999713897705,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 5.900000095367432,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 1.4000000953674316,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ]
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 23,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 75,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 57,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 77,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 77,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 19,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 22,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 75,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 56,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 59,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 75,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 19,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 25,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 82,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 54,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 61,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 76,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 23,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ]
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 12,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 10,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 5,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 15,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 15,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 3,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 4,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 5,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 2,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 10,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 1,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 6,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 4,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 6,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 8,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 2,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 6,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "memo": true,
+            "rows": 512,
+            "ms": 12,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": true,
+            "rows": 128,
+            "ms": 1,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "memo": false,
+            "rows": 512,
+            "ms": 9,
+            "sourceReads": 16384,
+            "checkedOutputs": 512
+          },
+          {
+            "memo": false,
+            "rows": 128,
+            "ms": 5,
+            "sourceReads": 4096,
+            "checkedOutputs": 128
+          }
+        ]
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T17:05:43.203Z"
+}

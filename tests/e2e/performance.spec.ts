@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readForPoll } from './read-for-poll.js';
 test('performance example measures a complete workload and restores stored data', async ({
   page,
 }) => {
@@ -17,12 +18,47 @@ test('performance example measures a complete workload and restores stored data'
   const file = await (await download).path();
   const fs = await import('node:fs');
   const result = JSON.parse(fs.readFileSync(file!, 'utf8'));
+  expect(result.protocol.editRowSampling).toBe('evenly-spaced-inclusive-v1');
+  expect(result.protocol.scrollSampling).toBe('evenly-spaced-2d-permuted-inclusive-v2');
+  expect(result.protocol.viewportValidation).toBe('viewport-rectangle-cached-value-display-v2');
   fs.writeFileSync(
     `test-results/performance-${test.info().project.name}.json`,
     JSON.stringify(result, null, 2),
   );
   expect(result.results[0].cells).toBe(10000);
   expect(result.results[0].rounds.length).toBeGreaterThan(0);
+  for (const round of result.results[0].rounds) {
+    expect(round.editSamplesMs).toHaveLength(100);
+    expect(round.commitSamplesMs).toHaveLength(100);
+    expect(round.viewportSamplesMs).toHaveLength(100);
+    for (let i = 0; i < 100; i++)
+      expect(round.commitSamplesMs[i] + round.viewportSamplesMs[i]).toBeCloseTo(
+        round.editSamplesMs[i],
+        6,
+      );
+    expect([...round.commitSamplesMs].sort((a: number, b: number) => a - b)[94]).toBe(
+      round.commitP95Ms,
+    );
+    expect([...round.viewportSamplesMs].sort((a: number, b: number) => a - b)[94]).toBe(
+      round.viewportP95Ms,
+    );
+    expect(round.scrollSamplesMs).toHaveLength(300);
+    expect(round.viewportChecks).toBeGreaterThan(1200);
+    expect(round.scrollExtents.observedTop[0]).toBeLessThanOrEqual(1);
+    expect(round.scrollExtents.observedLeft[0]).toBeLessThanOrEqual(1);
+    expect(round.scrollExtents.observedTop[1]).toBeGreaterThanOrEqual(
+      round.scrollExtents.maxTop - 1,
+    );
+    expect(round.scrollExtents.observedLeft[1]).toBeGreaterThanOrEqual(
+      round.scrollExtents.maxLeft - 1,
+    );
+    expect([...round.editSamplesMs].sort((a: number, b: number) => a - b)[94]).toBe(
+      round.editP95Ms,
+    );
+    expect([...round.scrollSamplesMs].sort((a: number, b: number) => a - b)[284]).toBe(
+      round.scrollP95Ms,
+    );
+  }
   if (result.results[0].passed) expect(result.results[0].rounds).toHaveLength(3);
   const before = await page.evaluate(
     async () => await window.opensheet.getWorkbook().getSheets()[0].range('A1:B1').getValues(),
@@ -63,14 +99,7 @@ test('multiple tabs share revisions and only one writer can commit', async ({ pa
         .range('A1')
         .setValues([['shared']]),
   );
-  await expect
-    .poll(() =>
-      second.evaluate(
-        async () =>
-          (await window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues())[0][0],
-      ),
-    )
-    .toBe('shared');
+  await expect.poll(() => readForPoll(second, 'A1')).toEqual([['shared']]);
   expect(await second.evaluate(() => window.opensheet.getWorkbook().id)).toBe(id);
   await second.close();
 });
@@ -218,4 +247,114 @@ test('leaving the performance scene cancels work before attaching the next scene
   await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
   await expect(page.getByRole('tab', { name: 'Sales Dashboard', exact: true })).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test('performance acceptance rejects a redo that reports success without restoring the edit', async ({
+  page,
+}) => {
+  await page.goto('/#performance');
+  await expect(page.locator('#scene-title')).toHaveText('Performance Lab');
+  await page.evaluate(() => {
+    const prototype = Object.getPrototypeOf(window.opensheet.getWorkbook());
+    prototype.redo = async () => true;
+  });
+  await page.locator('#perf-run').click();
+  await expect(page.locator('#perf-progress')).toContainText('Finished', { timeout: 150000 });
+  const download = page.waitForEvent('download');
+  await page.locator('#perf-download').click();
+  const file = await (await download).path();
+  const fs = await import('node:fs');
+  const result = JSON.parse(fs.readFileSync(file!, 'utf8'));
+  expect(result.results[0]).toMatchObject({
+    cells: 10000,
+    passed: false,
+    failure: 'Redo validation failed',
+  });
+});
+
+test('performance acceptance rejects a viewport whose cached values are unavailable', async ({
+  page,
+}) => {
+  await page.goto('/#performance');
+  await expect(page.locator('#scene-title')).toHaveText('Performance Lab');
+  await page.evaluate(() => {
+    const prototype = Object.getPrototypeOf(window.opensheet.getWorkbook());
+    const isLoaded = prototype.isLoaded;
+    prototype.isLoaded = function (sheet: string, row: number, column: number) {
+      return row === 2 && column === 2 ? false : isLoaded.call(this, sheet, row, column);
+    };
+  });
+  await page.locator('#perf-run').click();
+  await expect(page.locator('#perf-progress')).toContainText('Finished', { timeout: 150000 });
+  const download = page.waitForEvent('download');
+  await page.locator('#perf-download').click();
+  const file = await (await download).path();
+  const fs = await import('node:fs');
+  const result = JSON.parse(fs.readFileSync(file!, 'utf8'));
+  expect(result.results[0].passed).toBe(false);
+  expect(result.results[0].failure).toBe('Viewport validation failed at row 2, column 2');
+});
+
+test('opt-in Worker timing reports one bounded sample per measured edit', async ({ page }) => {
+  test.setTimeout(180000);
+  await page.goto('/?trace-ops=1#performance');
+  await expect(page.locator('#scene-title')).toHaveText('Performance Lab');
+  await page.locator('#perf-run').click();
+  await expect(page.locator('#perf-progress')).toContainText('Finished', { timeout: 150000 });
+  const download = page.waitForEvent('download');
+  await page.locator('#perf-download').click();
+  const file = await (await download).path();
+  const fs = await import('node:fs');
+  const result = JSON.parse(fs.readFileSync(file!, 'utf8'));
+  expect(result.protocol.operationTiming).toBe(true);
+  expect(result.results[0].rounds.length).toBeGreaterThan(0);
+  for (const round of result.results[0].rounds) {
+    expect(round.workerQueueSamplesMs).toHaveLength(100);
+    expect(round.scrollReadTraces).toHaveLength(300);
+    expect(round.scrollPhaseTraces).toHaveLength(300);
+    for (let i = 0; i < 300; i++) {
+      const phase = round.scrollPhaseTraces[i];
+      const durations = [
+        phase.layoutMs,
+        phase.previousFetchMs,
+        phase.viewportFetchMs,
+        phase.frameWaitMs,
+        phase.drawMs,
+      ];
+      for (const duration of durations) expect(duration).toBeGreaterThanOrEqual(0);
+      expect(durations.reduce((sum, duration) => sum + duration, 0)).toBeLessThanOrEqual(
+        round.scrollSamplesMs[i] + 1,
+      );
+    }
+    for (const trace of round.scrollReadTraces) {
+      expect(trace.count).toBeGreaterThanOrEqual(0);
+      expect(trace.maxRoundTripMs).toBeGreaterThanOrEqual(0);
+      expect(trace.sumExecutionMs).toBeGreaterThanOrEqual(0);
+      expect(trace.maxExecutionMs).toBeGreaterThanOrEqual(0);
+      expect(trace.maxQueueMs).toBeGreaterThanOrEqual(0);
+      expect(trace.maxOutsideWorkerMs).toBeGreaterThanOrEqual(0);
+      expect(trace.sumOutsideWorkerMs).toBeGreaterThanOrEqual(trace.maxOutsideWorkerMs);
+      expect(trace.pageCacheHits).toBeGreaterThanOrEqual(0);
+      expect(trace.pageCacheMisses).toBeGreaterThanOrEqual(0);
+      expect(trace.absentPages).toBeGreaterThanOrEqual(0);
+      expect(trace.storageMs).toBeGreaterThanOrEqual(0);
+      expect(trace.decodeMs).toBeGreaterThanOrEqual(0);
+      expect(trace.inflateMs).toBeGreaterThanOrEqual(0);
+      expect(trace.pageDecodeMs).toBeGreaterThanOrEqual(0);
+      expect(trace.inflateMs + trace.pageDecodeMs).toBeCloseTo(trace.decodeMs, 5);
+      if (trace.count > 0)
+        expect(trace.pageCacheHits + trace.pageCacheMisses + trace.absentPages).toBeGreaterThan(0);
+      expect(trace.storageMs + trace.decodeMs).toBeLessThanOrEqual(trace.sumExecutionMs + 1);
+    }
+    expect(round.workerExecutionSamplesMs).toHaveLength(100);
+    expect(round.rpcSamplesMs).toHaveLength(100);
+    expect(round.workerActiveSamples).toHaveLength(100);
+    expect(round.workerQueuedAheadSamples).toHaveLength(100);
+    for (let i = 0; i < 100; i++) {
+      expect(round.workerQueueSamplesMs[i]).toBeGreaterThanOrEqual(0);
+      expect(round.workerExecutionSamplesMs[i]).toBeGreaterThanOrEqual(0);
+      expect(round.rpcSamplesMs[i]).toBeGreaterThanOrEqual(0);
+      expect(round.rpcSamplesMs[i]).toBeLessThanOrEqual(round.commitSamplesMs[i] + 1);
+    }
+  }
 });

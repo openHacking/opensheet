@@ -1,0 +1,295 @@
+{
+  "startedAt": "2026-11-12T05:16:58.425Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 356,
+    "sha256": "fe63f3becd93c0e5039b1f54ac44e7c9c3fd01e416d3757037da4962faa5ec0b"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 30000,
+  "scope": "Alternating in-process Node adapter conversions with synthetic repeated formulas. Control removes only the new per-formula name scan; name-index construction remains. No XLSX parsing, browser Worker, peak memory or end-to-end UI.",
+  "samples": [
+    {
+      "scenario": "no-names",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 69.649,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 67.30449999999996,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 43.46025000000003,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 59.018958999999995,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 40.279709000000025,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 47.45179099999996,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 43.31204100000002,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 42.210207999999966,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 48.29466699999989,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 59.45079099999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 52.41004200000009,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 42.43299999999999,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 39.65208299999995,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 50.88754199999994,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 56.906124999999975,
+      "verified": 30000
+    },
+    {
+      "scenario": "unmatched",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 48.53324999999995,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 38.117791000000125,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 50.42633300000011,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 48.80424999999991,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 39.691041999999925,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 39.115999999999985,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 47.04120799999987,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 46.69204200000013,
+      "verified": 30000
+    },
+    {
+      "scenario": "matched",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 37.53512500000011,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 51.52170799999999,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 53.51795799999991,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 46.142750000000206,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 37.17245900000012,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 38.02279199999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 50.434291999999914,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 46.68704099999991,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 36.57420900000011,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 38.532375,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 47.63516699999991,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 44.42708300000004,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 36.45445799999993,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 45.08812499999976,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 48.39208299999973,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 43.64379199999985,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified-global",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 35.132416999999805,
+      "verified": 30000
+    }
+  ]
+}

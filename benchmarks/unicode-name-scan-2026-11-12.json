@@ -1,0 +1,127 @@
+{
+  "startedAt": "2026-11-12T05:21:39.041Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 358,
+    "sha256": "d6cdee712c490e685a67dd919c5a0b8c7768eadbaabda6c77b8e0f8796cd81ec"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 30000,
+  "scope": "Alternating local Node conversions of identical ASCII formulas. The control reconstructs only the previous ASCII identifier regular expressions. No XLSX parsing, browser Worker, UI, peak memory or Unicode throughput.",
+  "samples": [
+    {
+      "scenario": "no-names",
+      "round": 1,
+      "variant": "before",
+      "elapsedMs": 72.64524999999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 73.12991599999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 42.51383400000003,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 2,
+      "variant": "before",
+      "elapsedMs": 52.00137499999994,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 3,
+      "variant": "before",
+      "elapsedMs": 37.836374999999975,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 45.29508299999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 40.38608399999998,
+      "verified": 30000
+    },
+    {
+      "scenario": "no-names",
+      "round": 4,
+      "variant": "before",
+      "elapsedMs": 39.79766700000005,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 1,
+      "variant": "before",
+      "elapsedMs": 52.58375000000001,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 52.13604100000009,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 48.32512499999996,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 2,
+      "variant": "before",
+      "elapsedMs": 58.422665999999936,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 3,
+      "variant": "before",
+      "elapsedMs": 48.83604200000002,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 45.70866699999988,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 43.12787500000013,
+      "verified": 30000
+    },
+    {
+      "scenario": "qualified",
+      "round": 4,
+      "variant": "before",
+      "elapsedMs": 47.15958300000011,
+      "verified": 30000
+    }
+  ]
+}

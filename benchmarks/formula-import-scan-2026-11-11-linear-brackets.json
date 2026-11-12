@@ -1,0 +1,145 @@
+{
+  "startedAt": "2026-11-11T03:44:56.611Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 255,
+    "sha256": "98493a51439a8efe5a07a5ff8066918056bf32f2234114229e1a0c7f71cdfc6a"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 60000,
+  "limitations": "In-process Node adapter conversion only; alternating variants, synthetic repeated supported formulas, no XLSX parse, browser, Worker or isolated memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 149.36245899999997
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 162.68270800000005
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 113.397875
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 98.23149999999998
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 91.01808300000005
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 106.67920900000001
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 198.87829099999988
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "elapsedMs": 110.83604100000002
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "elapsedMs": 82.960417
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 97.14129200000002
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 97.89941700000008
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "elapsedMs": 89.1736249999999
+    }
+  ],
+  "longSamples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 10.028708999999935
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 10.668750000000045
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 16.19250000000011
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 10.553625000000011
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 10.56254100000001
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 10.873625000000175
+    }
+  ],
+  "distinctSamples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 56.84612500000003,
+      "verified": 20000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 58.867958000000044,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 55.276582999999846,
+      "verified": 20000
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 52.01112499999999,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 40.911292,
+      "verified": 20000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 54.34683300000006,
+      "verified": 20000
+    }
+  ]
+}

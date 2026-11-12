@@ -1,0 +1,64 @@
+{
+  "startedAt": "2026-11-12T09:55:54.500Z",
+  "version": "0.2.0-dev.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 373,
+    "sha256": "d63e8c159c7e0bd7c99b188830164b6560703eb0f3df96f04c081aac076ff036"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "0c769ae4b3c066a62eb3d9b2b3a8fbb4c91ea9dff356cb2a71936dc5f2e12412"
+  },
+  "node": "v22.19.0",
+  "packages": [
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14",
+      "repeatSha256": "b3f1f3d33a643cf51ceacbfbb724922b8a37cf783d77017dea2487ae0c29ff14",
+      "identical": true,
+      "files": 16,
+      "bytes": 57197
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2",
+      "repeatSha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2",
+      "identical": true,
+      "files": 60,
+      "bytes": 232131
+    },
+    {
+      "name": "@opensheetjs/formats",
+      "version": "0.2.0-dev.0",
+      "sha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6",
+      "repeatSha256": "9697923c3dddb101bd3d75e56719eb319d64991360d909bdbc4d3bbf1d1532f6",
+      "identical": true,
+      "files": 17,
+      "bytes": 18880
+    },
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13",
+      "repeatSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13",
+      "identical": true,
+      "files": 28,
+      "bytes": 45837
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "c170bfe3efcc41bb66ca0fa0428dbeda8b1eec0ab686e7f7a92f8d80f89a0277",
+      "repeatSha256": "ee199b1e4bc3560988fe83d643a9edb0331446ca1059fbc3f0bbcd761574c1df",
+      "identical": false,
+      "files": 16,
+      "bytes": 41158
+    }
+  ],
+  "scope": "Two pnpm packs of each built workspace package; archive checks and an offline isolated pnpm consumer. Byte reproducibility is observed on this host, not independently built or signed provenance. No publication, browser lifecycle, cross-version migration or registry installation.",
+  "error": "AssertionError [ERR_ASSERTION]: opensheet: repeated archives differ"
+}

@@ -1,0 +1,39 @@
+{
+  "engine": "firefox",
+  "startedAt": "2026-11-11T03:02:59.300Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 253,
+    "sha256": "a15277aaed448b104e2ccb69ab649e4dcf5584fb751f1e734e3de994e631e0dc"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "010f63f650e1956eee8604c54fc4f50512ae524ee2912716a795b21b87f0cad6"
+  },
+  "limitations": "Headless local single-host samples. Metadata-only fixture; no cell pages, matched pre-change baseline, process memory or cross-device claims. Standalone clone timing is not isolated toJSON overhead.",
+  "rounds": [
+    {
+      "round": 1,
+      "rows": 100000,
+      "exportMs": 94,
+      "cloneMs": 58
+    },
+    {
+      "round": 2,
+      "rows": 100000,
+      "exportMs": 31,
+      "cloneMs": 28
+    },
+    {
+      "round": 3,
+      "rows": 100000,
+      "exportMs": 41,
+      "cloneMs": 28
+    }
+  ],
+  "browser": "155.0"
+}

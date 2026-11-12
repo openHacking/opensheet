@@ -1,0 +1,32 @@
+
+> opensheet-workspace@0.1.1 test:model /Volumes/github/private/opensheet
+> vitest run tests/workbook-model.test.ts
+
+
+ RUN  v4.1.11 /Volumes/github/private/opensheet
+
+ ❯ tests/workbook-model.test.ts (3 tests | 1 failed) 130495ms
+   × matches an independent workbook model through generated commands (seed 991) 60013ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workbook-model.test.ts > matches an independent workbook model through generated commands (seed 991)
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/workbook-model.test.ts:102:14
+    100|   ? [Number(process.env.OPENSHEET_MODEL_SEED)]
+    101|   : [20261023, 73013, 991];
+    102| it.each(seeds)(
+       |              ^
+    103|   'matches an independent workbook model through generated commands (s…
+    104|   async (seed) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  07:47:02
+   Duration  131.38s (transform 293ms, setup 442ms, import 303ms, tests 130.50s, environment 0ms)
+
+ ELIFECYCLE  Command failed with exit code 1.

@@ -1,0 +1,23 @@
+{
+  "producer": "openpyxl",
+  "version": "3.1.5",
+  "sha256": "679987bae5b25b65237a3f5ee4006f4d98a65cd455f9fb9fcdc036cc6b696741",
+  "globalNames": [
+    "GlobalValue",
+    "OtherValue"
+  ],
+  "localNames": [
+    "LocalValue"
+  ],
+  "values": [
+    11,
+    22,
+    33
+  ],
+  "formulas": [
+    "=GlobalValue*2",
+    "=LocalValue+OtherValue",
+    "=\"GlobalValue\"",
+    "=SUM(A1:A3)"
+  ]
+}

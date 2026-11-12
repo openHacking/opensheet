@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-10-30T14:38:59.645Z",
+  "rows": 100000,
+  "cooperative": false,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 214,
+    "sha256": "09ad8d262c720a0cad73c05a120e6725e9cb8a3e105ecbd72b32bf9fda5f6081"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "f38a09b378bdee69125a11b83296de21aa5ea4e1b04e6c64559c6f094b3d5e4d"
+  },
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless Chromium, local development server; complete Worker search RPC time, no Worker memory or cross-device claim.",
+  "rounds": [
+    {
+      "round": 1,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 144.40000009536743,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 105.79999995231628,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 154.79999995231628,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 81.40000009536743,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    },
+    {
+      "round": 2,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 127.59999990463257,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 82.90000009536743,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 135.79999995231628,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 78.79999995231628,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    },
+    {
+      "round": 3,
+      "limitCode": "LIMIT_EXCEEDED",
+      "samples": [
+        {
+          "query": "entry-",
+          "after": -1,
+          "elapsedMs": 127.60000014305115,
+          "count": 100000,
+          "match": {
+            "row": 0,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-",
+          "after": 0,
+          "elapsedMs": 88.10000014305115,
+          "count": 100000,
+          "match": {
+            "row": 1,
+            "column": 0
+          }
+        },
+        {
+          "query": "entry-099999",
+          "after": -1,
+          "elapsedMs": 80.5,
+          "count": 1,
+          "match": {
+            "row": 99999,
+            "column": 0
+          }
+        },
+        {
+          "query": "missing",
+          "after": -1,
+          "elapsedMs": 78,
+          "count": 0,
+          "match": null
+        }
+      ],
+      "reopened": {
+        "match": {
+          "row": 99999,
+          "column": 0
+        },
+        "count": 1
+      }
+    }
+  ]
+}

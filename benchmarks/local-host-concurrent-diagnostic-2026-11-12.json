@@ -1,0 +1,187 @@
+{
+  "startedAt": "2026-11-12T12:26:48.338Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 381,
+    "sha256": "b20147bf0b8756f71e019f2b667d8fd27f405250f7c966651048fd0ba966d4b1"
+  },
+  "artifactDirectory": "/Volumes/github/private/opensheet/artifacts/opensheet-0.2.0-dev.0-security-fix",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "attachmentRace": {
+        "code": "DISPOSED",
+        "same": true,
+        "value": [
+          [
+            42
+          ]
+        ],
+        "grids": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js",
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js",
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js"
+      ],
+      "errors": []
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "attachmentRace": {
+        "code": "DISPOSED",
+        "same": true,
+        "value": [
+          [
+            42
+          ]
+        ],
+        "grids": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js",
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js",
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js"
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "attachmentRace": {
+        "code": "DISPOSED",
+        "same": true,
+        "value": [
+          [
+            42
+          ]
+        ],
+        "grids": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js",
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js",
+        "/embedded/sheets/assets/engine.worker-B5j_dcij.js"
+      ],
+      "errors": []
+    }
+  ],
+  "scope": "Actual local candidate archives, isolated pnpm/Vite host under a subpath, three headless browsers. No registry publication of OpenSheet, strict CSP, SSR, native keyboard, memory or physical-device acceptance.",
+  "example": {
+    "package.json": "9307f6529730273bcb4f9427682c5e2f2516d16cccc44f95365b4d7e112944b0",
+    "index.html": "bdc971340a218ac33a641f6a371ebe6e64b64e3be807970d2e3e47d67964f06f",
+    "main.js": "b12a2e68596d39000f440f52511d0a9fb4772e5511564e2f096ab5aab5b21507",
+    "vite.config.js": "c426b6aa74865f556261f03b5ef08ecc8c9f1357b89c788711adade7e8c31373"
+  },
+  "archives": [
+    {
+      "name": "opensheet.tgz",
+      "sha256": "93cce086a38fe8a10c989b3acdfb99149b14c412ce3663306d1abd69b19eaa72"
+    },
+    {
+      "name": "core.tgz",
+      "sha256": "473aa95af1b1667c5fb96b56f0e5aa4da2d9c92fe081c428b040050cf3633a9f"
+    },
+    {
+      "name": "formula.tgz",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "plugin-sdk.tgz",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "renderer.tgz",
+      "sha256": "16ab4b620c6fee7d96e021837c2d778d7a7f8a6c34a5532669c21a5e90d1d4ac"
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/local-host-concurrent-diagnostic-2026-11-12.consumer-lock.yaml",
+    "sha256": "d8d3a74666c236f14f833f05dabeca26dd7e5b65b24354c48d006a31fb693ee7",
+    "frozenReinstall": "passed"
+  },
+  "finishedAt": "2026-11-12T12:27:18.015Z"
+}

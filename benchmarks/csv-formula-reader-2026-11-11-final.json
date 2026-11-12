@@ -1,0 +1,61 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "node": "v22.19.0",
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 260,
+    "sha256": "909b9bdc7a1f0dc6a04f55f108d1e054d735128009523755ad8406cb46ac7fb9"
+  },
+  "formatsBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 13,
+    "sha256": "15135782d82d7dec02ec0cffb40573599db6517a85df2f1e08f9a49decfbccc1"
+  },
+  "report": [
+    "3 formulas exported as formulas; raw text is not escaped and spreadsheet applications may execute formulas. References are not rebased and may depend on omitted cells or sheets."
+  ],
+  "cells": [
+    {
+      "address": "A1",
+      "type": "n",
+      "value": 5,
+      "formula": null
+    },
+    {
+      "address": "B1",
+      "type": "n",
+      "value": 8,
+      "formula": "A1+3"
+    },
+    {
+      "address": "C1",
+      "type": "n",
+      "value": 7,
+      "formula": "SUM(A1,2)"
+    },
+    {
+      "address": "D1",
+      "type": "n",
+      "value": 5,
+      "formula": "2+3"
+    },
+    {
+      "address": "E1",
+      "type": "s",
+      "value": "yes",
+      "formula": "IF(A1>0,\"yes\",\"no\")"
+    }
+  ],
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-formula-WchDzT/formula.csv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-formula-WchDzT/out/formula.xlsx using filter : Calc MS Excel 2007 XML\n",
+  "artifacts": [
+    {
+      "name": "csv-formula-reader-2026-11-11-final.csv",
+      "sha256": "da7b641a99ad3534884b4ea90124aa5aa98ab349b9e3027778024a44d50533a2"
+    },
+    {
+      "name": "csv-formula-reader-2026-11-11-final.xlsx",
+      "sha256": "d5c711ae34fce64ea61db30b4d4a5957bf7381831d05026e4392a2c05c089e3b"
+    }
+  ],
+  "limitations": "Synthetic benign formulas and one formula-like text cell; LibreOfficeDev headless defaults, XLSX decoded with SheetJS. No Excel or locale compatibility claim."
+}

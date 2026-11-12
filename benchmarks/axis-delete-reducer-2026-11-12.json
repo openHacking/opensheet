@@ -1,0 +1,76 @@
+{
+  "startedAt": "2026-11-11T22:54:08.158Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 321,
+    "sha256": "bdd789b4667c403e893588331631214ffacd490677feb8d8968debfd547221d6"
+  },
+  "scriptSha256": "8e0c764ba953011f353656a88c2433bb24544b87e4f802fd4b707abc664db595",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Node reducer only; delete 19,999 of 20,000 populated rows, no formulas or merges; six alternating pairs with fresh snapshots. Control reconstructs array membership instead of Set membership; all remaining cells, order and metadata verified outside timing. Single process, JIT and GC variation; excludes Worker, persistence, UI, peak memory and independent devices.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 40.424000000000035
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 13.490708999999981
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 10.381290999999976
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 106.90495800000002
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 108.31120899999996
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 13.607166000000007
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 18.91620899999998
+    },
+    {
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 110.60416699999996
+    },
+    {
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 103.66162500000007
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 11.677833999999962
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 10.127874999999904
+    },
+    {
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 115.62737500000003
+    }
+  ],
+  "finishedAt": "2026-11-11T22:54:09.083Z"
+}

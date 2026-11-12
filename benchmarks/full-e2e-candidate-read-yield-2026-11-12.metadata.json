@@ -1,0 +1,14 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 372,
+    "sha256": "7651ff7df0c7e23126c94388462a1cb2a8467bc31e2d8b7af3572d609e8ede8e"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "0c769ae4b3c066a62eb3d9b2b3a8fbb4c91ea9dff356cb2a71936dc5f2e12412"
+  },
+  "command": "PLAYWRIGHT_JSON_OUTPUT_NAME=benchmarks/full-e2e-candidate-read-yield-2026-11-12.json pnpm exec playwright test --workers=5 --reporter=dot,json",
+  "note": "Fingerprints captured while suite was running; worktree dirty."
+}

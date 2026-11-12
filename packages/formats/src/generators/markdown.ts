@@ -1,3 +1,4 @@
+import { escapeHTML } from '../escape.js';
 import type { PreparedRange } from '../prepare.js';
 import type { ExportResult } from '../types.js';
 export function renderMarkdown(prepared: PreparedRange): ExportResult {
@@ -5,7 +6,9 @@ export function renderMarkdown(prepared: PreparedRange): ExportResult {
 
   if (data.merges.length) report.push('Markdown has no merged cells; covered cells remain blank.');
   const escaped = rows.map((row) =>
-    row.map((v) => v.replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, '<br>')),
+    row.map((v) =>
+      escapeHTML(v.replace(/[\\`*_{}\[\]()!|~]/g, '\\$&')).replace(/\r\n|\r|\n/g, '<br>'),
+    ),
   );
   const line = (r: string[]) => '| ' + r.join(' | ') + ' |';
   return {

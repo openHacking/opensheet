@@ -1,0 +1,232 @@
+{
+  "startedAt": "2026-11-11T22:32:28.735Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 319,
+    "sha256": "da9857e5105df0bd33b0d769b63552eb535db121722637fc3b08d80775f1627f"
+  },
+  "scriptSha256": "c2eb1acb6a5052224c5954ceff69df30a1e7258725dfcde94742b619ab8f506c",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Node-only reducer, 20,000 unique cells in a fresh snapshot per sample; reconstructed one-pass control has different semantics for duplicate coordinates and is compared only on unique coordinates. Six alternating pairs for no preconditions, numeric preconditions and text preconditions with a 128-character suffix; verifies all output outside timing. No Worker, schema parsing, storage, browser UI, peak memory or independent reference device. Sequential samples in one process are sensitive to JIT and GC.",
+  "samples": [
+    {
+      "fixture": "none",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 8.062915999999973
+    },
+    {
+      "fixture": "none",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 6.365166999999985
+    },
+    {
+      "fixture": "none",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 5.715167000000008
+    },
+    {
+      "fixture": "none",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 5.471249999999998
+    },
+    {
+      "fixture": "none",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 4.0106250000000045
+    },
+    {
+      "fixture": "none",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 2.1154999999999973
+    },
+    {
+      "fixture": "none",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 2.1122910000000275
+    },
+    {
+      "fixture": "none",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 2.0055830000000014
+    },
+    {
+      "fixture": "none",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 4.50833300000005
+    },
+    {
+      "fixture": "none",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 4.572249999999997
+    },
+    {
+      "fixture": "none",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 2.053625000000011
+    },
+    {
+      "fixture": "none",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 1.8506249999999795
+    },
+    {
+      "fixture": "numeric",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 10.104750000000024
+    },
+    {
+      "fixture": "numeric",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 10.226957999999968
+    },
+    {
+      "fixture": "numeric",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 6.659624999999949
+    },
+    {
+      "fixture": "numeric",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 5.6849580000000515
+    },
+    {
+      "fixture": "numeric",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 3.8964999999999463
+    },
+    {
+      "fixture": "numeric",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 5.984666999999945
+    },
+    {
+      "fixture": "numeric",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 4.499791000000073
+    },
+    {
+      "fixture": "numeric",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 4.538084000000026
+    },
+    {
+      "fixture": "numeric",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 3.3827909999999974
+    },
+    {
+      "fixture": "numeric",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 5.24249999999995
+    },
+    {
+      "fixture": "numeric",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 4.905417000000057
+    },
+    {
+      "fixture": "numeric",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 4.810624999999959
+    },
+    {
+      "fixture": "text",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 7.104790999999977
+    },
+    {
+      "fixture": "text",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 12.11120900000003
+    },
+    {
+      "fixture": "text",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 4.2247500000000855
+    },
+    {
+      "fixture": "text",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 3.9039999999999964
+    },
+    {
+      "fixture": "text",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 5.9998749999999745
+    },
+    {
+      "fixture": "text",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 4.639833000000067
+    },
+    {
+      "fixture": "text",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 4.513667000000055
+    },
+    {
+      "fixture": "text",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 6.108707999999979
+    },
+    {
+      "fixture": "text",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 5.2462500000001455
+    },
+    {
+      "fixture": "text",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 4.722459000000072
+    },
+    {
+      "fixture": "text",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 4.445832999999993
+    },
+    {
+      "fixture": "text",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 5.753959000000123
+    }
+  ],
+  "finishedAt": "2026-11-11T22:32:29.709Z"
+}

@@ -1,0 +1,59 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 370,
+    "sha256": "7609a053b1793c7c101a3d71c9cf82ae8f32442464188d32b13ad69652128255"
+  },
+  "startedAt": "2026-11-12T08:51:53.799Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed editor and dependencies; separate esbuild browser, CSS and Worker bundles, strict CSP with Zod jitless shim, localhost subpath and real IndexedDB/Web Locks. No SSR framework, other bundlers or physical devices.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "6efd1f057d7f6ac16cb12d22cbce4db756740ed762745e29fdcb4e471d679152"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "930b155e29db6512e55ed698e23540036f3e5ba7819b4aa20c8ee72f26b8a2bd"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "f621a54237c94fcd191879b104e126bbc34e953d13096af618d3cd3aecc5629d"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "041418cfc017286d42042c992f7c6f2bae821ab36320823aa8d6abe3c1077123"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "08efe78bacb3af298d487af9aae3a9026a1416337d0306a03b12392943b75b43"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "passed": false,
+      "error": "Error: page.waitForFunction: OpenSheetError: Workbook changed during read\n    at assert2 (http://127.0.0.1:52340/embedded/sheets/main.js:21252:25)\n    at Range.read (http://127.0.0.1:52340/embedded/sheets/main.js:21677:5)\n    at async window.readEditedCell (http://127.0.0.1:52340/embedded/sheets/main.js:28567:40)\n    at async eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:14)"
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/esbuild-editor-keyboard-csp-2026-11-12.consumer-lock.yaml",
+    "sha256": "e7b6c4581fdad5578dabb4be66442d16148c3925773255ce7e5b5911d17063b1"
+  },
+  "assets": {
+    "bundleBytes": 1096844,
+    "bundleSha256": "5776682ff4ccebd528e85d3ca844c968d0b0a52962e23aa7b3f1ec608819a633",
+    "workerBytes": 1100424,
+    "workerSha256": "5f47a6d586648c9e0039c31bf3a18320840fda0eff8bf7e42ad13e02e94d6207",
+    "cssBytes": 9392,
+    "cssSha256": "c3d13f7de46258cdac8efd921b18f648b5787f482f09c0fea7eb3a6bf5a9994b",
+    "inputs": 1980
+  },
+  "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'",
+  "shimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6"
+}

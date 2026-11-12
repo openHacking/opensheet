@@ -1,0 +1,83 @@
+{
+  "engine": "firefox",
+  "startedAt": "2026-11-11T19:43:56.512Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 302,
+    "sha256": "e33d13d43337b4a4c7a99096fc136a2f17515344b8fb7aab2fdb026b346756c4"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "d1a824201f57982942895d74dd2057308b455a0df185ee83ae18be47e1c15fd8"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Frame intervals are main-document requestAnimationFrame observations during the grid paste, not input latency or total process responsiveness. Measures a compact API command, excluding native clipboard permission and operating-system input.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 183,
+      "frameIntervals": [
+        3.0799999999999272,
+        15.300000000000068,
+        13.339999999999918,
+        13.32000000000005,
+        13.340000000000032,
+        11.339999999999918,
+        15.32000000000005,
+        13.32000000000005,
+        13.339999999999918,
+        13.340000000000032,
+        13.32000000000005,
+        13.339999999999918,
+        13.340000000000032,
+        11.860000000000014,
+        14.799999999999955
+      ]
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 174,
+      "frameIntervals": [
+        14.480000000000018,
+        13.560000000000002,
+        13.319999999999993,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032,
+        13.340000000000032
+      ]
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 165,
+      "frameIntervals": [
+        10.080000000000041,
+        13.339999999999975,
+        13.340000000000032,
+        13.319999999999993,
+        13.339999999999975,
+        13.319999999999993,
+        13.120000000000005,
+        13.56000000000006,
+        13.339999999999918,
+        13.32000000000005,
+        13.340000000000032,
+        13.319999999999936,
+        13.340000000000032
+      ]
+    }
+  ],
+  "browser": "155.0"
+}

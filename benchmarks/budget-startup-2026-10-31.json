@@ -1,0 +1,58 @@
+{
+  "scope": "Local shared host, Firefox Playwright, Vite development server, five fresh browser workers per group; sequential unpaired groups, power mode and host load unrecorded. Times are milliseconds from before page.goto to navigation return and scene-title readiness, not production or cross-device acceptance.",
+  "command": "pnpm exec playwright test tests/e2e/startup-timing-diagnostic.spec.ts --project=firefox --repeat-each=5 --workers=5",
+  "before": [
+    {
+      "navigation": 2919,
+      "ready": 7383,
+      "errors": []
+    },
+    {
+      "navigation": 3594,
+      "ready": 7110,
+      "errors": []
+    },
+    {
+      "navigation": 4163,
+      "ready": 6530,
+      "errors": []
+    },
+    {
+      "navigation": 2635,
+      "ready": 3932,
+      "errors": []
+    },
+    {
+      "navigation": 1786,
+      "ready": 3093,
+      "errors": []
+    }
+  ],
+  "after": [
+    {
+      "navigation": 1678,
+      "ready": 3069,
+      "errors": []
+    },
+    {
+      "navigation": 2353,
+      "ready": 4051,
+      "errors": []
+    },
+    {
+      "navigation": 3109,
+      "ready": 3968,
+      "errors": []
+    },
+    {
+      "navigation": 1633,
+      "ready": 2304,
+      "errors": []
+    },
+    {
+      "navigation": 1106,
+      "ready": 1705,
+      "errors": []
+    }
+  ]
+}

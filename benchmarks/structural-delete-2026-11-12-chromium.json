@@ -1,0 +1,40 @@
+{
+  "engine": "chromium",
+  "cpu": "Apple M4",
+  "os": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 356,
+    "sha256": "37476b3e06592e47f2638a3c66cfa9c7b13ecf0492d344e27bc9b1cc399e60ee"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "c55e39ea93f193afe3481481bb8956e90951528b23fd591841878e3fb43c56b7"
+  },
+  "startedAt": "2026-11-12T05:11:05.713Z",
+  "formulaCells": 8192,
+  "scope": "Development server; real Worker/IndexedDB deletion of first row partially overlaps every formula range. Every result checked before, after, undo, redo and reopen. No paired baseline, process peak memory, native input or reference devices.",
+  "rounds": [
+    {
+      "round": 1,
+      "deleteMs": 124.69999980926514,
+      "verifiedPerCheck": 8192,
+      "encodedBytes": 476712
+    },
+    {
+      "round": 2,
+      "deleteMs": 150.5,
+      "verifiedPerCheck": 8192,
+      "encodedBytes": 476712
+    },
+    {
+      "round": 3,
+      "deleteMs": 115.40000009536743,
+      "verifiedPerCheck": 8192,
+      "encodedBytes": 476712
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

@@ -1,0 +1,148 @@
+{
+  "date": "2026-11-12T03:52:00.234Z",
+  "provenance": "Synthetic addition formulas exported by OpenSheet, recalculated and saved by LibreOfficeDev, then inspected with openpyxl. Other formula shapes, Excel and visual behavior are untested.",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 348,
+    "sha256": "062d4e6d4de66b9b7de6f88c8600ac07428ab8d21d04c95f44d082c2ba24e878"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "0bcbf73df2542beea0ab07b25e0ba15c5ffcc779b1ae4b263cc25612e96c9d9a"
+  },
+  "sizesExcludingEquals": [
+    8189,
+    8190,
+    8191,
+    8192,
+    8193,
+    16383
+  ],
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "independent": {
+    "version": "3.1.5",
+    "files": [
+      [
+        {
+          "address": "A1",
+          "formulaLength": 8190,
+          "cached": null,
+          "cacheType": "e"
+        },
+        {
+          "address": "A2",
+          "formulaLength": 8191,
+          "cached": null,
+          "cacheType": "e"
+        },
+        {
+          "address": "A3",
+          "formulaLength": 8192,
+          "cached": null,
+          "cacheType": "e"
+        },
+        {
+          "address": "A4",
+          "formulaLength": 8193,
+          "cached": null,
+          "cacheType": "e"
+        },
+        {
+          "address": "A5",
+          "formulaLength": 8194,
+          "cached": null,
+          "cacheType": "e"
+        },
+        {
+          "address": "A6",
+          "formulaLength": 16384,
+          "cached": null,
+          "cacheType": "e"
+        }
+      ],
+      [
+        {
+          "address": "A1",
+          "formulaLength": 8190,
+          "cached": 1,
+          "cacheType": "n"
+        },
+        {
+          "address": "A2",
+          "formulaLength": 8191,
+          "cached": 1,
+          "cacheType": "n"
+        },
+        {
+          "address": "A3",
+          "formulaLength": 8192,
+          "cached": 1,
+          "cacheType": "n"
+        },
+        {
+          "address": "A4",
+          "formulaLength": 8197,
+          "cached": "#N/A",
+          "cacheType": "e"
+        },
+        {
+          "address": "A5",
+          "formulaLength": 8197,
+          "cached": "#N/A",
+          "cacheType": "e"
+        },
+        {
+          "address": "A6",
+          "formulaLength": 8197,
+          "cached": "#N/A",
+          "cacheType": "e"
+        }
+      ]
+    ]
+  },
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 6,
+      "approximated": 9,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "RECALC_REQUIRED",
+        "feature": "formula",
+        "message": "Formula result requires recalculation in the target application",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_3dbaf86c954e4e949556d7382aed5245",
+        "address": "A1",
+        "count": 6
+      },
+      {
+        "code": "XLSX_FORMULA_LENGTH_INTEROP",
+        "feature": "formula",
+        "message": "Formulas of 8,192 or more UTF-16 code units (excluding the leading equals sign) may fail in some spreadsheet applications",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_3dbaf86c954e4e949556d7382aed5245",
+        "address": "A4",
+        "count": 3
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-formula-length-h5Opqo/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-formula-length-h5Opqo/saved/source.xlsx using filter : Calc MS Excel 2007 XML",
+  "artifacts": {
+    "exported": {
+      "file": "formula-length-reader-2026-11-12.xlsx",
+      "sha256": "360b81accd559286c5224c00850fedcd1fb894f7fe4e62a4749c75291af19154"
+    },
+    "saved": {
+      "file": "formula-length-reader-2026-11-12.saved.xlsx",
+      "sha256": "fd3bd1cb261158af85a8bf3b75deac479c093f249852bb15e7c9677e600dd3ee"
+    }
+  }
+}

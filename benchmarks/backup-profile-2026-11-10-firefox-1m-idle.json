@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-10T06:33:43.810Z",
+  "engine": "firefox",
+  "browser": "155.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 241,
+    "sha256": "f0050e0eaf032e4e86b6e26219f1fc030b6841de340a3659e77fa63118920878"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "ac1a18d35ef74634c0a30f3b1b2a596ef629fe21130968e5a58b3cf979f3eeff"
+  },
+  "bundleHash": "03025b195393ee97a7ced9af12088d693c8eb30e4369d1d693eece96072c3508",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Production app, separate minified source verifier bundle on the main page; one fresh context, complete native backups of deterministic fixture, verification/comparison summaries and animation-frame intervals. Optional profile uses an instrumented replica and read timings include async waits. Excludes fixture and initial export from timings; comparison includes its own export. No Worker/process memory, controlled power mode or cross-device acceptance.",
+  "result": {
+    "cells": 1000000,
+    "jsonBytes": 22772617,
+    "binaryBytes": 12282432,
+    "idle": {
+      "elapsedMs": 1003,
+      "maxFrameMs": 32.74000000000069,
+      "frames": 76,
+      "summary": true
+    },
+    "json": {
+      "elapsedMs": 6759,
+      "maxFrameMs": 39.97999999999956,
+      "frames": 499,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 628,
+        "cells": 1000000
+      }
+    },
+    "binary": {
+      "elapsedMs": 1625,
+      "maxFrameMs": 67.19999999999891,
+      "frames": 34,
+      "summary": {
+        "workbookId": "performance-workbook",
+        "sheets": 1,
+        "pages": 628,
+        "cells": 1000000
+      }
+    },
+    "comparison": {
+      "elapsedMs": 3997,
+      "maxFrameMs": 66.81999999999971,
+      "frames": 210,
+      "summary": {
+        "matches": true,
+        "revision": 1
+      }
+    },
+    "profile": {
+      "elapsedMs": 1575,
+      "maxFrameMs": 67.56000000000131,
+      "frames": 34,
+      "summary": {
+        "pages": 628,
+        "cells": 1000000,
+        "metadataMs": 6,
+        "read": {
+          "count": 628,
+          "totalMs": 524,
+          "p95Ms": 2,
+          "maxMs": 3
+        },
+        "validate": {
+          "count": 628,
+          "totalMs": 1035,
+          "p95Ms": 3,
+          "maxMs": 10
+        },
+        "decode": {
+          "count": 628,
+          "totalMs": 669,
+          "p95Ms": 2,
+          "maxMs": 9
+        },
+        "expand": {
+          "count": 628,
+          "totalMs": 352,
+          "p95Ms": 1,
+          "maxMs": 6
+        },
+        "references": {
+          "count": 628,
+          "totalMs": 14,
+          "p95Ms": 0,
+          "maxMs": 1
+        }
+      }
+    }
+  }
+}

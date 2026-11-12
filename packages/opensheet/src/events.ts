@@ -12,11 +12,22 @@ export class EditorEvents {
     };
   }
   emit<K extends keyof EventMap>(event: K, value: EventMap[K]) {
+    const report = (error: unknown) => {
+      try {
+        const result: unknown = this.onError(error);
+        if (result && typeof (result as PromiseLike<unknown>).then === 'function')
+          void Promise.resolve(result).catch((observerError) => console.error(observerError));
+      } catch (observerError) {
+        console.error(observerError);
+      }
+    };
     for (const fn of this.listeners[event] ?? []) {
       try {
-        fn(value);
+        const result: unknown = fn(value);
+        if (result && typeof (result as PromiseLike<unknown>).then === 'function')
+          void Promise.resolve(result).catch(report);
       } catch (error) {
-        this.onError(error);
+        report(error);
       }
     }
   }

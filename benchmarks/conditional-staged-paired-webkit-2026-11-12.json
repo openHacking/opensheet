@@ -1,0 +1,65 @@
+{
+  "startedAt": "2026-11-11T21:11:39.478Z",
+  "engine": "webkit",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 317,
+    "sha256": "29c1a70f5705016d463a3506e30ee54e75a3db5adcec427441cba6329fd3709c"
+  },
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Three alternating fresh-context pairs, real Worker and IndexedDB, 1,000 numeric cells and one relative formula predicate, zero cache reservation. Control is the same source with only the per-viewport scalar map disabled. Setup and all-value checking are outside timing. No production bundle, renderer, frame timing, peak process memory, other devices or formula-heavy values.",
+  "bundles": {
+    "control": "1442ce30c5b8e1f359a161e20464c80173321ffdc2f6a6d909a7edba61ae77ea",
+    "current": "cc37425b1bd683c1322e844a700cb5297262bb38e3973339438d8b805c6a5a5a"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 315,
+      "reads": 2000,
+      "verified": 1000
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 170,
+      "reads": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 175,
+      "reads": 1000,
+      "verified": 1000
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 288,
+      "reads": 2000,
+      "verified": 1000
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 343,
+      "reads": 2000,
+      "verified": 1000
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 169,
+      "reads": 1000,
+      "verified": 1000
+    }
+  ],
+  "browser": "26.6"
+}

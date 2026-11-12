@@ -1,0 +1,13 @@
+
+> opensheet-workspace@0.1.1 test:model /Volumes/github/private/opensheet
+> vitest run tests/workbook-model.test.ts
+
+
+ RUN  v4.1.11 /Volumes/github/private/opensheet
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  07:49:53
+   Duration  19.29s (transform 223ms, setup 349ms, import 271ms, tests 18.58s, environment 0ms)
+

@@ -1,0 +1,233 @@
+export default {
+  schemaVersion: 3,
+  workbookId: 'wb_fa53e13ee0a44190a0fb1c6206de3503',
+  revision: 1,
+  dateSystem: '1900',
+  extensions: {},
+  styles: [
+    {
+      bold: true,
+      color: '#476451',
+      background: '#f0f5f1',
+    },
+    {
+      numberFormat: '$#,##0.00',
+    },
+    {
+      bold: true,
+      background: '#eef6f0',
+    },
+    {
+      numberFormat: '$#,##0.00',
+      bold: true,
+      background: '#eef6f0',
+    },
+    {
+      color: '#248363',
+      fontSize: 12,
+    },
+  ],
+  sheets: [
+    {
+      id: 'sheet_6a40a4a7db444fd7a29adec0486e2d07',
+      name: 'Launch budget',
+      merges: [],
+      freeze: {
+        rows: 1,
+        columns: 0,
+      },
+      filter: null,
+      hidden: false,
+      rows: {
+        nextId: 100,
+        order: [[0, 100, 1]],
+        meta: {
+          '0': {
+            size: 36,
+          },
+        },
+      },
+      columns: {
+        nextId: 12,
+        order: [[0, 12, 1]],
+        meta: {
+          '0': {
+            size: 205,
+          },
+          '1': {
+            size: 142,
+          },
+          '2': {
+            size: 112,
+          },
+          '3': {
+            size: 92,
+          },
+          '4': {
+            size: 118,
+          },
+          '5': {
+            size: 130,
+          },
+          '6': {
+            size: 145,
+          },
+        },
+      },
+      blocks: [
+        {
+          row: 0,
+          column: 0,
+          data: {
+            strings: {
+              positions: [
+                0, 1, 2, 3, 4, 5, 6, 32, 33, 34, 38, 64, 65, 66, 70, 96, 97, 98, 102, 128, 129, 130,
+                134, 160, 161, 162, 166, 192, 193, 194, 198, 224, 225, 226, 230, 256, 257, 258, 262,
+                288, 289, 290, 294, 320,
+              ],
+              values: [
+                'Item',
+                'Category',
+                'Owner',
+                'Quantity',
+                'Unit cost',
+                'Total',
+                'Status',
+                'Brand identity',
+                'Design',
+                'Olivia',
+                'Complete',
+                'Landing page',
+                'Development',
+                'Alex',
+                'In progress',
+                'Product photography',
+                'Content',
+                'Sam',
+                'Complete',
+                'Launch video',
+                'Content',
+                'Jordan',
+                'In progress',
+                'Social campaign',
+                'Marketing',
+                'Olivia',
+                'Planned',
+                'Email platform',
+                'Software',
+                'Alex',
+                'Complete',
+                'Press kit',
+                'Content',
+                'Sam',
+                'Planned',
+                'Community event',
+                'Marketing',
+                'Jordan',
+                'Planned',
+                'Contingency',
+                'Operations',
+                'Alex',
+                'Reserved',
+                'TOTAL',
+              ],
+            },
+            styles: [
+              [0, 7, 0],
+              [36, 2, 1],
+              [38, 1, 4],
+              [68, 2, 1],
+              [70, 1, 4],
+              [100, 2, 1],
+              [102, 1, 4],
+              [132, 2, 1],
+              [134, 1, 4],
+              [164, 2, 1],
+              [166, 1, 4],
+              [196, 2, 1],
+              [198, 1, 4],
+              [228, 2, 1],
+              [230, 1, 4],
+              [260, 2, 1],
+              [262, 1, 4],
+              [292, 2, 1],
+              [294, 1, 4],
+              [320, 4, 2],
+              [324, 2, 3],
+              [326, 1, 2],
+            ],
+            numbers: {
+              positions: [
+                35, 36, 67, 68, 99, 100, 131, 132, 163, 164, 195, 196, 227, 228, 259, 260, 291, 292,
+              ],
+              values: [1, 2400, 1, 3800, 2, 450, 1, 1800, 4, 350, 3, 49, 1, 650, 1, 1200, 1, 800],
+            },
+            formulas: {
+              positions: [37, 69, 101, 133, 165, 197, 229, 261, 293, 325],
+              values: [
+                'D2*E2',
+                'D3*E3',
+                'D4*E4',
+                'D5*E5',
+                'D6*E6',
+                'D7*E7',
+                'D8*E8',
+                'D9*E9',
+                'D10*E10',
+                'SUM(F2:F10)',
+              ],
+            },
+            blanks: [321, 322, 323, 324, 326],
+          },
+        },
+      ],
+    },
+    {
+      id: 'sheet_1672265584da448aa2e8fec52abe90ce',
+      name: 'Notes',
+      merges: [],
+      freeze: {
+        rows: 0,
+        columns: 0,
+      },
+      filter: null,
+      hidden: false,
+      rows: {
+        nextId: 100,
+        order: [[0, 100, 1]],
+      },
+      columns: {
+        nextId: 12,
+        order: [[0, 12, 1]],
+        meta: {
+          '1': {
+            size: 540,
+          },
+        },
+      },
+      blocks: [
+        {
+          row: 0,
+          column: 0,
+          data: {
+            strings: {
+              positions: [0, 1, 32, 33, 64, 65, 96, 97, 128, 129],
+              values: [
+                'OpenSheet',
+                'Quick notes',
+                'Edit',
+                'Double-click a cell or press Enter.',
+                'Formula',
+                '=SUM(F2:F10)',
+                'Privacy',
+                'All processing happens on this device.',
+                'Compatibility',
+                'XLSX exports preserve supported data, not every Excel feature.',
+              ],
+            },
+          },
+        },
+      ],
+    },
+  ],
+} as const;

@@ -1,0 +1,94 @@
+{
+  "startedAt": "2026-11-12T01:40:20.755Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 339,
+    "sha256": "57a5e396d3323db5613327f09ede3596d68e01515f265a86f3967e16daaef2e3"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "url": "http://127.0.0.1:5192/",
+  "scope": "Headless development-server real Worker, one 100k-row one-column workbook; five alternating timed reads after warmup for a 10k contiguous run and an 85k-row sparse gap. Every destination checked. Excludes user input, selection paint, production build, peak memory and other machines.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "samples": [
+        {
+          "dense": 2.5999999046325684,
+          "sparse": 7.600000381469727
+        },
+        {
+          "sparse": 7.599999904632568,
+          "dense": 2.4000000953674316
+        },
+        {
+          "dense": 1.8999996185302734,
+          "sparse": 7.600000381469727
+        },
+        {
+          "sparse": 8,
+          "dense": 2.0999999046325684
+        },
+        {
+          "dense": 2.3000001907348633,
+          "sparse": 8.399999618530273
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "samples": [
+        {
+          "dense": 16,
+          "sparse": 13
+        },
+        {
+          "sparse": 14,
+          "dense": 4
+        },
+        {
+          "dense": 4,
+          "sparse": 12
+        },
+        {
+          "sparse": 14,
+          "dense": 4
+        },
+        {
+          "dense": 4,
+          "sparse": 14
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "samples": [
+        {
+          "dense": 4,
+          "sparse": 9
+        },
+        {
+          "sparse": 9,
+          "dense": 3
+        },
+        {
+          "dense": 3,
+          "sparse": 5
+        },
+        {
+          "sparse": 6,
+          "dense": 4
+        },
+        {
+          "dense": 4,
+          "sparse": 5
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-12T01:40:25.214Z"
+}

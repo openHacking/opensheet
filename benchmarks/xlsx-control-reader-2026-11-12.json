@@ -1,0 +1,38 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "scope": "Synthetic SheetJS-generated inline string, note, hyperlink and worksheet name; LibreOffice headless CSV observes cell text only, while SheetJS reads the generated XLSX. Does not establish Excel behavior or independent note/link behavior.",
+  "artifacts": {
+    "xlsx": {
+      "file": "xlsx-control-reader-2026-11-12.xlsx",
+      "sha256": "09109d48c0d2e0daf7e7aecde06c6c80954b43d0490200f29768856b0fe83747"
+    },
+    "csv": {
+      "file": "xlsx-control-reader-2026-11-12.csv",
+      "sha256": "2d3eb04f681abfdba85904a3210436070308dac3576acaa2452a71118433ccda"
+    }
+  },
+  "inputs": [
+    "_x0041_",
+    "_x005F_x0041_",
+    "_x0000_",
+    "_xZZZZ_",
+    "before\u0000after",
+    "before\rafter"
+  ],
+  "libreOfficeCsv": "_x0041_,_x005F_x0041_,_x0000_,_xZZZZ_,before_x0000_after,before_x000d_after\n",
+  "sheetJS": {
+    "sheetNames": [
+      "A"
+    ],
+    "cells": [
+      "A",
+      "A",
+      "\u0000",
+      "_xZZZZ_",
+      "before\u0000after",
+      "before\rafter"
+    ],
+    "note": "note A",
+    "target": "https://example.com/A"
+  }
+}

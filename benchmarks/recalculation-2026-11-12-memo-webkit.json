@@ -1,0 +1,1053 @@
+{
+  "startedAt": "2026-11-11T17:00:24.120Z",
+  "engine": "webkit",
+  "browser": "26.6",
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 287,
+    "sha256": "4e2852b388d572947f00d09382e5a1fdec42d0919a6116f4513e8cb015064eae"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Development-server direct Workbook Worker with opt-in operation timing; three fresh contexts, five edits per context. All outputs checked after timing. Queue, Worker execution and round trip include instrumentation and scheduling, not CPU attribution. No production asset, UI, peak memory, other devices or reference acceptance.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "target": 2,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 0,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3,
+                "roundTripMs": 3,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 4,
+                "roundTripMs": 3,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "target": 2,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3,
+                "roundTripMs": 3,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 3,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3,
+                "roundTripMs": 3,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 3,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "target": 2,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 1,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 0,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 0,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 4,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 3,
+                "roundTripMs": 4,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 0,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 2,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "outputs": [
+            {
+              "name": "fanout",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 1,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "chain",
+              "elapsedMs": 0,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 0,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            },
+            {
+              "name": "overlap",
+              "elapsedMs": 2,
+              "timing": {
+                "method": "read",
+                "queueMs": 0,
+                "executionMs": 1,
+                "roundTripMs": 2,
+                "activeAtArrival": "",
+                "queuedAhead": 0,
+                "read": {
+                  "cacheHits": 2,
+                  "cacheMisses": 0,
+                  "absentPages": 0,
+                  "storageMs": 0,
+                  "decodeMs": 0,
+                  "inflateMs": 0,
+                  "pageDecodeMs": 0
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512
+    }
+  ]
+}

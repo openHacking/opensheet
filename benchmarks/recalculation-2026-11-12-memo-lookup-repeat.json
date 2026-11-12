@@ -1,0 +1,577 @@
+{
+  "startedAt": "2026-11-11T17:09:43.541Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 289,
+    "sha256": "d50cce140708e8ee6f02c866f14dbfe7d7f52033372918c59de30c5d99015ff9"
+  },
+  "hashes": {
+    "previous": "8fb110fb4d7d4e1057cec5612d4050d208b80aafbfe718e61920254518d72b18",
+    "current": "72ce41d278e0dd9c32df8d3f6d4d0f49fe46896127ea4913e1dcc3fb14840404"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless dedicated Worker synthetic AsyncCalculation benchmark. Six alternating pairs per browser and 128/512 formulas over the same 32 scalar references; fresh calculator each sample, all outputs and exact source-read counts verified. Current reconstructs the experimental memo-first lookup order; previous uses the retained source. Excludes IndexedDB, real workbook scheduling, UI, cancellation, peak memory, reference devices and end-to-end latency.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 7.099999904632568,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 8.700000286102295,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 4.599999904632568,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 5.700000286102295,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 9,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 1.5,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 9.5,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 1.9000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 4.199999809265137,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 5.800000190734863,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 3.700000286102295,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 5.799999713897705,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 7.699999809265137,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 1.299999713897705,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 8,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 1.9000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 3.4000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 6.100000381469727,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 3.4000000953674316,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 5.700000286102295,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 7.799999713897705,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 1.5,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 8.400000095367432,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 1.5999999046325684,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ]
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 19,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 57,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 17,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 60,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 59,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 56,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 17,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 53,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 15,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 55,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 56,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 56,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 16,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 53,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 16,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 54,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 57,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 14,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 58,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 13,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ]
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 7,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 9,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 8,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 11,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 1,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 11,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 2,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 6,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 6,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 5,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 10,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 2,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 10,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 2,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ],
+        [
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 5,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 5,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 7,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          }
+        ],
+        [
+          {
+            "variant": "current",
+            "rows": 512,
+            "ms": 33,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "current",
+            "rows": 128,
+            "ms": 3,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          },
+          {
+            "variant": "previous",
+            "rows": 512,
+            "ms": 26,
+            "sourceReads": 32,
+            "checkedOutputs": 512
+          },
+          {
+            "variant": "previous",
+            "rows": 128,
+            "ms": 12,
+            "sourceReads": 32,
+            "checkedOutputs": 128
+          }
+        ]
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T17:09:48.609Z"
+}

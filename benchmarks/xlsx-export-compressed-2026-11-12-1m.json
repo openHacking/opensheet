@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-11T20:22:55.106Z",
+  "engine": "chromium",
+  "browser": "153.0.8010.12",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 309,
+    "sha256": "df9098f9e00791bfc01f783e8ea0acbf5033dee46e5b4ca2c7081a08c4a41f86"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "65bc4d49c32d0de84ee5943c83952db183f766a8ca5347aaff0f0dd42218af7a"
+  },
+  "bundleHash": "6d4c3b52c2864eab8d4138045760dfc0f562ed53eeae9203b7e7426a6be02016",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Production Worker versus a separate minified main-thread bundle, same snapshot and alternating order in one context. Timed Worker includes startup and structured clone; snapshot measured separately. Compares every parsed cell input and the complete first worksheet XML after timings. Excludes UI dialog/download, process memory, physical power configuration and cross-device acceptance.",
+  "result": {
+    "cells": 1000000,
+    "snapshot": {
+      "elapsedMs": 1834.4000000953674,
+      "maxFrameMs": 16.800000000000182,
+      "frames": 112
+    },
+    "rounds": [
+      {
+        "order": [
+          "main",
+          "worker"
+        ],
+        "main": {
+          "elapsedMs": 6703.799999713898,
+          "maxFrameMs": 6699.799999999999,
+          "frames": 2,
+          "bytes": 26215748
+        },
+        "worker": {
+          "elapsedMs": 6541.200000286102,
+          "maxFrameMs": 50,
+          "frames": 392,
+          "bytes": 26215748
+        },
+        "verified": {
+          "cells": 1000000,
+          "sheets": 1,
+          "frozen": false
+        },
+        "report": {
+          "exact": 1000000,
+          "approximated": 0,
+          "dropped": 1,
+          "blocked": 0
+        }
+      }
+    ]
+  }
+}

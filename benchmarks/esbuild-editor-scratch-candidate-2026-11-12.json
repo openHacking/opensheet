@@ -1,0 +1,211 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 371,
+    "sha256": "f2e0fbef33d5c5d40d63db7f302b26da90b7296dc16a80074be114b9ec8e5489"
+  },
+  "startedAt": "2026-11-12T09:31:51.429Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed editor and dependencies; separate esbuild browser, CSS and Worker bundles, strict CSP with Zod jitless shim, localhost subpath and real IndexedDB/Web Locks. No SSR framework, other bundlers or physical devices.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "464a2fdbbbc735bf9888208668a008d2eebe8dccc3243af0c9ea30556216c9c7"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "ae82bb322e13e8f013adcc3fc0a908ee8063b4ceeaf452c3354f2a057f8b8b21"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "905afd9fe1da09f320d8b1e9641cdb680291a0cbc15bbcd115ef9b004355622d"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "ui": {
+        "grid": true,
+        "display": "flex",
+        "height": 500,
+        "stylesheets": 1,
+        "edited": 42,
+        "removed": true,
+        "reopenedEdit": 42
+      },
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": [],
+      "negativeControl": {
+        "documentBlocked": true,
+        "workerBlocked": {
+          "blocked": true,
+          "violation": true
+        },
+        "events": [
+          {
+            "source": "document",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "source": "worker",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "ui": {
+        "grid": true,
+        "display": "flex",
+        "height": 500,
+        "stylesheets": 1,
+        "edited": 42,
+        "removed": true,
+        "reopenedEdit": 42
+      },
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": [],
+      "negativeControl": {
+        "documentBlocked": true,
+        "workerBlocked": {
+          "blocked": true,
+          "violation": true
+        },
+        "events": [
+          {
+            "source": "document",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "source": "worker",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ]
+      }
+    },
+    {
+      "engine": "webkit",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "ui": {
+        "grid": true,
+        "display": "flex",
+        "height": 500,
+        "stylesheets": 1,
+        "edited": 42,
+        "removed": true,
+        "reopenedEdit": 42
+      },
+      "workerRequests": 2,
+      "pageErrors": [],
+      "cspEvents": [],
+      "negativeControl": {
+        "documentBlocked": true,
+        "workerBlocked": {
+          "blocked": true,
+          "violation": false
+        },
+        "events": [
+          {
+            "source": "document",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ]
+      }
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/esbuild-editor-scratch-candidate-2026-11-12.consumer-lock.yaml",
+    "sha256": "6c2811e68f550e44c9174e064de15b3ed6425699e0271eb859531e171eefd861"
+  },
+  "assets": {
+    "bundleBytes": 1096844,
+    "bundleSha256": "780a679c9f07f238696168ba55ac490605346a50100fb51d55e9f74b4c78dd9b",
+    "workerBytes": 1100849,
+    "workerSha256": "08f0dced87dd57b597b647b24ee3cd708b679343a3ea0ddeffad8af70f31999d",
+    "cssBytes": 9392,
+    "cssSha256": "242a01ea83403fd2ea13adb358138901f051bd4bb8cd09fff945817c0e889c32",
+    "inputs": 1980
+  },
+  "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'",
+  "shimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6"
+}

@@ -1,67 +1,37 @@
 import { fail, FormulaError } from './errors.js';
 import type { AST, FormulaValue, Reference } from './types.js';
 
-function checked(v: FormulaValue): FormulaValue {
-  if (v !== null && typeof v === 'object') fail(v.error);
-  return v;
-}
-function number(v: FormulaValue): number {
-  checked(v);
-  if (v === null || v === '') return 0;
-  if (typeof v === 'boolean') return +v;
-  const n = Number(v);
-  if (!Number.isFinite(n)) fail();
-  return n;
-}
-function truth(v: FormulaValue): boolean {
-  checked(v);
-  if (typeof v === 'string') {
-    if (v.toUpperCase() === 'TRUE') return true;
-    if (v.toUpperCase() === 'FALSE') return false;
-    fail();
-  }
-  return !!v;
-}
-export const supportedFunctions = [
-  'SUM',
-  'AVERAGE',
-  'MIN',
-  'MAX',
-  'COUNT',
-  'COUNTA',
-  'IF',
-  'IFERROR',
-  'AND',
-  'OR',
-  'NOT',
-  'ROUND',
-  'ABS',
-] as const;
+import { checked, number, truth } from './coercion.js';
+import { functionDefinition } from './functions.js';
+import { Aggregate } from './aggregate.js';
+import { lookup } from './lookup.js';
+import { conditional } from './conditional.js';
+import { evaluateDate, type DateSystem } from './dates.js';
+import { directedRound, modulo, nearestRound } from './numeric.js';
+import { evaluateText, formulaText, FORMULA_TEXT_LIMIT, TextJoin } from './text.js';
+export { supportedFunctions } from './functions.js';
+
 export function evaluateFormula(
   ast: AST,
   read: (ref: Reference) => FormulaValue,
   maxCells = 200000,
+  dateSystem: DateSystem = '1900',
 ): FormulaValue {
   let budget = maxCells;
+  let textWork: { remaining: number } | undefined;
   type Result = FormulaValue | FormulaValue[];
   const single = (v: Result): FormulaValue => (Array.isArray(v) ? fail() : v);
+  const readReference = (ref: Reference): FormulaValue => {
+    const value = read(ref);
+    return typeof value === 'number' && !Number.isFinite(value) ? { error: '#NUM!' } : value;
+  };
   function run(n: AST): Result {
     if (--budget < 0) fail('#LIMIT!');
-    if (n.kind === 'literal') return n.value;
-    if (n.kind === 'ref') return read(n);
-    if (n.kind === 'range') {
-      const out: FormulaValue[] = [];
-      for (let r = Math.min(n.start.row, n.end.row); r <= Math.max(n.start.row, n.end.row); r++)
-        for (
-          let c = Math.min(n.start.column, n.end.column);
-          c <= Math.max(n.start.column, n.end.column);
-          c++
-        ) {
-          if (--budget < 0) fail('#LIMIT!');
-          out.push(read({ ...n.start, row: r, column: c }));
-        }
-      return out;
+    if (n.kind === 'literal' || n.kind === 'ref') {
+      const value = n.kind === 'literal' ? n.value : readReference(n);
+      return typeof value === 'number' && !Number.isFinite(value) ? fail('#NUM!') : value;
     }
+    if (n.kind === 'range') return fail();
     if (n.kind === 'unary') {
       const v = number(single(run(n.value)));
       return n.op === '-' ? -v : n.op === '%' ? v / 100 : v;
@@ -69,12 +39,16 @@ export function evaluateFormula(
     if (n.kind === 'binary') {
       const a = checked(single(run(n.left))),
         b = checked(single(run(n.right)));
-      if (n.op === '&') return String(a ?? '') + String(b ?? '');
+      if (n.op === '&') {
+        const result = formulaText(a) + formulaText(b);
+        return result.length <= FORMULA_TEXT_LIMIT ? result : fail();
+      }
       if (['=', '<>', '<', '>', '<=', '>='].includes(n.op)) {
         const x = typeof a === 'string' ? a.toLowerCase() : (a ?? 0),
           y = typeof b === 'string' ? b.toLowerCase() : (b ?? 0);
-        const cmp =
-          x === y ? 0 : typeof x === typeof y ? (x < y ? -1 : 1) : typeof x === 'number' ? -1 : 1;
+        const rank = (value: typeof x) =>
+          typeof value === 'number' ? 0 : typeof value === 'string' ? 1 : 2;
+        const cmp = x === y ? 0 : typeof x === typeof y ? (x < y ? -1 : 1) : rank(x) - rank(y);
         return n.op === '='
           ? cmp === 0
           : n.op === '<>'
@@ -103,53 +77,106 @@ export function evaluateFormula(
                 : x ** y;
       return Number.isFinite(result) ? result : fail('#NUM!');
     }
-    const arity = (min: number, max = min) => {
-      if (n.args.length < min || n.args.length > max) fail();
-    };
-    if (n.name === 'IF') {
-      arity(2, 3);
-      return truth(single(run(n.args[0]))) ? run(n.args[1]) : n.args[2] ? run(n.args[2]) : false;
+    const definition = functionDefinition(n.name);
+    if (!definition) return fail('#NAME?');
+    if (n.args.length < definition.minArgs || n.args.length > definition.maxArgs) fail();
+    if (definition.evaluation === 'conditional' || definition.evaluation === 'lookup') {
+      const iterator = (definition.evaluation === 'lookup' ? lookup : conditional)(
+        n.name,
+        n.args,
+        (textWork ??= { remaining: 1_000_000 }),
+      );
+      let step = iterator.next();
+      while (!step.done) step = iterator.next(single(run(step.value)));
+      return step.value;
     }
-    if (n.name === 'IFERROR') {
-      arity(2);
+    if (n.name === 'TRUE' || n.name === 'FALSE') return n.name === 'TRUE';
+    if (n.name === 'IF') {
+      return single(
+        truth(single(run(n.args[0]))) ? run(n.args[1]) : n.args[2] ? run(n.args[2]) : false,
+      );
+    }
+    if (n.name === 'IFS') {
+      if (n.args.length % 2) fail();
+      for (let i = 0; i < n.args.length; i += 2)
+        if (truth(single(run(n.args[i])))) return single(run(n.args[i + 1]));
+      return fail('#N/A');
+    }
+    if (n.name === 'IFERROR' || n.name === 'IFNA') {
       try {
         const v = run(n.args[0]);
         checked(single(v));
         return v;
       } catch (e) {
-        if (e instanceof FormulaError) return run(n.args[1]);
+        if (
+          e instanceof FormulaError &&
+          e.code !== '#LIMIT!' &&
+          e.code !== '#CYCLE!' &&
+          (n.name === 'IFERROR' || e.code === '#N/A')
+        )
+          return run(n.args[1]);
         throw e;
       }
     }
-    if (!(supportedFunctions as readonly string[]).includes(n.name)) fail('#NAME?');
-    if (n.name === 'NOT' || n.name === 'ABS') arity(1);
-    else if (n.name === 'ROUND') arity(2);
-    else arity(1, 255);
-    const vals = n.args.flatMap((a) => {
-      const value = run(a);
-      return Array.isArray(value) ? value : [value];
-    });
-    if (n.name === 'COUNTA') return vals.filter((v) => v !== null).length;
-    if (n.name === 'COUNT') return vals.filter((v) => typeof v === 'number').length;
-    vals.forEach(checked);
-    if (n.name === 'AND') return vals.every(truth);
-    if (n.name === 'OR') return vals.some(truth);
+    if (definition.evaluation === 'aggregate' || definition.evaluation === 'text') {
+      const argument = (node: AST) => {
+        try {
+          return single(run(node));
+        } catch (error) {
+          if (!(error instanceof FormulaError) || error.code === '#LIMIT!') throw error;
+          return { error: error.code };
+        }
+      };
+      const aggregate =
+        definition.evaluation === 'aggregate'
+          ? new Aggregate(n.name)
+          : n.name === 'TEXTJOIN'
+            ? new TextJoin(argument(n.args[0]), argument(n.args[1]))
+            : new TextJoin();
+      for (const arg of n.name === 'TEXTJOIN' ? n.args.slice(2) : n.args) {
+        if (arg.kind === 'range') {
+          if (--budget < 0) fail('#LIMIT!');
+          for (
+            let row = Math.min(arg.start.row, arg.end.row);
+            row <= Math.max(arg.start.row, arg.end.row);
+            row++
+          )
+            for (
+              let column = Math.min(arg.start.column, arg.end.column);
+              column <= Math.max(arg.start.column, arg.end.column);
+              column++
+            ) {
+              if (--budget < 0) fail('#LIMIT!');
+              aggregate.add(readReference({ ...arg.start, row, column }), true);
+            }
+          continue;
+        }
+        let value: Result;
+        try {
+          value = run(arg);
+        } catch (error) {
+          if (!(error instanceof FormulaError) || error.code === '#LIMIT!') throw error;
+          value = { error: error.code };
+        }
+        aggregate.add(single(value), arg.kind === 'ref');
+      }
+      return aggregate.result();
+    }
+    const vals = n.args.map((arg) => checked(single(run(arg))));
+    const date = evaluateDate(n.name, vals, dateSystem);
+    if (date !== undefined) return date;
+    const text = evaluateText(n.name, vals);
+    if (text !== undefined) return text;
+    if (n.name === 'ROUNDUP' || n.name === 'ROUNDDOWN')
+      return directedRound(number(vals[0]), number(vals[1]), n.name === 'ROUNDUP');
+    if (n.name === 'INT') return Math.floor(number(vals[0])) || 0;
+    if (n.name === 'MOD') return modulo(number(vals[0]), number(vals[1]));
     if (n.name === 'NOT') return !truth(vals[0]);
     if (n.name === 'ABS') return Math.abs(number(vals[0]));
     if (n.name === 'ROUND') {
-      const digits = number(vals[1]);
-      if (!Number.isInteger(digits) || Math.abs(digits) > 100) fail('#NUM!');
-      const scale = 10 ** digits,
-        v = number(vals[0]);
-      const result = (Math.sign(v) * Math.round(Math.abs(v) * scale + Number.EPSILON)) / scale;
-      return Number.isFinite(result) ? result : fail('#NUM!');
+      const digits = Math.trunc(number(vals[1]));
+      return nearestRound(number(vals[0]), digits);
     }
-    const nums = vals.filter((v): v is number => typeof v === 'number');
-    if (n.name === 'SUM') return nums.reduce((a, b) => a + b, 0);
-    if (n.name === 'AVERAGE')
-      return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : fail('#DIV/0!');
-    if (n.name === 'MIN') return nums.length ? nums.reduce((a, b) => Math.min(a, b)) : 0;
-    if (n.name === 'MAX') return nums.length ? nums.reduce((a, b) => Math.max(a, b)) : 0;
     return fail('#NAME?');
   }
   try {

@@ -1,0 +1,42 @@
+{
+  "source": "opt-in WebKit two-worker binary import trace before fix",
+  "traceSha256": "0dba11131c9af711ff6998af8564d6908f851bc59f984b01741221ce61d29891",
+  "stalled": [
+    {
+      "id": "67f64d91",
+      "case": "binary-after",
+      "lastPhases": [
+        "first-import",
+        "blob-stream-4-size-1115",
+        "blob-4-read-1-start",
+        "blob-4-read-1-bytes-1115",
+        "blob-stream-5-size-146",
+        "decoder-1-read-1-start",
+        "decoder-1-read-1-bytes-184",
+        "decoder-1-read-2-start",
+        "decoder-1-read-2-done",
+        "decoder-1-cancel-start",
+        "decoder-1-cancel-done",
+        "decoder-1-release-start"
+      ]
+    },
+    {
+      "id": "499b094a",
+      "case": "binary-after",
+      "lastPhases": [
+        "first-import",
+        "blob-stream-4-size-1115",
+        "blob-4-read-1-start",
+        "blob-4-read-1-bytes-1115",
+        "blob-stream-5-size-146",
+        "decoder-1-read-1-start",
+        "decoder-1-read-1-bytes-184",
+        "decoder-1-read-2-start",
+        "decoder-1-read-2-done",
+        "decoder-1-cancel-start",
+        "decoder-1-cancel-done",
+        "decoder-1-release-start"
+      ]
+    }
+  ]
+}

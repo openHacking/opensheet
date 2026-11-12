@@ -1,0 +1,631 @@
+{
+  "startedAt": "2026-11-11T15:43:59.332Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 285,
+    "sha256": "d2937930196462b3eccae8ce5b630796d29d703b293b15f6d4a170242bb50132"
+  },
+  "hashes": {
+    "previous": "73d0dcee93f71839038c3560c7e5c8e0ae685d6aa9f7feb1294f058de58442d6",
+    "current": "7561aa0a5c5621360c665c5a637a7a724554aad12ea3e3a3a6adfc7a38adf5c2"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Headless browser main-thread parser microbenchmark. Six alternating pairs for each of two valid 400×200 TSV fixtures; every resulting cell checked outside the timed interval. Previous reconstructs the parser before the closed-quote guard. Excludes clipboard events, commands, storage, paint, invalid inputs, peak memory, other devices and full application latency.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 10.599999904632568,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3.5,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 4.600000381469727,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3.9000000953674316,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3.4000000953674316,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 3.8000001907348633,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3.3000001907348633,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 3.4000000953674316,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 3.0999999046325684,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 2.700000286102295,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 4.900000095367432,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3.8000001907348633,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 2.3000001907348633,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 2.6999998092651367,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3.1000003814697266,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 2.4000000953674316,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 2.200000286102295,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 1.6999998092651367,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 2.799999713897705,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 2.3999996185302734,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 2.5999999046325684,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 2.1999998092651367,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 4.5,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 6,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 5,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 6,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 5,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 8,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 7,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 2,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 5,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 9,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 6,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 8,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 7,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 7,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 2,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 5,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 5,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 11,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 2,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 2,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 2,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 2,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 5,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "current",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": true,
+              "ms": 3,
+              "cells": 80000,
+              "inputLength": 480398
+            },
+            {
+              "variant": "previous",
+              "quoted": false,
+              "ms": 4,
+              "cells": 80000,
+              "inputLength": 480398
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T15:44:02.913Z"
+}

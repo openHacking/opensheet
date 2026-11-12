@@ -1,0 +1,307 @@
+{
+  "startedAt": "2026-11-11T07:59:30.215Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 275,
+    "sha256": "9f322ca83a349c0e82438cebb6f4b7bda595a4cca61d48285e6d26d0cd16364c"
+  },
+  "hashes": {
+    "previous": "f6a77628f0f15b40da9a0c9e94e09a22219b22b72f23fd90c12e53528f2f5e11",
+    "current": "3ad5c53a5baca3c88441f03eceee0dc8193ed81c1795717cf7358552610ea0c3"
+  },
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "scope": "Dedicated headless browser Worker microbenchmark. Five 100,000-row SUMIF passes per sample; matching numeric synthetic reads and exact result checks. Six alternating rounds using fresh workers. Previous is a reconstructed helper; excludes real workbook reads, parser time, storage, UI, memory and other data or devices.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 41.19999980926514,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 30.59999990463257,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 30.59999990463257,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 30.700000286102295,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 31,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 30.90000009536743,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 30.800000190734863,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 30.90000009536743,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 30.799999713897705,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 31,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 30.40000009536743,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 31.09999990463257,
+              "checksum": 500000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 128,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 127,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 124,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 122,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 124,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 122,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 124,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 120,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 121,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 122,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 121,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 123,
+              "checksum": 500000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "rounds": [
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 42,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 27,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 27,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 28,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 27,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 29,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 28,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 28,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "samples": [
+            {
+              "variant": "previous",
+              "ms": 27,
+              "checksum": 500000
+            },
+            {
+              "variant": "current",
+              "ms": 28,
+              "checksum": 500000
+            }
+          ]
+        },
+        {
+          "round": 6,
+          "samples": [
+            {
+              "variant": "current",
+              "ms": 27,
+              "checksum": 500000
+            },
+            {
+              "variant": "previous",
+              "ms": 27,
+              "checksum": 500000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-11T07:59:34.938Z"
+}

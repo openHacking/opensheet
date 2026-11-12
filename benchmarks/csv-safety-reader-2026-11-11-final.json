@@ -1,0 +1,560 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "node": "v22.19.0",
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 258,
+    "sha256": "f0cae5466d17798e4aebe4ef87c2463212cb7f98184bf7d338b7ddf475290399"
+  },
+  "formatsBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 13,
+    "sha256": "62816084cfbbadbd25b2f0462597e7f2cec31796f004816259cbb768b0259afa"
+  },
+  "source": "Synthetic benign formula and text examples; no network formulas.",
+  "limitations": "One local LibreOffice build and its headless CSV defaults; SheetJS decodes saved XLSX. No Excel, other locales, UI import settings, or security guarantee.",
+  "samples": [
+    [
+      "equals",
+      "=1+1"
+    ],
+    [
+      "plus",
+      "+1"
+    ],
+    [
+      "minus",
+      "-1"
+    ],
+    [
+      "at",
+      "@SUM(1;1)"
+    ],
+    [
+      "leading-space",
+      "  =1+1"
+    ],
+    [
+      "tab",
+      "\ttext"
+    ],
+    [
+      "cr",
+      "\rtext"
+    ],
+    [
+      "lf",
+      "\ntext"
+    ],
+    [
+      "nul",
+      "\u0000text"
+    ],
+    [
+      "fullwidth-equals",
+      "＝1+1"
+    ],
+    [
+      "fullwidth-plus",
+      "＋1"
+    ],
+    [
+      "fullwidth-minus",
+      "－1"
+    ],
+    [
+      "fullwidth-at",
+      "＠SUM(1;1)"
+    ],
+    [
+      "separator-and-quote",
+      "plain,\"=1+1"
+    ],
+    [
+      "number",
+      -5
+    ]
+  ],
+  "observations": [
+    {
+      "mode": "safe",
+      "sanitized": 13,
+      "first": [
+        {
+          "expectedLabel": "equals",
+          "actualLabel": "equals",
+          "type": "s",
+          "value": "'=1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "plus",
+          "actualLabel": "plus",
+          "type": "s",
+          "value": "'+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "minus",
+          "actualLabel": "minus",
+          "type": "s",
+          "value": "'-1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "at",
+          "actualLabel": "at",
+          "type": "s",
+          "value": "'@SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "leading-space",
+          "actualLabel": "leading-space",
+          "type": "s",
+          "value": "'  =1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "tab",
+          "actualLabel": "tab",
+          "type": "s",
+          "value": "'\ttext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "cr",
+          "actualLabel": "cr",
+          "type": "s",
+          "value": "'\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "lf",
+          "actualLabel": "lf",
+          "type": "s",
+          "value": "'\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "nul",
+          "actualLabel": "nul",
+          "type": "s",
+          "value": "'text",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-equals",
+          "actualLabel": "fullwidth-equals",
+          "type": "s",
+          "value": "'＝1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-plus",
+          "actualLabel": "fullwidth-plus",
+          "type": "s",
+          "value": "'＋1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-minus",
+          "actualLabel": "fullwidth-minus",
+          "type": "s",
+          "value": "'－1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-at",
+          "actualLabel": "fullwidth-at",
+          "type": "s",
+          "value": "'＠SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "separator-and-quote",
+          "actualLabel": "separator-and-quote",
+          "type": "s",
+          "value": "plain,\"=1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "number",
+          "actualLabel": "number",
+          "type": "n",
+          "value": -5,
+          "formula": null
+        }
+      ],
+      "reopened": [
+        {
+          "expectedLabel": "equals",
+          "actualLabel": "equals",
+          "type": "s",
+          "value": "'=1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "plus",
+          "actualLabel": "plus",
+          "type": "s",
+          "value": "'+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "minus",
+          "actualLabel": "minus",
+          "type": "s",
+          "value": "'-1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "at",
+          "actualLabel": "at",
+          "type": "s",
+          "value": "'@SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "leading-space",
+          "actualLabel": "leading-space",
+          "type": "s",
+          "value": "'  =1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "tab",
+          "actualLabel": "tab",
+          "type": "s",
+          "value": "'\ttext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "cr",
+          "actualLabel": "cr",
+          "type": "s",
+          "value": "'\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "lf",
+          "actualLabel": "lf",
+          "type": "s",
+          "value": "'\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "nul",
+          "actualLabel": "nul",
+          "type": "s",
+          "value": "'text",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-equals",
+          "actualLabel": "fullwidth-equals",
+          "type": "s",
+          "value": "'＝1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-plus",
+          "actualLabel": "fullwidth-plus",
+          "type": "s",
+          "value": "'＋1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-minus",
+          "actualLabel": "fullwidth-minus",
+          "type": "s",
+          "value": "'－1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-at",
+          "actualLabel": "fullwidth-at",
+          "type": "s",
+          "value": "'＠SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "separator-and-quote",
+          "actualLabel": "separator-and-quote",
+          "type": "s",
+          "value": "plain,\"=1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "number",
+          "actualLabel": "number",
+          "type": "n",
+          "value": -5,
+          "formula": null
+        }
+      ],
+      "logs": [
+        "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/safe.csv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/safe-first/safe.xlsx using filter : Calc MS Excel 2007 XML\n",
+        "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/safe-first/safe.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/safe-saved/safe.csv using filter : Text - txt - csv (StarCalc):44,34,76,1\n",
+        "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/safe-saved/safe.csv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/safe-reopened/safe.xlsx using filter : Calc MS Excel 2007 XML\n"
+      ]
+    },
+    {
+      "mode": "raw",
+      "sanitized": 0,
+      "first": [
+        {
+          "expectedLabel": "equals",
+          "actualLabel": "equals",
+          "type": "n",
+          "value": 2,
+          "formula": "1+1"
+        },
+        {
+          "expectedLabel": "plus",
+          "actualLabel": "plus",
+          "type": "n",
+          "value": 1,
+          "formula": null
+        },
+        {
+          "expectedLabel": "minus",
+          "actualLabel": "minus",
+          "type": "n",
+          "value": -1,
+          "formula": null
+        },
+        {
+          "expectedLabel": "at",
+          "actualLabel": "at",
+          "type": "s",
+          "value": "@SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "leading-space",
+          "actualLabel": "leading-space",
+          "type": "s",
+          "value": "  =1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "tab",
+          "actualLabel": "tab",
+          "type": "s",
+          "value": "\ttext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "cr",
+          "actualLabel": "cr",
+          "type": "s",
+          "value": "\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "lf",
+          "actualLabel": "lf",
+          "type": "s",
+          "value": "\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "nul",
+          "actualLabel": "nul",
+          "type": "s",
+          "value": "text",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-equals",
+          "actualLabel": "fullwidth-equals",
+          "type": "s",
+          "value": "＝1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-plus",
+          "actualLabel": "fullwidth-plus",
+          "type": "s",
+          "value": "＋1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-minus",
+          "actualLabel": "fullwidth-minus",
+          "type": "s",
+          "value": "－1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-at",
+          "actualLabel": "fullwidth-at",
+          "type": "s",
+          "value": "＠SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "separator-and-quote",
+          "actualLabel": "separator-and-quote",
+          "type": "s",
+          "value": "plain,\"=1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "number",
+          "actualLabel": "number",
+          "type": "n",
+          "value": -5,
+          "formula": null
+        }
+      ],
+      "reopened": [
+        {
+          "expectedLabel": "equals",
+          "actualLabel": "equals",
+          "type": "n",
+          "value": 2,
+          "formula": null
+        },
+        {
+          "expectedLabel": "plus",
+          "actualLabel": "plus",
+          "type": "n",
+          "value": 1,
+          "formula": null
+        },
+        {
+          "expectedLabel": "minus",
+          "actualLabel": "minus",
+          "type": "n",
+          "value": -1,
+          "formula": null
+        },
+        {
+          "expectedLabel": "at",
+          "actualLabel": "at",
+          "type": "s",
+          "value": "@SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "leading-space",
+          "actualLabel": "leading-space",
+          "type": "s",
+          "value": "  =1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "tab",
+          "actualLabel": "tab",
+          "type": "s",
+          "value": "\ttext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "cr",
+          "actualLabel": "cr",
+          "type": "s",
+          "value": "\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "lf",
+          "actualLabel": "lf",
+          "type": "s",
+          "value": "\ntext",
+          "formula": null
+        },
+        {
+          "expectedLabel": "nul",
+          "actualLabel": "nul",
+          "type": "s",
+          "value": "text",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-equals",
+          "actualLabel": "fullwidth-equals",
+          "type": "s",
+          "value": "＝1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-plus",
+          "actualLabel": "fullwidth-plus",
+          "type": "s",
+          "value": "＋1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-minus",
+          "actualLabel": "fullwidth-minus",
+          "type": "s",
+          "value": "－1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "fullwidth-at",
+          "actualLabel": "fullwidth-at",
+          "type": "s",
+          "value": "＠SUM(1;1)",
+          "formula": null
+        },
+        {
+          "expectedLabel": "separator-and-quote",
+          "actualLabel": "separator-and-quote",
+          "type": "s",
+          "value": "plain,\"=1+1",
+          "formula": null
+        },
+        {
+          "expectedLabel": "number",
+          "actualLabel": "number",
+          "type": "n",
+          "value": -5,
+          "formula": null
+        }
+      ],
+      "logs": [
+        "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/raw.csv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/raw-first/raw.xlsx using filter : Calc MS Excel 2007 XML\n",
+        "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/raw-first/raw.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/raw-saved/raw.csv using filter : Text - txt - csv (StarCalc):44,34,76,1\n",
+        "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/raw-saved/raw.csv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-csv-reader-geQb10/raw-reopened/raw.xlsx using filter : Calc MS Excel 2007 XML\n"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "csv-safety-reader-2026-11-11-final.safe.source.csv",
+      "sha256": "e0791c253426b89cd4010a2e8a6de2b5511686f16d4eb88bbad2e20a2a021df7"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.safe.first.xlsx",
+      "sha256": "85a08ee3c448c35a82a5a36de5a15fbb1633408b27e1cf8766e039230004a361"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.safe.saved.csv",
+      "sha256": "56ede16808cfe20dd1fd4077a49656e120f928a51b20d8148ec24b5998332cbe"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.safe.reopened.xlsx",
+      "sha256": "e938ecbd15e7c9bca3ff560b6fee6d563e6016d64947d38bd0605d2c81f0bf45"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.raw.source.csv",
+      "sha256": "42d695bd29b239603e071fe91ad7235113e0a1b4879465067c92b91807cb24e2"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.raw.first.xlsx",
+      "sha256": "89dd9ecc5c0595b90d7409f03124597da1638699e0090e852baae9f70d764584"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.raw.saved.csv",
+      "sha256": "dde540f9ff476eadc2ed3ab7d6f9c3dd8b83d4519985508d7484ad9b2963989f"
+    },
+    {
+      "name": "csv-safety-reader-2026-11-11-final.raw.reopened.xlsx",
+      "sha256": "e24d3d2e1a1ee46c89588518d533e5427aaa495d5c002707d928c208b4169933"
+    }
+  ]
+}

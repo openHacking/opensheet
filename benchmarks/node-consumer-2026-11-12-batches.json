@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-11-12T08:23:43.115Z",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 367,
+    "sha256": "43acffa27ea18877ea2371c5f594abe4f116e63b3ba4cff5bafb1c679abfb2e5"
+  },
+  "scope": "Isolated temporary consumer installs locally packed formula and core tarballs using the offline pnpm store. It exercises pure JSON reads; it is not a supported full Node workbook runtime.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "6efd1f057d7f6ac16cb12d22cbce4db756740ed762745e29fdcb4e471d679152"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "4cb6cec1ccd6fb9c98eae933a5913ff32e327354bdeaf504d72c0e62a9404089"
+    }
+  ],
+  "lock": {
+    "file": "benchmarks/node-consumer-2026-11-12-batches.consumer-lock.yaml",
+    "sha256": "79e2ae5c404d6e7d66be64806b488f05fe0a3d0137861b4352462f7794962e0b"
+  },
+  "exampleSha256": "24d717d2db41da8e69ee6ff3801d0d644732934b3e36f064e8d1ecd1f0ff5c22",
+  "results": {
+    "example": "passed",
+    "invalidSheet": "rejected",
+    "oversizedRange": "rejected",
+    "batches": "passed",
+    "runtime": {
+      "globals": {
+        "document": "undefined",
+        "Worker": "undefined",
+        "indexedDB": "undefined"
+      },
+      "errorCode": "WORKER_UNAVAILABLE"
+    }
+  }
+}

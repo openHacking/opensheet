@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-30T18:39:12.625Z",
+  "browser": "153.0.8010.12",
+  "engine": "chromium",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 226,
+    "sha256": "24d1ad7a11df408ba445434e8e8a49f67a584df91f14daf530eb9851021067ff"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "9235eb7c7d4301b87ac1ae0f9c537cda3a3d50de14e5abd84ae722920c1f4e2a"
+  },
+  "url": "http://127.0.0.1:4174/",
+  "fixture": "deterministic 100-column mixed workload; complete JSON materialization and JSON Blob/binary Blob round trips; count plus all-cell order-independent input checksum",
+  "result": {
+    "cells": 1000000,
+    "toJSONMs": 2817.0999999046326,
+    "jsonBytes": 22772617,
+    "streamJSONBytes": 22772617,
+    "importJSONMs": 9421.599999904633,
+    "binaryBytes": 12219984,
+    "streamBinaryMs": 4823.699999809265,
+    "importBinaryMs": 13076.700000047684,
+    "verifiedCellsAfterEachImport": 1000000,
+    "verificationHash": 3813076585,
+    "storage": {
+      "bytes": 16514803,
+      "cacheBytes": 19154896,
+      "budgetBytes": 268435456,
+      "viewportCacheBytes": 0
+    }
+  }
+}

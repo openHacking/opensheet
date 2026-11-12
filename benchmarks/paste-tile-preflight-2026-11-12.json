@@ -1,0 +1,160 @@
+{
+  "startedAt": "2026-11-11T22:39:59.747Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 320,
+    "sha256": "f937e44614e6cbfe84d362e4b7d68f82558fef5e98dbb413b2e5153c61718111"
+  },
+  "scriptSha256": "2d3e660da6dbdbd6e9493db57bdba8869138bd14cdd75fa973926c7f530d1ec6",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "scope": "Node reducer only; 20,000 cells, numeric and repeated relative-formula tiles; six alternating pairs per fixture with fresh snapshots and all outputs verified outside timing. Control reconstructs the previous one-pass loop, which does not preserve snapshot atomicity on late failure. Single process, JIT and GC variation; excludes Worker, schema validation, storage, UI, peak memory and independent hardware.",
+  "samples": [
+    {
+      "fixture": "numeric",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 7.591750000000047
+    },
+    {
+      "fixture": "numeric",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 6.7749580000000265
+    },
+    {
+      "fixture": "numeric",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 4.383958000000007
+    },
+    {
+      "fixture": "numeric",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 7.781999999999982
+    },
+    {
+      "fixture": "numeric",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 3.405666999999994
+    },
+    {
+      "fixture": "numeric",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 3.733750000000043
+    },
+    {
+      "fixture": "numeric",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 3.345916999999986
+    },
+    {
+      "fixture": "numeric",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 4.3419999999999845
+    },
+    {
+      "fixture": "numeric",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 5.0233330000000365
+    },
+    {
+      "fixture": "numeric",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 3.4812919999999963
+    },
+    {
+      "fixture": "numeric",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 4.382374999999968
+    },
+    {
+      "fixture": "numeric",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 3.20554199999998
+    },
+    {
+      "fixture": "formula",
+      "round": 1,
+      "variant": "control",
+      "elapsedMs": 10.771083000000033
+    },
+    {
+      "fixture": "formula",
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 15.13370900000001
+    },
+    {
+      "fixture": "formula",
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 11.997667000000035
+    },
+    {
+      "fixture": "formula",
+      "round": 2,
+      "variant": "control",
+      "elapsedMs": 11.007124999999974
+    },
+    {
+      "fixture": "formula",
+      "round": 3,
+      "variant": "control",
+      "elapsedMs": 9.59583299999997
+    },
+    {
+      "fixture": "formula",
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 11.826041000000032
+    },
+    {
+      "fixture": "formula",
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 11.2008340000001
+    },
+    {
+      "fixture": "formula",
+      "round": 4,
+      "variant": "control",
+      "elapsedMs": 7.034207999999921
+    },
+    {
+      "fixture": "formula",
+      "round": 5,
+      "variant": "control",
+      "elapsedMs": 7.983167000000094
+    },
+    {
+      "fixture": "formula",
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 11.597917000000052
+    },
+    {
+      "fixture": "formula",
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 11.001250000000027
+    },
+    {
+      "fixture": "formula",
+      "round": 6,
+      "variant": "control",
+      "elapsedMs": 8.583708000000001
+    }
+  ],
+  "finishedAt": "2026-11-11T22:40:00.271Z"
+}

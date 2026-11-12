@@ -1,0 +1,45 @@
+{
+  "engine": "webkit",
+  "browser": "26.6",
+  "node": "v22.19.0",
+  "platform": "darwin",
+  "release": "25.5.0",
+  "cpu": "Apple M4",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 245,
+    "sha256": "e78d5e8cf07834699f958db27e7e754553e6e3e57c00e65bff859ebfd97439c5"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "8d36ff3a7a9b452c8dff7443eaa1254000fee2044989d69b4e0970b0e6be6f79"
+  },
+  "startedAt": "2026-11-10T07:27:50.875Z",
+  "rounds": [
+    {
+      "round": 1,
+      "baselineBytes": 164896556,
+      "orphans": 4096,
+      "cells": 10000000,
+      "cleanMs": 1519,
+      "dirtyMs": 1430
+    },
+    {
+      "round": 2,
+      "baselineBytes": 164896556,
+      "orphans": 4096,
+      "cells": 10000000,
+      "dirtyMs": 3017,
+      "cleanMs": 1501
+    },
+    {
+      "round": 3,
+      "baselineBytes": 164896556,
+      "orphans": 4096,
+      "cells": 10000000,
+      "cleanMs": 1701,
+      "dirtyMs": 1834
+    }
+  ]
+}

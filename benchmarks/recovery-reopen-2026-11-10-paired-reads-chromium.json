@@ -1,0 +1,45 @@
+{
+  "engine": "chromium",
+  "browser": "153.0.8010.12",
+  "node": "v22.19.0",
+  "platform": "darwin",
+  "release": "25.5.0",
+  "cpu": "Apple M4",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 248,
+    "sha256": "23c2308047ee8461df4d88f4269c6f53d7c1b898307b958961003993955d6315"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "9f1268cbe7fd0d25ef5e9b238c05043141fa65c29f5ae99afa05c0d714bfd392"
+  },
+  "startedAt": "2026-11-10T08:27:22.104Z",
+  "rounds": [
+    {
+      "round": 1,
+      "baselineBytes": 16546378,
+      "orphans": 4096,
+      "cells": 1000000,
+      "cleanMs": 127.89999961853027,
+      "dirtyMs": 317.30000019073486
+    },
+    {
+      "round": 2,
+      "baselineBytes": 16546378,
+      "orphans": 4096,
+      "cells": 1000000,
+      "dirtyMs": 326.6000003814697,
+      "cleanMs": 115.30000019073486
+    },
+    {
+      "round": 3,
+      "baselineBytes": 16546378,
+      "orphans": 4096,
+      "cells": 1000000,
+      "cleanMs": 118.5,
+      "dirtyMs": 303.2999997138977
+    }
+  ]
+}

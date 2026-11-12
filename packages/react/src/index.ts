@@ -47,7 +47,7 @@ export function OpenSheetView(props: OpenSheetProps): ReactElement {
   }, [props.readOnly]);
   return createElement('div', {
     ref: host,
-    className: props.className,
-    style: { height: 500, ...props.style },
+    className: ['os-framework-host', props.className].filter(Boolean).join(' '),
+    style: props.style,
   });
 }

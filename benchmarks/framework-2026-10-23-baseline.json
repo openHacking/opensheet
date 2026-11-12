@@ -1,0 +1,50 @@
+{
+  "startedAt": "2026-10-23T01:58:45.109Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 205,
+    "sha256": "281a5e2f898c4579009f5fc11fce895bc34039b1066ebd5a5831b413ddfe0a8b"
+  },
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "a883ef4cfe94b262d8f0dffc8137838a78716764ffd43240b9c34a99cd3addca"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "412e8eba50343744cc794df46e71ddd3e0e9b5f9ac2d23f6fabe9d8bf1e63e49"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.1.1",
+      "sha256": "8e50132b5bb5c55b84ddf1e6cb8efa4e19419a29ffbd6aa14650e316408b77a5"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.1.1",
+      "sha256": "975aed732c6fd8b4ade76eef8b6f1a660018bbac7982a0b2a6d0d641b064c6fa"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.1.1",
+      "sha256": "a20fa9b6e1510bc7880c470d37f13a37aaad702397cdee800b20b2ce886a2489"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.1.1",
+      "sha256": "4f7ae0de4b28eb0fb07a03bf960a9e3c860d24b66ea32c6a3fe0bb33ad5e1bcb"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.1.1",
+      "sha256": "408e4b65f8b776d0ea037a628922603be2a675ce89bb0e3acb6f1e202aba1175"
+    }
+  ],
+  "results": [],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no source aliases; development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "7675969ced3a68b348e48be066bfd846cc8e1226a58597a62b8cddcb4c1e37e9",
+  "error": "Error: spawnSync pnpm ETIMEDOUT",
+  "commandOutput": "vue/runtime-core/-/runtime-core-3.5.24.tgz (GET)\nProgress: resolved 30, reused 0, downloaded 18, added 0\nProgress: resolved 31, reused 0, downloaded 18, added 0\nProgress: resolved 32, reused 0, downloaded 18, added 0\n WARN  Tarball download average speed 20 KiB/s (size 135 KiB) is below 50 KiB/s: https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz (GET)\nProgress: resolved 32, reused 0, downloaded 19, added 0\n WARN  Tarball download average speed 8 KiB/s (size 51 KiB) is below 50 KiB/s: https://registry.npmjs.org/postcss/-/postcss-8.5.31.tgz (GET)\nProgress: resolved 33, reused 0, downloaded 21, added 0\nProgress: resolved 33, reused 0, downloaded 22, added 0\nProgress: resolved 36, reused 0, downloaded 22, added 0\n WARN  Request took 31947ms: https://registry.npmjs.org/esbuild\n WARN  Tarball download average speed 9 KiB/s (size 251 KiB) is below 50 KiB/s: https://registry.npmjs.org/immer/-/immer-11.1.21.tgz (GET)\nProgress: resolved 39, reused 0, downloaded 26, added 0\nProgress: resolved 39, reused 0, downloaded 31, added 0\nProgress: resolved 39, reused 0, downloaded 32, added 0\nProgress: resolved 39, reused 0, downloaded 33, added 0\n WARN  Tarball download average speed 8 KiB/s (size 140 KiB) is below 50 KiB/s: https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.5.24.tgz (GET)\n WARN  Tarball download average speed 23 KiB/s (size 530 KiB) is below 50 KiB/s: https://registry.npmjs.org/vite/-/vite-7.3.6.tgz (GET)\nProgress: resolved 39, reused 0, downloaded 35, added 0\n WARN  Request took 43761ms: https://registry.npmjs.org/rollup\nProgress: resolved 40, reused 0, downloaded 35, added 0\nProgress: resolved 67, reused 0, downloaded 35, added 0\nProgress: resolved 70, reused 0, downloaded 35, added 0\nProgress: resolved 71, reused 0, downloaded 35, added 0\nProgress: resolved 72, reused 0, downloaded 35, added 0\n WARN  Tarball download average speed 19 KiB/s (size 294 KiB) is below 50 KiB/s: https://registry.npmjs.org/@babel/types/-/types-7.29.8.tgz (GET)\nProgress: resolved 74, reused 0, downloaded 35, added 0\nProgress: resolved 75, reused 0, downloaded 35, added 0\nProgress: resolved 75, reused 0, downloaded 36, added 0\n WARN  Tarball download average speed 26 KiB/s (size 1246 KiB) is below 50 KiB/s: https://registry.npmjs.org/react-dom/-/react-dom-19.2.0.tgz (GET)\nProgress: resolved 77, reused 0, downloaded 37, added 0\nProgress: resolved 82, reused 0, downloaded 37, added 0\n WARN  Tarball download average speed 20 KiB/s (size 428 KiB) is below 50 KiB/s: https://registry.npmjs.org/@babel/parser/-/parser-7.29.9.tgz (GET)\nProgress: resolved 88, reused 0, downloaded 38, added 0\nProgress: resolved 89, reused 0, downloaded 39, added 0\n WARN  Request took 11883ms: https://registry.npmjs.org/@rollup%2Frollup-linux-x64-gnu\nProgress: resolved 91, reused 0, downloaded 39, added 0\n WARN  Request took 12143ms: https://registry.npmjs.org/@rollup%2Frollup-openbsd-x64\nProgress: resolved 92, reused 0, downloaded 40, added 0\n WARN  Request took 58337ms: https://registry.npmjs.org/scheduler\nProgress: resolved 93, reused 0, downloaded 40, added 0\nProgress: resolved 93, reused 0, downloaded 41, added 0\nProgress: resolved 93, reused 0, downloaded 42, added 0\n WARN  Request took 18153ms: https://registry.npmjs.org/picocolors\nProgress: resolved 94, reused 0, downloaded 43, added 0\n WARN  Request took 14010ms: https://registry.npmjs.org/@rollup%2Frollup-linux-ppc64-gnu\nProgress: resolved 95, reused 0, downloaded 43, added 0\nProgress: resolved 95, reused 0, downloaded 44, added 0\n WARN  Tarball download average speed 36 KiB/s (size 2188 KiB) is below 50 KiB/s: https://registry.npmjs.org/lucide/-/lucide-1.52.0.tgz (GET)\nProgress: resolved 95, reused 0, downloaded 45, added 0\n WARN  GET https://registry.npmjs.org/nanoid error (ECONNRESET). Will retry in 10 seconds. 2 retries left.\nProgress: resolved 96, reused 0, downloaded 45, added 0\nPackages: +46\n++++++++++++++++++++++++++++++++++++++++++++++\nProgress: resolved 96, reused 0, downloaded 45, added 45\n"
+}

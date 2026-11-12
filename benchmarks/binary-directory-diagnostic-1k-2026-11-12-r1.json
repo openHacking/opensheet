@@ -1,0 +1,447 @@
+{
+  "node": "v22.19.0",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 337,
+    "sha256": "c5c3d17dda4feaaa2b1df4e1a326b6e2307758a40810f59427b16db1d8e9662c"
+  },
+  "hashes": [
+    "5ac205c1cf48fa75c2cc0f79afd500a33ee1c2a0321b113f36f4bea5c59eba75",
+    "8552fa776601e36e203eef1b62ad6201e503cf502d1fdce0dca840b70bc49786",
+    "eda27f0769130bab387d77357b7366df9160c33c55fdd1733347d23379ace730"
+  ],
+  "count": 10000,
+  "rows": 1000,
+  "bytes": 899987,
+  "scope": "Diagnostic only: current reader versus a deliberately unsafe variant that skips metadata decoding/validation. Synthetic one-byte page payloads; not a valid workbook, production change, browser measurement or peak-memory measurement.",
+  "results": [
+    {
+      "mode": "metadata-diagnostic",
+      "pairs": [
+        {
+          "current": {
+            "ms": 23.134500000000003,
+            "start": 513.202167,
+            "end": 536.336667,
+            "heapBefore": 54386288,
+            "heapAfter": 44997016,
+            "rssBefore": 159481856,
+            "rssAfter": 157483008,
+            "gcOverlapMs": 1.0492911338806152
+          },
+          "withoutMetadataValidation": {
+            "ms": 21.59166700000003,
+            "start": 536.448708,
+            "end": 558.040375,
+            "heapBefore": 45022976,
+            "heapAfter": 41115176,
+            "rssBefore": 157483008,
+            "rssAfter": 157794304,
+            "gcOverlapMs": 1.113626480102539
+          }
+        },
+        {
+          "current": {
+            "ms": 21.178290999999945,
+            "start": 576.216667,
+            "end": 597.394958,
+            "heapBefore": 45492704,
+            "heapAfter": 41706456,
+            "rssBefore": 159023104,
+            "rssAfter": 157892608,
+            "gcOverlapMs": 0.9697074890136719
+          },
+          "withoutMetadataValidation": {
+            "ms": 17.811582999999928,
+            "start": 558.257375,
+            "end": 576.068958,
+            "heapBefore": 41156088,
+            "heapAfter": 45478560,
+            "rssBefore": 157810688,
+            "rssAfter": 159023104,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 20.587125000000015,
+            "start": 597.4985,
+            "end": 618.085625,
+            "heapBefore": 41730040,
+            "heapAfter": 39105160,
+            "rssBefore": 157892608,
+            "rssAfter": 157089792,
+            "gcOverlapMs": 0.9000425338745117
+          },
+          "withoutMetadataValidation": {
+            "ms": 19.113166999999976,
+            "start": 618.220958,
+            "end": 637.334125,
+            "heapBefore": 39130696,
+            "heapAfter": 43428112,
+            "rssBefore": 157089792,
+            "rssAfter": 158253056,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 21.89258300000006,
+            "start": 656.104125,
+            "end": 677.996708,
+            "heapBefore": 47685280,
+            "heapAfter": 43425808,
+            "rssBefore": 159399936,
+            "rssAfter": 159645696,
+            "gcOverlapMs": 1.0448336601257324
+          },
+          "withoutMetadataValidation": {
+            "ms": 18.56395800000007,
+            "start": 637.408792,
+            "end": 655.97275,
+            "heapBefore": 43432160,
+            "heapAfter": 47675600,
+            "rssBefore": 158253056,
+            "rssAfter": 159399936,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 20.860708000000045,
+            "start": 678.08525,
+            "end": 698.945958,
+            "heapBefore": 43448264,
+            "heapAfter": 56950112,
+            "rssBefore": 159645696,
+            "rssAfter": 160268288,
+            "gcOverlapMs": 0.37150001525878906
+          },
+          "withoutMetadataValidation": {
+            "ms": 18.19562499999995,
+            "start": 699.533667,
+            "end": 717.729292,
+            "heapBefore": 41256352,
+            "heapAfter": 45554632,
+            "rssBefore": 159318016,
+            "rssAfter": 160464896,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 20.140459000000078,
+            "start": 736.392708,
+            "end": 756.533167,
+            "heapBefore": 49804288,
+            "heapAfter": 44704920,
+            "rssBefore": 162512896,
+            "rssAfter": 162922496,
+            "gcOverlapMs": 0.5265002250671387
+          },
+          "withoutMetadataValidation": {
+            "ms": 18.537917000000107,
+            "start": 717.81,
+            "end": 736.347917,
+            "heapBefore": 45559272,
+            "heapAfter": 49802552,
+            "rssBefore": 160464896,
+            "rssAfter": 162512896,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 20.234249999999975,
+            "start": 756.615208,
+            "end": 776.849458,
+            "heapBefore": 44727392,
+            "heapAfter": 58293384,
+            "rssBefore": 162922496,
+            "rssAfter": 163545088,
+            "gcOverlapMs": 0.4438748359680176
+          },
+          "withoutMetadataValidation": {
+            "ms": 17.77666700000009,
+            "start": 777.310083,
+            "end": 795.08675,
+            "heapBefore": 42597800,
+            "heapAfter": 46840808,
+            "rssBefore": 162496512,
+            "rssAfter": 163643392,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 20.668416999999977,
+            "start": 812.865583,
+            "end": 833.534,
+            "heapBefore": 51133184,
+            "heapAfter": 46318704,
+            "rssBefore": 165740544,
+            "rssAfter": 166281216,
+            "gcOverlapMs": 0.5512080192565918
+          },
+          "withoutMetadataValidation": {
+            "ms": 17.654250000000047,
+            "start": 795.167208,
+            "end": 812.821458,
+            "heapBefore": 46845728,
+            "heapAfter": 51131448,
+            "rssBefore": 163643392,
+            "rssAfter": 165740544,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 19.70170799999994,
+            "start": 833.633417,
+            "end": 853.335125,
+            "heapBefore": 46341520,
+            "heapAfter": 59834416,
+            "rssBefore": 166281216,
+            "rssAfter": 167067648,
+            "gcOverlapMs": 0.39954233169555664
+          },
+          "withoutMetadataValidation": {
+            "ms": 18.258291999999983,
+            "start": 853.782875,
+            "end": 872.041167,
+            "heapBefore": 44117304,
+            "heapAfter": 48360464,
+            "rssBefore": 166313984,
+            "rssAfter": 168361984,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 19.809708,
+            "start": 889.67725,
+            "end": 909.486958,
+            "heapBefore": 52643824,
+            "heapAfter": 47598224,
+            "rssBefore": 169508864,
+            "rssAfter": 169934848,
+            "gcOverlapMs": 0.5139164924621582
+          },
+          "withoutMetadataValidation": {
+            "ms": 17.524833000000058,
+            "start": 872.103125,
+            "end": 889.627958,
+            "heapBefore": 48364416,
+            "heapAfter": 52642088,
+            "rssBefore": 168361984,
+            "rssAfter": 169508864,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 19.399208000000044,
+            "start": 909.560792,
+            "end": 928.96,
+            "heapBefore": 47620800,
+            "heapAfter": 61079096,
+            "rssBefore": 169934848,
+            "rssAfter": 170901504,
+            "gcOverlapMs": 0.32291698455810547
+          },
+          "withoutMetadataValidation": {
+            "ms": 17.720459000000005,
+            "start": 929.574708,
+            "end": 947.295167,
+            "heapBefore": 45470488,
+            "heapAfter": 49720760,
+            "rssBefore": 170131456,
+            "rssAfter": 171278336,
+            "gcOverlapMs": 0
+          }
+        },
+        {
+          "current": {
+            "ms": 20.33670799999993,
+            "start": 965.052667,
+            "end": 985.389375,
+            "heapBefore": 54009608,
+            "heapAfter": 48969208,
+            "rssBefore": 173326336,
+            "rssAfter": 173735936,
+            "gcOverlapMs": 0.5915842056274414
+          },
+          "withoutMetadataValidation": {
+            "ms": 17.64920799999993,
+            "start": 947.361792,
+            "end": 965.011,
+            "heapBefore": 49724712,
+            "heapAfter": 54007872,
+            "rssBefore": 171278336,
+            "rssAfter": 173326336,
+            "gcOverlapMs": 0
+          }
+        }
+      ]
+    }
+  ],
+  "gcEvents": [
+    {
+      "start": 464.167417,
+      "duration": 1.1612906455993652,
+      "kind": 1
+    },
+    {
+      "start": 476.086083,
+      "duration": 0.45029211044311523,
+      "kind": 1
+    },
+    {
+      "start": 493.673667,
+      "duration": 0.3814578056335449,
+      "kind": 1
+    },
+    {
+      "start": 504.601958,
+      "duration": 0.45287513732910156,
+      "kind": 1
+    },
+    {
+      "start": 512.965292,
+      "duration": 0.10266590118408203,
+      "kind": 8
+    },
+    {
+      "start": 516.812833,
+      "duration": 0.8348751068115234,
+      "kind": 4
+    },
+    {
+      "start": 528.657917,
+      "duration": 0.2144160270690918,
+      "kind": 1
+    },
+    {
+      "start": 542.452708,
+      "duration": 0.40120935440063477,
+      "kind": 1
+    },
+    {
+      "start": 553.031833,
+      "duration": 0.7124171257019043,
+      "kind": 1
+    },
+    {
+      "start": 583.348917,
+      "duration": 0.5223326683044434,
+      "kind": 1
+    },
+    {
+      "start": 594.330042,
+      "duration": 0.4473748207092285,
+      "kind": 1
+    },
+    {
+      "start": 606.102458,
+      "duration": 0.41358375549316406,
+      "kind": 1
+    },
+    {
+      "start": 617.477458,
+      "duration": 0.48645877838134766,
+      "kind": 1
+    },
+    {
+      "start": 662.967417,
+      "duration": 0.8561253547668457,
+      "kind": 1
+    },
+    {
+      "start": 675.584625,
+      "duration": 0.18870830535888672,
+      "kind": 1
+    },
+    {
+      "start": 687.4885,
+      "duration": 0.37150001525878906,
+      "kind": 1
+    },
+    {
+      "start": 699.005917,
+      "duration": 0.44162464141845703,
+      "kind": 1
+    },
+    {
+      "start": 742.687042,
+      "duration": 0.26475000381469727,
+      "kind": 1
+    },
+    {
+      "start": 754.536792,
+      "duration": 0.2617502212524414,
+      "kind": 1
+    },
+    {
+      "start": 766.000958,
+      "duration": 0.4438748359680176,
+      "kind": 1
+    },
+    {
+      "start": 776.951542,
+      "duration": 0.2989158630371094,
+      "kind": 1
+    },
+    {
+      "start": 819.340875,
+      "duration": 0.265625,
+      "kind": 1
+    },
+    {
+      "start": 831.418375,
+      "duration": 0.2855830192565918,
+      "kind": 1
+    },
+    {
+      "start": 842.621,
+      "duration": 0.39954233169555664,
+      "kind": 1
+    },
+    {
+      "start": 853.389167,
+      "duration": 0.3330831527709961,
+      "kind": 1
+    },
+    {
+      "start": 896.021708,
+      "duration": 0.26679182052612305,
+      "kind": 1
+    },
+    {
+      "start": 907.684708,
+      "duration": 0.24712467193603516,
+      "kind": 1
+    },
+    {
+      "start": 918.352458,
+      "duration": 0.32291698455810547,
+      "kind": 1
+    },
+    {
+      "start": 929.019333,
+      "duration": 0.475250244140625,
+      "kind": 1
+    },
+    {
+      "start": 971.457625,
+      "duration": 0.2930421829223633,
+      "kind": 1
+    },
+    {
+      "start": 983.2125,
+      "duration": 0.2985420227050781,
+      "kind": 1
+    }
+  ]
+}

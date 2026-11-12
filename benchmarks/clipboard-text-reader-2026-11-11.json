@@ -1,0 +1,91 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 268,
+    "sha256": "f0783b47772d2e2354ca4b7edf020093b9c921d28e6d97674e64930c438bc45f"
+  },
+  "encoderSha256": "a55e795f6d2a598289104bf8ca6054e0026c848a32ac0e8c255217cb29576871",
+  "cases": [
+    {
+      "name": "blank",
+      "inputText": "first\n\n\"\"",
+      "range": "A1",
+      "cells": [
+        {
+          "address": "A1",
+          "type": "s",
+          "value": "first"
+        },
+        {
+          "address": "A2",
+          "type": null,
+          "value": null
+        },
+        {
+          "address": "A3",
+          "type": null,
+          "value": null
+        }
+      ],
+      "csvText": "first\n",
+      "xlsxLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/blank.tsv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/xlsx/blank.xlsx using filter : Calc MS Excel 2007 XML\n",
+      "csvLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/xlsx/blank.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/csv/blank.csv using filter : Text - txt - csv (StarCalc)\n",
+      "artifacts": [
+        {
+          "name": "clipboard-text-reader-2026-11-11-blank.tsv",
+          "sha256": "ef4ade40483b39317b93eab6f84d9f42e25d18d5183a4917b18f8bafe5054449"
+        },
+        {
+          "name": "clipboard-text-reader-2026-11-11-blank.xlsx",
+          "sha256": "e685bd688eb54c9b4d204ffc5237bafec704be7f425d6ffc393a0754b2937022"
+        },
+        {
+          "name": "clipboard-text-reader-2026-11-11-blank.csv",
+          "sha256": "b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41"
+        }
+      ]
+    },
+    {
+      "name": "control",
+      "inputText": "first\n\nlast",
+      "range": "A1:A3",
+      "cells": [
+        {
+          "address": "A1",
+          "type": "s",
+          "value": "first"
+        },
+        {
+          "address": "A2",
+          "type": null,
+          "value": null
+        },
+        {
+          "address": "A3",
+          "type": "s",
+          "value": "last"
+        }
+      ],
+      "csvText": "first\n\nlast\n",
+      "xlsxLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/control.tsv as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/xlsx/control.xlsx using filter : Calc MS Excel 2007 XML\n",
+      "csvLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/xlsx/control.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-clipboard-reader-IxWlCU/csv/control.csv using filter : Text - txt - csv (StarCalc)\n",
+      "artifacts": [
+        {
+          "name": "clipboard-text-reader-2026-11-11-control.tsv",
+          "sha256": "8021a10b49c27014ab18d5f673ece0bbebae0c837dcc35657caf456342b8a409"
+        },
+        {
+          "name": "clipboard-text-reader-2026-11-11-control.xlsx",
+          "sha256": "35e9b759ce79ccc4ac20ed4303cc6c2f8f276b1c34b27d34ad44721c66e0c26b"
+        },
+        {
+          "name": "clipboard-text-reader-2026-11-11-control.csv",
+          "sha256": "b0e67e17c4436751f1c4191a5de17771e6a97d3be5bde4ebbf4b808154d12e18"
+        }
+      ]
+    }
+  ],
+  "limitations": "TSV file import and XLSX/CSV save using LibreOfficeDev headless defaults; XLSX inspected using SheetJS. This does not exercise native clipboard paste into existing nonempty cells, Excel, or other locales."
+}

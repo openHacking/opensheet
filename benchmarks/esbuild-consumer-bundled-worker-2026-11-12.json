@@ -1,0 +1,110 @@
+{
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 370,
+    "sha256": "0e24199a185cb0cca9d5f92afb5facd983765a8dd0de9624d3375efeea756628"
+  },
+  "startedAt": "2026-11-12T08:46:00.099Z",
+  "esbuild": "0.25.12",
+  "scope": "Packed core and formula packages; separate esbuild browser and Worker bundles, localhost subpath and real IndexedDB/Web Locks. No editor, CSS, CSP, SSR framework, other bundlers or devices.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.1.1",
+      "sha256": "6efd1f057d7f6ac16cb12d22cbce4db756740ed762745e29fdcb4e471d679152"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.1.1",
+      "sha256": "930b155e29db6512e55ed698e23540036f3e5ba7819b4aa20c8ee72f26b8a2bd"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "firefox",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "before": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "after": [
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          null
+        ]
+      ],
+      "workerRequests": 2,
+      "pageErrors": []
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/esbuild-consumer-bundled-worker-2026-11-12.consumer-lock.yaml",
+    "sha256": "2c32932ba55210ce060d55c90cc7d5de5ddc6bfa165b652970909a98969f3e6e"
+  },
+  "assets": {
+    "bundleBytes": 921665,
+    "bundleSha256": "90e5382989231fa9c3222889d4fcda9dd27022fb729593fff7dc042f89f573c9",
+    "workerBytes": 1100133,
+    "workerSha256": "76783e98c88a46114d08222f6b3d534bc35aff47770a8d93412020d6305f6a8c",
+    "inputs": 99
+  }
+}

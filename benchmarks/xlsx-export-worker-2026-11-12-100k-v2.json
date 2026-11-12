@@ -1,0 +1,120 @@
+{
+  "date": "2026-11-11T20:18:59.136Z",
+  "engine": "chromium",
+  "browser": "153.0.8010.12",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 309,
+    "sha256": "b5657a64412a503706674e833902178bc79ae49453b85b4af48b66b21ad5aaab"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "8046c6467f5c6aff541722edbe01f8cd8c50ce992c7f97d4cc2b26a3d89a2414"
+  },
+  "bundleHash": "f2adae439d3b0c43788cdb53479fcaa379c07bdae78037fdce27bd3137ae4fe3",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "scope": "Production Worker versus a separate minified main-thread bundle, same snapshot and alternating order in one context. Timed Worker includes startup and structured clone; snapshot measured separately. Compares every parsed cell input and the complete first worksheet XML after timings. Excludes UI dialog/download, process memory, physical power configuration and cross-device acceptance.",
+  "result": {
+    "cells": 100000,
+    "snapshot": {
+      "elapsedMs": 196.19999980926514,
+      "maxFrameMs": 16.80000000000001,
+      "frames": 13
+    },
+    "rounds": [
+      {
+        "order": [
+          "main",
+          "worker"
+        ],
+        "main": {
+          "elapsedMs": 340,
+          "maxFrameMs": 333.4,
+          "frames": 2,
+          "bytes": 4510044
+        },
+        "worker": {
+          "elapsedMs": 307,
+          "maxFrameMs": 16.799999999999955,
+          "frames": 20,
+          "bytes": 4510044
+        },
+        "verified": {
+          "cells": 100000,
+          "sheets": 1,
+          "frozen": true
+        },
+        "report": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 0
+        }
+      },
+      {
+        "order": [
+          "worker",
+          "main"
+        ],
+        "main": {
+          "elapsedMs": 255.7999997138977,
+          "maxFrameMs": 250.10000000000014,
+          "frames": 2,
+          "bytes": 4510044
+        },
+        "worker": {
+          "elapsedMs": 282.5,
+          "maxFrameMs": 16.799999999999955,
+          "frames": 18,
+          "bytes": 4510044
+        },
+        "verified": {
+          "cells": 100000,
+          "sheets": 1,
+          "frozen": true
+        },
+        "report": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 0
+        }
+      },
+      {
+        "order": [
+          "main",
+          "worker"
+        ],
+        "main": {
+          "elapsedMs": 228.39999961853027,
+          "maxFrameMs": 233.29999999999973,
+          "frames": 2,
+          "bytes": 4510044
+        },
+        "worker": {
+          "elapsedMs": 287.7000002861023,
+          "maxFrameMs": 16.800000000000182,
+          "frames": 19,
+          "bytes": 4510044
+        },
+        "verified": {
+          "cells": 100000,
+          "sheets": 1,
+          "frozen": true
+        },
+        "report": {
+          "exact": 100000,
+          "approximated": 0,
+          "dropped": 0,
+          "blocked": 0
+        }
+      }
+    ]
+  }
+}

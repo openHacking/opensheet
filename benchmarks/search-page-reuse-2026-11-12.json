@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-12",
+  "command": "pnpm exec playwright test tests/e2e/search-page-reads.spec.ts tests/e2e/search-limit.spec.ts --workers=3",
+  "fixture": "130-row formula chain; cacheBytes=0; two rejected searches; instrumented development Worker",
+  "results": [
+    { "browser": "chromium", "recordsGetRequests": 266, "uniqueKeys": 3, "elapsedMs": 174.8 },
+    { "browser": "webkit", "recordsGetRequests": 8, "uniqueKeys": 3, "elapsedMs": 17 },
+    { "browser": "firefox", "recordsGetRequests": 270, "uniqueKeys": 3, "elapsedMs": 430 }
+  ],
+  "limitations": "One unpaired concurrent instrumented run per engine. Execution order and random fixture identifiers may change how many formulas are visited; request counts are not physical disk reads. Timing is not a production benchmark or browser comparison."
+}

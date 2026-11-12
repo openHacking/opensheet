@@ -1,0 +1,132 @@
+{
+  "startedAt": "2026-11-11T03:23:58.730Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 254,
+    "sha256": "734644569d6b61cf0e9eb41dcca13eba5438a711755434ac29b33366ce2d6d3a"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "c6051e5ed28b3210d892b31d3d381aaae1d775124ddd4e63144d1e93aef1b76d"
+  },
+  "strictCode": "UNSUPPORTED_FEATURE",
+  "exportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 3,
+      "approximated": 2,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "EMPTY_TEXT_INTEROP",
+        "feature": "empty-text",
+        "message": "Empty text may be lost when another spreadsheet application saves the file",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_a9d89a874a2240f7b1af702f0eaf4c5f",
+        "address": "A1",
+        "count": 1
+      },
+      {
+        "code": "RECALC_REQUIRED",
+        "feature": "formula",
+        "message": "Formula result requires recalculation in the target application",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_a9d89a874a2240f7b1af702f0eaf4c5f",
+        "address": "B1",
+        "count": 1
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "before": {
+    "emptyCell": {
+      "t": "s",
+      "v": "",
+      "h": "",
+      "w": ""
+    },
+    "nonemptyCell": {
+      "t": "s",
+      "v": "x",
+      "h": "x",
+      "w": "x"
+    },
+    "countFormula": {
+      "t": "e",
+      "f": "COUNTA(A1:A2)"
+    }
+  },
+  "after": {
+    "emptyCell": null,
+    "nonemptyCell": {
+      "t": "s",
+      "v": "x",
+      "r": "<t xml:space=\"preserve\">x</t>",
+      "h": "x",
+      "w": "x"
+    },
+    "countFormula": {
+      "t": "n",
+      "v": 1,
+      "f": "COUNTA(A1:A2)",
+      "w": "1"
+    }
+  },
+  "reimportReport": {
+    "adapterVersion": "0.1.1",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 3,
+      "approximated": 1,
+      "dropped": 1,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "RICH_TEXT_FLATTENED",
+        "feature": "rich-text",
+        "message": "Rich text flattened to plain text",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_3ef62385f62448299348f9185ba8605c",
+        "count": 1
+      },
+      {
+        "code": "UNSUPPORTED_METADATA",
+        "feature": "!margins",
+        "message": "Worksheet metadata !margins is not preserved",
+        "action": "dropped",
+        "severity": "warning",
+        "sheetId": "sheet_3ef62385f62448299348f9185ba8605c",
+        "count": 1
+      },
+      {
+        "code": "DATA_INTERCHANGE",
+        "feature": "xlsx-container",
+        "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+        "action": "preserved",
+        "severity": "info",
+        "count": 1
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "artifacts": {
+    "exported": {
+      "file": "empty-text-interop-2026-11-11.xlsx",
+      "sha256": "ae3236aacb3be74907b853fe66651ec20fffcc0cb568e7b03955b297f75cface"
+    },
+    "saved": {
+      "file": "empty-text-interop-2026-11-11.saved.xlsx",
+      "sha256": "3a2fe2b0e3b04ef15b7bdb2d084b1f51de24c81bcee8d2bdf11b4d8ccf6c0204"
+    }
+  },
+  "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-empty-text-dMcXH8/source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-empty-text-dMcXH8/saved/source.xlsx using filter : Calc MS Excel 2007 XML"
+}

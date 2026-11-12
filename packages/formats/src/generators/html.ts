@@ -1,12 +1,10 @@
 import { escapeHTML } from '../escape.js';
+import { mergeLookup } from './merge-index.js';
 import type { PreparedRange } from '../prepare.js';
 import type { ExportResult } from '../types.js';
 export function renderHtml(prepared: PreparedRange): ExportResult {
   const { book, sheet, rows, b, data, report, requiredPackages, opt } = prepared;
-  const merged = (r: number, c: number) =>
-    data.merges.find(
-      (m) => r >= m.startRow && r < m.endRow && c >= m.startColumn && c < m.endColumn,
-    );
+  const merged = mergeLookup(data.merges, b, rows.length);
 
   const text =
     '<table>\n' +
@@ -34,7 +32,7 @@ export function renderHtml(prepared: PreparedRange): ExportResult {
               ]
                 .filter(Boolean)
                 .join(';');
-              return `<${tag}${css ? ` style="${css}"` : ''}${m ? ` rowspan="${Math.min(m.endRow, b.endRow) - r}" colspan="${Math.min(m.endColumn, b.endColumn) - c}"` : ''}>${escapeHTML(v).replace(/\n/g, '<br>')}</${tag}>`;
+              return `<${tag}${css ? ` style="${css}"` : ''}${m ? ` rowspan="${Math.min(m.endRow, b.endRow) - r}" colspan="${Math.min(m.endColumn, b.endColumn) - c}"` : ''}>${escapeHTML(v).replace(/\r\n|\r|\n/g, '<br>')}</${tag}>`;
             })
             .join('') +
           '</tr>',

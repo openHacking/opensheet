@@ -1,0 +1,255 @@
+{
+  "startedAt": "2026-11-12T10:18:12.737Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 377,
+    "sha256": "9515f9baccfcda07e150a0f58f3ff7a7ecf164e75eef5d3b0f34ea65dc487345"
+  },
+  "node": "v22.19.0",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ]
+      }
+    }
+  ],
+  "scope": "Published npm core 0.1.1 and locally packed 0.2.0-dev.0, separately installed and esbuild-bundled in one localhost origin. Synthetic workbook, one sample per browser; not complete historical compatibility, crash testing, independent toolchain, physical devices or safe downgrade certification.",
+  "historical": {
+    "name": "@opensheetjs/core",
+    "version": "0.1.1",
+    "integrity": "sha512-7Sin0Eh6nJMDyoLU7oEjifEIOXZHgZujuEvVheUChWCqbXPOMtJ3zIptiBehiJfUDNxsOuKBLuSJxcFmW4nyFw==",
+    "sha256": "335770053ca5be85497d7fa1373d7e2e0e195009a9aa9aeba2dfc5f070e8bf3a"
+  },
+  "candidate": {
+    "coreSha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2",
+    "formulaSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+  },
+  "oldAssets": {
+    "main": "ceb925de0bc95e6186c96615d5e509bae732cf43631428bb325e3c4fb89ff1dd",
+    "worker": "c915dcaaf19a659d7c153bb7405a63eb71958c5fef42777d13737a8c985a21c7",
+    "lock": "ce785d9bb9726a7e272ec12536565455fc0ab9b7962c95687402258536164f54"
+  },
+  "newAssets": {
+    "main": "4e4abfe345186f22571d5f0e3bfa66b344df2494c10098019186a344485808e3",
+    "worker": "bf70f9f091129de283524308b91dc5421b35b41247592e5245610a6f4140eb2f",
+    "lock": "fb43050561eeabe38a463eab32c07818109a253b11b5b6d7fc724bab2c806671"
+  },
+  "finishedAt": "2026-11-12T10:18:16.905Z"
+}

@@ -1,7 +1,11 @@
-import { chromium } from '@playwright/test';
-import { readFileSync, writeFileSync, mkdirSync, renameSync } from 'node:fs';
+import { chromium, firefox, webkit } from '@playwright/test';
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, renameSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
-import { arch, platform } from 'node:os';
+import { arch, platform, cpus, totalmem, release } from 'node:os';
+import { execFileSync } from 'node:child_process';
+import { sourceFingerprint, localBuildFingerprint } from './benchmark-fingerprint.mjs';
+import { startProcessMemorySampler } from './process-memory-sampler.mjs';
 const option = (name, fallback) =>
   process.argv.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3) ?? fallback;
 const url = new URL(option('url', 'http://127.0.0.1:5173/'));
@@ -17,12 +21,53 @@ if (
   timeout < 1000
 )
   throw new Error('Invalid budget or timeout');
-const browser = await chromium.launch();
+const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const sourceDirty = Boolean(
+  execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim(),
+);
+const cpuProfilePath = option('cpu-profile', '');
+const browserName = option('browser', 'chromium');
+const launchers = { chromium, firefox, webkit };
+if (!Object.hasOwn(launchers, browserName)) throw new Error('Invalid browser');
+if (cpuProfilePath && browserName !== 'chromium')
+  throw new Error('CPU profiling requires Chromium');
+if (process.argv.includes('--process-memory') && browserName !== 'chromium')
+  throw new Error('Process memory sampling currently supports Chromium only');
+const sourceDigest = sourceFingerprint();
+const localBuildDigest = localBuildFingerprint();
+let servedArtifacts;
+async function verifyServedBuild() {
+  const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+  const artifacts = [];
+  for (const file of [
+    'index.html',
+    ...readdirSync('apps/playground/dist/assets').map((name) => `assets/${name}`),
+  ]) {
+    const response = await fetch(new URL(file, url));
+    if (!response.ok) throw new Error(`Cannot fetch built artifact: ${file}`);
+    const sha256 = hash(new Uint8Array(await response.arrayBuffer()));
+    if (sha256 !== hash(readFileSync(`apps/playground/dist/${file}`)))
+      throw new Error(`Served artifact differs from local build: ${file}`);
+    artifacts.push({ file, sha256 });
+  }
+  return artifacts;
+}
+if (process.argv.includes('--verify-build')) servedArtifacts = await verifyServedBuild();
+const browser = await launchers[browserName].launch();
+const memorySampler = process.argv.includes('--process-memory')
+  ? startProcessMemorySampler()
+  : undefined;
 let interval,
+  profiler,
   saved = Promise.resolve(),
   previous = '';
 try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  if (cpuProfilePath) {
+    profiler = await page.context().newCDPSession(page);
+    await profiler.send('Profiler.enable');
+    await profiler.send('Profiler.start');
+  }
   page.on('pageerror', (error) => process.stderr.write(`Page error: ${error.message}\n`));
   await page.goto(url.href);
   await page.locator('#scene-title').filter({ hasText: 'Performance Lab' }).waitFor();
@@ -40,6 +85,23 @@ try {
       headless: true,
       engineFormat: 'binary-pages-schema3',
       browserVersion: browser.version(),
+      browserEngine: browserName,
+      sourceCommit,
+      sourceDirty,
+      sourceFingerprint: sourceDigest,
+      localBuildFingerprint: localBuildDigest,
+      ...(servedArtifacts ? { servedArtifacts } : {}),
+      hardware: { cpu: cpus()[0]?.model, logicalCores: cpus().length, memoryBytes: totalmem() },
+      osRelease: release(),
+      powerMode: option('power-mode', 'unrecorded'),
+      profiling:
+        [
+          cpuProfilePath ? 'main-document CPU sampling' : '',
+          url.searchParams.has('trace-ops') ? 'worker operation timing' : '',
+        ]
+          .filter(Boolean)
+          .join(' + ') || 'none',
+      ...(memorySampler ? { processMemory: memorySampler.snapshot() } : {}),
     });
     mkdirSync(dirname(output), { recursive: true });
     writeFileSync(output + '.tmp', JSON.stringify(result, null, 2) + '\n');
@@ -76,6 +138,13 @@ try {
   }
   clearInterval(interval);
   await saved;
+  await memorySampler?.take();
+  if (
+    servedArtifacts &&
+    (JSON.stringify(await verifyServedBuild()) !== JSON.stringify(servedArtifacts) ||
+      JSON.stringify(localBuildFingerprint()) !== JSON.stringify(localBuildDigest))
+  )
+    throw new Error('Build changed during capacity run');
   const result = await save();
   process.stdout.write(
     JSON.stringify(
@@ -91,5 +160,15 @@ try {
   );
 } finally {
   clearInterval(interval);
-  await browser.close();
+  await memorySampler?.stop();
+  if (profiler) {
+    try {
+      const { profile } = await profiler.send('Profiler.stop');
+      const path = resolve(cpuProfilePath);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, JSON.stringify(profile));
+    } finally {
+      await browser.close();
+    }
+  } else await browser.close();
 }

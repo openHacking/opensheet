@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "dateSystem": "1904",
+  "date": "2026-10-22T16:32:48.663Z",
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "sourceCommit": "fb76c4ee10f0de3e6e78f9c2d141a2cc1921423a",
+  "sourceDirty": true,
+  "provenance": "Synthetic public formula corpus; expected results hand-authored, cached actual results produced by LibreOffice conversion, decoded by SheetJS. No OpenSheet-generated expected values.",
+  "fixtureSha256": "9cfd633ba8bbf36b6d9249fe503176526f244c49eeda66184c9b19607a775d75",
+  "sourceWorkbook": "formula-reader-2026-10-23-dates-1904.source.xlsx",
+  "sourceSha256": "a2238a74885bbb5081dc9053a61861eb869aaf46a75af52234437221a11af3bc",
+  "recalculatedWorkbook": "formula-reader-2026-10-23-dates-1904.recalculated.xlsx",
+  "recalculatedSha256": "5a301c948d66634a8df8f6ebb848a08045baba5dbbd7070fd8004f14359e7e27",
+  "conversionLog": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-lgcon6/semantics.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-reader-lgcon6/recalculated/semantics.xlsx using filter : Calc MS Excel 2007 XML",
+  "observations": [
+    {
+      "expression": "DATE(1904,1,1)",
+      "tag": "date-1904",
+      "expected": 0,
+      "actual": 0,
+      "agrees": true,
+      "readerFormula": "DATE(1904,1,1)"
+    },
+    {
+      "expression": "DATE(1904,2,29)",
+      "tag": "date-1904",
+      "expected": 59,
+      "actual": 59,
+      "agrees": true,
+      "readerFormula": "DATE(1904,2,29)"
+    },
+    {
+      "expression": "DATE(2024,2,29)",
+      "tag": "date-1904",
+      "expected": 43889,
+      "actual": 43889,
+      "agrees": true,
+      "readerFormula": "DATE(2024,2,29)"
+    },
+    {
+      "expression": "DATE(9999,12,31)",
+      "tag": "date-1904-range",
+      "expected": 2957003,
+      "actual": 2957003,
+      "agrees": true,
+      "readerFormula": "DATE(9999,12,31)"
+    },
+    {
+      "expression": "DATE(1903,12,31)",
+      "tag": "date-1904-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": -1,
+      "agrees": false,
+      "readerFormula": "DATE(1903,12,31)"
+    },
+    {
+      "expression": "YEAR(0)",
+      "tag": "date-1904",
+      "expected": 1904,
+      "actual": 1904,
+      "agrees": true,
+      "readerFormula": "YEAR(0)"
+    },
+    {
+      "expression": "MONTH(0)",
+      "tag": "date-1904",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "MONTH(0)"
+    },
+    {
+      "expression": "DAY(0)",
+      "tag": "date-1904",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "DAY(0)"
+    },
+    {
+      "expression": "DAY(59)",
+      "tag": "date-1904",
+      "expected": 29,
+      "actual": 29,
+      "agrees": true,
+      "readerFormula": "DAY(59)"
+    },
+    {
+      "expression": "MONTH(60)",
+      "tag": "date-1904",
+      "expected": 3,
+      "actual": 3,
+      "agrees": true,
+      "readerFormula": "MONTH(60)"
+    },
+    {
+      "expression": "DAY(60)",
+      "tag": "date-1904",
+      "expected": 1,
+      "actual": 1,
+      "agrees": true,
+      "readerFormula": "DAY(60)"
+    },
+    {
+      "expression": "DAYS(\"2024-03-01\",\"2024-02-28\")",
+      "tag": "date-1904-iso",
+      "expected": 2,
+      "actual": 2,
+      "agrees": true,
+      "readerFormula": "DAYS(\"2024-03-01\",\"2024-02-28\")"
+    },
+    {
+      "expression": "YEAR(2957004)",
+      "tag": "date-1904-range",
+      "expected": {
+        "error": "#NUM!"
+      },
+      "actual": 10000,
+      "agrees": false,
+      "readerFormula": "YEAR(2957004)"
+    },
+    {
+      "expression": "SUM(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "SUM(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AVERAGE(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AVERAGE(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MIN(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MIN(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "MAX(\"7\",TRUE,2)",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "MAX(\"7\",TRUE(),2)"
+    },
+    {
+      "expression": "AND(\"TRUE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "AND(\"TRUE\")"
+    },
+    {
+      "expression": "OR(\"FALSE\")",
+      "tag": "coercion-probe",
+      "actual": {
+        "error": "#VALUE!"
+      },
+      "agrees": null,
+      "readerFormula": "OR(\"FALSE\")"
+    }
+  ]
+}

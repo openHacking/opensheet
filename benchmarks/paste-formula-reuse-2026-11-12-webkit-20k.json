@@ -1,0 +1,78 @@
+{
+  "engine": "webkit",
+  "startedAt": "2026-11-11T19:44:14.497Z",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 302,
+    "sha256": "e33d13d43337b4a4c7a99096fc136a2f17515344b8fb7aab2fdb026b346756c4"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "d1a824201f57982942895d74dd2057308b455a0df185ee83ae18be47e1c15fd8"
+  },
+  "limitations": "Headless single-host samples; no baseline, independent hardware or peak Worker/process memory measurement. Frame intervals are main-document requestAnimationFrame observations during the grid paste, not input latency or total process responsiveness. Measures a compact API command, excluding native clipboard permission and operating-system input.",
+  "rounds": [
+    {
+      "round": 1,
+      "cells": 20000,
+      "fillMs": 159,
+      "frameIntervals": [
+        15,
+        13,
+        13,
+        14,
+        11,
+        15,
+        14,
+        13,
+        13,
+        14,
+        13,
+        13
+      ]
+    },
+    {
+      "round": 2,
+      "cells": 20000,
+      "fillMs": 146,
+      "frameIntervals": [
+        6,
+        14,
+        13,
+        17,
+        8,
+        15,
+        13,
+        14,
+        13,
+        11,
+        16,
+        13
+      ]
+    },
+    {
+      "round": 3,
+      "cells": 20000,
+      "fillMs": 149,
+      "frameIntervals": [
+        12,
+        14,
+        13,
+        13,
+        13,
+        14,
+        13,
+        13,
+        14,
+        13,
+        11,
+        16
+      ]
+    }
+  ],
+  "browser": "26.6"
+}

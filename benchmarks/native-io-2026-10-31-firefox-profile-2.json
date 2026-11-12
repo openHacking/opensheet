@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-30T18:46:12.261Z",
+  "browser": "155.0",
+  "engine": "firefox",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 227,
+    "sha256": "3c57f6e6c288a1b37e16d843d4de10c55cc5be7b9e621bab7d92565b2b2f99ba"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "9235eb7c7d4301b87ac1ae0f9c537cda3a3d50de14e5abd84ae722920c1f4e2a"
+  },
+  "url": "http://127.0.0.1:4174/",
+  "profile": "Progress instrumentation changes timing; event windows use main-page performance.now, phase elapsedMs comes from the Worker. Unaccounted time includes parsing, staging and publication.",
+  "fixture": "deterministic 100-column mixed workload; complete JSON materialization and JSON Blob/binary Blob round trips; count plus all-cell order-independent input checksum",
+  "result": {
+    "cells": 1000000,
+    "toJSONMs": 3381,
+    "jsonBytes": 22772617,
+    "streamJSONBytes": 22772617,
+    "importJSONMs": 26631,
+    "jsonProfile": {
+      "roundTripMs": 26631,
+      "phases": {
+        "import-parse": {
+          "firstMs": 132,
+          "events": 628,
+          "lastMs": 17904,
+          "completed": 628
+        },
+        "import-store": {
+          "firstMs": 18012,
+          "events": 628,
+          "lastMs": 25777,
+          "completed": 628,
+          "total": 628
+        },
+        "import-scratch-read": {
+          "firstMs": 25778,
+          "events": 1,
+          "lastMs": 25778,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 742
+        },
+        "import-decode": {
+          "firstMs": 25778,
+          "events": 1,
+          "lastMs": 25778,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 1319
+        },
+        "import-pages": {
+          "firstMs": 25778,
+          "events": 1,
+          "lastMs": 25778,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 4764
+        },
+        "import-scratch-delete": {
+          "firstMs": 25778,
+          "events": 1,
+          "lastMs": 25778,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 855
+        }
+      }
+    },
+    "binaryBytes": 12282432,
+    "streamBinaryMs": 4876,
+    "importBinaryMs": 11237,
+    "binaryProfile": {
+      "roundTripMs": 11237,
+      "phases": {
+        "import-parse": {
+          "firstMs": 63,
+          "events": 628,
+          "lastMs": 5294,
+          "completed": 628
+        },
+        "import-store": {
+          "firstMs": 5324,
+          "events": 628,
+          "lastMs": 10786,
+          "completed": 628,
+          "total": 628
+        },
+        "import-scratch-read": {
+          "firstMs": 10786,
+          "events": 1,
+          "lastMs": 10786,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 551
+        },
+        "import-decode": {
+          "firstMs": 10787,
+          "events": 1,
+          "lastMs": 10787,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 1127
+        },
+        "import-pages": {
+          "firstMs": 10787,
+          "events": 1,
+          "lastMs": 10787,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 3175
+        },
+        "import-scratch-delete": {
+          "firstMs": 10787,
+          "events": 1,
+          "lastMs": 10787,
+          "completed": 628,
+          "total": 628,
+          "elapsedMs": 527
+        }
+      }
+    },
+    "verifiedCellsAfterEachImport": 1000000,
+    "verificationHash": 3813076585,
+    "storage": {
+      "bytes": 16515629,
+      "cacheBytes": 19154896,
+      "budgetBytes": 268435456,
+      "viewportCacheBytes": 0
+    }
+  }
+}

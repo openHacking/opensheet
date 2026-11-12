@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import * as XLSX from 'xlsx';
 import type { OpenSheet } from 'opensheet';
+import { readForPoll } from './read-for-poll.js';
 declare global {
   interface Window {
     opensheet: OpenSheet;
@@ -84,36 +85,20 @@ test('edits with the DOM editor, recalculates, undoes and redoes', async ({ page
   await grid.press('Enter');
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).fill('3');
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).press('Enter');
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('F2').getValues(),
-    ),
-  ).toEqual([[7200]]);
+  await expect.poll(() => readForPoll(page, 'F2')).toEqual([[7200]]);
   await page.getByRole('button', { name: 'Undo', exact: true }).click();
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('D2').getValues(),
-    ),
-  ).toEqual([[1]]);
+  await expect.poll(() => readForPoll(page, 'D2')).toEqual([[1]]);
   await page.getByRole('button', { name: 'Redo', exact: true }).click();
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('D2').getValues(),
-    ),
-  ).toEqual([[3]]);
+  await expect.poll(() => readForPoll(page, 'D2')).toEqual([[3]]);
 });
 test('uses the formula bar, tab navigation and independent worksheets', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Cell address', exact: true }).fill('H2');
   await page.getByRole('textbox', { name: 'Cell address', exact: true }).press('Enter');
-  await page.getByRole('textbox', { name: 'Formula bar', exact: true }).fill('=SUM(D2:D10)');
-  await page.getByRole('textbox', { name: 'Formula bar', exact: true }).press('Enter');
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('H2').getValues(),
-    ),
-  ).toEqual([[15]]);
+  await page.getByRole('combobox', { name: 'Formula bar', exact: true }).fill('=SUM(D2:D10)');
+  await page.getByRole('combobox', { name: 'Formula bar', exact: true }).press('Enter');
+  await expect.poll(() => readForPoll(page, 'H2')).toEqual([[15]]);
   await page.getByRole('tab', { name: 'Notes', exact: true }).click();
-  await expect(page.getByRole('textbox', { name: 'Formula bar', exact: true })).toHaveValue(
+  await expect(page.getByRole('combobox', { name: 'Formula bar', exact: true })).toHaveValue(
     'OpenSheet',
   );
   await page.getByRole('button', { name: 'Add sheet', exact: true }).click();
@@ -143,14 +128,12 @@ test('pastes a matrix atomically and protects IME composition from Enter', async
     app.selection.set({ sheetId: id, startRow: 15, endRow: 16, startColumn: 0, endColumn: 1 });
     app.getGrid()!.pasteText('姓名\t数量\n测试\t2');
   });
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('A16:B17').getValues(),
-    ),
-  ).toEqual([
-    ['姓名', '数量'],
-    ['测试', 2],
-  ]);
+  await expect
+    .poll(() => readForPoll(page, 'A16:B17'))
+    .toEqual([
+      ['姓名', '数量'],
+      ['测试', 2],
+    ]);
   const grid = page.getByRole('grid', { name: 'Spreadsheet', exact: true });
   await grid.focus();
   await grid.press('Enter');
@@ -161,11 +144,7 @@ test('pastes a matrix atomically and protects IME composition from Enter', async
   await expect(editor).toBeVisible();
   await editor.dispatchEvent('compositionend');
   await editor.press('Enter');
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('A16').getValues(),
-    ),
-  ).toEqual([['中文输入']]);
+  await expect.poll(() => readForPoll(page, 'A16')).toEqual([['中文输入']]);
 });
 test('imports a real XLSX in a Worker and exports a downloadable XLSX', async ({ page }) => {
   const wb = XLSX.utils.book_new(
@@ -175,12 +154,13 @@ test('imports a real XLSX in a Worker and exports a downloadable XLSX', async ({
     ]),
     'Imported',
   );
-  const bytes = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+  const bytes = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx', compression: true });
   await page.locator('#file').setInputFiles({
     name: 'sample.xlsx',
     mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     buffer: bytes,
   });
+  await page.getByRole('button', { name: 'Import converted workbook' }).click();
   await expect(page.getByRole('tab', { name: 'Imported', exact: true })).toBeVisible();
   await expect(page.locator('#save-state')).toContainText('Imported locally');
   if (await page.getByRole('dialog').isVisible())
@@ -195,6 +175,31 @@ test('imports a real XLSX in a Worker and exports a downloadable XLSX', async ({
   await page.getByRole('button', { name: 'Download converted XLSX', exact: true }).click();
   expect((await download).suggestedFilename()).toBe('sample.xlsx');
 });
+test('rejects a renamed ZIP with forged expansion size without replacing the workbook', async ({
+  page,
+}) => {
+  const wb = XLSX.utils.book_new(XLSX.utils.aoa_to_sheet([['x'.repeat(32000)]]), 'Bad');
+  const bytes: Buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx', compression: true });
+  const directory = bytes.readUInt32LE(bytes.length - 6);
+  const local = bytes.readUInt32LE(directory + 42);
+  bytes.writeUInt32LE(1, directory + 24);
+  bytes.writeUInt32LE(1, local + 22);
+  const before = await page.evaluate(async () => {
+    const book = window.opensheet.getWorkbook();
+    return { id: book.id, value: await book.getSheets()[0].range('F11').getValues() };
+  });
+  await page
+    .locator('#file')
+    .setInputFiles({ name: 'renamed.csv', mimeType: 'text/csv', buffer: bytes });
+  await expect(page.locator('#notice')).toContainText('actual expanded size');
+  await expect(page.locator('#import')).toBeEnabled();
+  expect(
+    await page.evaluate(async () => {
+      const book = window.opensheet.getWorkbook();
+      return { id: book.id, value: await book.getSheets()[0].range('F11').getValues() };
+    }),
+  ).toEqual(before);
+});
 test('imports hostile JSON without replacing the current workbook', async ({ page }) => {
   await page.locator('#file').setInputFiles({
     name: 'bad.json',
@@ -203,6 +208,20 @@ test('imports hostile JSON without replacing the current workbook', async ({ pag
   });
   await expect(page.locator('#notice')).toContainText('Invalid');
   await expect(page.getByRole('tab', { name: 'Launch budget', exact: true })).toBeVisible();
+});
+test('explains corrupted deflate data and keeps the current workbook', async ({ page }) => {
+  const wb = XLSX.utils.book_new(XLSX.utils.aoa_to_sheet([['valid data']]), 'Bad');
+  const bytes: Buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx', compression: true });
+  const local = bytes.readUInt32LE(bytes.readUInt32LE(bytes.length - 6) + 42);
+  const payload = local + 30 + bytes.readUInt16LE(local + 26) + bytes.readUInt16LE(local + 28);
+  bytes[payload] = 7;
+  const id = await page.evaluate(() => window.opensheet.getWorkbook().id);
+  await page
+    .locator('#file')
+    .setInputFiles({ name: 'corrupt.xlsx', mimeType: 'application/octet-stream', buffer: bytes });
+  await expect(page.locator('#notice')).toContainText('Invalid ZIP: invalid deflate stream');
+  await expect(page.locator('#import')).toBeEnabled();
+  expect(await page.evaluate(() => window.opensheet.getWorkbook().id)).toBe(id);
 });
 test('provides an accessible data table and a functional plugin', async ({ page }) => {
   await page.evaluate(() => {
@@ -266,11 +285,7 @@ test('scrolls to distant selections and reads the edited frozen-grid cell', asyn
   await grid.press('Enter');
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).fill('distant');
   await page.getByRole('textbox', { name: 'Edit cell', exact: true }).press('Enter');
-  expect(
-    await page.evaluate(
-      async () => await window.opensheet.getWorkbook().getSheets()[0].range('J80').getValues(),
-    ),
-  ).toEqual([['distant']]);
+  await expect.poll(() => readForPoll(page, 'J80')).toEqual([['distant']]);
 });
 test('cell editor grows for long wrapped and multiline text without visible scrollbars', async ({
   page,
@@ -712,6 +727,171 @@ test('cancels imports on scene changes and ignores previously queued Worker resu
   await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
   expect(await page.evaluate(() => (window as any).testWorkers[0].terminated)).toBe(true);
 });
+test('rejecting an oversized import cancels an older pending import', async ({ page }) => {
+  const before = await page.evaluate(async () => {
+    const book = window.opensheet.getWorkbook();
+    await book
+      .getSheets()[0]
+      .range('A1')
+      .setValues([['original']]);
+    const snapshot = await book.toJSON();
+    const workers: any[] = [];
+    Object.assign(window, { testWorkers: workers, staleSnapshot: snapshot });
+    const NativeWorker = window.Worker;
+    window.Worker = class {
+      onmessage: ((event: MessageEvent) => unknown) | null = null;
+      onerror: (() => unknown) | null = null;
+      terminated = false;
+      deliver?: (event: MessageEvent) => unknown;
+      constructor(url: URL | string, options?: WorkerOptions) {
+        if (!String(url).includes('file.worker')) return new NativeWorker(url, options) as any;
+        workers.push(this);
+      }
+      postMessage() {
+        this.deliver = this.onmessage ?? undefined;
+      }
+      terminate() {
+        this.terminated = true;
+      }
+    } as unknown as typeof Worker;
+    return { id: book.id, revision: book.revision };
+  });
+  await page
+    .locator('#file')
+    .setInputFiles({ name: 'pending.csv', mimeType: 'text/csv', buffer: Buffer.from('a,b') });
+  await expect
+    .poll(() => page.evaluate(() => !!(window as any).testWorkers[0]?.deliver))
+    .toBe(true);
+  await page.locator('#file').setInputFiles({
+    name: 'oversized.csv',
+    mimeType: 'text/csv',
+    buffer: Buffer.alloc(20 * 1024 * 1024 + 1),
+  });
+  await expect(page.locator('#notice')).toContainText('20 MiB');
+  const result = await page.evaluate(async () => {
+    const state = window as any;
+    await state.testWorkers[0].deliver({ data: { file: state.staleSnapshot } });
+    const book = window.opensheet.getWorkbook();
+    return {
+      terminated: state.testWorkers[0].terminated,
+      id: book.id,
+      revision: book.revision,
+      value: await book.getSheets()[0].range('A1').getValues(),
+      input: (document.querySelector('#file') as HTMLInputElement).value,
+    };
+  });
+  expect(result).toEqual({ terminated: true, ...before, value: [['original']], input: '' });
+  await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
+});
+test('an edit completed during file parsing prevents stale replacement', async ({ page }) => {
+  const initial = await page.evaluate(async () => {
+    const book = window.opensheet.getWorkbook();
+    const file = await book.toJSON();
+    const NativeWorker = window.Worker;
+    window.Worker = class {
+      onmessage: ((event: MessageEvent) => unknown) | null = null;
+      onerror: (() => unknown) | null = null;
+      constructor(url: URL | string, options?: WorkerOptions) {
+        if (!String(url).includes('file.worker')) return new NativeWorker(url, options) as any;
+      }
+      postMessage() {
+        (window as any).deliverFile = () => this.onmessage?.({ data: { file } } as MessageEvent);
+      }
+      terminate() {}
+    } as unknown as typeof Worker;
+    return book.id;
+  });
+  await page
+    .locator('#file')
+    .setInputFiles({ name: 'pending.csv', mimeType: 'text/csv', buffer: Buffer.from('a') });
+  await page.waitForFunction(() => !!(window as any).deliverFile);
+  await page.evaluate(async () => {
+    await window.opensheet
+      .getWorkbook()
+      .getSheets()[0]
+      .range('A1')
+      .setValues([['new edit']]);
+    (window as any).deliverFile();
+  });
+  await expect(page.locator('#notice')).toContainText('Workbook changed during import');
+  expect(await page.evaluate(() => window.opensheet.getWorkbook().id)).toBe(initial);
+  expect(
+    await page.evaluate(() =>
+      window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
+    ),
+  ).toEqual([['new edit']]);
+});
+
+test('scene change cancels a parsed import before its staged workbook attaches', async ({
+  page,
+}) => {
+  await page.evaluate(async () => {
+    const book = window.opensheet.getWorkbook();
+    const file = await book.toJSON();
+    const prototype = Object.getPrototypeOf(book);
+    const originalReady = prototype.ready;
+    let intercepted = false;
+    const state = window as any;
+    state.stagedReady = false;
+    state.releaseStaged = undefined;
+    prototype.ready = function () {
+      const ready = originalReady.call(this);
+      if (this === book || intercepted) return ready;
+      intercepted = true;
+      state.stagedId = this.id;
+      return ready.then(
+        () =>
+          new Promise((resolve) => {
+            state.stagedReady = true;
+            state.releaseStaged = () => resolve(this);
+          }),
+      );
+    };
+    const NativeWorker = window.Worker;
+    window.Worker = class {
+      onmessage: ((event: MessageEvent) => unknown) | null = null;
+      onerror: (() => unknown) | null = null;
+      constructor(url: URL | string, options?: WorkerOptions) {
+        if (!String(url).includes('file.worker')) return new NativeWorker(url, options) as any;
+      }
+      postMessage() {
+        queueMicrotask(() => this.onmessage?.({ data: { file } } as MessageEvent));
+      }
+      terminate() {}
+    } as unknown as typeof Worker;
+  });
+  await page
+    .locator('#file')
+    .setInputFiles({ name: 'pending.csv', mimeType: 'text/csv', buffer: Buffer.from('a') });
+  await expect.poll(() => page.evaluate(() => (window as any).stagedReady)).toBe(true);
+  await page.getByRole('combobox', { name: 'Choose demo' }).selectOption('sales');
+  await expect(page.locator('#scene-title')).toHaveText('Sales Dashboard');
+  const sceneId = await page.evaluate(() => window.opensheet.getWorkbook().id);
+  await page.evaluate(() => (window as any).releaseStaged());
+  await expect
+    .poll(() =>
+      page.evaluate(async () => {
+        const db = await new Promise<IDBDatabase>((resolve, reject) => {
+          const request = indexedDB.open('opensheet');
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error);
+        });
+        const found = await new Promise<boolean>((resolve, reject) => {
+          const request = db
+            .transaction('heads')
+            .objectStore('heads')
+            .get((window as any).stagedId);
+          request.onsuccess = () => resolve(request.result !== undefined);
+          request.onerror = () => reject(request.error);
+        });
+        db.close();
+        return found;
+      }),
+    )
+    .toBe(false);
+  expect(await page.evaluate(() => window.opensheet.getWorkbook().id)).toBe(sceneId);
+  await expect(page.getByRole('tab', { name: 'Sales Dashboard', exact: true })).toBeVisible();
+});
 test('sheet switches expand selection using the target sheet merges after removal', async ({
   page,
 }) => {
@@ -764,13 +944,7 @@ test('downloads and reimports binary native files in the real storage worker', a
     mimeType: 'application/octet-stream',
     buffer: await readFile(path!),
   });
-  await expect
-    .poll(() =>
-      page.evaluate(
-        async () => await window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
-      ),
-    )
-    .toEqual([['native round trip']]);
+  await expect.poll(() => readForPoll(page, 'A1')).toEqual([['native round trip']]);
   await expect(page.getByRole('button', { name: 'Import file', exact: true })).toBeEnabled();
 });
 test('scene changes abort pending native imports before they can reattach the prior workbook', async ({

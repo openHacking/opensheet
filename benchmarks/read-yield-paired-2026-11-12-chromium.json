@@ -1,0 +1,75 @@
+{
+  "startedAt": "2026-11-12T09:37:08.023Z",
+  "browserName": "chromium",
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 372,
+    "sha256": "a9365350b4eec0361e673d6cb72462739d86d421e27d233857fc2e9ec4725b93"
+  },
+  "bundles": {
+    "control": "d24ebed279a8944c57c178bea914b0bb1ac4a1074eb611cb16208dca37d00041",
+    "current": "ee92c2e88c9bf239858cf925acee41fd10e48e53864ae922458574cc76260aff"
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "smallMs": 267.09999990463257,
+      "smallTimers": 50,
+      "largeMs": 1.700000286102295,
+      "largeTimers": 0,
+      "verified": 14848
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "smallMs": 6.299999713897705,
+      "smallTimers": 0,
+      "largeMs": 1.3000001907348633,
+      "largeTimers": 2,
+      "verified": 14848
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "smallMs": 5.700000286102295,
+      "smallTimers": 0,
+      "largeMs": 1.299999713897705,
+      "largeTimers": 2,
+      "verified": 14848
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "smallMs": 269.80000019073486,
+      "smallTimers": 50,
+      "largeMs": 1.1999998092651367,
+      "largeTimers": 0,
+      "verified": 14848
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "smallMs": 269.3999996185303,
+      "smallTimers": 50,
+      "largeMs": 1,
+      "largeTimers": 0,
+      "verified": 14848
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "smallMs": 6.099999904632568,
+      "smallTimers": 0,
+      "largeMs": 1.0999999046325684,
+      "largeTimers": 2,
+      "verified": 14848
+    }
+  ],
+  "scope": "Three alternating fresh-context pairs, real Worker and IndexedDB; 50 repeated blank 16x16 viewport reads and one 2048x1 narrow read. Control reconstructs the prior coordinate-based yield condition. Counts Worker setTimeout calls, verifies all returned cells, excludes setup, production UI, concurrent user input, peak memory and other devices.",
+  "browser": "153.0.8010.12",
+  "finishedAt": "2026-11-12T09:37:10.769Z"
+}

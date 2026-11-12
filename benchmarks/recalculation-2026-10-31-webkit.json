@@ -1,0 +1,325 @@
+{
+  "startedAt": "2026-10-30T20:17:14.348Z",
+  "engine": "webkit",
+  "rows": 128,
+  "sourceFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 236,
+    "sha256": "2d3278d459ccf5b9b2c785693fe09d210700136a2e056a0743faf56097e06586"
+  },
+  "localBuildFingerprint": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 11,
+    "sha256": "df77898649f3dcf735c80ac72ac8de7cf2592b824c95702372d3a26e89e331c4"
+  },
+  "browser": "26.6",
+  "node": "v22.19.0",
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10,
+    "memoryBytes": 17179869184
+  },
+  "platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.5.0"
+  },
+  "powerMode": "unrecorded",
+  "scope": "Headless browser, local development server; acknowledged edits and full output reads are separate. No worker memory, internal phase attribution or cross-device acceptance.",
+  "rounds": [
+    {
+      "round": 1,
+      "samples": [
+        {
+          "target": 2,
+          "editMs": 14,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 7
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 9
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "editMs": 21,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 3
+            },
+            {
+              "name": "chain",
+              "readMs": 3
+            },
+            {
+              "name": "overlap",
+              "readMs": 9
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "editMs": 8,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 3
+            },
+            {
+              "name": "overlap",
+              "readMs": 7
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "editMs": 10,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 3
+            },
+            {
+              "name": "chain",
+              "readMs": 3
+            },
+            {
+              "name": "overlap",
+              "readMs": 9
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "editMs": 11,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 6
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512,
+      "undoRedo": true,
+      "reopenedSamples": 4
+    },
+    {
+      "round": 2,
+      "samples": [
+        {
+          "target": 2,
+          "editMs": 10,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 4
+            },
+            {
+              "name": "overlap",
+              "readMs": 10
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "editMs": 12,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 3
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 11
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "editMs": 7,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 8
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "editMs": 9,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 5
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "editMs": 8,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 2
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 4
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512,
+      "undoRedo": true,
+      "reopenedSamples": 4
+    },
+    {
+      "round": 3,
+      "samples": [
+        {
+          "target": 2,
+          "editMs": 13,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 4
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 9
+            }
+          ]
+        },
+        {
+          "target": 3,
+          "editMs": 19,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 6
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 11
+            }
+          ]
+        },
+        {
+          "target": 4,
+          "editMs": 13,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 3
+            },
+            {
+              "name": "chain",
+              "readMs": 3
+            },
+            {
+              "name": "overlap",
+              "readMs": 9
+            }
+          ]
+        },
+        {
+          "target": 5,
+          "editMs": 12,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 8
+            }
+          ]
+        },
+        {
+          "target": 6,
+          "editMs": 8,
+          "outputs": [
+            {
+              "name": "fanout",
+              "readMs": 5
+            },
+            {
+              "name": "chain",
+              "readMs": 2
+            },
+            {
+              "name": "overlap",
+              "readMs": 8
+            }
+          ]
+        }
+      ],
+      "verifiedOutputsPerSample": 512,
+      "undoRedo": true,
+      "reopenedSamples": 4
+    }
+  ]
+}

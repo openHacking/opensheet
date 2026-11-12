@@ -1,0 +1,184 @@
+{
+  "startedAt": "2026-11-12T08:28:53.146Z",
+  "node": "v22.19.0",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "memoryBytes": 17179869184
+  },
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 368,
+    "sha256": "384a0c30afa7105bb9580da4275e9c7410aaa9134f6331378987d5c76c9f39f3"
+  },
+  "bundles": [
+    {
+      "name": "before",
+      "sha256": "e4c1260e802dcb29944ddd2fcdbd5b65513a14e8af8e7941373a3f1175be9b88"
+    },
+    {
+      "name": "after",
+      "sha256": "ab02c4bc0240edfa9acb9a2c3eb4a76cf5109f6230c4cf59e5e5d665d7f33ec3"
+    }
+  ],
+  "scope": "Three alternating fresh Node processes per version and mode. One million blank cells in a 1000x1000 range; timed work includes verifying every value. Heap is sampled between batches and RSS is process high-water, including startup. No browser, formulas, occupied pages, process-isolated baseline subtraction or reference devices.",
+  "samples": [
+    {
+      "round": 1,
+      "bundle": "before",
+      "variant": "matrix",
+      "elapsedMs": 833.1491249999999,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9638104,
+      "observedHeap": 41974992,
+      "afterHeap": 41975336,
+      "retainedHeap": 9785168,
+      "maxRssKiB": 155104
+    },
+    {
+      "round": 1,
+      "bundle": "before",
+      "variant": "batches",
+      "elapsedMs": 953.0965829999999,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9645424,
+      "observedHeap": 53831776,
+      "afterHeap": 53639664,
+      "retainedHeap": 9858800,
+      "maxRssKiB": 153824
+    },
+    {
+      "round": 1,
+      "bundle": "after",
+      "variant": "matrix",
+      "elapsedMs": 821.62075,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9639760,
+      "observedHeap": 45313592,
+      "afterHeap": 45313936,
+      "retainedHeap": 9786136,
+      "maxRssKiB": 154704
+    },
+    {
+      "round": 1,
+      "bundle": "after",
+      "variant": "batches",
+      "elapsedMs": 762.378541,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9646816,
+      "observedHeap": 54572376,
+      "afterHeap": 40822320,
+      "retainedHeap": 9859560,
+      "maxRssKiB": 153200
+    },
+    {
+      "round": 2,
+      "bundle": "after",
+      "variant": "batches",
+      "elapsedMs": 770.382833,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9639688,
+      "observedHeap": 54498728,
+      "afterHeap": 40735232,
+      "retainedHeap": 9859552,
+      "maxRssKiB": 152752
+    },
+    {
+      "round": 2,
+      "bundle": "after",
+      "variant": "matrix",
+      "elapsedMs": 777.344125,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9639168,
+      "observedHeap": 45452752,
+      "afterHeap": 45453096,
+      "retainedHeap": 9786088,
+      "maxRssKiB": 154656
+    },
+    {
+      "round": 2,
+      "bundle": "before",
+      "variant": "batches",
+      "elapsedMs": 831.9209579999999,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9638176,
+      "observedHeap": 54137976,
+      "afterHeap": 53889184,
+      "retainedHeap": 9858728,
+      "maxRssKiB": 153520
+    },
+    {
+      "round": 2,
+      "bundle": "before",
+      "variant": "matrix",
+      "elapsedMs": 816.758542,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9642544,
+      "observedHeap": 42206736,
+      "afterHeap": 42207080,
+      "retainedHeap": 9785296,
+      "maxRssKiB": 154576
+    },
+    {
+      "round": 3,
+      "bundle": "before",
+      "variant": "matrix",
+      "elapsedMs": 825.584625,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9646424,
+      "observedHeap": 57842776,
+      "afterHeap": 57843120,
+      "retainedHeap": 9786384,
+      "maxRssKiB": 154608
+    },
+    {
+      "round": 3,
+      "bundle": "before",
+      "variant": "batches",
+      "elapsedMs": 781.9646250000001,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9645376,
+      "observedHeap": 53952776,
+      "afterHeap": 53768744,
+      "retainedHeap": 9858728,
+      "maxRssKiB": 153904
+    },
+    {
+      "round": 3,
+      "bundle": "after",
+      "variant": "matrix",
+      "elapsedMs": 783.503458,
+      "cells": 1000000,
+      "maxBatch": 1000000,
+      "beforeHeap": 9646776,
+      "observedHeap": 45878080,
+      "afterHeap": 45878424,
+      "retainedHeap": 9786112,
+      "maxRssKiB": 154576
+    },
+    {
+      "round": 3,
+      "bundle": "after",
+      "variant": "batches",
+      "elapsedMs": 760.9367080000001,
+      "cells": 1000000,
+      "maxBatch": 16000,
+      "beforeHeap": 9646176,
+      "observedHeap": 54683568,
+      "afterHeap": 40870064,
+      "retainedHeap": 9859648,
+      "maxRssKiB": 152656
+    }
+  ]
+}

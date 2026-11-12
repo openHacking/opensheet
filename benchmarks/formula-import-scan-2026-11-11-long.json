@@ -1,0 +1,107 @@
+{
+  "startedAt": "2026-11-11T03:39:49.134Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 255,
+    "sha256": "aeab40721ac0945e909853e663ea07006b95b00b5e7612f9658a0ddc274704d1"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "cells": 60000,
+  "limitations": "In-process Node adapter conversion only; alternating variants, synthetic repeated supported formulas, no XLSX parse, browser, Worker or isolated memory measurement.",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 145.43150000000003
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 145.55237500000004
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 101.81387500000005
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 93.99879199999998
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 108.48737500000004
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 101.47745900000007
+    },
+    {
+      "round": 4,
+      "variant": "current",
+      "elapsedMs": 115.01062500000012
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "elapsedMs": 92.46254099999987
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "elapsedMs": 130.72366699999998
+    },
+    {
+      "round": 5,
+      "variant": "current",
+      "elapsedMs": 130.09075000000007
+    },
+    {
+      "round": 6,
+      "variant": "current",
+      "elapsedMs": 122.97941700000001
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "elapsedMs": 85.66141600000014
+    }
+  ],
+  "longSamples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "elapsedMs": 3.8126250000000255
+    },
+    {
+      "round": 1,
+      "variant": "current",
+      "elapsedMs": 5.787375000000111
+    },
+    {
+      "round": 2,
+      "variant": "current",
+      "elapsedMs": 4.9727080000000115
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "elapsedMs": 3.0383750000000873
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "elapsedMs": 3.200708000000077
+    },
+    {
+      "round": 3,
+      "variant": "current",
+      "elapsedMs": 5.19116699999995
+    }
+  ]
+}

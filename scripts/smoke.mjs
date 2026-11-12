@@ -1,5 +1,8 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { copyFileSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createWorkbookFile, FileReader, encodeFileCells } from '../packages/core/dist/index.js';
 import { createOpenSheet } from '../packages/opensheet/dist/index.js';
 import { OpenSheetView as ReactView } from '../packages/react/dist/index.js';
@@ -53,6 +56,36 @@ assert.equal(typeof ReactView, 'function');
 assert.ok(VueView);
 assert.equal(typeof definePlugin, 'function');
 reader.dispose();
+// Resolve the consumer example through the built package's own exports, without
+// relying on a root workspace alias or browser globals.
+const coreDir = fileURLToPath(new URL('../packages/core/', import.meta.url));
+const temporary = mkdtempSync(join(coreDir, '.node-smoke-'));
+try {
+  const example = join(temporary, 'node-file-reader.mjs');
+  const input = join(temporary, 'book.json');
+  copyFileSync(
+    fileURLToPath(new URL('../examples/node-file-reader.mjs', import.meta.url)),
+    example,
+  );
+  writeFileSync(input, JSON.stringify(snapshot));
+  const output = execFileSync(process.execPath, [example, input, sheet.name, 'A1:C1'], {
+    cwd: dirname(temporary),
+    encoding: 'utf8',
+  });
+  assert.deepEqual(JSON.parse(output), { sheet: sheet.name, range: 'A1:C1', values: [[1, 2, 3]] });
+  const oversized = spawnSync(process.execPath, [example, input, sheet.name, 'A1:A10001'], {
+    encoding: 'utf8',
+  });
+  assert.notEqual(oversized.status, 0);
+  assert.match(oversized.stderr, /at most 10,000 cells/);
+  const unknown = spawnSync(process.execPath, [example, input, 'No such sheet', 'A1'], {
+    encoding: 'utf8',
+  });
+  assert.notEqual(unknown.status, 0);
+  assert.match(unknown.stderr, /Unknown sheet/);
+} finally {
+  rmSync(temporary, { recursive: true, force: true });
+}
 console.log(
   'PASS: built package entry points import without a DOM; JSON formulas, adapters and formats work. Worker-backed workbooks are verified in browser tests.',
 );

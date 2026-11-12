@@ -32,3 +32,17 @@ export function createFeedback() {
   };
 }
 export type Feedback = ReturnType<typeof createFeedback>;
+export type WorkbookDialogFeedback = Pick<Feedback, 'modal' | 'notice'> & {
+  isCurrent: () => boolean;
+};
+
+export function currentWorkbookDialog(
+  form: HTMLElement,
+  status: HTMLElement,
+  isCurrent: () => boolean,
+) {
+  if (!form.isConnected || !($('dialog') as HTMLDialogElement).open) return false;
+  if (isCurrent()) return true;
+  status.textContent = 'Workbook changed. Check the previous operation before trying again.';
+  return false;
+}

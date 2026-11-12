@@ -1,11 +1,32 @@
 import { parseFormula } from '@opensheetjs/formula';
-import { assert, key, type CellRecord, type CellInput } from './types.js';
+import { assert, key, LIMITS, OpenSheetError, type CellRecord, type CellInput } from './types.js';
 import { encodeFileCells, decodeFileCells, type FileBlockData } from './file-codec.js';
 export type EncodedBlock = Uint8Array;
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8', { fatal: true });
+function decodeText(bytes: Uint8Array): string {
+  try {
+    return decoder.decode(bytes);
+  } catch {
+    throw new OpenSheetError('CORRUPT_STORAGE', 'Invalid page UTF-8');
+  }
+}
 const kinds = ['numbers', 'strings', 'booleans', 'formulas', 'errors'] as const;
 type Kind = (typeof kinds)[number];
+function columnInput(name: Kind, value: unknown): CellInput {
+  switch (name) {
+    case 'numbers':
+      return { type: 'number', value: value as number };
+    case 'strings':
+      return { type: 'string', value: value as string };
+    case 'booleans':
+      return { type: 'boolean', value: value as boolean };
+    case 'formulas':
+      return { type: 'formula', expression: value as string };
+    case 'errors':
+      return { type: 'error', code: value as string };
+  }
+}
 type Section = {
   name: Kind;
   positions: { mode: number; count: number; offset: number; bytes: number };
@@ -197,16 +218,52 @@ export class ColumnPage {
       size = view.getUint32(4, true),
       base = align(8 + size);
     assert(base <= buffer.length, 'CORRUPT_STORAGE', 'Invalid page header');
-    const meta = JSON.parse(decoder.decode(buffer.subarray(8, 8 + size)));
+    const text = decodeText(buffer.subarray(8, 8 + size));
+    let meta: any;
+    try {
+      meta = JSON.parse(text);
+    } catch {
+      throw new OpenSheetError('CORRUPT_STORAGE', 'Invalid page metadata JSON');
+    }
+    const object = (value: unknown): value is Record<string, unknown> =>
+      value !== null && typeof value === 'object' && !Array.isArray(value);
+    assert(
+      object(meta) &&
+        Object.keys(meta).every((name) =>
+          ['row', 'column', 'styles', 'data', 'sections'].includes(name),
+        ) &&
+        typeof meta.row === 'number' &&
+        Number.isInteger(meta.row) &&
+        typeof meta.column === 'number' &&
+        Number.isInteger(meta.column) &&
+        Array.isArray(meta.styles) &&
+        meta.styles.every((style: unknown) => typeof style === 'string') &&
+        object(meta.data) &&
+        Array.isArray(meta.sections),
+      'CORRUPT_STORAGE',
+      'Invalid page metadata',
+    );
     this.row = meta.row;
     this.column = meta.column;
     this.styles = meta.styles;
     const data: FileBlockData = meta.data;
+    const inlineKinds = new Set(kinds.filter((name) => Object.hasOwn(data, name)));
     let previousEnd = 0;
+    let sectionTextBytes = 0;
     for (const section of meta.sections as Section[]) {
       assert(
-        kinds.includes(section.name) &&
+        object(section) &&
+          Object.keys(section).every((name) =>
+            ['name', 'positions', 'type', 'offset', 'bytes'].includes(name),
+          ) &&
+          object(section.positions) &&
+          Object.keys(section.positions).every((name) =>
+            ['mode', 'count', 'offset', 'bytes'].includes(name),
+          ) &&
+          kinds.includes(section.name) &&
+          !Object.hasOwn(data, section.name) &&
           !this.columns.some((c) => c.name === section.name) &&
+          Number.isInteger(section.positions.count) &&
           section.positions.count > 0 &&
           section.positions.count <= 2048,
         'CORRUPT_STORAGE',
@@ -243,7 +300,14 @@ export class ColumnPage {
         for (let i = 0; i < pview.byteLength; i += 4) {
           const start = pview.getUint16(i, true),
             count = pview.getUint16(i + 2, true);
-          assert(count > 0 && start + count <= 2048, 'CORRUPT_STORAGE', 'Invalid position run');
+          assert(
+            count > 0 &&
+              start + count <= 2048 &&
+              list.length + count <= section.positions.count &&
+              (list.length === 0 || list[list.length - 1] < start),
+            'CORRUPT_STORAGE',
+            'Invalid position run',
+          );
           for (let j = 0; j < count; j++) list.push(start + j);
         }
       } else {
@@ -313,6 +377,14 @@ export class ColumnPage {
             'CORRUPT_STORAGE',
             'String offset',
           );
+          if (i > 0) {
+            const maxCharacters = section.name === 'errors' ? 50 : LIMITS.text;
+            assert(
+              at - prev <= maxCharacters * (wide ? 2 : 3),
+              'LIMIT_EXCEEDED',
+              'Page string exceeds text limit',
+            );
+          }
           prev = at;
         }
         assert(arena + prev === vview.byteLength, 'CORRUPT_STORAGE', 'Trailing string bytes');
@@ -322,7 +394,7 @@ export class ColumnPage {
           const start = vview.getUint32(offsets + index * 4, true),
             end = vview.getUint32(offsets + (index + 1) * 4, true);
           if (!wide)
-            return decoder.decode(
+            return decodeText(
               new Uint8Array(vview.buffer, vview.byteOffset + arena + start, end - start),
             );
           let text = '';
@@ -332,9 +404,33 @@ export class ColumnPage {
         };
       }
       this.columns.push({ name: section.name, positions: new Uint16Array(list), value });
-      (data as any)[section.name] = { positions: list, values: list.map((_, i) => value(i)) };
+      const decodedValues: unknown[] = [];
+      for (let i = 0; i < list.length; i++) {
+        const decoded = value(i);
+        if (typeof decoded === 'string') {
+          assert(
+            decoded.length <= (section.name === 'errors' ? 50 : LIMITS.text),
+            'LIMIT_EXCEEDED',
+            'Page string exceeds text limit',
+          );
+          sectionTextBytes += decoded.length * 3;
+          assert(
+            sectionTextBytes <= 32 * 1024 * 1024,
+            'LIMIT_EXCEEDED',
+            'Page text exceeds 32 MiB working budget',
+          );
+        }
+        decodedValues.push(decoded);
+      }
+      (data as any)[section.name] = { positions: list, values: decodedValues };
     }
-    this.extra = decodeFileCells({ row: this.row, column: this.column, data }, this.styles);
+    this.extra = decodeFileCells(
+      { row: this.row, column: this.column, data },
+      this.styles,
+      undefined,
+      undefined,
+      inlineKinds.size === 0,
+    );
     // Validate once, then retain only sparse properties. Scalar objects never live in the page cache.
     for (const cell of Object.values(this.extra)) {
       if (cell.input.type === 'formula') {
@@ -344,7 +440,16 @@ export class ColumnPage {
           this.dependencies[key(cell.rowId, cell.columnId)] = null;
         }
       }
-      if (cell.input.type !== 'blank') delete (cell as Partial<CellRecord>).input;
+      const kind = {
+        number: 'numbers',
+        string: 'strings',
+        boolean: 'booleans',
+        formula: 'formulas',
+        error: 'errors',
+        blank: undefined,
+      }[cell.input.type] as Kind | undefined;
+      if (cell.input.type !== 'blank' && (!kind || !inlineKinds.has(kind)))
+        delete (cell as Partial<CellRecord>).input;
       if (Object.keys(cell).length === 2) delete this.extra[key(cell.rowId, cell.columnId)];
     }
     this.bytes =
@@ -368,22 +473,29 @@ export class ColumnPage {
         else high = mid;
       }
       if (col.positions[low] !== offset) continue;
-      const value = col.value(low);
-      input =
-        col.name === 'numbers'
-          ? { type: 'number', value: value as number }
-          : col.name === 'strings'
-            ? { type: 'string', value: value as string }
-            : col.name === 'booleans'
-              ? { type: 'boolean', value: value as boolean }
-              : col.name === 'formulas'
-                ? { type: 'formula', expression: value as string }
-                : { type: 'error', code: value as string };
+      input = columnInput(col.name, col.value(low));
       break;
     }
     const extra = this.extra[key(rowId, columnId)];
     if (!input && !extra) return;
-    return { ...extra, rowId, columnId, input: input ?? { type: 'blank' } };
+    return { ...extra, rowId, columnId, input: input ?? extra?.input ?? { type: 'blank' } };
+  }
+  /** Scan occupied cells without constructing a page map or binary-searching each column. */
+  *records(): IterableIterator<CellRecord> {
+    for (const column of this.columns) {
+      for (let index = 0; index < column.positions.length; index++) {
+        const offset = column.positions[index];
+        const rowId = this.row * 64 + Math.floor(offset / 32);
+        const columnId = this.column * 32 + (offset % 32);
+        yield {
+          ...this.extra[key(rowId, columnId)],
+          rowId,
+          columnId,
+          input: columnInput(column.name, column.value(index)),
+        };
+      }
+    }
+    for (const cell of Object.values(this.extra)) if (cell.input) yield { ...cell };
   }
   get cells(): Record<string, CellRecord> {
     const offsets = new Set<number>(

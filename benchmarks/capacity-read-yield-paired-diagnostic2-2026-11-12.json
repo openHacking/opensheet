@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-11-12T10:38:09.134Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 379,
+    "sha256": "1193c42a0635dbd3d09a618e497993584414ccb9e0b57cb2f13a2db944ca2d6e"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "0c769ae4b3c066a62eb3d9b2b3a8fbb4c91ea9dff356cb2a71936dc5f2e12412"
+  },
+  "cpu": "Apple M4",
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "powerMode": "Now drawing from 'AC Power'",
+  "samples": [
+    {
+      "round": 1,
+      "variant": "control",
+      "error": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#scene-title').filter({ hasText: 'Performance Lab' }) to be visible\u001b[22m\n",
+      "workerRequests": 1,
+      "errors": [],
+      "failedRequests": [],
+      "workerDiagnostics": [],
+      "body": "OpenSheet.\nO\nOpen workspace\nOpen-source workspace\nWORKSPACE\nSpreadsheet\n1\nDEVELOPER TOOLS\nAPI quick start\nPlugin example\n Your data stays yours.\n\nFiles are processed on your device.\nNo account. No uploads.\n\nOpen source\nv0.2.0-dev.0\nWorkspace / Playground\n Runs locally\nOS\nDEMO\nPerformance Lab\nBudget Simulator\nSales Dashboard\nProject Planner\nTable to Code\n\nReset demo\nOpening…\nImport file\nSave\nExport JSON\nExport XLSX\nSheet actions\nSort selection A → Z\nSort selection Z → A\nCustom sort…\nPaste special…\nFill series…\nCell note and link…\nFreeze rows and columns before selection\nFreeze first row\nFreeze first column\nUnfreeze rows and columns\nSet selected row height…\nSet selected column width…\nInsert rows above selection\nInsert columns before selection\nDelete selected rows\nDelete selected columns\nHide selected rows\nHide selected columns\nShow selected rows\nShow selected columns\nShow all rows\nShow all columns\nFilter column by search\nCustom filter…\nClear filter\nRename sheet\nDelete sheet\nReplace literal text…\nRead only\nTable view\n100%\n75%\n125%\n150%\n200%\nAutomatic\nNumber\nCurrency\nPercent\nDate\nƒx\nReady\nData view\nCode export\nCells\nBudget (MiB)\nTest size\nFind capacity\nStop\nRestore\nClear test data\nDownload results\n\n100 columns · 60% numbers / 30% 32-byte text / 10% booleans · fixed seed. Each size: 3 rounds, 100 edits, 300 scrolling frames.\n\nPass: edit P95 ≤100 ms · complete scroll frame P95 ≤33 ms · reopen to editable viewport ≤10 s. Formula and XLSX performance are separate workloads.\n\nCells\tResult\tEdit P95\tScroll P95\tRestore\tVerify\tElapsed\tMiB\tBytes/cell\tWorker cache\tViewport cache\tMain heap\n\nEdit the sheet. Your changes update this view in real time."
+    }
+  ],
+  "bundles": {
+    "control": "a836d8ec25cc7ec6b3a64ce7eb30eedfb31304758600db83f61409329a6635bf",
+    "current": "43282cfa5c264510fa6f3d7d8d0e97027e97ed6cf0c02d2c695e5abd031d631f"
+  },
+  "scope": "Three alternating fresh Chromium contexts per variant, local production-preview UI with its engine Worker replaced by esbuild bundles of current source or reconstructed old read-yield condition. Each sample runs the 1m three-round lab including data, viewport and history checks. Worker bundling differs from the production Vite asset in both variants. No native input, process peak memory, other browsers/devices or independent release-commit acceptance.",
+  "browser": "153.0.8010.12",
+  "error": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#scene-title').filter({ hasText: 'Performance Lab' }) to be visible\u001b[22m\n"
+}
