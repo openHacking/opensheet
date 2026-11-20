@@ -41,7 +41,18 @@ try {
   page.on('response', (response) => {
     if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`);
   });
-  for (const id of ['budget', 'sales', 'planner', 'code', 'performance']) {
+  await page.goto('http://127.0.0.1:5185/opensheet/');
+  const entry = page.getByRole('link', { name: 'Try all features' });
+  assert.equal(await entry.getAttribute('href'), '#features');
+  await page.waitForFunction(() => document.querySelector('#scene-title')?.textContent);
+  await entry.click();
+  await page.getByRole('heading', { name: 'All Features' }).waitFor();
+  await page.getByRole('button', { name: 'Rates!B2', exact: true }).click();
+  assert.equal(
+    await page.getByRole('tab', { name: 'Rates', exact: true }).getAttribute('aria-selected'),
+    'true',
+  );
+  for (const id of ['features', 'budget', 'sales', 'planner', 'code', 'performance']) {
     await page.goto(`http://127.0.0.1:5185/opensheet/#${id}`);
     await page.waitForSelector('.os-grid');
     await page.waitForFunction(() => !document.querySelector('#scene-select')?.disabled);
@@ -65,7 +76,11 @@ try {
     mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     buffer: write(workbook, { type: 'buffer', bookType: 'xlsx' }),
   });
-  await page.getByRole('tab', { name: 'Imported', exact: true }).waitFor();
+  const imported = page.getByRole('tab', { name: 'Imported', exact: true });
+  const convert = page.getByRole('button', { name: 'Import converted workbook', exact: true });
+  await imported.or(convert).first().waitFor();
+  if (await convert.isVisible()) await convert.click();
+  await imported.waitFor();
   assert.equal(
     await page.evaluate(
       async () =>

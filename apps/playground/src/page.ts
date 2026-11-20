@@ -18,6 +18,7 @@ import {
   type IconNode,
 } from 'lucide';
 import { apiExample, pluginExample } from './developer-pages.js';
+import { featureGuide } from './feature-guide.js';
 import { scenes } from './scenes.js';
 export function mountPage() {
   const icon = (node: IconNode) =>
@@ -40,7 +41,7 @@ export function mountPage() {
   <div class="sidebar-bottom"><div class="privacy-mark">${icon(ShieldCheck)} <span>Your data stays yours.</span></div><p>Files are processed on your device.<br>No account. No uploads.</p><div class="version"><span class="dot"></span> Open source <span>v0.2.0-dev.0</span></div></div>
 </aside>
 <div class="page">
-  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <span id="page-name">Playground</span></div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">${icon(HelpCircle)}</button><span class="avatar">OS</span></div></header>
+  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <span id="page-name">Playground</span></div><div class="top-actions"><span class="local-chip"><span class="dot"></span> Runs locally</span><button class="icon-button" id="help" aria-label="Keyboard shortcuts">${icon(HelpCircle)}</button><a class="text-button feature-entry" href="#features">Try all features</a></div></header>
   <main>
     <div id="spreadsheet-page">
     <section class="workspace-heading" aria-label="Demo controls">
@@ -60,7 +61,7 @@ export function mountPage() {
           <button id="tab-insights" role="tab" aria-controls="panel-insights" aria-selected="true">Data view</button>
           <button id="tab-code" role="tab" aria-controls="panel-code" aria-selected="false">Code export</button>
         </div>
-        <section class="scene-overview" id="panel-insights" role="tabpanel" aria-labelledby="tab-insights"><div id="scene-insights" aria-live="polite"></div><p class="scene-hint" id="scene-hint">Edit the sheet. Your changes update this view in real time.</p></section>
+        <section class="scene-overview" id="panel-insights" role="tabpanel" aria-labelledby="tab-insights"><div id="feature-guide" hidden>${featureGuide}</div><div id="scene-insights" aria-live="polite"></div><p class="scene-hint" id="scene-hint">Edit the sheet. Your changes update this view in real time.</p></section>
         <section class="source-card" id="panel-code" role="tabpanel" aria-labelledby="tab-code" hidden><div class="source-heading"><div><span class="small-icon">${icon(Code2)}</span><h2>From cells to code</h2><span class="live-badge">LIVE</span></div><button id="copy-code" class="text-button" disabled>${icon(Copy)} Copy preview</button></div><div class="source-tabs"><div class="format-tabs" role="tablist" aria-label="Export format"><button id="format-latex" class="selected" data-format="latex" role="tab" aria-selected="true" aria-controls="format-preview" tabindex="0">LaTeX</button><button id="format-markdown" data-format="markdown" role="tab" aria-selected="false" aria-controls="format-preview" tabindex="-1">Markdown</button><button id="format-html" data-format="html" role="tab" aria-selected="false" aria-controls="format-preview" tabindex="-1">HTML</button><button id="format-csv" data-format="csv" role="tab" aria-selected="false" aria-controls="format-preview" tabindex="-1">CSV</button><button id="format-tsv" data-format="tsv" role="tab" aria-selected="false" aria-controls="format-preview" tabindex="-1">TSV</button></div><label><input id="export-selection" type="checkbox" tabindex="0"> Selected cells only</label></div><pre id="format-preview" role="tabpanel" aria-labelledby="format-latex" tabindex="0"><code id="source"></code></pre><div class="source-footer"><span id="export-note">Ready to paste into your next project.</span><button id="download-code" class="text-button">${icon(Download)} Download</button></div></section>
       </aside>
     </div>

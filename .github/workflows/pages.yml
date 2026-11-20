@@ -27,7 +27,9 @@ jobs:
           OPENSHEET_BASE_PATH: /opensheet/
       - run: git diff --exit-code -- schemas api-manifest.json apps/playground/public/third-party-licenses.txt
       - run: pnpm exec playwright install --with-deps chromium webkit
-      - run: pnpm test:e2e
+      # CI runs the full cross-browser suite. Verify the published demo paths
+      # here without repeating the full workbook engine stress tests.
+      - run: pnpm test:e2e --project=chromium --project=webkit --retries=1 scenes.spec.ts playground.spec.ts
       - run: pnpm test:pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

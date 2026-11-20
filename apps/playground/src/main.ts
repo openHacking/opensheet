@@ -5,6 +5,7 @@ import { createBindings } from './bindings.js';
 import { createPerformance } from './performance.js';
 import { createCodePreview } from './code-preview.js';
 import { $ } from './dom.js';
+import { bindFeatureGuide } from './feature-guide.js';
 import { createFeedback } from './feedback.js';
 import { createFileActions } from './files.js';
 import { renderInsights } from './insights.js';
@@ -26,7 +27,17 @@ const app = createOpenSheet({
 });
 app.use(sumPlugin);
 const workbench = createWorkbench();
+const stopFeatureGuide = bindFeatureGuide(app, feedback.notice);
 const refresh = () => {
+  const showGuide = state.currentScene === 'features' && !state.importedWorkbook;
+  $('feature-guide').hidden = !showGuide;
+  $('scene-insights').hidden = showGuide;
+  $('scene-hint').hidden = showGuide;
+  $('tab-insights').textContent = showGuide ? 'Try features' : 'Data view';
+  if (showGuide) {
+    preview.refresh();
+    return;
+  }
   if (state.currentScene === 'performance') {
     performanceLab.update();
     return;
@@ -103,6 +114,7 @@ window.addEventListener(
     interactions.dispose();
     routing.dispose();
     workbench.dispose();
+    stopFeatureGuide();
     feedback.dispose();
     stopCommit();
     stopPersistence();

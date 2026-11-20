@@ -225,18 +225,6 @@ button:disabled {
   width: 14px;
   height: 14px;
 }
-.avatar {
-  width: 29px;
-  height: 29px;
-  background: #e9efe2;
-  display: grid;
-  place-items: center;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  font-size: 9px;
-  color: #6c855a;
-  font-weight: 700;
-}
 main {
   max-width: 1600px;
   margin: auto;
@@ -1370,6 +1358,40 @@ dialog::backdrop {
 }
 .scene-hint {
   margin: 15px 0 0;
+}
+.feature-entry,
+#feature-guide a {
+  color: #227c55;
+}
+.feature-entry {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+#feature-guide details {
+  border-bottom: 1px solid #e7eee7;
+  padding: 12px 0;
+}
+#feature-guide details:first-child {
+  padding-top: 0;
+}
+#feature-guide summary {
+  color: #234b36;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+#feature-guide p {
+  color: #526557;
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 8px 0 0;
+}
+#feature-guide .feature-range {
+  display: inline;
+  padding: 0;
+  text-decoration: underline;
+  white-space: nowrap;
 }
 .source-card {
   flex: 1 1 auto;

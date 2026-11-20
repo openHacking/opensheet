@@ -1,5 +1,7 @@
 import { createWorkbook, type WorkbookFile } from 'opensheet';
-export type SceneId = 'budget' | 'sales' | 'planner' | 'code' | 'performance';
+import { createFeatureWorkbook } from './feature-workbook.js';
+
+export type SceneId = 'features' | 'budget' | 'sales' | 'planner' | 'code' | 'performance';
 export const scenes: Record<
   SceneId,
   {
@@ -9,10 +11,10 @@ export const scenes: Record<
     icon: string;
   }
 > = {
-  performance: {
-    title: 'Performance Lab',
-    label: '05 / SCALE',
-    description: 'Find the largest editable workbook within a bounded local storage budget.',
+  features: {
+    title: 'All Features',
+    label: '',
+    description: 'Try the editor with a sample workbook and guided exercises.',
     icon: '↗',
   },
   budget: {
@@ -39,8 +41,17 @@ export const scenes: Record<
     description: 'One table. Five formats. Ready for your next document.',
     icon: '〈〉',
   },
+  performance: {
+    title: 'Performance Lab',
+    label: '05 / SCALE',
+    description: 'Find the largest editable workbook within a bounded local storage budget.',
+    icon: '↗',
+  },
 };
-export async function createScene(id: Exclude<SceneId, 'budget'>): Promise<WorkbookFile> {
+export async function createScene(
+  id: Exclude<SceneId, 'budget' | 'performance'>,
+): Promise<WorkbookFile> {
+  if (id === 'features') return createFeatureWorkbook();
   const book = await createWorkbook({
     sheets: [{ name: scenes[id].title, rows: 100, columns: 12 }],
   });

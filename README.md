@@ -12,10 +12,11 @@
 
 ## Try it
 
-Explore five interactive examples, powered by the same OpenSheet API:
+Explore six interactive examples, powered by the same OpenSheet API:
 
 | Demo                                                                | What to try                                                                |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [All Features](https://openhacking.github.io/opensheet/#features)   | Edit a multi-sheet workbook and try guided exercises for the editor, files, exports and plugins. |
 | [Budget Simulator](https://openhacking.github.io/opensheet/#budget) | Change quantities and prices; watch totals and spending indicators update. |
 | [Sales Dashboard](https://openhacking.github.io/opensheet/#sales)   | Edit monthly revenue; see live metrics and a revenue chart.                |
 | [Project Planner](https://openhacking.github.io/opensheet/#planner) | Adjust task dates and progress; update a project timeline.                 |

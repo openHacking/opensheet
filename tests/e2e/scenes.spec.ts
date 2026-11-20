@@ -1,4 +1,56 @@
 import { test, expect } from '@playwright/test';
+import { readForPoll } from './read-for-poll.js';
+
+test('all features is discoverable and its sample remains editable, persistent and resettable', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  await page.getByRole('link', { name: 'Try all features' }).click();
+  await expect(page).toHaveURL(/#features$/);
+  await expect(page.getByRole('heading', { name: 'All Features' })).toBeVisible();
+  await expect(page.getByRole('combobox', { name: 'Choose demo' })).toHaveValue('features');
+  await expect(page.getByRole('tab', { name: 'Try features' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+
+  await page.getByRole('button', { name: 'Rates!B2', exact: true }).click();
+  await expect(page.getByRole('tab', { name: 'Rates', exact: true })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+  await expect(page.getByRole('textbox', { name: 'Cell address' })).toHaveValue('B2');
+  await expect.poll(() => readForPoll(page, 'E2')).toEqual([[91.8]]);
+  const formula = page.getByRole('combobox', { name: 'Formula bar' });
+  await formula.fill('0');
+  await formula.press('Enter');
+  await expect.poll(() => readForPoll(page, 'E2')).toEqual([[102]]);
+
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'All Features' })).toBeVisible();
+  await page.getByRole('button', { name: 'Rates!B2', exact: true }).click();
+  await expect.poll(() => readForPoll(page, 'E2')).toEqual([[102]]);
+  await page.getByText('Format, merge and annotate', { exact: true }).click();
+  await page.getByRole('button', { name: 'Orders!A2', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Sheet actions' }).selectOption('annotation');
+  await expect(page.getByRole('dialog')).toContainText('Note and link');
+  await expect(page.getByRole('textbox', { name: 'Cell note', exact: true })).toHaveValue(
+    'Bulk discount applies to this order. Change it on Rates.',
+  );
+  await page.getByRole('button', { name: 'Close dialog' }).click();
+
+  await page.getByRole('tab', { name: 'Code export' }).click();
+  await page.getByRole('tab', { name: 'CSV', exact: true }).click();
+  await expect(page.locator('#source')).toContainText('Notebook');
+  await page.getByRole('button', { name: 'Reset demo' }).click();
+  await expect(page.getByRole('tab', { name: 'Try features' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+  await page.getByRole('button', { name: 'Rates!B2', exact: true }).click();
+  await expect.poll(() => readForPoll(page, 'E2')).toEqual([[91.8]]);
+});
 
 for (const failure of [false, true]) {
   test(`developer page stays selected when a scene load ${failure ? 'fails' : 'finishes'}`, async ({
