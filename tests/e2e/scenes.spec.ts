@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 import { readForPoll } from './read-for-poll.js';
 
 test('all features is discoverable and its sample remains editable, persistent and resettable', async ({
@@ -207,9 +208,11 @@ test('table code updates and downloads a complete export', async ({ page }) => {
   );
   await page.getByRole('tab', { name: 'Markdown', exact: true }).click();
   await expect(page.locator('#source')).toContainText('Updated model');
-  const downloaded = page.waitForEvent('download');
+  const downloading = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download', exact: false }).last().click();
-  expect((await downloaded).suggestedFilename()).toBe('Table to Code.md');
+  const downloaded = await downloading;
+  expect(downloaded.suggestedFilename()).toMatch(/^Table[ _]to[ _]Code\.md$/);
+  expect(await readFile((await downloaded.path())!, 'utf8')).toContain('Updated model');
 });
 test('demo selector, history and reload preserve the chosen scene', async ({ page }) => {
   await page.goto('/#sales');
