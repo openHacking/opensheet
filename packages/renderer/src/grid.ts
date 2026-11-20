@@ -1,6 +1,6 @@
 import { OpenSheetError, Workbook, type Selection } from '@opensheetjs/core';
 import { copyText, pasteText, pasteHTML } from './clipboard.js';
-import { copyClipboard } from './copy-clipboard.js';
+import { copyClipboard, writeClipboard } from './copy-clipboard.js';
 import { CellEditor } from './editor.js';
 import { FormulaAssist } from './formula-assist.js';
 import { formulaReferenceColor, resolveFormulaReferenceSpans } from './formula-references.js';
@@ -10,7 +10,7 @@ import { GridLayout } from './layout.js';
 import { paintGrid } from './paint.js';
 import { GridSelection } from './selection.js';
 import { GridScrollbars } from './scrollbars.js';
-import type { GridOptions } from './types.js';
+import type { GridOptions, GridTarget } from './types.js';
 export class CanvasGrid {
   readonly element: HTMLDivElement;
   readonly scroller: HTMLDivElement;
@@ -51,6 +51,7 @@ export class CanvasGrid {
     focus: { row: number; column: number };
   };
   private zoom = 1;
+  private headerAnchor?: { kind: 'row' | 'column'; index: number };
   private formulaReferences: Selection[] = [];
   constructor(
     private container: HTMLElement,
@@ -133,6 +134,13 @@ export class CanvasGrid {
       select: (s) => this.setSelection(s),
       selectBetween: (a, b) => this.selectBetween(a, b),
       hit: (e) => this.hit(e),
+      selectHeader: (event) => {
+        if (options.preserveContextFocus?.()) return false;
+        const target = this.pointerTarget(event);
+        if (!target || target.kind === 'cell') return false;
+        this.selectHeader(target.kind, target.index, event.shiftKey);
+        return true;
+      },
       move: (r, c, extend) => this.move(r, c, extend),
       page: (direction, extend) => this.move(direction, 0, extend, true),
       dataJump: (rows, columns, extend) => this.run(() => this.dataJump(rows, columns, extend)),
@@ -150,6 +158,50 @@ export class CanvasGrid {
       startKeyboardReference: () => this.options.onKeyboardReference?.() ?? false,
       referencePicker: options.referencePicker,
     });
+    if (options.onContextMenu) {
+      const canOpen = () =>
+        !this.cellEditor.isEditing &&
+        !this.cellEditor.isComposing &&
+        !options.preserveContextFocus?.();
+      this.element.addEventListener(
+        'contextmenu',
+        (event) => {
+          if (!canOpen() || event.target === this.cellEditor.element) return;
+          let target = this.pointerTarget(event);
+          if (!target) return;
+          if (target.kind === 'cell') {
+            const merge = this.mergeAt(target.row, target.column);
+            if (merge) target = { kind: 'cell', row: merge.startRow, column: merge.startColumn };
+          }
+          event.preventDefault();
+          this.prepareContextSelection(target);
+          options.onContextMenu?.(target, { x: event.clientX, y: event.clientY });
+        },
+        { signal },
+      );
+      this.element.addEventListener(
+        'keydown',
+        (event) => {
+          if (
+            event.defaultPrevented ||
+            event.target !== this.element ||
+            !canOpen() ||
+            (event.key !== 'ContextMenu' && !(event.shiftKey && event.key === 'F10'))
+          )
+            return;
+          event.preventDefault();
+          const { startRow, startColumn } = this.selection;
+          const target = this.headerAnchor
+            ? {
+                kind: this.headerAnchor.kind,
+                index: this.headerAnchor.kind === 'row' ? startRow : startColumn,
+              }
+            : { kind: 'cell' as const, row: startRow, column: startColumn };
+          options.onContextMenu?.(target, this.contextPoint(target));
+        },
+        { signal },
+      );
+    }
     const refreshCellReferences = () => {
       if (this.disposed || !this.cellEditor.isEditing || this.cellEditor.isComposing) return;
       const source = this.cellEditor.element.value;
@@ -234,7 +286,13 @@ export class CanvasGrid {
         startColumn: Math.min(this.selected.startColumn, sheet.columnCount - 1),
         endColumn: Math.min(this.selected.endColumn, sheet.columnCount),
       };
-      this.selected = this.expandSelection(this.selected);
+      if (this.headerAnchor)
+        this.selected = {
+          ...this.selected,
+          endRow: this.headerAnchor.kind === 'column' ? sheet.rowCount : this.selected.endRow,
+          endColumn: this.headerAnchor.kind === 'row' ? sheet.columnCount : this.selected.endColumn,
+        };
+      else this.selected = this.expandSelection(this.selected);
       this.cellEditor.selectionChanged(this.selected);
       if (
         previousSelection.sheetId !== this.selected.sheetId ||
@@ -300,6 +358,9 @@ export class CanvasGrid {
     this.setSelection({ sheetId: id, startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 });
   }
   setSelection(selection: Selection) {
+    this.updateSelection(selection, false);
+  }
+  private updateSelection(selection: Selection, header: boolean) {
     if (this.disposed) return;
     if (this.applyingDataJump) this.applyingDataJump = false;
     else this.cancelDataJump();
@@ -309,11 +370,12 @@ export class CanvasGrid {
       if (selection.sheetId !== this.sheetId) return;
     }
     this.book.getSheetById(this.sheetId)!.range(selection);
-    this.selected = this.expandSelection(selection);
+    this.headerAnchor = undefined;
+    this.selected = header ? { ...selection } : this.expandSelection(selection);
     this.selectionRevision++;
     this.cellEditor.selectionChanged(this.selected);
     if (this.layoutState.dirty) this.layout();
-    this.revealCell(this.selected.startRow, this.selected.startColumn);
+    if (!header) this.revealCell(this.selected.startRow, this.selected.startColumn);
     this.options.onSelection?.(this.selection);
     this.schedule();
   }
@@ -357,6 +419,77 @@ export class CanvasGrid {
       this.book.sheetData(this.sheetId).freeze,
       this.scroller,
     );
+  }
+  private pointerTarget(e: MouseEvent) {
+    if (this.layoutState.dirty) this.layout();
+    return this.layoutState.target(
+      e,
+      this.element,
+      this.book.sheetData(this.sheetId).freeze,
+      this.scroller,
+    );
+  }
+  get selectionAxis() {
+    return this.headerAnchor?.kind;
+  }
+  private selectHeader(
+    kind: 'row' | 'column',
+    index: number,
+    extend = false,
+    selectionAnchor?: number,
+  ) {
+    const prior = this.headerAnchor;
+    const sheet = this.book.getSheetById(this.sheetId)!;
+    const axisSize = kind === 'row' ? sheet.rowCount : sheet.columnCount;
+    const anchor = Math.min(
+      selectionAnchor ?? (extend && prior?.kind === kind ? prior.index : index),
+      axisSize - 1,
+    );
+    this.updateSelection(
+      {
+        sheetId: sheet.id,
+        startRow: kind === 'row' ? Math.min(anchor, index) : 0,
+        endRow: kind === 'row' ? Math.max(anchor, index) + 1 : sheet.rowCount,
+        startColumn: kind === 'column' ? Math.min(anchor, index) : 0,
+        endColumn: kind === 'column' ? Math.max(anchor, index) + 1 : sheet.columnCount,
+      },
+      true,
+    );
+    this.headerAnchor = { kind, index: anchor };
+    this.focus();
+  }
+  private prepareContextSelection(target: GridTarget) {
+    const selection = this.selection;
+    if (target.kind === 'cell') {
+      const { row, column } = target;
+      if (
+        row < selection.startRow ||
+        row >= selection.endRow ||
+        column < selection.startColumn ||
+        column >= selection.endColumn
+      )
+        this.selectBetween(target, target);
+      return;
+    }
+    const row = target.kind === 'row';
+    const start = row ? selection.startRow : selection.startColumn;
+    const end = row ? selection.endRow : selection.endColumn;
+    const inside = target.index >= start && target.index < end;
+    if (inside && this.headerAnchor?.kind === target.kind) return;
+    if (inside && !this.headerAnchor) this.selectHeader(target.kind, end - 1, false, start);
+    else this.selectHeader(target.kind, target.index);
+  }
+  contextPoint(target: GridTarget) {
+    if (this.layoutState.dirty) this.layout();
+    const rect = this.element.getBoundingClientRect();
+    const row = target.kind === 'cell' ? target.row : target.kind === 'row' ? target.index : 0;
+    const column =
+      target.kind === 'cell' ? target.column : target.kind === 'column' ? target.index : 0;
+    const point = this.position(row, column);
+    return {
+      x: rect.left + (target.kind === 'row' ? LEFT : Math.max(LEFT, point.x)),
+      y: rect.top + (target.kind === 'column' ? TOP : Math.max(TOP, point.y)),
+    };
   }
   private hit(e: MouseEvent) {
     if (this.layoutState.dirty) this.layout();
@@ -806,6 +939,9 @@ export class CanvasGrid {
   }
   copyText() {
     return copyText(this.activeRange());
+  }
+  copyToClipboard() {
+    return writeClipboard(this.activeRange());
   }
   copyClipboard() {
     return copyClipboard(this.activeRange());

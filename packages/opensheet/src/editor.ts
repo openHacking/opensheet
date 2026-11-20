@@ -20,12 +20,14 @@ import { StatusBar } from './ui/status.js';
 import { SheetTabs } from './ui/tabs.js';
 import { Toast } from './ui/toast.js';
 import { Toolbar } from './ui/toolbar.js';
+import { WorkbookActions } from './ui/workbook-actions.js';
 export class OpenSheet {
   readonly element: HTMLDivElement;
   readonly plugins: PluginRegistry;
   private book?: Workbook;
   private grid?: CanvasGrid;
   private toolbarView: Toolbar;
+  private workbookActions: WorkbookActions;
   private formulaBar: FormulaBar;
   private tabsView: SheetTabs;
   private statusBar = new StatusBar();
@@ -47,6 +49,16 @@ export class OpenSheet {
     if (!container) throw new OpenSheetError('INVALID_ARGUMENT', 'Container was not found');
     this.element = document.createElement('div');
     this.element.className = 'opensheet';
+    this.workbookActions = new WorkbookActions(this.element, {
+      book: () => (this.disposed ? undefined : this.book),
+      grid: () => (this.disposed ? undefined : this.grid),
+      select: (selection) => this.selection.set(selection),
+      canEdit: () => !this.importing && this.options.mode !== 'read',
+      preserveFocus: () =>
+        !!this.grid?.isComposing || this.hasDraft || this.formulaBar.canPickReference(),
+      run: (fn) => this.run(fn),
+      notice: (message) => this.notify(message),
+    });
     this.toolbarView = new Toolbar(
       {
         getWorkbook: () => this.getWorkbook(),
@@ -54,6 +66,9 @@ export class OpenSheet {
         getSelectionState: () =>
           this.grid ? { owner: this.grid, version: this.grid.selectionVersion } : undefined,
         run: (fn) => this.run(fn),
+        openMenu: (kind, trigger) => this.workbookActions.toolbar(kind, trigger),
+        annotate: () => this.workbookActions.annotate(),
+        openSelectionMenu: (kind, trigger) => this.workbookActions.selectionMenu(kind, trigger),
       },
       options.toolbar !== false,
     );
@@ -71,6 +86,7 @@ export class OpenSheet {
       book: () => this.getWorkbook(),
       activeSheet: () => this.grid!.activeSheetId,
       setSheet: (id) => this.grid!.setSheet(id),
+      openMenu: (id, trigger) => this.workbookActions.sheetMenu(id, trigger),
       preserveFormulaFocus: () =>
         !!this.grid?.isComposing ||
         this.formulaBar.canPickReference() ||
@@ -194,6 +210,7 @@ export class OpenSheet {
     this.importing = true;
     this.grid?.setReadOnly(true);
     this.formulaBar.setReadOnly(true);
+    this.updateDataTools();
     try {
       await action(book);
       signal?.throwIfAborted();
@@ -205,6 +222,7 @@ export class OpenSheet {
       if (!this.disposed && this.book) {
         this.grid?.setReadOnly(this.book.isReadOnly);
         this.formulaBar.setReadOnly(this.book.isReadOnly);
+        this.updateDataTools();
       }
     }
   }
@@ -293,7 +311,13 @@ export class OpenSheet {
     book.setReadOnly(read);
     const readonly = this.importing || book.isReadOnly;
     this.formulaBar.setReadOnly(readonly);
+    this.workbookActions.dismissMenu();
     this.grid = new CanvasGrid(this.viewport, book, {
+      onContextMenu:
+        this.options.contextMenu === false
+          ? undefined
+          : (target, point) => this.workbookActions.gridMenu(target, point),
+      preserveContextFocus: () => this.hasDraft || this.formulaBar.canPickReference(),
       readOnly: readonly,
       onKeyboardReference: () =>
         this.transferCellFormulaDraft() && this.formulaBar.startKeyboardReference(),
@@ -319,6 +343,7 @@ export class OpenSheet {
     let viewReadOnly = readonly;
     const stopPersistence = book.onPersistence((state) => {
       const nextReadOnly = this.importing || book.isReadOnly;
+      this.updateDataTools();
       if (nextReadOnly !== viewReadOnly) {
         viewReadOnly = nextReadOnly;
         this.grid?.setReadOnly(nextReadOnly);
@@ -344,6 +369,7 @@ export class OpenSheet {
     this.book!.setReadOnly(read);
     this.grid?.setReadOnly(this.importing || this.book!.isReadOnly);
     this.formulaBar.setReadOnly(this.importing || this.book!.isReadOnly);
+    this.updateSelection();
   }
   private transferCellFormulaDraft() {
     const draft = this.grid?.takeFormulaDraft();
@@ -468,9 +494,19 @@ export class OpenSheet {
         }
       });
   }
+  private updateDataTools() {
+    const book = this.book;
+    const sheetId = this.grid?.activeSheetId;
+    const editable =
+      !!book && !!sheetId && !this.importing && !book.isReadOnly && !book.persistenceState.pending;
+    const filtered =
+      !!book && !!sheetId && !!book.getSheetById(sheetId) && !!book.sheetData(sheetId).filter;
+    this.toolbarView.updateDataTools(editable, filtered);
+  }
   private updateSelection() {
     if (!this.book) return;
     const s = this.grid?.selection ?? null;
+    this.updateDataTools();
     this.formulaBar.update(this.book, s);
     void this.statusBar.update(this.book, s).catch((e) => {
       if (!this.disposed) this.error(e);
@@ -490,6 +526,7 @@ export class OpenSheet {
     this.toastView.dispose();
     this.emit('lifecycle:disposed', undefined);
     this.events.clear();
+    this.workbookActions.dispose();
     this.toolbarView.dispose();
     this.formulaBar.dispose();
     this.tabsView.dispose();

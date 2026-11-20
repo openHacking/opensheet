@@ -1,32 +1,35 @@
 import {
+  parseRange,
+  rangeAddress,
   OpenSheetError,
   columnName,
   type Rect,
   type SortColumn,
   type Workbook,
 } from '@opensheetjs/core';
-import { $ } from './dom.js';
-import { currentWorkbookDialog, type WorkbookDialogFeedback } from './feedback.js';
+import { currentWorkbookDialog, type WorkbookDialogFeedback } from './workbook-dialog.js';
 
 export function showSortDialog(
   book: Workbook,
   selection: Rect & { sheetId: string },
-  { modal, notice, isCurrent }: WorkbookDialogFeedback,
+  { modal, notice, isCurrent, isTargetCurrent = isCurrent }: WorkbookDialogFeedback,
+  options: { column?: number; direction?: 'asc' | 'desc'; suggestRange?: boolean } = {},
 ) {
   if (book.isReadOnly) {
     notice('Switch off read only to sort.');
     return;
   }
-  const range = { ...selection },
-    baseRevision = book.revision;
+  let range = { ...selection };
+  const baseRevision = book.revision;
   const form = document.createElement('form');
   form.className = 'sort-form';
   const description = document.createElement('p');
-  description.textContent = `Sort selected rows ${range.startRow + 1}–${range.endRow}, columns ${columnName(range.startColumn)}–${columnName(range.endColumn)}. Levels are applied from top to bottom. Equal rows keep their original order.`;
+  description.textContent = `Sort selected rows ${range.startRow + 1}–${range.endRow}, columns ${columnName(range.startColumn)}–${columnName(range.endColumn - 1)}. Levels are applied from top to bottom. Equal rows keep their original order.`;
   const headerLabel = document.createElement('label');
   const header = document.createElement('input');
   header.type = 'checkbox';
   header.tabIndex = 0;
+  header.checked = options.suggestRange ?? false;
   headerLabel.append(header, ' First selected row contains headers');
   const levels = document.createElement('div');
   const add = document.createElement('button');
@@ -39,7 +42,41 @@ export function showSortDialog(
   apply.tabIndex = 0;
   apply.type = 'submit';
   apply.textContent = 'Apply sort';
-  const keys: SortColumn[] = [{ column: range.startColumn, direction: 'asc' }];
+  const keys: SortColumn[] = [
+    { column: options.column ?? range.startColumn, direction: options.direction ?? 'asc' },
+  ];
+  const rangeInput = document.createElement('input');
+  rangeInput.setAttribute('aria-label', 'Sort range');
+  rangeInput.value = rangeAddress(range);
+  const useRange = document.createElement('button');
+  useRange.type = 'button';
+  useRange.textContent = 'Update range';
+  const changeRange = () => {
+    range = {
+      sheetId: selection.sheetId,
+      ...book.getSheetById(selection.sheetId)!.range(parseRange(rangeInput.value)).bounds,
+    };
+    description.textContent = `Sort ${rangeAddress(range)}. Levels are applied from top to bottom.`;
+  };
+  useRange.onclick = () => {
+    try {
+      changeRange();
+      const surviving = keys.filter(
+        ({ column }) => column >= range.startColumn && column < range.endColumn,
+      );
+      keys.splice(
+        0,
+        keys.length,
+        ...(surviving.length
+          ? surviving
+          : [{ column: range.startColumn, direction: options.direction ?? 'asc' }]),
+      );
+      error.textContent = '';
+      render();
+    } catch (reason) {
+      error.textContent = reason instanceof Error ? reason.message : String(reason);
+    }
+  };
   function syncRows() {
     [...levels.children].forEach((element, index) => {
       const row = element as HTMLElement;
@@ -108,7 +145,19 @@ export function showSortDialog(
   };
   form.onsubmit = async (event) => {
     event.preventDefault();
-    if (!currentWorkbookDialog(form, error, isCurrent)) return;
+    if (!currentWorkbookDialog(form, error, isTargetCurrent)) return;
+    if (options.suggestRange) {
+      try {
+        changeRange();
+        if (keys.some(({ column }) => column < range.startColumn || column >= range.endColumn))
+          throw new Error(
+            'Choose a sort range that contains each sort column, or update the range.',
+          );
+      } catch (reason) {
+        error.textContent = reason instanceof Error ? reason.message : String(reason);
+        return;
+      }
+    }
     if (new Set(keys.map((key) => key.column)).size !== keys.length) {
       error.textContent = 'Choose a different column for each level.';
       return;
@@ -146,7 +195,7 @@ export function showSortDialog(
         },
       });
       if (!currentWorkbookDialog(form, error, isCurrent)) return;
-      ($('dialog') as HTMLDialogElement).close();
+      form.closest('dialog')?.close();
       notice('Selection sorted');
     } catch (reason) {
       if (!currentWorkbookDialog(form, error, isCurrent)) return;
@@ -162,6 +211,8 @@ export function showSortDialog(
     }
   };
   render();
-  form.append(description, headerLabel, levels, add, error, apply);
+  form.append(description);
+  if (options.suggestRange) form.append(rangeInput, useRange);
+  form.append(headerLabel, levels, add, error, apply);
   modal('Custom sort', form);
 }

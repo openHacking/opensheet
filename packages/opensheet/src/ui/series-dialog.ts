@@ -1,11 +1,10 @@
 import { address, OpenSheetError, type Selection, type Workbook } from '@opensheetjs/core';
-import { currentWorkbookDialog, type WorkbookDialogFeedback } from './feedback.js';
-import { $ } from './dom.js';
+import { currentWorkbookDialog, type WorkbookDialogFeedback } from './workbook-dialog.js';
 
 export async function showSeriesDialog(
   book: Workbook,
   selection: Selection,
-  { modal, notice, isCurrent }: WorkbookDialogFeedback,
+  { modal, notice, isCurrent, isTargetCurrent = isCurrent }: WorkbookDialogFeedback,
 ) {
   const { sheetId, startRow, endRow, startColumn, endColumn } = selection;
   const range = { startRow, endRow, startColumn, endColumn };
@@ -73,7 +72,7 @@ export async function showSeriesDialog(
   dateField.hidden = true;
   form.onsubmit = async (event) => {
     event.preventDefault();
-    if (!currentWorkbookDialog(form, status, isCurrent)) return;
+    if (!currentWorkbookDialog(form, status, isTargetCurrent)) return;
     const dates = kind.value !== 'number';
     let initial = start.valueAsNumber;
     if (
@@ -136,7 +135,7 @@ export async function showSeriesDialog(
           ...command,
         });
       if (!currentWorkbookDialog(form, status, isCurrent)) return;
-      ($('dialog') as HTMLDialogElement).close();
+      form.closest('dialog')?.close();
       notice(dates ? 'Date series filled' : 'Numeric series filled');
     } catch (reason) {
       if (!currentWorkbookDialog(form, status, isCurrent)) return;

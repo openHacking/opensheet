@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 import { readForPoll } from './read-for-poll.js';
 
@@ -103,7 +104,7 @@ test('structured copy preserves exact inputs, relocates formulas and pastes capt
     await sheet.range('A4').setNote('keep target');
     app.selection.set({ sheetId: sheet.id, startRow: 3, endRow: 4, startColumn: 0, endColumn: 1 });
   });
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
+  await workbookTool(page, 'paste-special');
   await page.getByLabel('Paste clipboard here').evaluate((element, data) => {
     const clipboardData = new DataTransfer();
     clipboardData.setData('text/plain', data.text);
@@ -140,7 +141,7 @@ test('structured values paste keeps exact strings and captured calculated values
     app.selection.set({ sheetId: sheet.id, startRow: 1, endRow: 2, startColumn: 0, endColumn: 1 });
     return copied;
   });
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
+  await workbookTool(page, 'paste-special');
   await page.getByLabel('Paste clipboard here').evaluate((element, payload) => {
     const clipboardData = new DataTransfer();
     clipboardData.setData('text/plain', payload.text);

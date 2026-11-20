@@ -1,6 +1,5 @@
 import { columnName, OpenSheetError, type FilterCriterion, type Workbook } from '@opensheetjs/core';
-import { currentWorkbookDialog, type WorkbookDialogFeedback } from './feedback.js';
-import { $ } from './dom.js';
+import { currentWorkbookDialog, type WorkbookDialogFeedback } from './workbook-dialog.js';
 
 const operators = {
   eq: 'Equals',
@@ -22,7 +21,7 @@ export function showFilterDialog(
   book: Workbook,
   sheetId: string,
   column: number,
-  { modal, notice, isCurrent }: WorkbookDialogFeedback,
+  { modal, notice, isCurrent, isTargetCurrent = isCurrent }: WorkbookDialogFeedback,
 ) {
   if (book.isReadOnly) {
     notice('Switch off read only to filter.');
@@ -185,7 +184,7 @@ export function showFilterDialog(
     render(true);
   };
   async function submit(reset: boolean) {
-    if (!currentWorkbookDialog(form, error, isCurrent)) return;
+    if (!currentWorkbookDialog(form, error, isTargetCurrent)) return;
     const controls = [...form.querySelectorAll('button, input, select')] as (
       | HTMLButtonElement
       | HTMLInputElement
@@ -229,7 +228,7 @@ export function showFilterDialog(
         },
       });
       if (!currentWorkbookDialog(form, error, isCurrent)) return;
-      ($('dialog') as HTMLDialogElement).close();
+      form.closest('dialog')?.close();
       notice(reset ? 'Filters cleared' : 'Filter applied');
     } catch (reason) {
       if (!currentWorkbookDialog(form, error, isCurrent)) return;

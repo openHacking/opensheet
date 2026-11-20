@@ -1,13 +1,14 @@
 import { OpenSheetError, type Range, type Selection, type Workbook } from '@opensheetjs/core';
 import type { CellEditor } from './editor.js';
 import type { CellPosition } from './geometry.js';
-import { cutText, copyText } from './clipboard.js';
-import { copyClipboard } from './copy-clipboard.js';
+import { cutText } from './clipboard.js';
+import { writeClipboard } from './copy-clipboard.js';
 export interface InputActions {
   selection(): Selection;
   select(selection: Selection): void;
   selectBetween(a: CellPosition, b: CellPosition): void;
   hit(event: MouseEvent): CellPosition | null;
+  selectHeader(event: PointerEvent): boolean;
   move(rows: number, columns: number, extend?: boolean): void;
   page(direction: -1 | 1, extend: boolean): void;
   dataJump(rows: number, columns: number, extend: boolean): void;
@@ -153,20 +154,7 @@ export class GridInput {
       (e) => {
         if (editor.isEditing) return;
         const range = actions.range();
-        actions.run(async () => {
-          if (typeof ClipboardItem !== 'undefined' && navigator.clipboard.write) {
-            const data = copyClipboard(range);
-            const text = data.then((data) => new Blob([data.text], { type: 'text/plain' }));
-            const html = data.then((data) => new Blob([data.html], { type: 'text/html' }));
-            try {
-              await navigator.clipboard.write([
-                new ClipboardItem({ 'text/plain': text, 'text/html': html }),
-              ]);
-            } finally {
-              await Promise.allSettled([text, html]);
-            }
-          } else await navigator.clipboard.writeText(await copyText(range));
-        });
+        actions.run(() => writeClipboard(range));
         e.preventDefault();
       },
       { signal },
@@ -217,7 +205,7 @@ export class GridInput {
     this.deferredCompositionFinish = undefined;
   }
   pointer(e: PointerEvent) {
-    if ((e.target as Element).closest('.os-formula-assist')) return;
+    if (e.button !== 0 || e.ctrlKey || (e.target as Element).closest('.os-formula-assist')) return;
     if (e.target === this.editor.element) return;
     this.editor.cancelPending();
     if (this.editor.isComposing) {
@@ -235,7 +223,10 @@ export class GridInput {
       return;
     }
     if (this.editor.isEditing && !this.editor.finish()) return;
-    if (!p) return;
+    if (!p) {
+      if (this.actions.selectHeader(e)) e.preventDefault();
+      return;
+    }
     if (e.button === 0 && this.actions.referencePicker?.begin()) {
       this.anchor = p;
       this.drag = true;

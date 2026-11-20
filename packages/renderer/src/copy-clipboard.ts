@@ -1,5 +1,6 @@
 import { OpenSheetError, toInput, type Range, type CellStyle } from '@opensheetjs/core';
 import { encodeClipboardText } from './clipboard-text.js';
+import { copyText } from './clipboard.js';
 
 function escape(value: string) {
   return value
@@ -76,4 +77,21 @@ export async function copyClipboard(range: Range): Promise<{ text: string; html:
       throw new OpenSheetError('LIMIT_EXCEEDED', 'Structured clipboard is too large');
   }
   return { text: encodeClipboardText(rows), html: html + '</table>' };
+}
+
+export async function writeClipboard(range: Range) {
+  const clipboard = navigator.clipboard;
+  if (!clipboard) throw new Error('Clipboard is unavailable. Use Ctrl+C or Command+C.');
+  if (typeof ClipboardItem === 'undefined' || !clipboard.write) {
+    await clipboard.writeText(await copyText(range));
+    return;
+  }
+  const data = copyClipboard(range);
+  const text = data.then(({ text }) => new Blob([text], { type: 'text/plain' }));
+  const html = data.then(({ html }) => new Blob([html], { type: 'text/html' }));
+  try {
+    await clipboard.write([new ClipboardItem({ 'text/plain': text, 'text/html': html })]);
+  } finally {
+    await Promise.allSettled([text, html]);
+  }
 }

@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -15,7 +16,7 @@ test.beforeEach(async ({ page }) => {
 test('cancel and validation preserve data, then one replacement is undoable and persistent', async ({
   page,
 }) => {
-  await page.getByLabel('Sheet actions').selectOption('replace');
+  await workbookTool(page, 'replace');
   await page.getByRole('button', { name: 'Replace all' }).click();
   await expect(page.getByLabel('Find text')).toBeFocused();
   await page.getByLabel('Find text').fill('Alpha');
@@ -26,7 +27,7 @@ test('cancel and validation preserve data, then one replacement is undoable and 
       window.opensheet.getWorkbook().getSheets()[0].range('A1:A2').getValues(),
     ),
   ).toEqual([['Alpha'], ['alpha']]);
-  await page.getByLabel('Sheet actions').selectOption('replace');
+  await workbookTool(page, 'replace');
   await page.getByLabel('Find text').fill('Alpha');
   await page.getByLabel('Replace with').fill('Omega');
   await page.getByRole('button', { name: 'Replace all' }).click();
@@ -51,9 +52,9 @@ test('cancel and validation preserve data, then one replacement is undoable and 
 });
 
 test('keyboard users can identify, navigate and dismiss the dialog', async ({ page }) => {
-  const actions = page.getByLabel('Sheet actions');
+  const actions = page.getByRole('button', { name: 'Replace literal text' });
   await actions.focus();
-  await actions.selectOption('replace');
+  await actions.press('Enter');
   await expect(page.getByRole('dialog', { name: 'Replace text' })).toBeVisible();
   await expect(page.getByLabel('Find text')).toBeFocused();
   await page.keyboard.press('Shift+Tab');
@@ -76,7 +77,7 @@ test('keyboard users can identify, navigate and dismiss the dialog', async ({ pa
 });
 
 test('stale revision and read-only mode cannot replace text', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('replace');
+  await workbookTool(page, 'replace');
   await page.getByLabel('Find text').fill('Alpha');
   await page.getByLabel('Replace with').fill('Omega');
   const revision = await page.evaluate(async () => {
@@ -99,13 +100,13 @@ test('stale revision and read-only mode cannot replace text', async ({ page }) =
   ).toEqual([['Alpha'], ['new edit']]);
   await page.locator('#dialog-close').click();
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('replace');
+  await workbookTool(page, 'replace');
   await expect(page.getByRole('button', { name: 'Replace all' })).toBeDisabled();
   await expect(page.getByRole('alert')).toHaveText('Read only. Replacement is disabled.');
 });
 
 test('replacement metacharacters remain literal text', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('replace');
+  await workbookTool(page, 'replace');
   await page.getByLabel('Find text').fill('Alpha');
   await page.getByLabel('Replace with').fill('$&');
   await page.getByRole('button', { name: 'Replace all' }).click();
@@ -134,7 +135,7 @@ test('replacement with no changes preserves redo across reopen', async ({ page }
     return { id: book.id, revision: book.revision, canRedo: book.canRedo };
   });
   expect(before.canRedo).toBe(true);
-  await page.getByLabel('Sheet actions').selectOption('replace');
+  await workbookTool(page, 'replace');
   await page.getByLabel('Find text').fill('not-present');
   await page.getByLabel('Replace with').fill('new');
   await page.getByRole('button', { name: 'Replace all' }).click();

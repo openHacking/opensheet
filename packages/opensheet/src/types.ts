@@ -3,6 +3,7 @@ export interface OpenSheetOptions {
   container: string | HTMLElement;
   mode?: 'edit' | 'read';
   toolbar?: boolean;
+  contextMenu?: boolean;
   onError?: (error: unknown) => void;
 }
 export type EventMap = {

@@ -488,3 +488,142 @@
     padding: 10px 12px;
   }
 }
+
+.os-action-menu {
+  position: fixed;
+  z-index: 1000;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  min-width: min(176px, calc(100vw - 12px));
+  max-width: calc(100vw - 12px);
+  max-height: calc(100dvh - 12px);
+  overflow: auto;
+  padding: 5px;
+  border: 1px solid #dce6de;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 28px #16342226;
+  font:
+    13px/1.35 Inter,
+    system-ui,
+    sans-serif;
+  color: #263b31;
+}
+.os-action-menu[hidden] {
+  display: none;
+}
+.os-action-menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.os-action-menu button:not(:disabled):is(:hover, :focus-visible) {
+  outline: 1px solid #b7d7c4;
+  outline-offset: -1px;
+  background: #edf5ef;
+}
+.os-action-menu button:disabled,
+.os-toolbar button:disabled {
+  opacity: 0.48;
+  cursor: default;
+}
+.os-toolbar button.os-filter-active {
+  color: #086447;
+  background: #e2f3e8;
+}
+.os-tab-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+.os-tab-group > button[aria-haspopup] {
+  padding-inline: 5px;
+}
+.os-workbook-dialog {
+  width: min(550px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  padding: 0;
+  border: 1px solid #dce6de;
+  border-radius: 10px;
+  background: #fff;
+  color: #263b31;
+  box-shadow: 0 12px 52px #16342233;
+}
+.os-workbook-dialog::backdrop {
+  background: #183d2a44;
+}
+.os-workbook-dialog > header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e4eae6;
+  background: #fff;
+}
+.os-workbook-dialog > header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+.os-workbook-dialog > header button {
+  font-size: 19px;
+}
+.os-workbook-dialog > div {
+  padding: 16px;
+}
+.os-workbook-dialog .sort-form,
+.os-workbook-dialog label:has(input:not([type='checkbox'])),
+.os-workbook-dialog label:has(textarea) {
+  display: grid;
+  gap: 8px;
+}
+.os-workbook-dialog .sort-form {
+  gap: 12px;
+  line-height: 1.5;
+}
+.os-workbook-dialog p {
+  margin: 0;
+}
+.os-workbook-dialog .sort-level {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block: 4px;
+}
+.os-workbook-dialog :is(button, select, input:not([type='checkbox']), textarea) {
+  min-width: 0;
+  min-height: 32px;
+  padding: 5px 8px;
+  border: 1px solid #dce6de;
+  border-radius: 4px;
+  font: inherit;
+}
+.os-workbook-dialog .sort-form > button {
+  justify-self: start;
+}
+.os-workbook-dialog button[type='submit'] {
+  background: #168462;
+  border-color: #168462;
+  color: white;
+}
+.os-workbook-dialog button:disabled {
+  opacity: 0.5;
+}
+.os-toolbar-menu button[data-menu-label]::after {
+  content: attr(aria-label);
+}

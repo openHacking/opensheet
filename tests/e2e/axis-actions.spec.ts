@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -19,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 test('inserts selected rows and columns with undo and reopen', async ({ page }) => {
   const revision = () => page.evaluate(() => window.opensheet.getWorkbook().revision);
   let before = await revision();
-  await page.getByLabel('Sheet actions').selectOption('insert-row');
+  await workbookTool(page, 'insert-row');
   await expect.poll(revision).toBe(before + 1);
   expect(
     await page.evaluate(() =>
@@ -30,7 +31,7 @@ test('inserts selected rows and columns with undo and reopen', async ({ page }) 
     [3, 4],
   ]);
   before = await revision();
-  await page.getByLabel('Sheet actions').selectOption('insert-column');
+  await workbookTool(page, 'insert-column');
   await expect.poll(revision).toBe(before + 1);
   const result = await page.evaluate(async () => {
     const app = window.opensheet;
@@ -64,7 +65,7 @@ test('hides selected axes and shows all with history, layout and persistence', a
   const revision = () => page.evaluate(() => window.opensheet.getWorkbook().revision);
   const action = async (value: string) => {
     const before = await revision();
-    await page.getByLabel('Sheet actions').selectOption(value);
+    await workbookTool(page, value);
     await expect.poll(revision).toBe(before + 1);
   };
   await action('hide-row');
@@ -102,8 +103,8 @@ test('hides selected axes and shows all with history, layout and persistence', a
   await action('show-rows');
   await action('show-columns');
   const shownRevision = await revision();
-  await page.getByLabel('Sheet actions').selectOption('show-rows');
-  await page.getByLabel('Sheet actions').selectOption('show-columns');
+  await workbookTool(page, 'show-rows');
+  await workbookTool(page, 'show-columns');
   expect(await revision()).toBe(shownRevision);
   expect(await state()).toEqual({
     rows: [false, false, false, false],
@@ -146,7 +147,7 @@ test('shows only hidden axes inside the selection with history and reopen', asyn
   const revision = () => page.evaluate(() => window.opensheet.getWorkbook().revision);
   const action = async (value: string) => {
     const before = await revision();
-    await page.getByLabel('Sheet actions').selectOption(value);
+    await workbookTool(page, value);
     await expect.poll(revision).toBe(before + 1);
   };
   await action('show-selected-rows');
@@ -180,8 +181,8 @@ test('shows only hidden axes inside the selection with history and reopen', asyn
   ]);
   expect(result.reopened).toEqual(result.shown);
   const before = await revision();
-  await page.getByLabel('Sheet actions').selectOption('show-selected-rows');
-  await page.getByLabel('Sheet actions').selectOption('show-selected-columns');
+  await workbookTool(page, 'show-selected-rows');
+  await workbookTool(page, 'show-selected-columns');
   expect(await revision()).toBe(before);
   await page.evaluate(() => {
     const app = window.opensheet;
@@ -194,10 +195,8 @@ test('shows only hidden axes inside the selection with history and reopen', asyn
     });
   });
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('show-selected-rows');
-  await expect(page.locator('#notice')).toContainText(/read.only/i);
-  await page.getByLabel('Sheet actions').selectOption('show-selected-columns');
-  await expect(page.locator('#notice')).toContainText(/read.only/i);
+  await workbookTool(page, 'show-selected-rows', true);
+  await workbookTool(page, 'show-selected-columns', true);
   expect(await revision()).toBe(before);
   expect(
     await page.evaluate(() => {
@@ -239,8 +238,7 @@ for (const action of ['delete-row', 'hide-column', 'show-selected-rows', 'freeze
       return book.revision;
     });
     await page.waitForFunction(() => !!(window as any).axisInsertAck);
-    await page.getByLabel('Sheet actions').selectOption(action);
-    await expect(page.locator('#notice')).toContainText('Wait for saving to finish');
+    await workbookTool(page, action, true);
     expect(await page.evaluate(() => (window as any).axisSent)).toBe(1);
     await page.evaluate(async () => {
       (window as any).releaseAxisInsert();
@@ -271,7 +269,7 @@ for (const action of ['delete-row', 'hide-column', 'show-selected-rows', 'freeze
       freeze: { rows: 0, columns: 0 },
     });
     if (action === 'hide-column') {
-      await page.getByLabel('Sheet actions').selectOption(action);
+      await workbookTool(page, action);
       await expect
         .poll(() => page.evaluate(() => window.opensheet.getWorkbook().revision))
         .toBe(before + 2);
@@ -318,7 +316,7 @@ for (const [action, axis] of [
         kind === 'row' ? sheet.setRowsHidden(1, 1, true) : sheet.setColumnsHidden(1, 1, true);
     }, axis);
     await page.waitForFunction(() => (window as any).axisHeld.length === 1);
-    await page.getByLabel('Sheet actions').selectOption(action);
+    await workbookTool(page, action, false, false);
     await page.waitForFunction(() => (window as any).axisHeld.length === 2);
     await page.evaluate(async () => {
       (window as any).releaseAxis(0);
@@ -385,7 +383,7 @@ for (const [action, axis] of [
       (window as any).insertWrite = kind === 'row' ? sheet.insertRows(0) : sheet.insertColumns(0);
     }, axis);
     await page.waitForFunction(() => (window as any).insertHeld.length === 1);
-    await page.getByLabel('Sheet actions').selectOption(action);
+    await workbookTool(page, action, false, false);
     await page.waitForFunction(() => (window as any).insertHeld.length === 2);
     await page.evaluate(async () => {
       (window as any).releaseInsert(0);
@@ -446,7 +444,7 @@ test('a queued visibility no-op preserves the previous edit and redo', async ({ 
     return book.revision;
   });
   await page.waitForFunction(() => (window as any).noopHeld.length === 1);
-  await page.getByLabel('Sheet actions').selectOption('show-rows');
+  await workbookTool(page, 'show-rows', false, false);
   await page.waitForFunction(() => (window as any).noopHeld.length === 2);
   await page.evaluate(async () => {
     (window as any).releaseNoop(0);
@@ -773,7 +771,7 @@ test('show all rows uses one bounded command without creating metadata for visib
     await sheet.setRowsHidden(99_999, 1, true);
   }, `/@fs${process.cwd()}/packages/core/src/index.ts`);
   const before = await page.evaluate(() => window.opensheet.getWorkbook().revision);
-  await page.getByLabel('Sheet actions').selectOption('show-rows');
+  await workbookTool(page, 'show-rows');
   await expect
     .poll(() => page.evaluate(() => window.opensheet.getWorkbook().revision))
     .toBe(before + 1);
@@ -819,11 +817,11 @@ test('show all rows uses one bounded command without creating metadata for visib
 });
 
 test('resizes selected rows and columns with layout, history and reopen', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('resize-row');
+  await workbookTool(page, 'resize-row');
   await page.getByLabel('Row height (pixels)').fill('52.5');
   await page.getByRole('button', { name: 'Apply', exact: true }).click();
   await expect(page.getByRole('dialog')).not.toBeVisible();
-  await page.getByLabel('Sheet actions').selectOption('resize-column');
+  await workbookTool(page, 'resize-column');
   await page.getByLabel('Column width (pixels)').fill('174');
   await page.getByRole('button', { name: 'Apply', exact: true }).click();
   await expect(page.getByRole('dialog')).not.toBeVisible();
@@ -860,7 +858,7 @@ test('resizes selected rows and columns with layout, history and reopen', async 
 });
 
 test('resize dialog rejects stale edits and respects read-only mode', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('resize-row');
+  await workbookTool(page, 'resize-row');
   await page.getByLabel('Row height (pixels)').fill('50');
   await page.evaluate(async () => {
     await window.opensheet
@@ -875,8 +873,8 @@ test('resize dialog rejects stale edits and respects read-only mode', async ({ p
   expect(await page.evaluate(() => window.opensheet.getWorkbook().revision)).toBe(revision);
   await page.getByRole('dialog').getByRole('button', { name: 'Close' }).click();
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('resize-column');
-  await expect(page.getByRole('button', { name: 'Apply', exact: true })).toBeDisabled();
+  await workbookTool(page, 'resize-column', true);
+  await expect(page.getByRole('dialog')).not.toBeVisible();
 });
 
 test('resizes 100,000 rows and restores the prior metadata through history', async ({ page }) => {

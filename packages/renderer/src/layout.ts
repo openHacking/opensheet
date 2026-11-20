@@ -1,4 +1,5 @@
 import type { Workbook } from '@opensheetjs/core';
+import type { GridTarget } from './types.js';
 import { LEFT, TOP } from './geometry.js';
 export class GridLayout {
   rowOffsets: number[] = [];
@@ -98,23 +99,29 @@ export class GridLayout {
     freeze: { rows: number; columns: number },
     scroll: { scrollLeft: number; scrollTop: number; clientWidth: number; clientHeight: number },
   ) {
-    const rect = element.getBoundingClientRect(),
-      x = e.clientX - rect.left - LEFT,
-      y = e.clientY - rect.top - TOP;
-    if (
-      x < 0 ||
-      y < 0 ||
-      e.clientX >= rect.left + scroll.clientWidth ||
-      e.clientY >= rect.top + scroll.clientHeight
-    )
+    const target = this.target(e, element, freeze, scroll);
+    return target?.kind === 'cell' ? { row: target.row, column: target.column } : null;
+  }
+  target(
+    e: MouseEvent,
+    element: HTMLElement,
+    freeze: { rows: number; columns: number },
+    scroll: { scrollLeft: number; scrollTop: number; clientWidth: number; clientHeight: number },
+  ): GridTarget | null {
+    const rect = element.getBoundingClientRect();
+    const x = e.clientX - rect.left - LEFT;
+    const y = e.clientY - rect.top - TOP;
+    if (x < -LEFT || y < -TOP || x >= scroll.clientWidth - LEFT || y >= scroll.clientHeight - TOP)
       return null;
-    const f = freeze;
-    return {
-      row: this.index(this.rowOffsets, y + (y >= this.rowOffsets[f.rows] ? scroll.scrollTop : 0)),
-      column: this.index(
-        this.columnOffsets,
-        x + (x >= this.columnOffsets[f.columns] ? scroll.scrollLeft : 0),
-      ),
+    const coordinate = (value: number, offsets: number[], frozen: number, scrollOffset: number) => {
+      const position = value + (value >= offsets[frozen] ? scrollOffset : 0);
+      if (value < 0 || position >= offsets.at(-1)!) return undefined;
+      return this.index(offsets, position);
     };
+    const row = coordinate(y, this.rowOffsets, freeze.rows, scroll.scrollTop);
+    const column = coordinate(x, this.columnOffsets, freeze.columns, scroll.scrollLeft);
+    if (x < 0 && row !== undefined) return { kind: 'row', index: row };
+    if (y < 0 && column !== undefined) return { kind: 'column', index: column };
+    return row === undefined || column === undefined ? null : { kind: 'cell', row, column };
   }
 }

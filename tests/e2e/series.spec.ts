@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 import { createWorkbookFile } from '@opensheetjs/core';
 
@@ -196,7 +197,7 @@ test('fill down follows reordered physical row and column ids after insertion', 
 });
 
 test('fills decimal series and restores it through history and reopen', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await expect(page.getByLabel('Start value')).toBeEditable();
   await page.getByLabel('Start value').fill('0.1');
   await page.getByLabel('Step', { exact: true }).fill('0.1');
@@ -228,7 +229,7 @@ test('fills decimal series and restores it through history and reopen', async ({
 });
 
 test('reports overflow and stale revisions without overwriting cells', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await expect(page.getByLabel('Start value')).toBeEditable();
   const revision = await page.evaluate(() => window.opensheet.getWorkbook().revision);
   await page.getByLabel('Start value').fill('1e308');
@@ -254,7 +255,7 @@ test('reports overflow and stale revisions without overwriting cells', async ({ 
 });
 
 test('fills across columns and disables filling in read-only mode', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await expect(page.getByLabel('Start value')).toBeEditable();
   await page.getByLabel('Start value').fill('3');
   await page.getByLabel('Step', { exact: true }).fill('-2');
@@ -267,9 +268,8 @@ test('fills across columns and disables filling in read-only mode', async ({ pag
     ),
   ).toEqual(Array.from({ length: 4 }, () => [3, 1]));
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
-  await expect(page.getByRole('alert')).toHaveText('Read only. Filling is disabled.');
-  await expect(page.getByRole('button', { name: 'Fill series', exact: true })).toBeDisabled();
+  await workbookTool(page, 'fill-series', true);
+  await expect(page.getByRole('dialog')).not.toBeVisible();
 });
 
 test('fills dates atomically with formatting, undo, redo and reopen', async ({ page }) => {
@@ -279,7 +279,7 @@ test('fills dates atomically with formatting, undo, redo and reopen', async ({ p
     await range.setStyle({ bold: true, numberFormat: '0.00' });
     await range.setNote('keep');
   });
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('day');
   await page.getByLabel('Start date').fill('1900-02-28');
   await page.getByRole('button', { name: 'Fill series', exact: true }).click();
@@ -326,7 +326,7 @@ test('fills dates atomically with formatting, undo, redo and reopen', async ({ p
 test('rejects date series outside the date system without changing the workbook', async ({
   page,
 }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('day');
   await page.getByLabel('Start date').fill('9999-12-31');
   const revision = await page.evaluate(() => window.opensheet.getWorkbook().revision);
@@ -351,7 +351,7 @@ test('fills descending dates across columns in the 1904 system', async ({ page }
     const sheet = app.getWorkbook().getSheets()[0];
     app.selection.set({ sheetId: sheet.id, startRow: 0, endRow: 2, startColumn: 0, endColumn: 3 });
   }, JSON.stringify(file));
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('day');
   await page.getByLabel('Start date').fill('1904-01-03');
   await page.getByLabel('Step', { exact: true }).fill('-1');
@@ -385,7 +385,7 @@ test('fills descending dates across columns in the 1904 system', async ({ page }
 test('date series rejects stale revisions and merged cells without partial changes', async ({
   page,
 }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('day');
   await page.evaluate(async () => {
     await window.opensheet
@@ -402,7 +402,7 @@ test('date series rejects stale revisions and merged cells without partial chang
   await page.evaluate(async () => {
     await window.opensheet.getWorkbook().getSheets()[0].range('A2:B2').merge();
   });
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('day');
   const mergedRevision = await page.evaluate(() => window.opensheet.getWorkbook().revision);
   await page.getByRole('button', { name: 'Fill series', exact: true }).click();
@@ -416,7 +416,7 @@ test('date series rejects stale revisions and merged cells without partial chang
 });
 
 test('fills calendar months from the original day and persists undo and redo', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('month');
   await page.getByLabel('Start date').fill('2024-01-31');
   await page.getByRole('button', { name: 'Fill series', exact: true }).click();

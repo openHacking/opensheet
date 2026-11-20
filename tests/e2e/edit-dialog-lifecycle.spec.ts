@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 for (const [action, button, failure] of [
@@ -39,7 +40,7 @@ for (const [action, button, failure] of [
         return result;
       };
     }, failure);
-    await page.getByLabel('Sheet actions').selectOption(action);
+    await workbookTool(page, action);
     if (action === 'paste-special') {
       await page.getByLabel('Paste clipboard here').evaluate((element) => {
         const clipboard = new DataTransfer();
@@ -67,7 +68,7 @@ for (const [action, button, failure] of [
     if (action === 'paste-special') expect(committed.values).toEqual([['pasted', 'second']]);
     if (action === 'fill-series') expect(committed.values[0][0]).toBe(5);
     if (action === 'annotation') expect(committed.notes).toEqual([['saved note']]);
-    await page.locator('#dialog-close').click();
+    await page.getByRole('button', { name: 'Close dialog' }).click();
     await page.evaluate(() => {
       const app = window.opensheet;
       const sheet = app.getWorkbook().getSheets()[0];
@@ -79,7 +80,7 @@ for (const [action, button, failure] of [
         endColumn: 3,
       });
     });
-    await page.getByLabel('Sheet actions').selectOption('sort-custom');
+    await workbookTool(page, 'sort-custom');
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.evaluate(async () => {
       const notice = document.querySelector<HTMLElement>('#notice')!;
@@ -129,7 +130,7 @@ for (const back of [false, true])
         return result;
       };
     });
-    await page.getByLabel('Sheet actions').selectOption('paste-special');
+    await workbookTool(page, 'paste-special');
     await page.getByLabel('Paste clipboard here').evaluate((element) => {
       const clipboard = new DataTransfer();
       clipboard.setData('text/plain', 'pasted\tsecond');

@@ -7,6 +7,7 @@ export interface TabActions {
   setSheet(id: string): void;
   run(action: () => unknown): void;
   preserveFormulaFocus(): boolean;
+  openMenu(id: string, trigger: HTMLElement): void;
 }
 export class SheetTabs {
   readonly element = document.createElement('div');
@@ -38,7 +39,27 @@ export class SheetTabs {
         { signal: this.abort.signal },
       );
       b.setAttribute('aria-selected', String(sheet.id === this.actions.activeSheet()));
-      this.element.append(b);
+      const menu = this.button(
+        '▾',
+        () => this.actions.openMenu(sheet.id, menu),
+        `Options for ${sheet.name}`,
+      );
+      menu.setAttribute('aria-haspopup', 'menu');
+      menu.setAttribute('aria-expanded', 'false');
+      b.addEventListener(
+        'contextmenu',
+        (event) => {
+          if (this.actions.preserveFormulaFocus()) return;
+          event.preventDefault();
+          this.actions.openMenu(sheet.id, menu);
+        },
+        { signal: this.abort.signal },
+      );
+      const group = document.createElement('div');
+      group.setAttribute('role', 'presentation');
+      group.className = 'os-tab-group';
+      group.append(b, menu);
+      this.element.append(group);
     }
     this.element.append(
       this.button(

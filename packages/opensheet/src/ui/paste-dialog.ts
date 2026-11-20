@@ -1,13 +1,13 @@
 import { address, OpenSheetError, type Selection, type Workbook } from '@opensheetjs/core';
 import { pasteClipboard, type PasteOptions } from '@opensheetjs/renderer';
-import { currentWorkbookDialog, type WorkbookDialogFeedback } from './feedback.js';
-import { $ } from './dom.js';
+import { currentWorkbookDialog, type WorkbookDialogFeedback } from './workbook-dialog.js';
 
 export function showPasteDialog(
   book: Workbook,
   selection: Selection,
-  { modal, notice, isCurrent }: WorkbookDialogFeedback,
+  { modal, notice, isCurrent, isTargetCurrent = isCurrent }: WorkbookDialogFeedback,
   select: (selection: Selection) => void,
+  initialMode: NonNullable<PasteOptions['mode']> = 'all',
 ) {
   const target = { ...selection },
     baseRevision = book.revision;
@@ -38,6 +38,7 @@ export function showPasteDialog(
   mode.onchange = () => {
     description.textContent = descriptions[mode.value];
   };
+  mode.value = initialMode;
   mode.onchange(new Event('change'));
   const box = document.createElement('textarea');
   box.setAttribute('aria-label', 'Paste clipboard here');
@@ -54,7 +55,7 @@ export function showPasteDialog(
   let data: { text: string; html?: string } | undefined;
   box.onpaste = (event) => {
     event.preventDefault();
-    if (!currentWorkbookDialog(form, status, isCurrent)) return;
+    if (!currentWorkbookDialog(form, status, isTargetCurrent)) return;
     if (book.isReadOnly || !event.clipboardData) return;
     if (!event.clipboardData.types.some((type) => type === 'text/plain' || type === 'text/html')) {
       data = undefined;
@@ -81,7 +82,7 @@ export function showPasteDialog(
   };
   form.onsubmit = async (event) => {
     event.preventDefault();
-    if (!currentWorkbookDialog(form, status, isCurrent)) return;
+    if (!currentWorkbookDialog(form, status, isTargetCurrent)) return;
     if (!data) return;
     apply.disabled = mode.disabled = box.disabled = true;
     status.textContent = 'Pasting…';
@@ -92,7 +93,7 @@ export function showPasteDialog(
       });
       if (!currentWorkbookDialog(form, status, isCurrent)) return;
       select(result);
-      ($('dialog') as HTMLDialogElement).close();
+      form.closest('dialog')?.close();
       notice('Clipboard pasted');
     } catch (reason) {
       if (!currentWorkbookDialog(form, status, isCurrent)) return;

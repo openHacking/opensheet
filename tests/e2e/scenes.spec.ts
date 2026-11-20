@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { readForPoll } from './read-for-poll.js';
@@ -34,7 +35,7 @@ test('all features is discoverable and its sample remains editable, persistent a
   await expect.poll(() => readForPoll(page, 'E2')).toEqual([[102]]);
   await page.getByText('Format, merge and annotate', { exact: true }).click();
   await page.getByRole('button', { name: 'Orders!A2', exact: true }).click();
-  await page.getByRole('combobox', { name: 'Sheet actions' }).selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByRole('dialog')).toContainText('Note and link');
   await expect(page.getByRole('textbox', { name: 'Cell note', exact: true })).toHaveValue(
     'Bulk discount applies to this order. Change it on Rates.',

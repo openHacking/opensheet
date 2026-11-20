@@ -6,7 +6,7 @@ export {
   resolveFormulaReferences,
   resolveFormulaReferenceSpans,
 } from './formula-references.js';
-export type { GridOptions } from './types.js';
+export type { GridOptions, GridTarget } from './types.js';
 export { pasteClipboard } from './clipboard.js';
 export type { PasteOptions } from './clipboard.js';
 export { copyClipboard } from './copy-clipboard.js';

@@ -13,24 +13,24 @@ export const featureGuide = `
   </details>
   <details>
     <summary>Sort, filter, find and replace</summary>
-    <p>Select ${sample('Orders', 'A2:G7')} and choose <b>Custom sort</b> in Sheet actions. Sort by column B (Region), then column C (Units).</p>
-    <p>Select ${sample('Orders', 'F1:F7')} and choose <b>Custom filter</b>. Keep one header row, choose Equals and enter “Shipped”. Use Clear filter to show all orders again.</p>
-    <p>Search for “Notebook” in Find. Use the arrows to move between matches, or choose Replace literal text in Sheet actions.</p>
+    <p>Select ${sample('Orders', 'A2:G7')} and choose <b>Sort → Custom sort</b> on the toolbar. Sort by column B (Region), then column C (Units).</p>
+    <p>Select ${sample('Orders', 'F1:F7')} and choose <b>Filter → Create filter</b>. Keep one header row, choose Equals and enter “Shipped”. Use Clear filter to show all orders again.</p>
+    <p>Search for “Notebook” in Find. Use the arrows to move between matches, or click Replace literal text next to Find.</p>
   </details>
   <details>
     <summary>Copy, paste and fill</summary>
-    <p>Copy ${sample('Practice', 'B2')}, then select ${sample('Practice', 'C2')} and try Paste or Paste special in Sheet actions. Compare formulas, values and formats.</p>
-    <p>Select ${sample('Practice', 'A2:A6')} and choose Fill series in Sheet actions. Then select ${sample('Practice', 'B2:B6')} and use <b>Fill</b> on the toolbar to copy the formula down.</p>
+    <p>Copy ${sample('Practice', 'B2')}, then select ${sample('Practice', 'C2')} then right-click and choose Paste or a mode under Paste special. Compare formulas, values and formats.</p>
+    <p>Select ${sample('Practice', 'A2:A6')} then right-click and choose Fill series. Then select ${sample('Practice', 'B2:B6')} and use <b>Fill</b> on the toolbar to copy the formula down.</p>
   </details>
   <details>
     <summary>Format, merge and annotate</summary>
     <p>Try currency, percent or date in the Number format menu at ${sample('Practice', 'D2')}. Try borders, alignment, text styles, background and wrapping at ${sample('Practice', 'A9')}.</p>
-    <p>Select ${sample('Practice', 'A8:C8')} to unmerge and remerge a heading. Select ${sample('Orders', 'A2')} and choose <b>Cell note and link</b> to edit its annotation.</p>
+    <p>Select ${sample('Practice', 'A8:C8')} to unmerge and remerge a heading. Select ${sample('Orders', 'A2')} and click <b>Note &amp; link</b> to edit its annotation.</p>
   </details>
   <details>
     <summary>Work with rows, columns and sheets</summary>
-    <p>Scroll Orders to see its frozen headers. Select ${sample('Orders', 'C3')} to change the frozen area, insert, delete, resize, hide or show rows and columns from Sheet actions.</p>
-    <p>Use the + next to the sheet tabs to add a sheet. Rename or delete the active sheet from Sheet actions. Try the Cell address field, Zoom, Read only, Table view and the keyboard shortcuts button.</p>
+    <p>Scroll Orders to see its frozen headers. Select ${sample('Orders', 'C3')} and use <b>Freeze</b> on the toolbar. Right-click a row number or column letter to insert, delete, resize, hide or show it.</p>
+    <p>Use the + next to the sheet tabs to add a sheet. Use the menu next to a sheet tab to rename or delete it. Try the Cell address field, Zoom, Read only, Table view and the keyboard shortcuts button. More tools also opens the cell, row and column menus.</p>
   </details>
   <details>
     <summary>Import, save and export</summary>

@@ -5,13 +5,12 @@ import {
   type Selection,
   type Workbook,
 } from '@opensheetjs/core';
-import { currentWorkbookDialog, type WorkbookDialogFeedback } from './feedback.js';
-import { $ } from './dom.js';
+import { currentWorkbookDialog, type WorkbookDialogFeedback } from './workbook-dialog.js';
 
 export async function showAnnotationDialog(
   book: Workbook,
   selection: Selection,
-  { modal, notice, isCurrent }: WorkbookDialogFeedback,
+  { modal, notice, isCurrent, isTargetCurrent = isCurrent }: WorkbookDialogFeedback,
 ) {
   const { sheetId, startRow, startColumn } = selection;
   const range = { startRow, endRow: startRow + 1, startColumn, endColumn: startColumn + 1 };
@@ -90,7 +89,7 @@ export async function showAnnotationDialog(
   };
   form.onsubmit = async (event) => {
     event.preventDefault();
-    if (!currentWorkbookDialog(form, status, isCurrent)) return;
+    if (!currentWorkbookDialog(form, status, isTargetCurrent)) return;
     controls.forEach((control) => {
       control.disabled = true;
     });
@@ -117,7 +116,7 @@ export async function showAnnotationDialog(
         },
       });
       if (!currentWorkbookDialog(form, status, isCurrent)) return;
-      ($('dialog') as HTMLDialogElement).close();
+      form.closest('dialog')?.close();
       notice('Note and link saved');
     } catch (reason) {
       if (!currentWorkbookDialog(form, status, isCurrent)) return;

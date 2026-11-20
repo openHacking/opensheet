@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 import { createWorkbookFile } from '@opensheetjs/core';
 
@@ -22,9 +23,7 @@ for (const kind of ['sort', 'filter'] as const) {
       },
       JSON.stringify(createWorkbookFile({ sheets: [{ name: 'Wide', rows: 2, columns: 1000 }] })),
     );
-    await page
-      .getByLabel('Sheet actions')
-      .selectOption(kind === 'sort' ? 'sort-custom' : 'filter-custom');
+    await workbookTool(page, kind === 'sort' ? 'sort-custom' : 'filter-custom');
     const result = await page.evaluate((kind) => {
       const first = document.querySelector<HTMLSelectElement>(
         `[aria-label="${kind === 'sort' ? 'Level 1 column' : 'Condition 1 column'}"]`,

@@ -5,13 +5,14 @@ import {
   AlignRight,
   ArrowDown,
   Bold,
-  Columns3,
   Ellipsis,
+  ArrowDownUp,
+  Filter,
+  StickyNote,
   Italic,
   Merge,
   PanelTop,
   Redo2,
-  Rows3,
   Split,
   Square,
   Underline,
@@ -19,6 +20,7 @@ import {
   WrapText,
   type IconNode,
 } from 'lucide';
+import type { ToolbarMenu } from './workbook-actions.js';
 import { button } from './button.js';
 let toolbarMenuId = 0;
 export interface ToolbarActions {
@@ -26,12 +28,18 @@ export interface ToolbarActions {
   getSelection(): Selection | null;
   getSelectionState(): { owner: object; version: number } | undefined;
   run(action: () => unknown): void;
+  openMenu(kind: ToolbarMenu, trigger: HTMLElement): void;
+  annotate(): void;
+  openSelectionMenu(kind: 'cell' | 'row' | 'column', trigger: HTMLElement): void;
 }
 export class Toolbar {
   readonly element: HTMLDivElement;
   private items: HTMLDivElement;
   private moreButton: HTMLButtonElement;
   private moreMenu: HTMLDivElement;
+  private dataTools: HTMLButtonElement[] = [];
+  private filterButton?: HTMLButtonElement;
+  private contextTools = document.createElement('div');
   private pluginToolbar: HTMLDivElement;
   private cleanups: Array<() => void> = [];
   private disposed = false;
@@ -63,11 +71,31 @@ export class Toolbar {
     this.moreMenu.className = 'os-toolbar-menu';
     this.moreMenu.id = `os-toolbar-menu-${++toolbarMenuId}`;
     this.moreMenu.setAttribute('aria-label', 'More tools');
+    this.contextTools.className = 'os-tool-group os-context-tools';
+    for (const [kind, title] of [
+      ['cell', 'Cell actions'],
+      ['row', 'Row actions'],
+      ['column', 'Column actions'],
+    ] as const) {
+      const tool = this.button(
+        title,
+        () => this.actions.openSelectionMenu(kind, this.moreButton),
+        title,
+        undefined,
+        false,
+      );
+      tool.setAttribute('aria-haspopup', 'menu');
+      this.contextTools.append(tool);
+    }
+    this.moreMenu.append(this.contextTools);
     this.moreMenu.hidden = true;
     this.moreMenu.addEventListener(
       'click',
       (event) => {
-        if ((event.target as Element).closest('button')) this.setMoreOpen(false);
+        if ((event.target as Element).closest('button')) {
+          this.setMoreOpen(false);
+          this.moreButton.focus({ preventScroll: true });
+        }
       },
       { signal: this.abort.signal },
     );
@@ -88,7 +116,7 @@ export class Toolbar {
     const escapeMore = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && !this.moreMenu.hidden) {
         this.setMoreOpen(false);
-        this.moreButton.focus();
+        this.moreButton.focus({ preventScroll: true });
       }
     };
     document.addEventListener('pointerdown', dismissMore);
@@ -149,9 +177,9 @@ export class Toolbar {
   private layoutToolbar() {
     if (this.disposed || this.element.hidden || !this.element.isConnected) return;
     this.setMoreOpen(false);
-    this.items.append(...this.moreMenu.children);
-    this.moreButton.hidden = true;
-    if (this.items.scrollWidth <= this.items.clientWidth) return;
+    this.items.append(
+      ...[...this.moreMenu.children].filter((child) => child !== this.contextTools),
+    );
     this.moreButton.hidden = false;
     while (this.items.scrollWidth > this.items.clientWidth) {
       const last = this.items.lastElementChild;
@@ -211,6 +239,35 @@ export class Toolbar {
       this.button('', async () => await this.actions.getWorkbook().undo(), 'Undo', Undo2, false),
       this.button('', async () => await this.actions.getWorkbook().redo(), 'Redo', Redo2, false),
     );
+    const menuButton = (kind: ToolbarMenu, label: string, icon: IconNode) => {
+      const tool = this.button(
+        '',
+        () => this.actions.openMenu(kind, tool.getClientRects().length ? tool : this.moreButton),
+        label,
+        icon,
+        false,
+      );
+      tool.dataset.menuLabel = 'true';
+      tool.setAttribute('aria-haspopup', 'menu');
+      tool.setAttribute('aria-expanded', 'false');
+      return tool;
+    };
+    this.filterButton = menuButton('filter', 'Filter', Filter);
+    const annotationButton = this.button(
+      '',
+      () => this.actions.annotate(),
+      'Note & link',
+      StickyNote,
+      false,
+    );
+    annotationButton.dataset.menuLabel = 'true';
+    this.dataTools = [
+      menuButton('sort', 'Sort', ArrowDownUp),
+      this.filterButton,
+      menuButton('freeze', 'Freeze', PanelTop),
+    ];
+    this.updateDataTools(false, false);
+    group(this.dataTools[0], this.dataTools[1], annotationButton, this.dataTools[2]);
     const fmt = document.createElement('select');
     fmt.setAttribute('aria-label', 'Number format');
     for (const [value, label] of [
@@ -257,49 +314,11 @@ export class Toolbar {
       this.button('Wrap', () => toggle('wrap'), 'Wrap text', WrapText),
       this.button('Fill', async () => await range().fillDown(), 'Fill down', ArrowDown),
     );
-    group(
-      this.button(
-        'Row',
-        async () => {
-          const s = this.actions.getSelection()!;
-          const book = this.actions.getWorkbook();
-          if (book.persistenceState.pending)
-            throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
-          await book.getSheetById(s.sheetId)!.insertRows(s.startRow);
-        },
-        'Insert row',
-        Rows3,
-      ),
-      this.button(
-        'Column',
-        async () => {
-          const s = this.actions.getSelection()!;
-          const book = this.actions.getWorkbook();
-          if (book.persistenceState.pending)
-            throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
-          await book.getSheetById(s.sheetId)!.insertColumns(s.startColumn);
-        },
-        'Insert column',
-        Columns3,
-      ),
-    );
-    group(
-      this.button(
-        'Freeze',
-        async () => {
-          const s = this.actions.getSelection()!,
-            book = this.actions.getWorkbook(),
-            current = book.sheetData(s.sheetId).freeze;
-          if (book.persistenceState.pending)
-            throw new OpenSheetError('BUSY', 'Wait for saving to finish, then retry the action.');
-          await book
-            .getSheetById(s.sheetId)!
-            .setFreeze(current.rows === 1 ? 0 : 1, current.columns);
-        },
-        'Freeze first row',
-        PanelTop,
-      ),
-    );
+  }
+  updateDataTools(canEdit: boolean, filtered: boolean) {
+    this.dataTools.forEach((tool) => (tool.disabled = !canEdit));
+    this.filterButton?.classList.toggle('os-filter-active', filtered);
+    this.filterButton?.setAttribute('aria-label', filtered ? 'Filter (active)' : 'Filter');
   }
   add(action: { id: string; label: string; run(): void }) {
     if (this.pluginToolbar.querySelector(`[data-action="${CSS.escape(action.id)}"]`))

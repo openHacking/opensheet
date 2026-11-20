@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 import { createWorkbookFile } from '@opensheetjs/core';
 
@@ -20,7 +21,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('custom sort preserves headers, stable ties, selection and history', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('sort-custom');
+  await workbookTool(page, 'sort-custom');
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.getByLabel('First selected row contains headers').check();
   await page.getByRole('button', { name: 'Add sort level' }).click();
@@ -59,7 +60,7 @@ test('custom sort preserves headers, stable ties, selection and history', async 
 test('custom sort rejects duplicate columns and a stale dialog without writing', async ({
   page,
 }) => {
-  await page.getByLabel('Sheet actions').selectOption('sort-custom');
+  await workbookTool(page, 'sort-custom');
   await page.getByRole('button', { name: 'Add sort level' }).click();
   await page.getByLabel('Level 2 column').selectOption('0');
   await page.getByRole('button', { name: 'Apply sort' }).click();
@@ -82,7 +83,7 @@ test('custom sort rejects duplicate columns and a stale dialog without writing',
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).not.toBeVisible();
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('sort-custom');
+  await workbookTool(page, 'sort-custom', true);
   await expect(page.getByRole('dialog')).not.toBeVisible();
   expect(await page.evaluate(() => window.opensheet.getWorkbook().revision)).toBe(revision);
 });

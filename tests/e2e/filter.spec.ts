@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 import { createWorkbookFile } from '@opensheetjs/core';
 
@@ -141,7 +142,7 @@ test('custom filter applies typed conditions and survives edit/history/reopen/cl
     },
     JSON.stringify(createWorkbookFile({ sheets: [{ name: 'Filter', rows: 5 }] })),
   );
-  await page.getByLabel('Sheet actions').selectOption('filter-custom');
+  await workbookTool(page, 'filter-custom');
   await page.getByLabel('Condition 1 operator').selectOption('eq');
   await page.getByLabel('Condition 1 value', { exact: true }).fill('a');
   await page.getByRole('button', { name: 'Add condition' }).click();
@@ -169,7 +170,7 @@ test('custom filter applies typed conditions and survives edit/history/reopen/cl
     undone: [1, 2, 4],
     reopened: [2, 4],
   });
-  await page.getByLabel('Sheet actions').selectOption('filter-custom');
+  await workbookTool(page, 'filter-custom');
   await expect(page.getByLabel('Condition 2 operator')).toHaveValue('gt');
   await expect(page.getByLabel('Condition 2 value', { exact: true })).toHaveValue('2');
   await page.getByRole('button', { name: 'Clear all filters' }).click();
@@ -185,7 +186,7 @@ test('custom filter applies typed conditions and survives edit/history/reopen/cl
 test('filter dialog rejects stale changes and read-only mutations', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#scene-select')).toBeEnabled();
-  await page.getByLabel('Sheet actions').selectOption('filter-custom');
+  await workbookTool(page, 'filter-custom');
   const revision = await page.evaluate(async () => {
     const book = window.opensheet.getWorkbook();
     await book
@@ -201,6 +202,6 @@ test('filter dialog rejects stale changes and read-only mutations', async ({ pag
   expect(await page.evaluate(() => window.opensheet.getWorkbook().revision)).toBe(revision);
   await page.keyboard.press('Escape');
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('filter-custom');
+  await workbookTool(page, 'filter-custom', true);
   await expect(page.getByRole('dialog')).not.toBeVisible();
 });

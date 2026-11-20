@@ -92,6 +92,8 @@ export function createFileActions(
       notice(String(error));
     }
   });
+  const dialogOpen = () =>
+    $<HTMLDialogElement>('dialog').open || !!app.element.querySelector('dialog[open]');
   function showReport(
     report: CompatibilityReport,
     proceed?: () => void,
@@ -99,7 +101,7 @@ export function createFileActions(
     warning?: string,
     sheets: ReadonlyArray<{ id: string; name: string }> = [],
   ) {
-    if ($<HTMLDialogElement>('dialog').open) {
+    if (dialogOpen()) {
       notice('Close the current dialog and try again.');
       return;
     }
@@ -338,7 +340,7 @@ export function createFileActions(
         notice('Workbook changed during import. Import again.');
         return;
       }
-      if ($<HTMLDialogElement>('dialog').open) {
+      if (dialogOpen()) {
         notice('Close the current dialog and import again.');
         return;
       }
@@ -370,7 +372,7 @@ export function createFileActions(
           refreshPersistence(app, state);
           refresh();
           if (!needsReview && report?.issues.length) {
-            if ($<HTMLDialogElement>('dialog').open)
+            if (dialogOpen())
               notice('Workbook imported; compatibility details could not be shown.');
             else showReport(report, undefined, undefined, undefined, event.data.file.sheets);
           }

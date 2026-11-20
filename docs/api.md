@@ -47,6 +47,12 @@ Ctrl/⌘+arrow data-region jumps are not implemented. Modified navigation keys w
 
 The cell address box accepts A1 cells and ranges on the current sheet, or a sheet-qualified address such as `'O''Brien Q1'!B2:D4`. Enter validates the target sheet and bounds before navigating; Escape restores the current selection. These are addresses, not named ranges. Native input-method and assistive-technology acceptance remain pending.
 
+## Workbook controls
+
+The editor toolbar provides Sort, Filter, Note & link, and Freeze. Right-click a cell, row number, or column letter for actions on that target. Shift+F10 and the Menu key open the same grid menus. Pass `contextMenu: false` to `createOpenSheet` to leave grid right-click and context-menu keys available to the host. The toolbar remains independently configurable through `toolbar`.
+
+Paste special accepts values, formula inputs, formats, or all available content. When a browser restricts clipboard reads, the editor opens a paste dialog with the user's chosen mode and accepts Ctrl/Cmd+V there.
+
 ## Create, restore and close
 
 ```ts
@@ -229,7 +235,7 @@ await sheet.sort('A2:D600', [
 await sheet.sort('A2:D600', 0, 'asc');
 ```
 
-Column indexes are zero-based absolute sheet positions inside the selected range. Keys are evaluated in priority order; equal rows retain source order. Supply 1–64 distinct columns. Formula keys use the same pinned pre-sort stage as scalar keys. Headers are excluded by choosing a range below them; the playground Custom sort dialog provides an explicit header checkbox. Commands accept either `{ sheetId, range, keys }` or the legacy `{ sheetId, range, column, direction }`, never both. See the formula sort design for mixed-type ordering and resource limits.
+Column indexes are zero-based absolute sheet positions inside the selected range. Keys are evaluated in priority order; equal rows retain source order. Supply 1–64 distinct columns. Formula keys use the same pinned pre-sort stage as scalar keys. Headers are excluded by choosing a range below them; the editor’s Custom sort dialog provides an explicit header checkbox. Commands accept either `{ sheetId, range, keys }` or the legacy `{ sheetId, range, column, direction }`, never both. See the formula sort design for mixed-type ordering and resource limits.
 
 ### Typed multi-column filters
 

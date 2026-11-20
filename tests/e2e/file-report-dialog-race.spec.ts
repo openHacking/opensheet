@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 import * as XLSX from 'xlsx';
 
@@ -45,7 +46,7 @@ for (const operation of ['import', 'export'] as const) {
     await expect
       .poll(() => page.evaluate(() => typeof (window as any).releaseFileReport))
       .toBe('function');
-    await page.getByLabel('Sheet actions').selectOption('sort-custom');
+    await workbookTool(page, 'sort-custom');
     const dialog = page.getByRole('dialog');
     await expect(dialog.getByRole('button', { name: 'Apply sort' })).toBeVisible();
     await page.evaluate(() => (window as any).releaseFileReport());

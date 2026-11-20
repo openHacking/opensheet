@@ -1,12 +1,11 @@
 import { OpenSheetError, type Selection, type Workbook } from '@opensheetjs/core';
-import { currentWorkbookDialog, type WorkbookDialogFeedback } from './feedback.js';
-import { $ } from './dom.js';
+import { currentWorkbookDialog, type WorkbookDialogFeedback } from './workbook-dialog.js';
 
 export function showAxisSizeDialog(
   book: Workbook,
   selection: Selection,
   axis: 'row' | 'column',
-  { modal, notice, isCurrent }: WorkbookDialogFeedback,
+  { modal, notice, isCurrent, isTargetCurrent = isCurrent }: WorkbookDialogFeedback,
 ) {
   const rows = axis === 'row';
   const index = rows ? selection.startRow : selection.startColumn;
@@ -40,7 +39,7 @@ export function showAxisSizeDialog(
   if (book.isReadOnly) status.textContent = 'Read only. Resizing is disabled.';
   form.onsubmit = async (event) => {
     event.preventDefault();
-    if (!currentWorkbookDialog(form, status, isCurrent)) return;
+    if (!currentWorkbookDialog(form, status, isTargetCurrent)) return;
     const size = input.valueAsNumber;
     if (!Number.isFinite(size) || size < 20 || size > 2000) return;
     disable(true);
@@ -55,7 +54,7 @@ export function showAxisSizeDialog(
         payload: { sheetId: selection.sheetId, axis, index, count, size },
       });
       if (!currentWorkbookDialog(form, status, isCurrent)) return;
-      ($('dialog') as HTMLDialogElement).close();
+      form.closest('dialog')?.close();
       notice(rows ? 'Row height updated' : 'Column width updated');
     } catch (reason) {
       if (!currentWorkbookDialog(form, status, isCurrent)) return;

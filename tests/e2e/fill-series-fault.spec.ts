@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 test('cancelling paged series after staged writes preserves and recovers all cells', async ({
@@ -148,7 +149,7 @@ test('large date series applies values and formatting in one undoable transactio
       endColumn: 100,
     });
   });
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await page.getByLabel('Series type').selectOption('day');
   await page.getByLabel('Start date').fill('2024-01-01');
   await page.getByRole('button', { name: 'Fill series', exact: true }).click();

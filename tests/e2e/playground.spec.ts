@@ -1,3 +1,4 @@
+import { toolbarTool, workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import * as XLSX from 'xlsx';
@@ -483,7 +484,7 @@ test('frozen row and column respect custom header height while scrolling', async
   expect(zoomedHeaders[0]).not.toEqual(zoomedHeaders[1]);
 });
 test('action icons render as SVG while controls keep accessible names', async ({ page }) => {
-  for (const name of ['Undo', 'Redo', 'Merge', 'Freeze first row']) {
+  for (const name of ['Undo', 'Redo', 'Merge', 'Freeze']) {
     const button = page.getByRole('button', { name, exact: true });
     if (!(await button.isVisible()))
       await page.getByRole('button', { name: 'More tools', exact: true }).click();
@@ -510,21 +511,10 @@ test('toolbar moves trailing actions into More tools instead of scrolling', asyn
   );
   await more.click();
   await expect(more).toHaveAttribute('aria-expanded', 'true');
-  await expect(toolbar.getByRole('button', { name: 'Freeze first row' })).toBeVisible();
-  const freezeRows = await page.evaluate(() => {
-    const app = window.opensheet;
-    return app.getWorkbook().sheetData(app.getWorkbook().getSheets()[0].id).freeze.rows;
-  });
-  await toolbar.getByRole('button', { name: 'Freeze first row' }).click();
+  await expect(toolbar.getByRole('button', { name: 'Row actions' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await workbookTool(page, 'unfreeze');
   await expect(more).toHaveAttribute('aria-expanded', 'false');
-  await expect
-    .poll(() =>
-      page.evaluate(() => {
-        const app = window.opensheet;
-        return app.getWorkbook().sheetData(app.getWorkbook().getSheets()[0].id).freeze.rows;
-      }),
-    )
-    .toBe(freezeRows ? 0 : 1);
   await page.setViewportSize({ width: 320, height: 800 });
   await expect(more).toBeVisible();
   expect(await toolbar.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(
@@ -534,8 +524,8 @@ test('toolbar moves trailing actions into More tools instead of scrolling', asyn
   await page.locator('#spreadsheet').evaluate((element) => {
     (element as HTMLElement).style.width = '2200px';
   });
-  await expect(more).toBeHidden();
-  await expect(toolbar.getByRole('button', { name: 'Freeze first row' })).toBeVisible();
+  await expect(toolbar.getByRole('button', { name: 'Freeze' })).toBeVisible();
+  await expect(await toolbarTool(page, 'Column actions')).toBeVisible();
 });
 test('merged cells crossing frozen panes clip and scroll each pane independently', async ({
   page,

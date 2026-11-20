@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 for (const [action, button] of [
@@ -41,7 +42,7 @@ for (const [action, button] of [
           filter: book.sheetData(sheet.id).filter,
         };
       }, button === 'Clear all filters');
-      await page.getByLabel('Sheet actions').selectOption(action);
+      await workbookTool(page, action);
       if (action === 'paste-special') {
         await page.getByLabel('Paste clipboard here').evaluate((element) => {
           const clipboard = new DataTransfer();
@@ -93,7 +94,7 @@ test('stale paste dialog rejects clipboard capture after reopening the workbook'
   await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
+  await workbookTool(page, 'paste-special');
   await page.evaluate(async () => {
     const app = window.opensheet;
     await app.open(app.getWorkbook().id);

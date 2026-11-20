@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -14,7 +15,7 @@ test('edits literal notes and links, restores history and presents a safe read-o
   page,
 }) => {
   const note = '备注\n<script>window.annotationInjected = true</script>';
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Cell note', { exact: true })).toBeEditable();
   await page.getByLabel('Cell note', { exact: true }).fill(note);
   await page.getByLabel('Link URL', { exact: true }).fill('https://example.com/source');
@@ -48,7 +49,7 @@ test('edits literal notes and links, restores history and presents a safe read-o
   expect(result.restored).toEqual([[note]]);
   await expect(page.getByRole('gridcell')).toContainText('Has note. Has link');
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Cell note', { exact: true })).toHaveValue(note);
   await expect(page.getByLabel('Cell note', { exact: true })).not.toBeEditable();
   await expect(page.getByRole('button', { name: 'Save note and link' })).toBeDisabled();
@@ -60,7 +61,7 @@ test('edits literal notes and links, restores history and presents a safe read-o
 });
 
 test('blocks unsafe URLs and stale changes without publishing annotations', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Cell note', { exact: true })).toBeEditable();
   const original = await page.evaluate(() => window.opensheet.getWorkbook().revision);
   await page.getByLabel('Link URL', { exact: true }).fill('javascript:alert(1)');
@@ -94,7 +95,7 @@ test('removes annotations together and restores them with undo', async ({ page }
     await range.setNote('old');
     await range.setLink({ target: 'mailto:hello@example.com' });
   });
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Cell note', { exact: true })).toHaveValue('old');
   await page.getByRole('button', { name: 'Remove note and link' }).click();
   await expect(page.getByRole('dialog')).not.toBeVisible();
@@ -146,7 +147,7 @@ test('editing a link preserves an untouched empty note and clearing a note remov
     const range = window.opensheet.getWorkbook().getSheets()[0].range('A1');
     await range.setNote('');
   });
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Cell note', { exact: true })).toBeEditable();
   await page.getByLabel('Link URL', { exact: true }).fill('https://example.com/empty-note');
   await page.getByRole('button', { name: 'Save note and link' }).click();
@@ -170,7 +171,7 @@ test('editing a link preserves an untouched empty note and clearing a note remov
   expect(result.saved).toEqual([[['']], [[link]]]);
   expect(result.undone).toEqual([[['']], [[null]]]);
   expect(result.reopened).toEqual([[['']], [[link]]]);
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   const note = page.getByLabel('Cell note', { exact: true });
   await expect(note).toHaveValue('erase me');
   await note.fill('');
@@ -195,7 +196,7 @@ test('editing a note preserves an untouched empty link description and supports 
       .range('A1')
       .setLink({ target, tooltip: '' });
   }, target);
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Cell note', { exact: true })).toBeEditable();
   await page.getByLabel('Cell note', { exact: true }).fill('edited');
   await page.getByRole('button', { name: 'Save note and link' }).click();
@@ -218,7 +219,7 @@ test('editing a note preserves an untouched empty link description and supports 
   expect(result.saved).toEqual([[{ target, tooltip: '' }]]);
   expect(result.undone).toEqual([[{ target, tooltip: '' }]]);
   expect(result.reopened).toEqual([[{ target, tooltip: '' }]]);
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   const tooltip = page.getByLabel('Link description', { exact: true });
   await expect(tooltip).toHaveValue('remove me');
   await tooltip.fill('');

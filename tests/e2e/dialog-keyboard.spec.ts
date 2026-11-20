@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -11,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('sort levels and actions are keyboard reachable after dynamic changes', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('sort-custom');
+  await workbookTool(page, 'sort-custom');
   await expect(page.getByRole('dialog', { name: 'Custom sort' })).toBeVisible();
   await page.getByLabel('Level 1 order').focus();
   await page.keyboard.press('Tab');
@@ -31,7 +32,7 @@ test('sort levels and actions are keyboard reachable after dynamic changes', asy
 test('filter condition controls remain keyboard reachable when a condition is added', async ({
   page,
 }) => {
-  await page.getByLabel('Sheet actions').selectOption('filter-custom');
+  await workbookTool(page, 'filter-custom');
   await expect(page.getByRole('dialog', { name: 'Custom filter' })).toBeVisible();
   await page.getByLabel('Condition 1 operator').focus();
   await page.keyboard.press('Tab');
@@ -50,9 +51,7 @@ for (const kind of ['sort', 'filter'] as const) {
   test(`${kind} adds a row without replacing existing controls and can remove the first row`, async ({
     page,
   }) => {
-    await page
-      .getByLabel('Sheet actions')
-      .selectOption(kind === 'sort' ? 'sort-custom' : 'filter-custom');
+    await workbookTool(page, kind === 'sort' ? 'sort-custom' : 'filter-custom');
     const firstLabel = kind === 'sort' ? 'Level 1 column' : 'Condition 1 column';
     const addLabel = kind === 'sort' ? 'Add sort level' : 'Add condition';
     const removeLabel = kind === 'sort' ? 'Remove level 1' : 'Remove condition 1';
@@ -87,9 +86,7 @@ for (const kind of ['sort', 'filter'] as const) {
         endColumn: 3,
       });
     });
-    await page
-      .getByLabel('Sheet actions')
-      .selectOption(kind === 'sort' ? 'sort-custom' : 'filter-custom');
+    await workbookTool(page, kind === 'sort' ? 'sort-custom' : 'filter-custom');
     const add = page.getByRole('button', {
       name: kind === 'sort' ? 'Add sort level' : 'Add condition',
     });
@@ -138,7 +135,7 @@ for (const kind of ['sort', 'filter'] as const) {
 }
 
 test('series direction and submit are keyboard reachable', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('fill-series');
+  await workbookTool(page, 'fill-series');
   await expect(page.getByLabel('Step', { exact: true })).toBeEditable();
   await page.getByLabel('Step', { exact: true }).focus();
   await page.keyboard.press('Tab');
@@ -148,7 +145,7 @@ test('series direction and submit are keyboard reachable', async ({ page }) => {
 });
 
 test('paste action is reachable after keyboard clipboard capture', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
+  await workbookTool(page, 'paste-special');
   const box = page.getByLabel('Paste clipboard here');
   await box.evaluate((element) => {
     const clipboard = new DataTransfer();
@@ -163,7 +160,7 @@ test('paste action is reachable after keyboard clipboard capture', async ({ page
 });
 
 test('note link and actions are keyboard reachable', async ({ page }) => {
-  await page.getByLabel('Sheet actions').selectOption('annotation');
+  await workbookTool(page, 'annotation');
   await expect(page.getByLabel('Link URL')).toBeEditable();
   await page.getByLabel('Link URL').fill('https://example.com/');
   await page.getByLabel('Link description').focus();

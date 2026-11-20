@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 for (const [action, other, button, failure] of [
@@ -42,7 +43,7 @@ for (const [action, other, button, failure] of [
       },
       { fail: failure, clear: button === 'Clear all filters' },
     );
-    await page.getByLabel('Sheet actions').selectOption(action);
+    await workbookTool(page, action);
     await page.getByRole('button', { name: button }).click();
     await page.evaluate(() => (window as any).sortFilterGate.written);
     const committed = await page.evaluate(async () => {
@@ -56,8 +57,8 @@ for (const [action, other, button, failure] of [
     if (action === 'sort-custom') expect(committed.values).toEqual([[1], [2], [3]]);
     else if (button === 'Clear all filters') expect(committed.filter).toBeNull();
     else expect(committed.filter).not.toBeNull();
-    await page.locator('#dialog-close').click();
-    await page.getByLabel('Sheet actions').selectOption(other);
+    await page.getByRole('button', { name: 'Close dialog' }).click();
+    await workbookTool(page, other);
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.evaluate(async () => {
       const notice = document.querySelector<HTMLElement>('#notice')!;

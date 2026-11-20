@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 for (const [action, button] of [
@@ -37,7 +38,7 @@ for (const [action, button] of [
           return result;
         };
       });
-      await page.getByLabel('Sheet actions').selectOption(action);
+      await workbookTool(page, action);
       if (action === 'paste-special') {
         await page.getByLabel('Paste clipboard here').evaluate((element) => {
           const clipboard = new DataTransfer();
@@ -124,7 +125,7 @@ for (const action of ['fill-series', 'annotation'] as const) {
         return result;
       };
     });
-    await page.getByLabel('Sheet actions').selectOption(action);
+    await workbookTool(page, action);
     await page.evaluate(() => (window as any).replacementReadGate.readDone);
     await page.evaluate(async () => {
       const app = window.opensheet;

@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { test, expect, type Page } from '@playwright/test';
 
 async function capture(page: Page, text: string, html = '') {
@@ -26,7 +27,7 @@ test.beforeEach(async ({ page }) => {
     await sheet.range('A1').setNote('keep');
     app.selection.set({ sheetId: sheet.id, startRow: 0, endRow: 1, startColumn: 0, endColumn: 1 });
   });
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
+  await workbookTool(page, 'paste-special');
 });
 
 test('image-only clipboard cannot clear cells or apply previously captured text', async ({
@@ -44,7 +45,7 @@ test('image-only clipboard cannot clear cells or apply previously captured text'
     'Clipboard has no supported text or HTML table.',
   );
   await expect(page.getByRole('button', { name: 'Apply paste' })).toBeDisabled();
-  await page.locator('#dialog-close').click();
+  await page.getByRole('button', { name: 'Close dialog' }).click();
   const revision = await page.evaluate(() => window.opensheet.getWorkbook().revision);
   await page.getByRole('grid', { exact: true }).evaluate((element) => {
     const clipboardData = new DataTransfer();
@@ -198,13 +199,13 @@ test('formats require HTML and replace only formatting', async ({ page }) => {
 
 test('cancel, stale dialog and read-only mode preserve cells', async ({ page }) => {
   await capture(page, '99');
-  await page.locator('#dialog-close').click();
+  await page.getByRole('button', { name: 'Close dialog' }).click();
   expect(
     await page.evaluate(() =>
       window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
     ),
   ).toEqual([[7]]);
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
+  await workbookTool(page, 'paste-special');
   await capture(page, '99');
   await page.evaluate(() =>
     window.opensheet
@@ -222,9 +223,8 @@ test('cancel, stale dialog and read-only mode preserve cells', async ({ page }) 
       window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
     ),
   ).toEqual([[8]]);
-  await page.locator('#dialog-close').click();
+  await page.getByRole('button', { name: 'Close dialog' }).click();
   await page.getByLabel('Read only', { exact: true }).check();
-  await page.getByLabel('Sheet actions').selectOption('paste-special');
-  await expect(page.getByRole('alert')).toHaveText('Read only. Pasting is disabled.');
-  await expect(page.getByRole('button', { name: 'Apply paste' })).toBeDisabled();
+  await workbookTool(page, 'paste-special', true);
+  await expect(page.getByRole('dialog')).not.toBeVisible();
 });

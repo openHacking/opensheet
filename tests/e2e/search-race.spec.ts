@@ -1,3 +1,4 @@
+import { workbookTool } from './workbook-tools.js';
 import { expect, test } from '@playwright/test';
 
 test('search uses current row identities after insertion, undo and reopen', async ({ page }) => {
@@ -44,7 +45,7 @@ test('finds formatted values and clearly replaces only case-sensitive literal te
   await page.locator('#find-next').click();
   await expect.poll(() => page.evaluate(() => window.opensheet.selection.get()?.startRow)).toBe(1);
   await page.locator('#find').fill('Alpha');
-  await page.getByRole('combobox', { name: 'Sheet actions' }).selectOption('replace');
+  await workbookTool(page, 'replace');
   await expect(page.getByRole('dialog')).toContainText('case-sensitive literal text');
   await page.getByLabel('Replace with').fill('Omega');
   await page.getByRole('button', { name: 'Replace all' }).click();

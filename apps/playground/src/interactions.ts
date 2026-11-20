@@ -1,10 +1,4 @@
-import { showPasteDialog } from './paste-dialog.js';
-import { showSeriesDialog } from './series-dialog.js';
-import { showAxisSizeDialog } from './axis-size-dialog.js';
-import { showAnnotationDialog } from './annotation-dialog.js';
-import { showFilterDialog } from './filter-dialog.js';
 import { address, type OpenSheet } from 'opensheet';
-import { showSortDialog } from './sort-dialog.js';
 import { showReplaceDialog } from './replace-dialog.js';
 import { createBindings } from './bindings.js';
 import { $ } from './dom.js';
@@ -166,164 +160,36 @@ export function createInteractions(
     previousSearch = undefined;
     state.foundIndex = -1;
   });
-  bindings.on($<HTMLSelectElement>('sheet-action'), 'change', async (e) => {
-    const select = e.target as HTMLSelectElement,
-      value = select.value;
-    select.value = '';
+  bindings.on($('replace-text'), 'click', () => {
+    const selection = app.selection.get();
+    const grid = app.getGrid();
+    if (!selection || !grid) return;
+    const book = app.getWorkbook();
+    showReplaceDialog(book, selection.sheetId, findInput.value, {
+      notice,
+      modal,
+      isCurrent: () => {
+        try {
+          return app.getWorkbook() === book && app.getGrid() === grid;
+        } catch {
+          return false;
+        }
+      },
+    });
+  });
+  bindings.on($('filter-search'), 'click', async () => {
+    const selection = app.selection.get();
+    if (!selection) return;
     try {
-      const book = app.getWorkbook(),
-        s = app.selection.get()!,
-        sh = book.getSheetById(s.sheetId)!;
-      // These actions interpret coordinates or existing pane state from the current
-      // view. A queued structural write can make that view stale before execution.
-      if (
-        book.persistenceState.pending &&
-        [
-          'sort-asc',
-          'sort-desc',
-          'freeze-selection',
-          'freeze-first-row',
-          'freeze-first-column',
-          'unfreeze',
-          'insert-row',
-          'insert-column',
-          'delete-row',
-          'delete-column',
-          'hide-row',
-          'hide-column',
-          'show-selected-rows',
-          'show-selected-columns',
-          'filter',
-        ].includes(value)
-      ) {
-        notice('Wait for saving to finish, then retry the sheet action.');
+      const book = app.getWorkbook();
+      if (book.persistenceState.pending) {
+        notice('Wait for saving to finish, then retry the filter.');
         return;
       }
-      const dialogGrid = app.getGrid();
-      const dialogFeedback = {
-        notice,
-        modal,
-        isCurrent: () => {
-          try {
-            return app.getWorkbook() === book && app.getGrid() === dialogGrid;
-          } catch {
-            return false;
-          }
-        },
-      };
-      switch (value) {
-        case 'sort-custom':
-          showSortDialog(book, s, dialogFeedback);
-          break;
-        case 'sort-asc':
-        case 'sort-desc':
-          await sh.sort(s, s.startColumn, value === 'sort-asc' ? 'asc' : 'desc');
-          break;
-        case 'freeze-selection':
-        case 'freeze-first-row':
-        case 'freeze-first-column':
-        case 'unfreeze': {
-          const current = book.sheetData(sh.id).freeze;
-          const rows =
-            value === 'freeze-selection'
-              ? s.startRow
-              : value === 'freeze-first-row'
-                ? 1
-                : value === 'unfreeze'
-                  ? 0
-                  : current.rows;
-          const columns =
-            value === 'freeze-selection'
-              ? s.startColumn
-              : value === 'freeze-first-column'
-                ? 1
-                : value === 'unfreeze'
-                  ? 0
-                  : current.columns;
-          if (rows !== current.rows || columns !== current.columns)
-            await sh.setFreeze(rows, columns);
-          break;
-        }
-        case 'resize-row':
-          showAxisSizeDialog(book, s, 'row', dialogFeedback);
-          break;
-        case 'resize-column':
-          showAxisSizeDialog(book, s, 'column', dialogFeedback);
-          break;
-        case 'insert-row':
-          await sh.insertRows(s.startRow, s.endRow - s.startRow);
-          break;
-        case 'insert-column':
-          await sh.insertColumns(s.startColumn, s.endColumn - s.startColumn);
-          break;
-        case 'delete-row':
-          await sh.deleteRows(s.startRow, s.endRow - s.startRow);
-          break;
-        case 'delete-column':
-          await sh.deleteColumns(s.startColumn, s.endColumn - s.startColumn);
-          break;
-        case 'hide-row':
-          await sh.setRowsHidden(s.startRow, s.endRow - s.startRow, true);
-          break;
-        case 'hide-column':
-          await sh.setColumnsHidden(s.startColumn, s.endColumn - s.startColumn, true);
-          break;
-        case 'show-selected-rows':
-          await sh.setRowsHidden(s.startRow, s.endRow - s.startRow, false);
-          break;
-        case 'show-selected-columns':
-          await sh.setColumnsHidden(s.startColumn, s.endColumn - s.startColumn, false);
-          break;
-        case 'show-rows':
-          await sh.setAllRowsHidden(false);
-          break;
-        case 'show-columns':
-          await sh.setAllColumnsHidden(false);
-          break;
-        case 'paste-special': {
-          const grid = app.getGrid();
-          const selectionVersion = grid?.selectionVersion;
-          showPasteDialog(book, s, dialogFeedback, (selection) => {
-            if (
-              grid &&
-              app.getGrid() === grid &&
-              app.getWorkbook() === book &&
-              grid.selectionVersion === selectionVersion
-            )
-              app.selection.set(selection);
-          });
-          break;
-        }
-        case 'fill-series':
-          await showSeriesDialog(book, s, dialogFeedback);
-          break;
-        case 'annotation':
-          await showAnnotationDialog(book, s, dialogFeedback);
-          break;
-        case 'filter-custom':
-          showFilterDialog(book, s.sheetId, s.startColumn, dialogFeedback);
-          break;
-        case 'filter':
-          await sh.setFilter({ column: s.startColumn, query: $<HTMLInputElement>('find').value });
-          break;
-        case 'clear-filter':
-          await sh.setFilter(null);
-          break;
-        case 'rename': {
-          const next = prompt('Sheet name', sh.name);
-          if (next) await book.renameSheet(sh.id, next);
-          break;
-        }
-        case 'remove':
-          if (confirm(`Delete sheet “${sh.name}”? You can undo this.`))
-            await book.removeSheet(sh.id);
-          break;
-        case 'replace': {
-          const query = $<HTMLInputElement>('find').value;
-          showReplaceDialog(book, sh.id, query, dialogFeedback);
-          break;
-        }
-      }
+      await book.getSheetById(selection.sheetId)!.setFilter({
+        column: selection.startColumn,
+        query: findInput.value,
+      });
     } catch (error) {
       notice(error instanceof Error ? error.message : String(error));
     }
@@ -358,7 +224,7 @@ export function createInteractions(
   bindings.on($('help'), 'click', () =>
     textModal(
       'Keyboard shortcuts',
-      'Enter / F2     Edit selected cell\nTab / Shift+Tab     Next / previous cell\nArrow keys     Move selection\nShift + arrows     Extend selection\nCtrl/Cmd + C / V     Copy / paste\nCtrl/Cmd + Z     Undo\nCtrl/Cmd + Shift + Z     Redo\nDelete / Backspace     Clear values\nEscape     Cancel editing\n\nPaste values starting with = as formulas. Use an apostrophe to enter literal formula text.\n\n† after a value indicates an imported formula cache that has not been recalculated.',
+      'Enter / F2     Edit selected cell\nTab / Shift+Tab     Next / previous cell\nArrow keys     Move selection\nShift + arrows     Extend selection\nShift+F10 / Menu     Open context menu\nCtrl/Cmd + C / V     Copy / paste\nCtrl/Cmd + Z     Undo\nCtrl/Cmd + Shift + Z     Redo\nDelete / Backspace     Clear values\nEscape     Cancel editing\n\nPaste values starting with = as formulas. Use an apostrophe to enter literal formula text.\n\n† after a value indicates an imported formula cache that has not been recalculated.',
     ),
   );
   return {
