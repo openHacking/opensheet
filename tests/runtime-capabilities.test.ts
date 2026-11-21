@@ -70,6 +70,37 @@ describe('runtime prerequisites', () => {
     expect(worker).not.toHaveBeenCalled();
   });
 
+  it('reports denied BroadcastChannel property access before allocating a Worker', () => {
+    const original = Object.getOwnPropertyDescriptor(globalThis, 'BroadcastChannel');
+    const worker = vi.fn();
+    vi.stubGlobal('Worker', worker);
+    Object.defineProperty(globalThis, 'BroadcastChannel', {
+      configurable: true,
+      get: () => {
+        throw new DOMException('Blocked', 'SecurityError');
+      },
+    });
+    try {
+      expect(() => new Workbook()).toThrow(
+        expect.objectContaining({ code: 'BROADCAST_CHANNEL_UNAVAILABLE' }),
+      );
+      expect(worker).not.toHaveBeenCalled();
+    } finally {
+      if (original) Object.defineProperty(globalThis, 'BroadcastChannel', original);
+      else Reflect.deleteProperty(globalThis, 'BroadcastChannel');
+    }
+  });
+
+  it('rejects a non-constructor BroadcastChannel before allocating a Worker', () => {
+    const worker = vi.fn();
+    vi.stubGlobal('Worker', worker);
+    vi.stubGlobal('BroadcastChannel', {});
+    expect(() => new Workbook()).toThrow(
+      expect.objectContaining({ code: 'BROADCAST_CHANNEL_UNAVAILABLE' }),
+    );
+    expect(worker).not.toHaveBeenCalled();
+  });
+
   it.each(['synchronous', 'asynchronous'] as const)(
     'maps %s IndexedDB security failures without disguising other errors',
     async (mode) => {

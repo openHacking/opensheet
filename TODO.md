@@ -174,6 +174,7 @@ All unchecked items are **planned**, not implemented or verified by this documen
 ## D. Browser, input and accessibility
 
 - [ ] **QA-01 — Add Firefox and a runtime capability matrix.** P0 / M1 / M / QA + core / deps: DISC-01.
+  - BroadcastChannel denial (2026-11-21): denied property access and non-callable globals fail before Worker allocation; denied channel construction produces actionable `BROADCAST_CHANNEL_UNAVAILABLE` and disposes the instance. Three-browser injected failures verify writer release, unchanged saved revision/data and retry; unexpected constructor errors remain visible. Initial creation may already have written a head, and real restricted contexts and other denial modes remain open.
   - Web Locks denial (2026-11-11): main-thread property access and Worker lock-request security failures now report `WEB_LOCKS_UNAVAILABLE` with secure-context guidance. Unit tests cover denied property access before Worker allocation; three-browser startup tests inject Worker denial and verify the saved workbook can be retried. The 12-case three-browser lock-handover suite still passes, including competing readers and failed recovery. Other browser restriction modes and the full runtime matrix remain open.
   - Deliver: Firefox Playwright project, CI install/run configuration and browser support table; feature detection for Workers, IndexedDB and Web Locks.
   - Accept: Chromium/WebKit/Firefox core task and persistence tests pass; missing facilities show actionable errors before partial initialization; unsupported contexts are documented.

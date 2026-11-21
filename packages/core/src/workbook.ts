@@ -166,8 +166,15 @@ export class Workbook {
       'WORKER_UNAVAILABLE',
       'A browser Worker or injected workerFactory is required',
     );
+    let Channel: typeof BroadcastChannel | undefined;
+    try {
+      const candidate = globalThis.BroadcastChannel;
+      if (typeof candidate === 'function') Channel = candidate;
+    } catch {
+      // Access itself can be denied in restricted browser contexts.
+    }
     assert(
-      typeof BroadcastChannel !== 'undefined',
+      Channel,
       'BROADCAST_CHANNEL_UNAVAILABLE',
       'BroadcastChannel is required for workbook revision coordination; use a supported browser or inject a compatible runtime',
     );
@@ -283,7 +290,19 @@ export class Workbook {
           throw new OpenSheetError('DISPOSED', 'Workbook closed during initialization');
         this.adopt(view);
         this.writer = writer;
-        this.channel = new BroadcastChannel(`opensheet:${options.database ?? 'opensheet'}:${id}`);
+        try {
+          this.channel = new Channel(`opensheet:${options.database ?? 'opensheet'}:${id}`);
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            (error.name === 'SecurityError' || error.name === 'NotAllowedError')
+          )
+            throw new OpenSheetError(
+              'BROADCAST_CHANNEL_UNAVAILABLE',
+              'BroadcastChannel access was denied; enable site storage or use a supported browser and reopen the workbook',
+            );
+          throw error;
+        }
         this.channel.onmessage = (event) => {
           if (event.data?.deleted === true) void this.checkRemoteDeletion();
           else this.refreshRemote();
