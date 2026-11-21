@@ -16,11 +16,32 @@ export function OpenSheetView(props: OpenSheetProps): ReactElement {
     callbacks = useRef(props);
   callbacks.current = props;
   useEffect(() => {
-    const instance = createOpenSheet({
-      container: host.current!,
-      mode: callbacks.current.readOnly ? 'read' : 'edit',
-      onError: (error) => callbacks.current.onError?.(error),
-    });
+    const reportInitializationError = (error: unknown) => {
+      const current = callbacks.current;
+      const handler = current.onError;
+      if (!handler) {
+        console.error(error);
+        return;
+      }
+      try {
+        const result: unknown = handler.call(current, error);
+        if (result && typeof (result as PromiseLike<unknown>).then === 'function')
+          void Promise.resolve(result).catch((observerError) => console.error(observerError));
+      } catch (observerError) {
+        console.error(observerError);
+      }
+    };
+    let instance: OpenSheet;
+    try {
+      instance = createOpenSheet({
+        container: host.current!,
+        mode: callbacks.current.readOnly ? 'read' : 'edit',
+        onError: (error) => callbacks.current.onError?.(error),
+      });
+    } catch (error) {
+      reportInitializationError(error);
+      return;
+    }
     app.current = instance;
     let active = true;
     const start = async () => {
@@ -31,10 +52,7 @@ export function OpenSheetView(props: OpenSheetProps): ReactElement {
       callbacks.current.onReady?.(instance);
     };
     void start().catch((error) => {
-      if (active) {
-        if (callbacks.current.onError) callbacks.current.onError(error);
-        else console.error(error);
-      }
+      if (active) reportInitializationError(error);
     });
     return () => {
       active = false;

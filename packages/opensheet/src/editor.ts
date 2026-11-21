@@ -105,7 +105,6 @@ export class OpenSheet {
       footer,
       this.toastView.element,
     );
-    container.append(this.element);
     this.plugins = new PluginRegistry({
       getWorkbook: () => this.getWorkbook(),
       getSelection: () => this.selection.get(),
@@ -116,6 +115,18 @@ export class OpenSheet {
         this.error(e);
       },
     });
+    try {
+      container.append(this.element);
+    } catch (error) {
+      // Construction has already installed observers and document listeners.
+      // Release them if the host rejects the final attachment.
+      try {
+        this.dispose();
+      } catch (cleanupError) {
+        console.error(cleanupError);
+      }
+      throw error;
+    }
   }
   private active() {
     if (this.disposed) throw new OpenSheetError('DISPOSED', 'OpenSheet has been disposed');

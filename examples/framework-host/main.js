@@ -87,6 +87,16 @@ window.hostFixture = {
       initialFile: options.invalid ? { schemaVersion: 999 } : file(options.value ?? 1),
       readOnly: !!options.readOnly,
     };
+    if (options.observerFailure) {
+      const original = props.onError;
+      props.onError = function (error) {
+        state.observerReceiverPreserved = this?.initialFile === props.initialFile;
+        original(error);
+        if (options.observerFailure === 'async')
+          return Promise.reject(new Error('Injected async host observer failure'));
+        throw new Error('Injected sync host observer failure');
+      };
+    }
     if (framework === 'react') {
       if (hydrate) {
         root = hydrateRoot(
@@ -144,6 +154,63 @@ window.hostFixture = {
     root = undefined;
     state.app = null;
     await frames();
+  },
+  failEditorConstruction() {
+    const append = Element.prototype.append;
+    const add = document.addEventListener;
+    const remove = document.removeEventListener;
+    const Resize = window.ResizeObserver;
+    const consoleError = console.error;
+    window.hostFixture.reportedObserverErrors = [];
+    console.error = (...args) => {
+      window.hostFixture.reportedObserverErrors.push(args.map(String).join(' '));
+      return consoleError.apply(console, args);
+    };
+    const listeners = new Set();
+    const observers = new Set();
+    document.addEventListener = function (type, listener, options) {
+      if ((type === 'pointerdown' || type === 'keydown') && listener) {
+        listeners.add(listener);
+        if (typeof options === 'object' && options?.signal)
+          options.signal.addEventListener('abort', () => listeners.delete(listener), {
+            once: true,
+          });
+      }
+      return add.call(this, type, listener, options);
+    };
+    document.removeEventListener = function (type, listener, options) {
+      listeners.delete(listener);
+      return remove.call(this, type, listener, options);
+    };
+    window.ResizeObserver = class extends Resize {
+      constructor(...args) {
+        super(...args);
+        observers.add(this);
+      }
+      disconnect() {
+        observers.delete(this);
+        return super.disconnect();
+      }
+    };
+    window.hostFixture.constructionResources = () => ({
+      listeners: listeners.size,
+      observers: observers.size,
+    });
+    Element.prototype.append = function (...children) {
+      if (
+        this.classList.contains('os-framework-host') &&
+        children.some((child) => child instanceof Element && child.classList.contains('opensheet'))
+      )
+        throw new Error('Injected editor construction failure');
+      return append.apply(this, children);
+    };
+    window.hostFixture.restoreConstruction = () => {
+      Element.prototype.append = append;
+      document.addEventListener = add;
+      document.removeEventListener = remove;
+      window.ResizeObserver = Resize;
+      console.error = consoleError;
+    };
   },
   hold() {
     gate = new Promise((resolve) => {

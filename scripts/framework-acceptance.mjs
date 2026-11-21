@@ -306,6 +306,51 @@ try {
             await invoke('unmount');
             assert.equal((await snapshot()).workers, 0);
             result.checks.push('async initialization errors reach host');
+            await invoke('failEditorConstruction');
+            await invoke('mount');
+            await page.waitForFunction(() => window.hostFixture.state.errors.length > 0);
+            assert.match(
+              (await snapshot()).errors[0].message,
+              /Injected editor construction failure/,
+            );
+            assert.equal((await snapshot()).ready, 0);
+            assert.equal((await snapshot()).workers, 0);
+            await invoke('unmount');
+            assert.deepEqual(await invoke('constructionResources'), { listeners: 0, observers: 0 });
+            await invoke('restoreConstruction');
+            await invoke('mount');
+            await page.waitForFunction(() => window.hostFixture.state.ready === 1);
+            await invoke('unmount');
+            assert.equal((await snapshot()).workers, 0);
+            assert.equal((await snapshot()).grids, 0);
+            result.checks.push(
+              'synchronous construction failure reaches host and remount succeeds',
+            );
+            if (framework === 'react') {
+              for (const observerFailure of ['sync', 'async']) {
+                await invoke('failEditorConstruction');
+                await invoke('mount', { observerFailure });
+                await page.waitForFunction(() => window.hostFixture.state.errors.length > 0);
+                await page.waitForTimeout(50);
+                assert.equal(
+                  await page.evaluate(() => window.hostFixture.state.observerReceiverPreserved),
+                  true,
+                );
+                assert.ok(
+                  (await page.evaluate(() => window.hostFixture.reportedObserverErrors)).some(
+                    (message) =>
+                      message.includes(`Injected ${observerFailure} host observer failure`),
+                  ),
+                );
+                await invoke('unmount');
+                assert.deepEqual(await invoke('constructionResources'), {
+                  listeners: 0,
+                  observers: 0,
+                });
+                await invoke('restoreConstruction');
+              }
+              result.checks.push('throwing and rejecting initialization observers are contained');
+            }
             await invoke('mount');
             await page.waitForFunction(() => window.hostFixture.state.ready === 1);
             await invoke('installLateAction');
