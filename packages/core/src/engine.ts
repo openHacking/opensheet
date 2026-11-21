@@ -321,7 +321,7 @@ export class Engine {
       return this.view();
     }
     const storedHead = await this.db.get<Head>('heads', this.id);
-    const existing = storedHead ? await this.restoreHead(storedHead) : undefined;
+    const existing = storedHead !== undefined ? await this.restoreHead(storedHead) : undefined;
     if (existing) {
       this.head = existing;
       this.metadata = await this.readMetadata(this.head.meta);

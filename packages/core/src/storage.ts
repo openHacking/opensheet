@@ -60,13 +60,30 @@ const encode = (id: IDBValidKey, value: unknown) => {
   result.set(data, 1);
   return result;
 };
-const decode = <T>(value: unknown): T | undefined => {
+const decode = <T>(value: unknown, id: IDBValidKey): T | undefined => {
   if (value === undefined) return undefined;
   assert(value instanceof Uint8Array, 'CORRUPT_STORAGE', 'Invalid encoded storage record');
   assert(value[0] === 0 || value[0] === 1, 'CORRUPT_STORAGE', 'Unsupported storage format');
-  return value[0] === 1
-    ? (value.subarray(1) as T)
-    : (JSON.parse(new TextDecoder().decode(value.subarray(1)))[1] as T);
+  if (value[0] === 1) return value.subarray(1) as T;
+  let tuple: unknown;
+  try {
+    tuple = JSON.parse(
+      new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(value.subarray(1)),
+    );
+  } catch {
+    throw new OpenSheetError(
+      'CORRUPT_STORAGE',
+      'Invalid storage record encoding; restore a backup',
+    );
+  }
+  assert(
+    Array.isArray(tuple) &&
+      tuple.length === 2 &&
+      (typeof id === 'string' ? tuple[0] === id : JSON.stringify(tuple[0]) === JSON.stringify(id)),
+    'CORRUPT_STORAGE',
+    'Invalid storage record envelope; restore a backup',
+  );
+  return tuple[1] as T;
 };
 export class Database {
   private constructor(readonly db: IDBDatabase) {}
@@ -99,7 +116,7 @@ export class Database {
   }
   get<T>(store: string, id: IDBValidKey) {
     return request<unknown>(this.db.transaction(store).objectStore(store).get(id)).then((value) =>
-      decode<T>(value),
+      decode<T>(value, id),
     );
   }
   async hasAny(store: string, range: IDBKeyRange) {
@@ -126,7 +143,7 @@ export class Database {
           const check = () => {
             if (--pending !== 0) return;
             try {
-              const size = decode<number>(ledger.result);
+              const size = decode<number>(ledger.result, id);
               assert(
                 Number.isSafeInteger(size) && size! > 0,
                 'CORRUPT_STORAGE',
@@ -284,7 +301,7 @@ export class Database {
               resolve();
               return;
             }
-            rows.push([cursor.key, decode<T>(encoded)!]);
+            rows.push([cursor.key, decode<T>(encoded, cursor.key)!]);
             bytes += encoded.byteLength;
             cursor.continue();
           } catch (error) {
