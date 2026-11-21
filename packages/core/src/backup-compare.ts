@@ -62,8 +62,8 @@ export async function compareBinaryBackup(
     }
   } finally {
     signal?.removeEventListener('abort', abort);
-    const cancellation = actual.cancel().catch(() => {});
-    if (!signal?.aborted) await cancellation;
+    // A caller-provided Blob stream can leave cancellation pending forever.
+    void actual.cancel().catch(() => {});
     actual.releaseLock();
     const closing = expected.return(undefined);
     if (signal?.aborted) void closing.catch(() => {});

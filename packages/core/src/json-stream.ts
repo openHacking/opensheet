@@ -124,8 +124,9 @@ async function* tokens(
     if (pending.length) yield pending;
   } finally {
     signal?.removeEventListener('abort', abort);
-    const cancellation = reader.cancel().catch(() => {});
-    if (!signal?.aborted) await cancellation;
+    // The source can leave cancellation pending indefinitely. Release our lock
+    // after requesting cancellation without delaying the parser result.
+    void reader.cancel().catch(() => {});
     reader.releaseLock();
   }
 }

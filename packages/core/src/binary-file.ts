@@ -297,8 +297,9 @@ class StreamReader {
   }
   async close() {
     this.signal?.removeEventListener('abort', this.abort);
-    const cancellation = this.reader.cancel().catch(() => {});
-    if (!this.signal?.aborted) await cancellation;
+    // The source can leave cancellation pending indefinitely. Release our lock
+    // after requesting cancellation without delaying the parser result.
+    void this.reader.cancel().catch(() => {});
     this.reader.releaseLock();
   }
 }

@@ -1,6 +1,7 @@
 import { expect, it, vi } from 'vitest';
 import { compareBinaryBackup, createWorkbook, verifyBinary, verifyJSON } from '@opensheetjs/core';
-import { unpackPage, writeBinary } from '../packages/core/src/binary-file.js';
+import { readBinary, unpackPage, writeBinary } from '../packages/core/src/binary-file.js';
+import { parseWorkbookJSON } from '../packages/core/src/json-stream.js';
 
 it('does not release or cancel an internally owned completed decompression stream', async () => {
   let released = false;
@@ -79,6 +80,40 @@ it('reports a compressed page overflow without waiting for stalled stream cancel
     vi.unstubAllGlobals();
   }
 });
+
+it.each(['json', 'binary'] as const)(
+  'reports invalid %s input when caller stream cancellation never settles',
+  async (format) => {
+    let cancelCount = 0;
+    const stream = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(format === 'json' ? new Uint8Array([255]) : new Uint8Array(12));
+      },
+      cancel() {
+        cancelCount++;
+        return new Promise<void>(() => {});
+      },
+    });
+    const read = format === 'json' ? parseWorkbookJSON(stream) : readBinary(stream);
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+    try {
+      const result = await Promise.race([
+        read.next().then(
+          () => 'accepted',
+          (error: { code?: string }) => error.code,
+        ),
+        new Promise<string>((resolve) => {
+          timeout = setTimeout(() => resolve('timeout'), 1000);
+        }),
+      ]);
+      expect(result).toBe('INVALID_ARGUMENT');
+      expect(cancelCount).toBe(1);
+      expect(stream.locked).toBe(false);
+    } finally {
+      clearTimeout(timeout);
+    }
+  },
+);
 
 for (const verify of [verifyJSON, verifyBinary]) {
   it('cancels verification while input and stream cleanup are stalled', async () => {
@@ -206,6 +241,47 @@ it('passes cancellation through binary verification into page decompression', as
     await book.close();
   }
 }, 2000);
+
+it('returns a backup mismatch without waiting for input stream cancellation', async () => {
+  const book = await createWorkbook();
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const parts: Uint8Array[] = [];
+    for await (const part of book.streamBinary()) parts.push(part);
+    const blob = new Blob(parts as BlobPart[]);
+    const original = blob.stream.bind(blob);
+    let calls = 0;
+    let cancelled = 0;
+    const mismatch = new ReadableStream<Uint8Array<ArrayBuffer>>({
+      start(controller) {
+        controller.enqueue(new Uint8Array([255]));
+      },
+      cancel() {
+        cancelled++;
+        return new Promise<void>(() => {});
+      },
+    });
+    const mock = vi
+      .spyOn(blob, 'stream')
+      .mockImplementation(() => (++calls === 1 ? original() : mismatch));
+    try {
+      const result = await Promise.race([
+        compareBinaryBackup(book, blob),
+        new Promise<'timeout'>((resolve) => {
+          timeout = setTimeout(() => resolve('timeout'), 1000);
+        }),
+      ]);
+      expect(result).toEqual({ matches: false, revision: book.revision });
+      expect(cancelled).toBe(1);
+      expect(mismatch.locked).toBe(false);
+    } finally {
+      mock.mockRestore();
+    }
+  } finally {
+    clearTimeout(timeout);
+    await book.deleteStorage();
+  }
+});
 
 it('cancels a stalled backup comparison read without waiting for stream cleanup', async () => {
   const book = await createWorkbook();
