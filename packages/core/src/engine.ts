@@ -853,22 +853,23 @@ export class Engine {
     const { blocks, ...rest } = head;
     return { ...rest, directory: head.directory ?? {} };
   }
-  private checkDirectorySheets() {
-    const sheetIds = new Set(this.metadata.snapshot.sheets.map((sheet) => sheet.id));
-    assert(
-      Object.keys(this.head.blocks).every((address) => sheetIds.has(address.split('/')[0])),
-      'CORRUPT_STORAGE',
-      'Block directory references an unknown sheet',
-    );
-    assert(
-      Object.values(this.head.blocks).every(
-        (pointer) =>
-          pointer.styles === undefined ||
-          pointer.styles.every((id) => Object.hasOwn(this.metadata.snapshot.styles, id)),
-      ),
-      'CORRUPT_STORAGE',
-      'Block directory references an unknown style',
-    );
+  private checkDirectorySheets(head = this.head, metadata = this.metadata) {
+    const sheetIds = new Set(metadata.snapshot.sheets.map((sheet) => sheet.id));
+    for (const address in head.blocks) {
+      if (!Object.hasOwn(head.blocks, address)) continue;
+      const pointer = head.blocks[address];
+      assert(
+        sheetIds.has(address.slice(0, address.indexOf('/'))),
+        'CORRUPT_STORAGE',
+        'Block directory references an unknown sheet',
+      );
+      assert(
+        pointer.styles === undefined ||
+          pointer.styles.every((id) => Object.hasOwn(metadata.snapshot.styles, id)),
+        'CORRUPT_STORAGE',
+        'Block directory references an unknown style',
+      );
+    }
   }
   private async restoreHead(head: Head) {
     assert(
@@ -3386,6 +3387,8 @@ export class Engine {
     const metadata = {
       ...(next.meta === this.head.meta ? this.metadata : await this.readMetadata(next.meta)),
     };
+    // Historical pages and metadata must agree before the new head is published.
+    this.checkDirectorySheets(next, metadata);
     await this.filters(next, metadata);
     await this.publish(next, metadata, next.meta === this.head.meta ? h.ranges : undefined);
     return {
