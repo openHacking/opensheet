@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-11-21T10:32:42.519Z",
+  "baselineCommit": "da9ade8",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 397,
+    "sha256": "56fe6727a996d4c5bea95173c669093f2e7e14c08aa99efde0baeb8293001678"
+  },
+  "build": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 12,
+    "sha256": "50a4cb0d0769af436843d0863fb80c5dc965458b2e36ae3a52ff7ada28413559"
+  },
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCores": 10
+  },
+  "platform": "darwin/arm64/25.5.0",
+  "node": "v22.19.0",
+  "powerMode": "Now drawing from 'AC Power'",
+  "bundles": {
+    "baseline": {
+      "sourceSha256": "864046d63b07d389cce21f5d40612c5337d7416eb7f5efd8e925a6dbaa8cb640",
+      "bundleSha256": "cd2f9f026150ce3ecce2b402b7fded0120db1c48d55374acc930c879e0ce6d3e"
+    },
+    "current": {
+      "sourceSha256": "786d69ea309d3f8b517e5272a967fa33950ebd0ea18c9ac1921cb55a1a531bf1",
+      "bundleSha256": "78ea10b8ff156e3d8c4762fd2bf083aa932cb146eaed1e3b3abf2cdf9e6452e7"
+    }
+  },
+  "samples": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "workerRequests": 4,
+      "error": "Error: page.evaluate: OpenSheetError: Read ranges in batches of at most 16384 cells\n    at Lt.worker.onmessage (http://127.0.0.1:5186/assets/index-uh1J3PXa.js:57:87609)"
+    }
+  ],
+  "scope": "Three alternating fresh Chromium contexts per variant using production-preview UI and substituted esbuild Workers. Each generates 1m mixed cells, makes 100 single-cell edits, measures three reopen operations and every undo/redo, checks each changed value and verifies all 1m cells after history. Undo/redo timings exclude the verification reads. This measures one local workload, not metadata-heavy histories, peak memory, cold OS caches, other devices or Vite Worker delivery.",
+  "browser": "153.0.8010.12"
+}
