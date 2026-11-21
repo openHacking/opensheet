@@ -86,17 +86,41 @@
         "empty-link-tooltip"
       ],
       "expectedValues": {
-        "Annotations!A1": "empty note",
-        "Annotations!A2": "blank cell with empty note",
-        "Annotations!A3": "hello",
-        "Annotations!A4": "blank cell with hello",
-        "Annotations!A5": "link target retained"
+        "Annotations!A1": "value",
+        "Annotations!A2": null,
+        "Annotations!A3": "value",
+        "Annotations!A4": null,
+        "Annotations!A5": "link"
       },
       "expectedLoss": "The XLSX writer omits an explicitly empty tooltip, reported as EMPTY_LINK_TOOLTIP_DROPPED; strict export rejects.",
       "independentProcedure": "Build packages, then run node scripts/annotation-interop-reader.mjs --output=benchmarks/new-annotation-report.json with soffice installed. Inspect saved XLSX and loss report.",
       "evidence": "../../../benchmarks/annotation-interop-2026-10-31.json",
       "limitations": "LibreOfficeDev headless save only; no Excel or visual validation.",
-      "sha256": "91b9fd5d6573fd92adf8176e03f058dd2d531fbcca6e1b425c5d5d292d3cdc5e"
+      "sha256": "91b9fd5d6573fd92adf8176e03f058dd2d531fbcca6e1b425c5d5d292d3cdc5e",
+      "expectedAnnotations": {
+        "Annotations!A1": {
+          "note": "",
+          "link": null
+        },
+        "Annotations!A2": {
+          "note": "",
+          "link": null
+        },
+        "Annotations!A3": {
+          "note": "hello",
+          "link": null
+        },
+        "Annotations!A4": {
+          "note": "hello",
+          "link": null
+        },
+        "Annotations!A5": {
+          "note": null,
+          "link": {
+            "target": "https://example.com/"
+          }
+        }
+      }
     },
     {
       "id": "axis-dimensions",
@@ -110,15 +134,23 @@
         "metadata-outside-used-range"
       ],
       "expectedValues": {
-        "Dimensions!row101": "42 px and hidden",
-        "Dimensions!columnU": "hidden; width approximate"
+        "Dimensions!A1": 1
       },
       "expectedImportIssueCodes": ["WIDTH_APPROXIMATED"],
       "expectedLoss": "Explicit column widths are font-dependent and reported as approximations; zero-pixel row heights are reported as dropped on export.",
       "independentProcedure": "Build packages, run node scripts/axis-dimension-export.mjs NEW.xlsx, then inspect with python3 scripts/axis-dimension-fixture.py inspect NEW.xlsx.",
       "evidence": "../../../docs/verification.md",
       "limitations": "One openpyxl version; no Excel, LibreOffice or visual measurement.",
-      "sha256": "81c6a17ba09905a8d88d9cecc78ee208a60711b6f88c80b82309de1c85814e16"
+      "sha256": "81c6a17ba09905a8d88d9cecc78ee208a60711b6f88c80b82309de1c85814e16",
+      "expectedAxis": {
+        "Dimensions!row101": {
+          "sizePx": 42,
+          "hidden": true
+        },
+        "Dimensions!columnU": {
+          "hidden": true
+        }
+      }
     },
     {
       "id": "worksheet-panes",

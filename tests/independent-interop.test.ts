@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { FileReader, Workbook } from '@opensheetjs/core';
 import { fromSheetJS } from '@opensheetjs/adapter-sheetjs';
 import { encodeClipboardText } from '../packages/renderer/src/clipboard-text.js';
+import { decodeWorkbookFile } from '../packages/core/src/file-codec.js';
 
 it('pins independent Unicode and link-tooltip XLSX observations', () => {
   const report = JSON.parse(
@@ -160,6 +161,105 @@ it('pins every indexed source and requires provenance, losses and an independent
         .digest('hex'),
     ).toBe(entry.sha256);
   }
+});
+
+it('maps each indexed XLSX scalar expectation to the actual source file', () => {
+  const directory = new URL('./fixtures/interop/', import.meta.url);
+  const entries = manifest.fixtures.filter((entry: { source: string }) =>
+    entry.source.endsWith('.xlsx'),
+  );
+  expect(entries.length).toBeGreaterThan(0);
+  for (const entry of entries) {
+    const bytes = readFileSync(new URL(entry.source, directory));
+    const workbook = XLSX.read(bytes, {
+      type: 'buffer',
+      cellNF: true,
+      sheetStubs: true,
+      bookFiles: true,
+    });
+    for (const [address, expected] of Object.entries(entry.expectedValues)) {
+      const [sheet, cell] = address.split('!');
+      expect(workbook.Sheets[sheet]?.[cell]?.v, `${entry.id}: ${address}`).toEqual(expected);
+    }
+  }
+});
+
+it('matches indexed annotation values and metadata against independent reader evidence', () => {
+  const entry = manifest.fixtures.find((item: { id: string }) => item.id === 'empty-annotations');
+  const report = JSON.parse(
+    readFileSync(new URL(entry.evidence, new URL('./fixtures/interop/', import.meta.url)), 'utf8'),
+  );
+  expect(report.comparisons).toHaveLength(Object.keys(entry.expectedValues).length);
+  for (const comparison of report.comparisons) {
+    const key = `Annotations!${comparison.cell}`;
+    for (const phase of ['emitted', 'reopened']) {
+      const result = comparison[phase];
+      expect(result.input.type === 'blank' ? null : result.input.value, `${key} ${phase}`).toEqual(
+        entry.expectedValues[key],
+      );
+      expect({ note: result.note, link: result.link }, `${key} ${phase}`).toEqual(
+        entry.expectedAnnotations[key],
+      );
+    }
+  }
+});
+
+it('matches indexed error values against independent export and reader results', () => {
+  const entry = manifest.fixtures.find((item: { id: string }) => item.id === 'error-values');
+  const report = JSON.parse(
+    readFileSync(new URL(entry.evidence, new URL('./fixtures/interop/', import.meta.url)), 'utf8'),
+  );
+  expect(report.assertions).toHaveLength(Object.keys(entry.expectedValues).length);
+  for (const item of report.assertions) {
+    const expected = entry.expectedValues[`Errors!${item.cell}`];
+    expect(item.expected).toBe(expected);
+    expect(item.saved).toBe(expected);
+    expect(item.csv).toBe(expected);
+    expect(item.agrees).toBe(true);
+  }
+});
+
+it('separates indexed cell values from imported axis metadata', () => {
+  const entry = manifest.fixtures.find((item: { id: string }) => item.id === 'axis-dimensions');
+  const bytes = readFileSync(
+    new URL(entry.source, new URL('./fixtures/interop/', import.meta.url)),
+  );
+  const imported = fromSheetJS(XLSX.read(bytes, { type: 'buffer', cellStyles: true }));
+  const sheet = decodeWorkbookFile(imported.file).sheets[0];
+  expect(sheet.rows[sheet.rowOrder[100]]).toEqual({
+    size: entry.expectedAxis['Dimensions!row101'].sizePx,
+    hidden: entry.expectedAxis['Dimensions!row101'].hidden,
+  });
+  expect(sheet.columns[sheet.columnOrder[20]]?.hidden).toBe(
+    entry.expectedAxis['Dimensions!columnU'].hidden,
+  );
+  for (const code of entry.expectedImportIssueCodes)
+    expect(imported.report.issues).toContainEqual(expect.objectContaining({ code }));
+});
+
+it('covers the required baseline interoperability feature families', () => {
+  const covered = new Set(
+    manifest.fixtures.flatMap((entry: { features: string[] }) => entry.features),
+  );
+  for (const feature of [
+    'text-leading-zero',
+    'number',
+    'boolean',
+    'spreadsheet-error-cells',
+    'date-system-1900',
+    'date-system-1904',
+    'range-formula',
+    'cross-sheet-formula',
+    'percentage',
+    'merge',
+    'row-height',
+    'column-width',
+    'multiple-sheets',
+    'data-validation-list',
+    'conditional-format-formula',
+    'workbook-scoped-defined-names',
+  ])
+    expect(covered.has(feature), `missing ${feature}`).toBe(true);
 });
 
 it.each(['defined-names', 'defined-name-formulas'])(
