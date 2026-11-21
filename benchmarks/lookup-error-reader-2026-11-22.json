@@ -1,0 +1,111 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "inspector": "openpyxl 3.1.5",
+  "scope": "Synthetic exact MATCH and VLOOKUP cases with lookup errors and blank cells. One LibreOfficeDev alpha build, headless recalculation; no Excel or stable LibreOffice claim.",
+  "fixture": {
+    "file": "tests/fixtures/lookup-error-corpus.json",
+    "sha256": "34cec65a70241da41d5f95f73bf9ac85c2dc35d40a7bee88e0433ea73420b662"
+  },
+  "artifacts": {
+    "source": {
+      "file": "lookup-error-reader-2026-11-22.source.xlsx",
+      "sha256": "aca8eae845442371497760d997d7533c229f236ee85775a2cf907b11f8a250c8"
+    },
+    "saved": {
+      "file": "lookup-error-reader-2026-11-22.saved.xlsx",
+      "sha256": "7265c020eaa9dff8a73680eec5bfc086abacf451b602f9f3fad16985dcd30ff4"
+    }
+  },
+  "observations": [
+    {
+      "formula": "MATCH(3,A1:A3,0)",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "reader": 3,
+      "agrees": false
+    },
+    {
+      "formula": "MATCH(1,A1:A3,0)",
+      "expected": 1,
+      "reader": 1,
+      "agrees": true
+    },
+    {
+      "formula": "MATCH(2,A1:A3,0)",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "reader": {
+        "error": "#N/A"
+      },
+      "agrees": false
+    },
+    {
+      "formula": "VLOOKUP(3,A1:B3,2,FALSE)",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "reader": 30,
+      "agrees": false
+    },
+    {
+      "formula": "VLOOKUP(1,A1:B3,2,FALSE)",
+      "expected": 10,
+      "reader": 10,
+      "agrees": true
+    },
+    {
+      "formula": "MATCH(0,A4:A5,0)",
+      "expected": 1,
+      "reader": {
+        "error": "#N/A"
+      },
+      "agrees": false
+    },
+    {
+      "formula": "MATCH(\"\",A4:A5,0)",
+      "expected": {
+        "error": "#N/A"
+      },
+      "reader": {
+        "error": "#N/A"
+      },
+      "agrees": true
+    },
+    {
+      "formula": "MATCH(\"\",A4:A6,0)",
+      "expected": 3,
+      "reader": 3,
+      "agrees": true
+    },
+    {
+      "formula": "VLOOKUP(0,A4:B6,2,FALSE)",
+      "expected": 40,
+      "reader": {
+        "error": "#N/A"
+      },
+      "agrees": false
+    },
+    {
+      "formula": "VLOOKUP(\"\",A4:B6,2,FALSE)",
+      "expected": 60,
+      "reader": 60,
+      "agrees": true
+    },
+    {
+      "formula": "MATCH(3,A3:A3,0)",
+      "expected": 1,
+      "reader": 1,
+      "agrees": true
+    },
+    {
+      "formula": "MATCH(\"*\",A1:A3,0)",
+      "expected": {
+        "error": "#DIV/0!"
+      },
+      "reader": 1,
+      "agrees": false
+    }
+  ]
+}

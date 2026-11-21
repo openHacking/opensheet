@@ -1,0 +1,75 @@
+{
+  "inputs": [
+    1,
+    {
+      "error": "#DIV/0!"
+    },
+    3,
+    null,
+    null,
+    {
+      "formula": "\"\""
+    }
+  ],
+  "results": [10, 20, 30, 40, 50, 60],
+  "cases": [
+    {
+      "formula": "MATCH(3,A1:A3,0)",
+      "expected": {
+        "error": "#DIV/0!"
+      }
+    },
+    {
+      "formula": "MATCH(1,A1:A3,0)",
+      "expected": 1
+    },
+    {
+      "formula": "MATCH(2,A1:A3,0)",
+      "expected": {
+        "error": "#DIV/0!"
+      }
+    },
+    {
+      "formula": "VLOOKUP(3,A1:B3,2,FALSE)",
+      "expected": {
+        "error": "#DIV/0!"
+      }
+    },
+    {
+      "formula": "VLOOKUP(1,A1:B3,2,FALSE)",
+      "expected": 10
+    },
+    {
+      "formula": "MATCH(0,A4:A5,0)",
+      "expected": 1
+    },
+    {
+      "formula": "MATCH(\"\",A4:A5,0)",
+      "expected": {
+        "error": "#N/A"
+      }
+    },
+    {
+      "formula": "MATCH(\"\",A4:A6,0)",
+      "expected": 3
+    },
+    {
+      "formula": "VLOOKUP(0,A4:B6,2,FALSE)",
+      "expected": 40
+    },
+    {
+      "formula": "VLOOKUP(\"\",A4:B6,2,FALSE)",
+      "expected": 60
+    },
+    {
+      "formula": "MATCH(3,A3:A3,0)",
+      "expected": 1
+    },
+    {
+      "formula": "MATCH(\"*\",A1:A3,0)",
+      "expected": {
+        "error": "#DIV/0!"
+      }
+    }
+  ]
+}
