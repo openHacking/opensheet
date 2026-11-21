@@ -36,6 +36,28 @@ export function createRouting(
       throw error;
     }
   }
+  function disposeCandidate(candidate: Workbook) {
+    try {
+      candidate.dispose();
+    } catch {
+      // Cleanup must not replace the original failure or the retained-workbook notice.
+    }
+  }
+  async function closeCandidate(candidate: Workbook) {
+    try {
+      await candidate.close();
+    } catch {
+      disposeCandidate(candidate);
+    }
+  }
+  async function discardCandidate(candidate: Workbook) {
+    try {
+      await candidate.deleteStorage();
+    } catch {
+      // Deletion may have failed; release the local owner without masking the cause.
+      disposeCandidate(candidate);
+    }
+  }
   function showPage(page: 'spreadsheet' | 'api' | 'plugins', focus = false) {
     for (const id of ['spreadsheet', 'api', 'plugins'] as const) {
       $(id === 'spreadsheet' ? 'spreadsheet-page' : `${id}-page`).hidden = id !== page;
@@ -138,16 +160,12 @@ export function createRouting(
           await app.attachWorkbook(candidate);
         } catch (error) {
           if (candidate && !published) {
-            try {
-              await candidate.deleteStorage();
-            } catch {
-              candidate.dispose();
-            }
+            await discardCandidate(candidate);
           } else if (candidate && published) {
             try {
-              if (currentWorkbook() !== candidate) await candidate.close();
+              if (currentWorkbook() !== candidate) await closeCandidate(candidate);
             } catch {
-              candidate.dispose();
+              disposeCandidate(candidate);
             }
             const message = error instanceof Error ? error.message : String(error);
             throw new Error(
@@ -233,16 +251,12 @@ export function createRouting(
       }
     } catch (error) {
       if (candidate && !published) {
-        try {
-          await candidate.deleteStorage();
-        } catch {
-          candidate.dispose();
-        }
+        await discardCandidate(candidate);
       } else if (candidate && published) {
         try {
-          if (app.getWorkbook() !== candidate) await candidate.close();
+          if (app.getWorkbook() !== candidate) await closeCandidate(candidate);
         } catch {
-          candidate.dispose();
+          disposeCandidate(candidate);
         }
       }
       $<HTMLSelectElement>('scene-select').disabled = false;
@@ -367,13 +381,7 @@ export function createRouting(
           /* No workbook is attached. */
         }
         if (attached || referenceWritten) {
-          if (!attached) {
-            try {
-              await candidate.close();
-            } catch {
-              candidate.dispose();
-            }
-          }
+          if (!attached) await closeCandidate(candidate);
           const message = error instanceof Error ? error.message : String(error);
           throw new RetainedBackupError(
             candidate.id,
@@ -381,12 +389,7 @@ export function createRouting(
             error,
           );
         }
-        try {
-          await candidate.deleteStorage();
-        } catch {
-          /* Preserve the original error; storage may be unavailable. */
-        }
-        candidate.dispose();
+        await discardCandidate(candidate);
         throw error;
       }
     },
@@ -427,13 +430,7 @@ export function createRouting(
         } catch {
           // A disposed editor cannot retain the candidate.
         }
-        if (candidate !== previous && !attached) {
-          try {
-            await candidate.close();
-          } catch {
-            candidate.dispose();
-          }
-        }
+        if (candidate !== previous && !attached) await closeCandidate(candidate);
         if (published) {
           const message = error instanceof Error ? error.message : String(error);
           throw new RetainedBackupError(
