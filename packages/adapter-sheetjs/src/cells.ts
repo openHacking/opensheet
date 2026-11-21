@@ -434,6 +434,16 @@ export function exportCell(
         sheetId: id,
         address: address(row, col),
       });
+    else if (c.link.tooltip !== undefined)
+      add(r, {
+        code: 'LINK_TOOLTIP_INTEROP',
+        feature: 'link',
+        message: 'Link tooltips may be removed when another spreadsheet application saves the file',
+        action: 'approximated',
+        severity: 'warning',
+        sheetId: id,
+        address: address(row, col),
+      });
   }
   if (c.note !== undefined) x.c = [{ a: 'OpenSheet', t: c.note }];
   if (c.styleId) {

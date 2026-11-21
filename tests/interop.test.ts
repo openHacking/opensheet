@@ -1246,6 +1246,49 @@ it('preserves empty notes and reports XLSX loss of empty link tooltips', async (
   }
 });
 
+it('reports nonempty link tooltip round-trip risk without confusing empty or absent tooltips', async () => {
+  const book = await createWorkbook({ sheets: [{ name: 'Data', rows: 4, columns: 1 }] });
+  try {
+    const sheet = book.getSheets()[0];
+    await sheet.range('A1:A4').setValues([['one'], ['empty'], ['absent'], ['two']]);
+    await sheet.range('A1').setLink({ target: 'https://example.com/', tooltip: 'ordinary tip' });
+    await sheet.range('A2').setLink({ target: 'https://example.com/', tooltip: '' });
+    await sheet.range('A3').setLink({ target: 'https://example.com/' });
+    await sheet.range('A4').setLink({ target: 'https://example.com/', tooltip: 'tip🙂' });
+    const file = await book.toJSON();
+    const result = writeXlsx(file, XLSX);
+    expect(result.report.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'LINK_TOOLTIP_INTEROP',
+          action: 'approximated',
+          count: 2,
+          address: 'A1',
+        }),
+        expect.objectContaining({
+          code: 'EMPTY_LINK_TOOLTIP_DROPPED',
+          action: 'dropped',
+          count: 1,
+          address: 'A2',
+        }),
+      ]),
+    );
+    const parsed = XLSX.read(result.bytes, { type: 'array' }).Sheets.Data;
+    expect(parsed.A1.l.Tooltip).toBe('ordinary tip');
+    expect(parsed.A4.l.Tooltip).toBe('tip🙂');
+    expect(() => writeXlsx(file, XLSX, { unsupported: 'strict' })).toThrow(
+      'Strict compatibility check failed',
+    );
+    await sheet.range('A1').setLink({ target: 'https://example.com/' });
+    await sheet.range('A2').setLink({ target: 'https://example.com/' });
+    await sheet.range('A4').setLink({ target: 'https://example.com/' });
+    const withoutTooltips = await book.toJSON();
+    expect(() => writeXlsx(withoutTooltips, XLSX, { unsupported: 'strict' })).not.toThrow();
+  } finally {
+    await book.deleteStorage();
+  }
+});
+
 it('reports unsupported number formats while retaining their original codes', async () => {
   const source = {
     SheetNames: ['Data'],

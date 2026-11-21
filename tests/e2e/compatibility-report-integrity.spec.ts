@@ -82,6 +82,24 @@ test('warns before downloading XLSX with an unpaired surrogate', async ({ page }
   expect(downloads).toEqual([]);
 });
 
+test('warns that spreadsheet saves can remove link tooltips', async ({ page }) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  await page.evaluate(async () => {
+    const range = window.opensheet.getWorkbook().getSheets()[0].range('A1');
+    await range.setLink({ target: 'https://example.com/', tooltip: 'ordinary tip' });
+  });
+  const downloads: string[] = [];
+  page.on('download', (download) => downloads.push(download.suggestedFilename()));
+  await page.locator('#export-xlsx').click();
+  const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
+  await expect(dialog).toContainText(
+    'Link tooltips may be removed when another spreadsheet application saves the file',
+  );
+  await expect(dialog).toContainText('Launch budget: A1:');
+  expect(downloads).toEqual([]);
+});
+
 test('warns about long formulas before XLSX download', async ({ page }) => {
   await page.goto('/#budget');
   await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');

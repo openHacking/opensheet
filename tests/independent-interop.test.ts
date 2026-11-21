@@ -6,6 +6,33 @@ import { Workbook } from '@opensheetjs/core';
 import { fromSheetJS } from '@opensheetjs/adapter-sheetjs';
 import { encodeClipboardText } from '../packages/renderer/src/clipboard-text.js';
 
+it('pins independent Unicode and link-tooltip XLSX observations', () => {
+  const report = JSON.parse(
+    readFileSync(new URL('xlsx-unicode-reader-2026-11-21.json', root), 'utf8'),
+  );
+  for (const artifact of Object.values(report.artifacts) as { file: string; sha256: string }[])
+    expect(
+      createHash('sha256')
+        .update(readFileSync(new URL(artifact.file, root)))
+        .digest('hex'),
+    ).toBe(artifact.sha256);
+  expect(report.sourceInspection.cells.slice(0, 4)).toEqual(['�', '�', '🙂', '_xfffe_']);
+  expect(report.savedInspection.cells.slice(0, 4)).toEqual(
+    report.sourceInspection.cells.slice(0, 4),
+  );
+  expect(report.sourceInspection.note).toBe('note�');
+  expect(report.savedInspection.note).toBe('note�');
+  expect(report.sourceInspection.tooltips).toEqual(['tip�', 'ordinary tip', 'tip🙂']);
+  expect(report.savedInspection.tooltips).toEqual([null, null, null]);
+  expect(report.adapterReport.issues).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ code: 'XLSX_UNPAIRED_SURROGATE_TEXT', count: 4 }),
+      expect.objectContaining({ code: 'LINK_TOOLTIP_INTEROP', count: 3 }),
+      expect.objectContaining({ code: 'XLSX_CONTROL_TEXT_INTEROP', count: 1 }),
+    ]),
+  );
+});
+
 it('pins independent frozen-pane export and LibreOffice round-trip evidence', () => {
   for (const name of [
     'xlsx-freeze-export-reader-2026-11-12.json',

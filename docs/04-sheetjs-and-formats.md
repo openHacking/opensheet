@@ -54,6 +54,8 @@ Literal text shaped like `_x0041_` can be interpreted as an XLSX escape by Sheet
 
 Unpaired UTF-16 surrogates in sheet names, cell values, formulas, number formats, notes and links are reported as approximations on XLSX export; strict mode rejects them. The pinned SheetJS writer/reader replaces tested unpaired surrogates with U+FFFD. Valid surrogate pairs such as emoji do not trigger this warning. Native OpenSheet formats preserve unpaired surrogates.
 
+Nonempty hyperlink tooltips are written to XLSX but reported as approximations because other applications may remove them when saving. Strict mode rejects that risk. An explicitly empty tooltip is separately reported as dropped by the writer; an absent tooltip is not reported. In a synthetic [independent-reader probe](../benchmarks/xlsx-unicode-reader-2026-11-21.json), openpyxl 3.1.5 saw three source tooltips and LibreOfficeDev 26.8 alpha removed them on save. This does not establish Excel or stable LibreOffice behavior.
+
 Some control characters are written as XLSX escape sequences and may appear as literal escape text in other applications; the tested writer/reader replaces U+FFFE with U+FFFD. Export reports this as an approximation; strict mode rejects it. Line feeds and tabs are not included in that particular warning.
 
 The playground prepares XLSX in a Worker after creating a workbook snapshot. If the workbook changes while preparing or reviewing the export, start the export again. The Worker is stopped after 120 seconds; snapshot creation and transferring it to the Worker can still pause the main thread and consume additional memory. Before downloading an XLSX larger than the playground's 20 MiB import limit, the compatibility dialog warns that it cannot be reopened in the playground.

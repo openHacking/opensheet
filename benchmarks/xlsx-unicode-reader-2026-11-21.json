@@ -1,0 +1,189 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "scope": "Synthetic OpenSheet adapter XLSX with unpaired surrogates, one paired emoji, U+FFFE, a note and a link tooltip. openpyxl inspects source and LibreOfficeDev-saved output; no Excel or stable LibreOffice guarantee.",
+  "inputs": [
+    {
+      "rowId": 0,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "\ud800"
+      }
+    },
+    {
+      "rowId": 1,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "\udc00"
+      }
+    },
+    {
+      "rowId": 2,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "🙂"
+      }
+    },
+    {
+      "rowId": 3,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "￾"
+      }
+    },
+    {
+      "rowId": 4,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "note"
+      },
+      "note": "note\ud800"
+    },
+    {
+      "rowId": 5,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "link"
+      },
+      "link": {
+        "target": "https://example.com/",
+        "tooltip": "tip\udc00"
+      }
+    },
+    {
+      "rowId": 6,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "plain link"
+      },
+      "link": {
+        "target": "https://example.org/",
+        "tooltip": "ordinary tip"
+      }
+    },
+    {
+      "rowId": 7,
+      "columnId": 0,
+      "input": {
+        "type": "string",
+        "value": "emoji link"
+      },
+      "link": {
+        "target": "https://example.net/",
+        "tooltip": "tip🙂"
+      }
+    }
+  ],
+  "adapterReport": {
+    "adapterVersion": "0.2.0-dev.0",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 8,
+      "approximated": 8,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "XLSX_UNPAIRED_SURROGATE_TEXT",
+        "feature": "text",
+        "message": "Unpaired UTF-16 surrogates may be replaced when written to XLSX",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_c9c00daa3a434de1a7a2d2536b281b37",
+        "address": "A1",
+        "count": 4
+      },
+      {
+        "code": "XLSX_CONTROL_TEXT_INTEROP",
+        "feature": "text",
+        "message": "Some spreadsheet applications may display control characters as escape sequences or replace Unicode noncharacters",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_c9c00daa3a434de1a7a2d2536b281b37",
+        "address": "A4",
+        "count": 1
+      },
+      {
+        "code": "LINK_TOOLTIP_INTEROP",
+        "feature": "link",
+        "message": "Link tooltips may be removed when another spreadsheet application saves the file",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_c9c00daa3a434de1a7a2d2536b281b37",
+        "address": "A6",
+        "count": 3
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "artifacts": {
+    "source": {
+      "file": "xlsx-unicode-reader-2026-11-21.xlsx",
+      "sha256": "730635589b47ddd1e5370f8c46c17cb63e1e10b6204bdcfac323976ed0252629"
+    },
+    "saved": {
+      "file": "xlsx-unicode-reader-2026-11-21.saved.xlsx",
+      "sha256": "36df678e31a54b1f4c79dfa7b7cc5091c7340c4eb6cc1ac80d4768134cb731cc"
+    }
+  },
+  "versions": {
+    "node": "v22.19.0",
+    "openpyxl": "3.1.5"
+  },
+  "source": {
+    "commit": "757e51801c335b072dd6473fc19a12ca7ee50f35",
+    "coreBundleSha256": "d4e108d30fc9de7ad85cb88e90a1d23994c9c0fc48396a277571d624cfdf50d5",
+    "adapterBundleSha256": "02a229048905ec826fdc9116264c1e33d2445035adb535c59be9b3c5e1ea8ca5",
+    "adapterCellsSourceSha256": "23a6adfe4d312e7588b1b543d35d4b0fc4e7d328b06a537bc19011c5200a8590",
+    "scriptSha256": "75466a21ae5adde1d973899a889793d7d79294424f0d2780633d89cc763381d3",
+    "lockfileSha256": "a418e48a549f230419aa6ad67785ae240fabf67f3723a61b0c7113a92d650cfa"
+  },
+  "sourceInspection": {
+    "version": "3.1.5",
+    "cells": [
+      "�",
+      "�",
+      "🙂",
+      "_xfffe_",
+      "note",
+      "link",
+      "plain link",
+      "emoji link"
+    ],
+    "note": "note�",
+    "link": "https://example.com/",
+    "tooltips": [
+      "tip�",
+      "ordinary tip",
+      "tip🙂"
+    ]
+  },
+  "savedInspection": {
+    "version": "3.1.5",
+    "cells": [
+      "�",
+      "�",
+      "🙂",
+      "_xfffe_",
+      "note",
+      "link",
+      "plain link",
+      "emoji link"
+    ],
+    "note": "note�",
+    "link": "https://example.com/",
+    "tooltips": [
+      null,
+      null,
+      null
+    ]
+  },
+  "conversionLog": "convert /Volumes/github/private/opensheet/benchmarks/xlsx-unicode-reader-2026-11-21.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-xlsx-unicode-sABK3H/xlsx-unicode-reader-2026-11-21.xlsx using filter : Calc Office Open XML"
+}
