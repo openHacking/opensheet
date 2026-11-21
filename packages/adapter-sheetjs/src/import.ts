@@ -6,15 +6,50 @@ import {
   parseAddress,
   validateWorkbookFile,
   encodeFileCells,
+  isSafeLinkTarget,
   type CellRecord,
   type WorkbookFile,
 } from '@opensheetjs/core';
 import { importCell } from './cells.js';
 import { add, finish, report } from './report.js';
-import { reportWorksheetLosses } from './worksheet-losses.js';
+import { rawHyperlinkTargets, reportWorksheetLosses } from './worksheet-losses.js';
 import { createPrecedenceNormalizer } from './formula.js';
 import { definedNameIndex, referencesDefinedName } from './defined-name-scan.js';
 import type { AdapterOptions, CompatibilityReport, Issue, SheetJSWorkbook } from './types.js';
+const hyperlinkRelationship =
+  'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
+function corroboratedLinkTarget(
+  link: any,
+  ref: string,
+  candidates:
+    | {
+        links: Map<string, { target: string; byteDecoded: string }>;
+        cells: Map<string, { id: string; location?: string }>;
+      }
+    | undefined,
+): string | undefined {
+  if (!link || typeof link.id !== 'string' || !candidates) return;
+  const cell = candidates.cells.get(ref);
+  if (!cell || cell.id !== link.id || cell.location !== link.location || link.ref !== ref) return;
+  const candidate = candidates.links.get(link.id),
+    rel = link.Rel;
+  if (
+    !candidate ||
+    !rel ||
+    rel.Id !== link.id ||
+    rel.Type !== hyperlinkRelationship ||
+    rel.TargetMode !== 'External' ||
+    typeof rel.Target !== 'string' ||
+    (rel.Target !== candidate.target && rel.Target !== candidate.byteDecoded) ||
+    (link.location !== undefined && typeof link.location !== 'string')
+  )
+    return;
+  const suffix = link.location ? `#${link.location}` : '';
+  if (link.Target !== rel.Target + suffix) return;
+  const target = candidate.target + suffix;
+  return isSafeLinkTarget(target) ? target : undefined;
+}
+
 export function fromSheetJS(
   input: SheetJSWorkbook,
   options: AdapterOptions = {},
@@ -64,6 +99,7 @@ export function fromSheetJS(
     });
   const normalize = createPrecedenceNormalizer();
   const freezes = reportWorksheetLosses(input.files, r, input.SheetNames, input.Workbook?.Sheets);
+  let rawLinks: ReturnType<typeof rawHyperlinkTargets> | undefined;
   for (const [index, name] of input.SheetNames.entries()) {
     const ws =
       input.Sheets && typeof input.Sheets === 'object' && Object.hasOwn(input.Sheets, name)
@@ -152,7 +188,30 @@ export function fromSheetJS(
       });
     visitCells((row, col, c) => {
       if (c === undefined || c === null) return;
-      const { record, readOnly } = importCell(c, row, col, snapshot.dateSystem, issue, normalize);
+      let trustedLinkTarget: string | undefined;
+      if (typeof c.l?.Target === 'string' && /[^\x00-\x7f]/.test(c.l.Target)) {
+        rawLinks ??= rawHyperlinkTargets(input.files, input.SheetNames, input.Workbook?.Sheets);
+        trustedLinkTarget = corroboratedLinkTarget(c.l, address(row, col), rawLinks.get(name));
+        if (trustedLinkTarget !== undefined && trustedLinkTarget !== c.l.Target)
+          add(r, {
+            code: 'XLSX_LINK_URL_UTF8_RESTORED',
+            feature: 'link',
+            message: 'Unicode link target restored from a verified XLSX relationship',
+            action: 'preserved',
+            severity: 'info',
+            sheetId: sh.id,
+            address: address(row, col),
+          });
+      }
+      const { record, readOnly } = importCell(
+        c,
+        row,
+        col,
+        snapshot.dateSystem,
+        issue,
+        normalize,
+        trustedLinkTarget,
+      );
       if (
         record.input.type === 'formula' &&
         referencesDefinedName(

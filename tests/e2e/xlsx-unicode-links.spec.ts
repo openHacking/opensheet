@@ -44,12 +44,15 @@ test('exports Unicode links with a warning and reopens equivalent destinations',
   expect(result).toEqual({ initial: expected, reopened: expected });
 });
 
-test('warns when an independently saved workbook has uncertain Unicode link targets', async ({
-  page,
-}) => {
+test('restores Unicode links from an independently saved workbook', async ({ page }) => {
   const bytes = readFileSync('benchmarks/xlsx-link-reader-2026-11-21.saved.xlsx');
-  const parsed = XLSX.read(bytes, { type: 'buffer' }).Sheets.Links;
-  const expected = [parsed.A1.l.Target, parsed.A2.l.Target];
+  const evidence = JSON.parse(readFileSync('benchmarks/xlsx-link-reader-2026-11-21.json', 'utf8'));
+  const expected = evidence.savedInspection.links
+    .slice(0, 2)
+    .map(
+      (link: { target: string; location: string | null }) =>
+        link.target + (link.location === null ? '' : `#${link.location}`),
+    );
   await page.goto('/#budget');
   await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
   await page.locator('#file').setInputFiles({
@@ -59,7 +62,7 @@ test('warns when an independently saved workbook has uncertain Unicode link targ
   });
   const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
   await expect(dialog).toContainText(
-    'A non-ASCII hyperlink target may have been decoded incorrectly',
+    'Unicode link target restored from a verified XLSX relationship',
   );
   await expect(dialog).toContainText('Links: A1:');
   await dialog.getByRole('button', { name: 'Import converted workbook' }).click();

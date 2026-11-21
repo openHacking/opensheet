@@ -172,6 +172,7 @@ export function importCell(
   dateSystem: '1900' | '1904',
   issue: CellIssue,
   normalize: ReturnType<typeof createPrecedenceNormalizer>,
+  trustedLinkTarget?: string,
 ) {
   let formula = c.f ? String(c.f) : undefined;
   if (formula && formula.length > LIMITS.text)
@@ -292,12 +293,13 @@ export function importCell(
       );
   } else if (c.t === 'd') record.numberFormat = 'yyyy-mm-dd';
   if (c.l?.Target) {
-    if (isSafeLinkTarget(c.l.Target)) {
+    const target = trustedLinkTarget ?? c.l.Target;
+    if (isSafeLinkTarget(target)) {
       record.link = {
-        target: c.l.Target,
+        target,
         ...(c.l.Tooltip !== undefined ? { tooltip: String(c.l.Tooltip) } : {}),
       };
-      if (/[^\x00-\x7f]/.test(c.l.Target))
+      if (trustedLinkTarget === undefined && /[^\x00-\x7f]/.test(target))
         issue(
           'XLSX_LINK_URL_IMPORT_UNCERTAIN',
           'link',

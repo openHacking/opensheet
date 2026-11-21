@@ -380,6 +380,190 @@ function worksheetMappings(
   return output;
 }
 
+/** Return only unambiguous raw external hyperlink relationships within a bounded scan. */
+export function rawHyperlinkTargets(
+  files: SheetJSWorkbook['files'],
+  names: string[],
+  sheets: unknown,
+): Map<
+  string,
+  {
+    links: Map<string, { target: string; byteDecoded: string }>;
+    cells: Map<string, { id: string; location?: string }>;
+  }
+> {
+  const output = new Map<
+    string,
+    {
+      links: Map<string, { target: string; byteDecoded: string }>;
+      cells: Map<string, { id: string; location?: string }>;
+    }
+  >();
+  if (!files) return output;
+  const parts = new Map<string, { content?: Uint8Array }>();
+  for (const [name, part] of Object.entries(files)) {
+    const path = partName(name);
+    if (parts.has(path)) return new Map();
+    parts.set(path, part);
+  }
+  const mappings = worksheetMappings(parts, names, sheets);
+  let totalBytes = 0;
+  let totalRelations = 0;
+  for (const [path, name] of mappings) {
+    const slash = path.lastIndexOf('/');
+    const relationshipPath = `${path.slice(0, slash)}/_rels/${path.slice(slash + 1)}.rels`;
+    const content = parts.get(relationshipPath)?.content;
+    if (!(content instanceof Uint8Array)) continue;
+    totalBytes += content.byteLength;
+    if (content.byteLength > 4 * 1024 * 1024 || totalBytes > 16 * 1024 * 1024) return new Map();
+    const links = new Map<string, { target: string; byteDecoded: string }>();
+    const seen = new Set<string>();
+    const duplicate = new Set<string>();
+    const stack: string[] = [];
+    let rootSeen = false;
+    try {
+      const xml = new TextDecoder(xmlEncoding(content), { fatal: true }).decode(content);
+      for (const tag of elementTags(xml)) {
+        const node = /^<(\/?)([\w.:-]+)(?=[\s/>])/.exec(tag);
+        if (!node) {
+          if (tag.startsWith('<!')) return new Map();
+          continue;
+        }
+        if (node[1]) {
+          if (stack.pop() !== node[2]) return new Map();
+          continue;
+        }
+        if (!rootSeen) {
+          rootSeen = true;
+          if (
+            node[2] !== 'Relationships' ||
+            attributes(tag)?.get('xmlns') !== packageRelationshipNamespace
+          )
+            return new Map();
+        } else if (!stack.length) return new Map();
+        const relationship =
+          node[2] === 'Relationship' && stack.length === 1 && stack[0] === 'Relationships';
+        if (rootSeen && stack.length && !relationship) return new Map();
+        if (!/\/\s*>$/.test(tag)) {
+          if (stack.length >= 128) return new Map();
+          stack.push(node[2]);
+        }
+        if (!relationship) continue;
+        if (++totalRelations > 20000) return new Map();
+        const fields = attributes(tag);
+        if (
+          !fields ||
+          (fields.has('xmlns') && fields.get('xmlns') !== packageRelationshipNamespace)
+        )
+          return new Map();
+        const id = fields.get('Id');
+        if (!id) return new Map();
+        if (seen.has(id)) duplicate.add(id);
+        else seen.add(id);
+        const target = fields.get('Target');
+        if (
+          target &&
+          target.length <= 4096 &&
+          /[^\x00-\x7f]/.test(target) &&
+          !/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(target) &&
+          fields.get('Type') === `${relationshipNamespace}/hyperlink` &&
+          fields.get('TargetMode') === 'External'
+        ) {
+          const bytes = new TextEncoder().encode(target);
+          let byteDecoded = '';
+          for (let offset = 0; offset < bytes.length; offset += 8192)
+            byteDecoded += String.fromCharCode(...bytes.subarray(offset, offset + 8192));
+          links.set(id, { target, byteDecoded });
+        }
+      }
+      if (!rootSeen || stack.length) return new Map();
+    } catch {
+      return new Map();
+    }
+    for (const id of duplicate) links.delete(id);
+    if (!links.size) continue;
+    const worksheet = parts.get(path)?.content;
+    if (!(worksheet instanceof Uint8Array)) continue;
+    totalBytes += worksheet.byteLength;
+    if (worksheet.byteLength > 4 * 1024 * 1024 || totalBytes > 16 * 1024 * 1024) return new Map();
+    const cells = new Map<string, { id: string; location?: string }>();
+    const duplicateCells = new Set<string>();
+    const tree: string[] = [];
+    let worksheetRoot = false;
+    let hyperlinkContainer = false;
+    try {
+      const xml = new TextDecoder(xmlEncoding(worksheet), { fatal: true }).decode(worksheet);
+      for (const tag of elementTags(xml)) {
+        const node = /^<(\/?)([\w.:-]+)(?=[\s/>])/.exec(tag);
+        if (!node) {
+          if (tag.startsWith('<!')) return new Map();
+          continue;
+        }
+        if (node[1]) {
+          if (tree.pop() !== node[2]) return new Map();
+          continue;
+        }
+        if (!worksheetRoot) {
+          worksheetRoot = true;
+          const fields = attributes(tag);
+          if (
+            node[2] !== 'worksheet' ||
+            fields?.get('xmlns') !== mainNamespace ||
+            fields.get('xmlns:r') !== relationshipNamespace
+          )
+            return new Map();
+        } else if (!tree.length) return new Map();
+        if (node[2] === 'hyperlinks') {
+          const fields = attributes(tag);
+          if (
+            tree.length !== 1 ||
+            tree[0] !== 'worksheet' ||
+            hyperlinkContainer ||
+            !fields ||
+            (fields.has('xmlns') && fields.get('xmlns') !== mainNamespace) ||
+            (fields.has('xmlns:r') && fields.get('xmlns:r') !== relationshipNamespace)
+          )
+            return new Map();
+          hyperlinkContainer = true;
+        }
+        if (node[2] === 'hyperlink') {
+          const fields = attributes(tag);
+          if (
+            tree.length !== 2 ||
+            tree[0] !== 'worksheet' ||
+            tree[1] !== 'hyperlinks' ||
+            !fields ||
+            (fields.has('xmlns') && fields.get('xmlns') !== mainNamespace) ||
+            (fields.has('xmlns:r') && fields.get('xmlns:r') !== relationshipNamespace)
+          )
+            return new Map();
+          if (++totalRelations > 20000) return new Map();
+          const ref = fields.get('ref'),
+            id = fields.get('r:id');
+          if (ref && id) {
+            if (cells.has(ref)) duplicateCells.add(ref);
+            else
+              cells.set(ref, {
+                id,
+                ...(fields.has('location') ? { location: fields.get('location')! } : {}),
+              });
+          }
+        }
+        if (!/\/\s*>$/.test(tag)) {
+          if (tree.length >= 128) return new Map();
+          tree.push(node[2]);
+        }
+      }
+      if (!worksheetRoot || tree.length) return new Map();
+    } catch {
+      return new Map();
+    }
+    for (const ref of duplicateCells) cells.delete(ref);
+    output.set(name, { links, cells });
+  }
+  return output;
+}
+
 /** Verify generated workbook relationships before patching a worksheet part. */
 export function generatedWorksheetPaths(
   files: SheetJSWorkbook['files'],

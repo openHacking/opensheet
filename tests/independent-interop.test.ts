@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import * as XLSX from 'xlsx';
-import { Workbook } from '@opensheetjs/core';
+import { FileReader, Workbook } from '@opensheetjs/core';
 import { fromSheetJS } from '@opensheetjs/adapter-sheetjs';
 import { encodeClipboardText } from '../packages/renderer/src/clipboard-text.js';
 
@@ -66,9 +66,27 @@ it('pins Unicode link observations before and after an independent save', () => 
   const imported = fromSheetJS(saved);
   expect(imported.report.issues).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN', count: 2, address: 'A1' }),
+      expect.objectContaining({
+        code: 'XLSX_LINK_URL_UTF8_RESTORED',
+        count: 2,
+        address: 'A1',
+        action: 'preserved',
+      }),
     ]),
   );
+  expect(imported.report.issues).not.toEqual(
+    expect.arrayContaining([expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN' })]),
+  );
+  const reader = new FileReader(imported.file);
+  try {
+    const sheetId = imported.file.sheets[0].id;
+    for (let row = 0; row < 2; row++) {
+      const actual = reader.getCell(sheetId, row, 0)?.link?.target;
+      expect(new URL(actual!).href).toBe(new URL(report.inputs[row]).href);
+    }
+  } finally {
+    reader.dispose();
+  }
   expect(() => fromSheetJS(saved, { unsupported: 'strict' })).toThrow(
     'Strict compatibility check failed',
   );
