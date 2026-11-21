@@ -588,7 +588,10 @@ export class Engine {
       let validStyles = new Set(Object.keys(this.metadata.snapshot.styles));
       for (let i = historyIds.length - 1; i >= 0; i--) {
         const history = this.histories.get(historyIds[i])!;
+        let connected = metadataId === (redo ? history.before : history.after);
         for (const [address, before, after] of history.changes) {
+          const current = Object.hasOwn(blocks, address) ? blocks[address] : undefined;
+          connected &&= current?.id === (redo ? before : after)?.id;
           if (Object.hasOwn(blocks, address)) account(address, blocks[address], -1);
           const pointer = redo ? after : before;
           if (pointer) {
@@ -615,6 +618,11 @@ export class Engine {
             'CORRUPT_STORAGE',
             'Block directory references an unknown style',
           );
+        assert(
+          connected,
+          'CORRUPT_STORAGE',
+          'Workbook history does not match the current revision; restore a backup',
+        );
       }
     }
   }
@@ -3431,6 +3439,17 @@ export class Engine {
     if (!id) return { view: this.view(), commit: undefined };
     const h = this.histories.get(id) ?? (await this.readHistory(id));
     assert(h, 'CORRUPT_STORAGE', 'Missing history');
+    assert(
+      this.head.meta === (redo ? h.before : h.after) &&
+        h.changes.every(([address, before, after]) => {
+          const current = Object.hasOwn(this.head.blocks, address)
+            ? this.head.blocks[address]
+            : undefined;
+          return current?.id === (redo ? before : after)?.id;
+        }),
+      'CORRUPT_STORAGE',
+      'Workbook history does not match the current revision; restore a backup',
+    );
     for (const [a, before, after] of h.changes) {
       this.changed.add(a);
       const p = redo ? after : before;
