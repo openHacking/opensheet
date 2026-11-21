@@ -24,13 +24,14 @@ function corroboratedLinkTarget(
   candidates:
     | {
         links: Map<string, { target: string; byteDecoded: string }>;
-        cells: Map<string, { id: string; location?: string }>;
+        cells: Map<string, { id: string; ref: string; location?: string }>;
       }
     | undefined,
 ): string | undefined {
   if (!link || typeof link.id !== 'string' || !candidates) return;
   const cell = candidates.cells.get(ref);
-  if (!cell || cell.id !== link.id || cell.location !== link.location || link.ref !== ref) return;
+  if (!cell || cell.id !== link.id || cell.location !== link.location || link.ref !== cell.ref)
+    return;
   const candidate = candidates.links.get(link.id),
     rel = link.Rel;
   if (

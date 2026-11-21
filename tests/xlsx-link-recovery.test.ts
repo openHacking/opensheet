@@ -3,6 +3,7 @@ import { expect, it } from 'vitest';
 import * as XLSX from 'xlsx';
 import { fromSheetJS } from '@opensheetjs/adapter-sheetjs';
 import { FileReader } from '@opensheetjs/core';
+import { rawHyperlinkTargets } from '../packages/adapter-sheetjs/src/worksheet-losses.js';
 
 const fixture = readFileSync('benchmarks/xlsx-link-reader-2026-11-21.saved.xlsx');
 const relPath = 'xl/worksheets/_rels/sheet1.xml.rels';
@@ -70,7 +71,7 @@ it.each([
       ),
   ],
   [
-    'range rather than single-cell reference',
+    'overlapping worksheet range',
     (book: RawWorkbook) =>
       rewrite(book, sheetPath, (xml) =>
         xml.replace('<hyperlink ref="A1"', '<hyperlink ref="A1:A2"'),
@@ -209,5 +210,89 @@ it('rejects uncertain Unicode links in strict mode when raw parts are unavailabl
         ]),
       }),
     }),
+  );
+});
+
+it('restores a corroborated Unicode hyperlink across its worksheet range', () => {
+  const workbook = XLSX.utils.book_new();
+  const sheet = XLSX.utils.aoa_to_sheet([['first'], ['second'], ['third']]);
+  sheet.A1.l = { Target: 'https://example.com/路径#片段' };
+  XLSX.utils.book_append_sheet(workbook, sheet, 'Data');
+  const zip = XLSX.CFB.read(XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' }), {
+    type: 'buffer',
+  });
+  const part = XLSX.CFB.find(zip, '/xl/worksheets/sheet1.xml')!;
+  const xml = Buffer.from(part.content!).toString('utf8');
+  part.content = Buffer.from(xml.replace('ref="A1" r:id=', 'ref="A1:A3" r:id='));
+  part.size = part.content.length;
+  const parsed = XLSX.read(XLSX.CFB.write(zip, { type: 'buffer', fileType: 'zip' }), {
+    type: 'buffer',
+    bookFiles: true,
+    cellHTML: false,
+  });
+  const original = parsed.Sheets.Data.A1.l.Target;
+  const converted = fromSheetJS(parsed, { unsupported: 'strict' });
+  const reader = new FileReader(converted.file);
+  try {
+    for (let row = 0; row < 3; row++)
+      expect(reader.getCell(converted.file.sheets[0].id, row, 0)?.link?.target).toBe(
+        'https://example.com/路径#片段',
+      );
+  } finally {
+    reader.dispose();
+  }
+  expect(parsed.Sheets.Data.A1.l.Target).toBe(original);
+  expect(converted.report.issues).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED', count: 3 }),
+    ]),
+  );
+});
+
+it.each([16381, 16382])(
+  'bounds expanded hyperlink references with %i range cells plus three other links',
+  (count) => {
+    const source = load();
+    rewrite(source, sheetPath, (xml) =>
+      xml.replace('<hyperlink ref="A1"', `<hyperlink ref="A1:A${count}"`),
+    );
+    const targets = rawHyperlinkTargets(source.files, source.SheetNames, source.Workbook?.Sheets);
+    if (count === 16381) {
+      expect(targets.get('Links')?.cells.has('A16381')).toBe(true);
+      expect(targets.get('Links')?.cells.has('A2')).toBe(false);
+    } else expect(targets.size).toBe(0);
+  },
+);
+
+it.each(['A3:A1', 'A1:A100001', '$A$1', 'A1:ZZZZ999999999999999999'])(
+  'rejects ambiguous or invalid range %s',
+  (range) => {
+    const source = load();
+    rewrite(source, sheetPath, (xml) =>
+      xml.replace('<hyperlink ref="A1"', `<hyperlink ref="${range}"`),
+    );
+    expect(rawHyperlinkTargets(source.files, source.SheetNames, source.Workbook?.Sheets).size).toBe(
+      0,
+    );
+    expect(read(source).report.issues).toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN' })]),
+    );
+  },
+);
+
+it('does not restore a range cell overlapped by a location-only hyperlink', () => {
+  const source = load();
+  rewrite(source, sheetPath, (xml) =>
+    xml.replace('</hyperlinks>', '<hyperlink ref="A1" location="other"/></hyperlinks>'),
+  );
+  expect(
+    rawHyperlinkTargets(source.files, source.SheetNames, source.Workbook?.Sheets)
+      .get('Links')
+      ?.cells.has('A1'),
+  ).toBe(false);
+  expect(read(source).report.issues).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN', address: 'A1' }),
+    ]),
   );
 });

@@ -1,4 +1,4 @@
-import { LIMITS, OpenSheetError, parseAddress } from '@opensheetjs/core';
+import { LIMITS, OpenSheetError, address, parseAddress, parseRange } from '@opensheetjs/core';
 import { add } from './report.js';
 import type { CompatibilityReport, SheetJSWorkbook } from './types.js';
 
@@ -389,14 +389,14 @@ export function rawHyperlinkTargets(
   string,
   {
     links: Map<string, { target: string; byteDecoded: string }>;
-    cells: Map<string, { id: string; location?: string }>;
+    cells: Map<string, { id: string; ref: string; location?: string }>;
   }
 > {
   const output = new Map<
     string,
     {
       links: Map<string, { target: string; byteDecoded: string }>;
-      cells: Map<string, { id: string; location?: string }>;
+      cells: Map<string, { id: string; ref: string; location?: string }>;
     }
   >();
   if (!files) return output;
@@ -409,6 +409,7 @@ export function rawHyperlinkTargets(
   const mappings = worksheetMappings(parts, names, sheets);
   let totalBytes = 0;
   let totalRelations = 0;
+  let totalCells = 0;
   for (const [path, name] of mappings) {
     const slash = path.lastIndexOf('/');
     const relationshipPath = `${path.slice(0, slash)}/_rels/${path.slice(slash + 1)}.rels`;
@@ -486,7 +487,7 @@ export function rawHyperlinkTargets(
     if (!(worksheet instanceof Uint8Array)) continue;
     totalBytes += worksheet.byteLength;
     if (worksheet.byteLength > 4 * 1024 * 1024 || totalBytes > 16 * 1024 * 1024) return new Map();
-    const cells = new Map<string, { id: string; location?: string }>();
+    const cells = new Map<string, { id: string; ref: string; location?: string }>();
     const duplicateCells = new Set<string>();
     const tree: string[] = [];
     let worksheetRoot = false;
@@ -538,15 +539,31 @@ export function rawHyperlinkTargets(
           )
             return new Map();
           if (++totalRelations > 20000) return new Map();
-          const ref = fields.get('ref'),
-            id = fields.get('r:id');
-          if (ref && id) {
-            if (cells.has(ref)) duplicateCells.add(ref);
-            else
-              cells.set(ref, {
-                id,
-                ...(fields.has('location') ? { location: fields.get('location')! } : {}),
-              });
+          const ref = fields.get('ref');
+          if (!ref || !/^[A-Z]+[1-9]\d*(?::[A-Z]+[1-9]\d*)?$/.test(ref)) return new Map();
+          const range = parseRange(ref);
+          const endpoints = ref.split(':');
+          if (
+            endpoints[0] !== address(range.startRow, range.startColumn) ||
+            (endpoints[1] !== undefined &&
+              endpoints[1] !== address(range.endRow - 1, range.endColumn - 1))
+          )
+            return new Map();
+          const size = (range.endRow - range.startRow) * (range.endColumn - range.startColumn);
+          // Bound total expansion, including overlapping and non-external hyperlinks.
+          totalCells += size;
+          if (totalCells > 16384) return new Map();
+          for (let row = range.startRow; row < range.endRow; row++) {
+            for (let column = range.startColumn; column < range.endColumn; column++) {
+              const cell = address(row, column);
+              if (cells.has(cell)) duplicateCells.add(cell);
+              else
+                cells.set(cell, {
+                  id: fields.get('r:id') ?? '',
+                  ref,
+                  ...(fields.has('location') ? { location: fields.get('location')! } : {}),
+                });
+            }
           }
         }
         if (!/\/\s*>$/.test(tag)) {

@@ -79,3 +79,46 @@ test('restores Unicode links from an independently saved workbook', async ({ pag
   });
   expect(result).toEqual({ before: expected, after: expected });
 });
+
+test('restores Unicode range links through worker import and reopen', async ({ page }) => {
+  const workbook = XLSX.utils.book_new();
+  const sheet = XLSX.utils.aoa_to_sheet([['first'], ['second'], ['third']]);
+  sheet.A1.l = { Target: 'https://example.com/路径#片段' };
+  XLSX.utils.book_append_sheet(workbook, sheet, 'Range');
+  const zip = XLSX.CFB.read(XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' }), {
+    type: 'buffer',
+  });
+  const part = XLSX.CFB.find(zip, '/xl/worksheets/sheet1.xml')!;
+  part.content = Buffer.from(
+    Buffer.from(part.content!).toString('utf8').replace('ref="A1" r:id=', 'ref="A1:A3" r:id='),
+  );
+  part.size = part.content.length;
+  const bytes = XLSX.CFB.write(zip, { type: 'buffer', fileType: 'zip' });
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  await page.locator('#file').setInputFiles({
+    name: 'range.xlsx',
+    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    buffer: bytes,
+  });
+  const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
+  await expect(dialog).toContainText(
+    'Unicode link target restored from a verified XLSX relationship',
+  );
+  await dialog.getByRole('button', { name: 'Import converted workbook' }).click();
+  await expect(page.getByRole('tab', { name: 'Range', exact: true })).toBeVisible();
+  const result = await page.evaluate(async () => {
+    const app = window.opensheet;
+    let book = app.getWorkbook();
+    let sheet = book.getSheets()[0];
+    const before = (await sheet.range('A1:A3').getLinks()).map((row) => row[0]?.target);
+    await app.open(book.id);
+    book = app.getWorkbook();
+    sheet = book.getSheets()[0];
+    return { before, after: (await sheet.range('A1:A3').getLinks()).map((row) => row[0]?.target) };
+  });
+  expect(result).toEqual({
+    before: Array(3).fill('https://example.com/路径#片段'),
+    after: Array(3).fill('https://example.com/路径#片段'),
+  });
+});
