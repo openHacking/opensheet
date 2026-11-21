@@ -1,0 +1,28 @@
+{
+  "producer": "openpyxl",
+  "version": "3.1.5",
+  "system": "1904",
+  "sha256": "6c759c252c9464da154e360afb419a54edb9ce6d8fac71bf283c39c2538a639e",
+  "values": [
+    "1904-01-02T00:00:00",
+    "2024-02-29T12:30:00",
+    "2100-03-01T00:00:00"
+  ],
+  "serials": [
+    1.0,
+    43889.520833333336,
+    71648.0
+  ],
+  "formats": [
+    "yyyy-mm-dd",
+    "yyyy-mm-dd hh:mm",
+    "yyyy-mm-dd"
+  ],
+  "formula": "=A2-A1",
+  "rawDate1904": true,
+  "xlsxSerials": [
+    1.0,
+    43889.52083333334,
+    71648.0
+  ]
+}

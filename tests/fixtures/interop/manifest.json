@@ -264,6 +264,72 @@
         "Named data!B3": "\"GlobalValue\"",
         "Named data!B4": "SUM(A1:A3)"
       }
+    },
+    {
+      "id": "dates-1900-openpyxl",
+      "source": "../../../benchmarks/date-system-openpyxl-2026-11-22/dates-1900.xlsx",
+      "sha256": "89934c9456486c61e6c26baf6217a5f92567d1db0147e65b0209dbccd2e1b5ed",
+      "provenance": "Synthetic CC0 workbook authored and independently read back with openpyxl 3.1.5 by scripts/xlsx-date-system-fixture.py; no customer data.",
+      "features": [
+        "date-system-1900",
+        "date-time",
+        "leap-day",
+        "century-boundary",
+        "date-arithmetic-formula"
+      ],
+      "expectedValues": {
+        "Dates!A1": 1463.0,
+        "Dates!A2": 45351.52083333334,
+        "Dates!A3": 73110.0
+      },
+      "expectedFormulaInputs": {
+        "Dates!B1": "A2-A1"
+      },
+      "expectedImportIssues": [
+        {
+          "code": "UNSUPPORTED_METADATA",
+          "feature": "!margins",
+          "action": "dropped",
+          "count": 1
+        }
+      ],
+      "expectedLoss": "Default worksheet page margins are not preserved and are reported as dropped; strict import rejects. Source XML rounds the fractional serial relative to openpyxl in-memory conversion.",
+      "independentProcedure": "Run python3 scripts/xlsx-date-system-fixture.py NEW_DIRECTORY with openpyxl 3.1.5. The script reads back dates, formats, formula and epoch, and records raw worksheet serials and hashes. ZIP timestamps can change regenerated hashes.",
+      "evidence": "../../../benchmarks/date-system-openpyxl-2026-11-22/dates-1900.xlsx.json",
+      "limitations": "One openpyxl writer/version, three dates and one formula; no Excel or independent spreadsheet formula recalculation. The 1900 fictitious leap day and zero serial are excluded."
+    },
+    {
+      "id": "dates-1904-openpyxl",
+      "source": "../../../benchmarks/date-system-openpyxl-2026-11-22/dates-1904.xlsx",
+      "sha256": "6c759c252c9464da154e360afb419a54edb9ce6d8fac71bf283c39c2538a639e",
+      "provenance": "Synthetic CC0 workbook authored and independently read back with openpyxl 3.1.5 by scripts/xlsx-date-system-fixture.py; no customer data.",
+      "features": [
+        "date-system-1904",
+        "date-time",
+        "leap-day",
+        "century-boundary",
+        "date-arithmetic-formula"
+      ],
+      "expectedValues": {
+        "Dates!A1": 1.0,
+        "Dates!A2": 43889.52083333334,
+        "Dates!A3": 71648.0
+      },
+      "expectedFormulaInputs": {
+        "Dates!B1": "A2-A1"
+      },
+      "expectedImportIssues": [
+        {
+          "code": "UNSUPPORTED_METADATA",
+          "feature": "!margins",
+          "action": "dropped",
+          "count": 1
+        }
+      ],
+      "expectedLoss": "Default worksheet page margins are not preserved and are reported as dropped; strict import rejects. Source XML rounds the fractional serial relative to openpyxl in-memory conversion.",
+      "independentProcedure": "Run python3 scripts/xlsx-date-system-fixture.py NEW_DIRECTORY with openpyxl 3.1.5. The script reads back dates, formats, formula and epoch, and records raw worksheet serials and hashes. ZIP timestamps can change regenerated hashes.",
+      "evidence": "../../../benchmarks/date-system-openpyxl-2026-11-22/dates-1904.xlsx.json",
+      "limitations": "One openpyxl writer/version, three dates and one formula; no Excel or independent spreadsheet formula recalculation. The 1900 fictitious leap day and zero serial are excluded."
     }
   ]
 }
