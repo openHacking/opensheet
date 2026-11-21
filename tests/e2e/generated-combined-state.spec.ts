@@ -12,8 +12,16 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
   );
   const result = await page.evaluate(async (fileJSON) => {
     type Row = (number | null)[];
-    type Model = { rows: Row[]; threshold: number | null; merged: boolean; key: number };
+    type Model = {
+      rows: Row[];
+      threshold: number | null;
+      merged: boolean;
+      key: number;
+      mergeStart: number;
+      mergeEnd: number;
+    };
     const app = window.opensheet;
+    const columnCoverage = new Set<string>();
     for (const seed of [61, 1907, 9119]) {
       await app.load(JSON.parse(fileJSON));
       let model: Model = {
@@ -21,6 +29,8 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
         threshold: null,
         merged: false,
         key: 0,
+        mergeStart: 1,
+        mergeEnd: 3,
       };
       const past: Model[] = [],
         future: Model[] = [],
@@ -31,6 +41,8 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
         threshold: value.threshold,
         merged: value.merged,
         key: value.key,
+        mergeStart: value.mergeStart,
+        mergeEnd: value.mergeEnd,
       });
       let rng = seed;
       const random = (n: number) => {
@@ -40,7 +52,10 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
       for (let step = 0; step < 50; step++) {
         let book = app.getWorkbook(),
           sheet = book.getSheets()[0];
-        const action = step < 13 ? [0, 1, 2, 8, 6, 7, 9, 3, 4, 5, 2, 6, 7][step] : random(10);
+        const action =
+          step < 20
+            ? [0, 1, 2, 8, 6, 7, 9, 3, 4, 5, 2, 6, 7, 2, 8, 8, 8, 9, 9, 9][step]
+            : random(10);
         const last = model.rows.length - 1;
         const save = () => {
           past.push(copy(model));
@@ -76,8 +91,8 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
           const range = sheet.range({
             startRow: last,
             endRow: last + 1,
-            startColumn: model.key + 1,
-            endColumn: model.key + 3,
+            startColumn: model.mergeStart,
+            endColumn: model.mergeEnd,
           });
           if (model.merged) await range.unmerge();
           else await range.merge();
@@ -136,20 +151,73 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
           if (previousKey !== model.key && model.merged && model.threshold !== null)
             covered.add('redo-column-filter-merge');
           trace.push('redo');
-        } else if (action === 8 && model.key < 3) {
+        } else if (action === 8 && model.rows[0].length < 9) {
           if (model.merged && model.threshold !== null) covered.add('insert-column-filter-merge');
+          const positions = Array.from({ length: model.rows[0].length + 1 }, (_, i) => i).filter(
+            (i) => !model.merged || i <= model.mergeStart || i >= model.mergeEnd,
+          );
+          const index =
+            step < 13
+              ? 0
+              : step === 14
+                ? model.key + 1
+                : step === 15
+                  ? model.mergeEnd
+                  : step === 16
+                    ? 0
+                    : positions[random(positions.length)];
+          if (model.merged && model.threshold !== null)
+            columnCoverage.add(
+              index <= model.key
+                ? 'insert-before-key'
+                : index <= model.mergeStart
+                  ? 'insert-between'
+                  : 'insert-after-merge',
+            );
           save();
-          await sheet.insertColumns(0);
-          for (const row of model.rows) row.unshift(null);
-          model.key++;
-          trace.push('insert column');
+          await sheet.insertColumns(index);
+          for (const row of model.rows) row.splice(index, 0, null);
+          if (index <= model.key) model.key++;
+          if (index <= model.mergeStart) {
+            model.mergeStart++;
+            model.mergeEnd++;
+          }
+          trace.push(`insert column ${index}`);
+          covered.add('insert column');
         } else if (action === 9 && model.key > 0) {
           if (model.merged && model.threshold !== null) covered.add('delete-column-filter-merge');
+          const positions = Array.from({ length: model.rows[0].length }, (_, i) => i).filter(
+            // Keep a two-column merge target even when it is currently unmerged.
+            (i) => i !== model.key && (i < model.mergeStart || i >= model.mergeEnd),
+          );
+          const index =
+            step < 13
+              ? 0
+              : step === 17
+                ? model.key + 1
+                : step === 18
+                  ? model.mergeEnd
+                  : step === 19
+                    ? 0
+                    : positions[random(positions.length)];
+          if (model.merged && model.threshold !== null)
+            columnCoverage.add(
+              index < model.key
+                ? 'delete-before-key'
+                : index < model.mergeStart
+                  ? 'delete-between'
+                  : 'delete-after-merge',
+            );
           save();
-          await sheet.deleteColumns(0);
-          for (const row of model.rows) row.shift();
-          model.key--;
-          trace.push('delete column');
+          await sheet.deleteColumns(index);
+          for (const row of model.rows) row.splice(index, 1);
+          if (index < model.key) model.key--;
+          if (index < model.mergeStart) {
+            model.mergeStart--;
+            model.mergeEnd--;
+          }
+          trace.push(`delete column ${index}`);
+          covered.add('delete column');
         } else trace.push('skip');
         covered.add(trace.at(-1)!);
         if (step === 5 || step % 9 === 8) {
@@ -190,9 +258,9 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
           ? [
               {
                 startRow: model.rows.length - 1,
-                startColumn: model.key + 1,
+                startColumn: model.mergeStart,
                 endRow: model.rows.length,
-                endColumn: model.key + 3,
+                endColumn: model.mergeEnd,
               },
             ]
           : [];
@@ -243,6 +311,16 @@ test('seeded edits, axis changes, sort, filter and merge agree with a model thro
       ])
         if (!covered.has(action)) return { seed, trace, error: `missing ${action}` };
     }
+    for (const required of [
+      'insert-before-key',
+      'insert-between',
+      'insert-after-merge',
+      'delete-before-key',
+      'delete-between',
+      'delete-after-merge',
+    ])
+      if (!columnCoverage.has(required))
+        return { error: `missing column coverage: ${required}`, coverage: [...columnCoverage] };
     return null;
   }, file);
   expect(result).toBeNull();
