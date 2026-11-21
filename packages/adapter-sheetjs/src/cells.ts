@@ -54,7 +54,7 @@ function hasBracketedReference(expression: string): boolean {
   }
   return false;
 }
-function unsupportedFunction(expression: string): string | undefined {
+function* functionNames(expression: string): Generator<{ name: string; start: number }> {
   const identifier = /[A-Za-z_][A-Za-z0-9_.]*/y;
   for (let i = 0; i < expression.length; ) {
     const char = expression[i];
@@ -81,7 +81,11 @@ function unsupportedFunction(expression: string): string | undefined {
     i = identifier.lastIndex;
     while (i < expression.length && /\s/.test(expression[i])) i++;
     if (expression[i] !== '(') continue;
-    const name = match[0].toUpperCase().replace(/^_XLFN\.(?:_XLWS\.)?/, '');
+    yield { name: match[0].toUpperCase().replace(/^_XLFN\.(?:_XLWS\.)?/, ''), start: match.index };
+  }
+}
+function unsupportedFunction(expression: string): string | undefined {
+  for (const { name } of functionNames(expression)) {
     let supported = functionSupport.get(name);
     if (supported === undefined) {
       supported = formulaHelp(`=${name}(`).call?.definition.name === name;
@@ -89,8 +93,24 @@ function unsupportedFunction(expression: string): string | undefined {
     }
     if (!supported) return name;
   }
-  return undefined;
 }
+function lookupInteropRisk(expression: string): boolean {
+  if (!/(?:MATCH|VLOOKUP)\s*\(/i.test(expression)) return false;
+  for (const { name, start } of functionNames(expression)) {
+    if (name !== 'MATCH' && name !== 'VLOOKUP') continue;
+    const previous = start > 0 ? expression.codePointAt(start - 1)! : 0;
+    const code =
+      previous >= 0xdc00 && previous <= 0xdfff && start > 1
+        ? expression.codePointAt(start - 2)!
+        : previous;
+    if (code && /[\p{L}\p{N}\p{M}_.\\]/u.test(String.fromCodePoint(code))) continue;
+    return true;
+  }
+  return false;
+}
+const lookupInteropMessage =
+  'MATCH and VLOOKUP may handle lookup errors, blank cells or wildcards differently across spreadsheet applications';
+
 export const errors: Record<number, string> = {
   0: '#NULL!',
   7: '#DIV/0!',
@@ -268,6 +288,14 @@ export function importCell(
       'dropped',
       address(row, col),
     );
+  if (formula && lookupInteropRisk(formula))
+    issue(
+      'XLSX_LOOKUP_IMPORT_INTEROP',
+      'lookup-semantics',
+      lookupInteropMessage,
+      'approximated',
+      address(row, col),
+    );
   if (formula) {
     const name = unsupportedFunction(formula);
     if (name)
@@ -350,6 +378,16 @@ export function exportCell(
     const normalized = risky ? normalize(v.expression, 'native') : undefined;
     x.f = toXlsxFormula(normalized ?? v.expression);
     x.t = 'n';
+    if (lookupInteropRisk(v.expression))
+      add(r, {
+        code: 'XLSX_LOOKUP_EXPORT_INTEROP',
+        feature: 'lookup-semantics',
+        message: lookupInteropMessage,
+        action: 'approximated',
+        severity: 'warning',
+        sheetId: id,
+        address: address(row, col),
+      });
     if (x.f.length >= 8192)
       add(r, {
         code: 'XLSX_FORMULA_LENGTH_INTEROP',
