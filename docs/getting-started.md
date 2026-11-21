@@ -16,7 +16,9 @@ Only one instance is the writer at a time. Another instance may open read-only u
 
 ## Save a portable copy
 
-The example's `backupWorkbook(book)` awaits `book.toJSON()` and serializes the complete native workbook as JSON. Save that string as a file outside the browser's local database; your application must provide the download or other storage mechanism. The example’s `restoreBackup(app, json)` parses the JSON and passes the resulting workbook file to `app.load(file)`; importing creates a local workbook. The sample helper returns the imported workbook; a host that wants to reopen it must also save its new ID. Treat files from others as untrusted and handle validation errors. Full JSON materializes the complete workbook and may require substantial memory; use the [streaming export APIs](api.md#native-json-and-binary-io) for larger exports.
+Choose **Download backup** to save the complete native workbook as JSON outside the local database. To restore, choose **Restore backup** and select that file. A successful restore creates a new local workbook and saves its ID for the next reload; the prior workbook remains in local storage. A malformed file leaves the current workbook in place. If the workbook was restored but its ID could not be saved, the example reports that distinction and asks you to export a backup before refreshing.
+
+The example uses `book.toJSON()` and `app.load(file)`, so it materializes the complete workbook. Its download and restore controls each limit the file to 64 MiB; larger workbooks need an application designed for the [streaming export APIs](api.md#native-json-and-binary-io) and an appropriate import workflow. The underlying API and the example limit are separate.
 
 This native backup is distinct from XLSX. When exchanging spreadsheets with other applications, inspect the [file compatibility and loss report](04-sheetjs-and-formats.md); OpenSheet does not promise lossless Excel compatibility.
 

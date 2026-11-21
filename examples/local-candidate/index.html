@@ -6,6 +6,11 @@
     <title>OpenSheet local candidate</title>
   </head>
   <body>
+    <div>
+      <button id="backup" type="button" disabled>Download backup</button>
+      <label for="restore">Restore backup</label>
+      <input id="restore" type="file" accept=".json,application/json" disabled />
+    </div>
     <p id="status" role="status"></p>
     <main id="sheet" class="os-framework-host"></main>
     <script type="module" src="./main.js"></script>

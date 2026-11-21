@@ -12,6 +12,7 @@ async function restoreBackup(app, json) {
 }
 
 const storageKey = 'opensheet-local-candidate-workbook-id';
+const maxBackupBytes = 64 * 1024 * 1024;
 let app;
 try {
   const savedId = localStorage.getItem(storageKey);
@@ -36,6 +37,58 @@ try {
     restoreBackup,
     createOpenSheet,
   };
+  const backup = document.querySelector('#backup');
+  const restore = document.querySelector('#restore');
+  const status = document.querySelector('#status');
+  const busy = (value) => {
+    backup.disabled = value;
+    restore.disabled = value;
+  };
+  busy(false);
+  backup.addEventListener('click', async () => {
+    busy(true);
+    status.textContent = '';
+    try {
+      const json = await backupWorkbook(book);
+      const blob = new Blob([json], { type: 'application/json' });
+      if (blob.size > maxBackupBytes) throw new Error('Backup exceeds the 64 MiB example limit');
+      const url = URL.createObjectURL(blob);
+      try {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'workbook.opensheet.json';
+        link.click();
+      } finally {
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+    } catch (error) {
+      status.textContent = `Could not create backup: ${error?.message ?? error}`;
+    } finally {
+      busy(false);
+    }
+  });
+  restore.addEventListener('change', async () => {
+    const file = restore.files?.[0];
+    if (!file) return;
+    busy(true);
+    status.textContent = '';
+    let restored = false;
+    try {
+      if (file.size > maxBackupBytes) throw new Error('Backup exceeds the 64 MiB example limit');
+      book = await restoreBackup(app, await file.text());
+      window.candidateExample.book = book;
+      restored = true;
+      localStorage.setItem(storageKey, book.id);
+      status.textContent = 'Backup restored.';
+    } catch (error) {
+      status.textContent = restored
+        ? `Workbook restored, but its ID could not be saved. Export a backup before refreshing: ${error?.message ?? error}`
+        : `Could not restore backup; check the workbook before retrying: ${error?.message ?? error}`;
+    } finally {
+      restore.value = '';
+      busy(false);
+    }
+  });
 } catch (error) {
   try {
     app?.dispose();

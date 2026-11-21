@@ -151,7 +151,7 @@ try {
         null,
         { timeout: 30000 },
       );
-      const originalId = await page.evaluate(() => window.candidateExample.book.id);
+      let originalId = await page.evaluate(() => window.candidateExample.book.id);
       await page.reload();
       await page.waitForFunction(
         () => window.candidateExample || document.body.dataset.error,
@@ -196,6 +196,165 @@ try {
           same: app.getWorkbook() === book,
           value: await book.getSheets()[0].range('A2').getValues(),
           grids: document.querySelectorAll('.os-grid').length,
+        };
+      });
+      await page.evaluate(() => {
+        window.originalBlob = globalThis.Blob;
+        globalThis.Blob = class extends window.originalBlob {
+          get size() {
+            return 64 * 1024 * 1024 + 1;
+          }
+        };
+      });
+      await page.locator('#backup').click();
+      await page.waitForFunction(() =>
+        document
+          .querySelector('#status')
+          .textContent.includes('Backup exceeds the 64 MiB example limit'),
+      );
+      await page.evaluate(() => {
+        globalThis.Blob = window.originalBlob;
+      });
+      await page.evaluate(() => {
+        Object.defineProperty(File.prototype, 'size', {
+          configurable: true,
+          get: () => 64 * 1024 * 1024 + 1,
+        });
+      });
+      await page.locator('#restore').setInputFiles({
+        name: 'large.json',
+        mimeType: 'application/json',
+        buffer: Buffer.from('{}'),
+      });
+      await page.waitForFunction(
+        () =>
+          document.querySelector('#status').textContent.startsWith('Could not restore backup;') &&
+          document.querySelector('#status').textContent.includes('64 MiB'),
+      );
+      await page.evaluate(() => {
+        delete File.prototype.size;
+      });
+      const limitResult = await page.evaluate(async () => ({
+        id: window.candidateExample.book.id,
+        savedId: localStorage.getItem('opensheet-local-candidate-workbook-id'),
+        value: await window.candidateExample.book.getSheets()[0].range('A2').getValues(),
+        enabled:
+          !document.querySelector('#backup').disabled &&
+          !document.querySelector('#restore').disabled,
+      }));
+      assert.deepEqual(limitResult, {
+        id: originalId,
+        savedId: originalId,
+        value: [[42]],
+        enabled: true,
+      });
+      const [download] = await Promise.all([
+        page.waitForEvent('download'),
+        page.locator('#backup').click(),
+      ]);
+      assert.equal(download.suggestedFilename(), 'workbook.opensheet.json');
+      const backupBytes = readFileSync(await download.path());
+      await page.locator('#restore').setInputFiles({
+        name: 'invalid.json',
+        mimeType: 'application/json',
+        buffer: Buffer.from('{'),
+      });
+      await page.waitForFunction(() =>
+        document.querySelector('#status').textContent.startsWith('Could not restore backup;'),
+      );
+      const badRestore = await page.evaluate(async () => ({
+        id: window.candidateExample.book.id,
+        savedId: localStorage.getItem('opensheet-local-candidate-workbook-id'),
+        value: await window.candidateExample.book.getSheets()[0].range('A2').getValues(),
+      }));
+      await page.locator('#restore').setInputFiles({
+        name: 'invalid-schema.json',
+        mimeType: 'application/json',
+        buffer: Buffer.from('{}'),
+      });
+      await page.waitForFunction(() =>
+        document.querySelector('#status').textContent.startsWith('Could not restore backup;'),
+      );
+      const badSchema = await page.evaluate(async () => ({
+        id: window.candidateExample.book.id,
+        savedId: localStorage.getItem('opensheet-local-candidate-workbook-id'),
+        value: await window.candidateExample.book.getSheets()[0].range('A2').getValues(),
+      }));
+      assert.deepEqual(badSchema, badRestore);
+      await page.evaluate(async () =>
+        window.candidateExample.book
+          .getSheets()[0]
+          .range('A2')
+          .setValues([[99]]),
+      );
+      await page
+        .locator('#restore')
+        .setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backupBytes });
+      await page.waitForFunction(
+        () => document.querySelector('#status').textContent === 'Backup restored.',
+      );
+      const restoredViaUI = await page.evaluate(async () => ({
+        id: window.candidateExample.book.id,
+        savedId: localStorage.getItem('opensheet-local-candidate-workbook-id'),
+        values: await window.candidateExample.book.getSheets()[0].range('A1:C2').getValues(),
+      }));
+      assert.notEqual(restoredViaUI.id, originalId);
+      assert.equal(restoredViaUI.savedId, restoredViaUI.id);
+      assert.deepEqual(badRestore, { id: originalId, savedId: originalId, value: [[42]] });
+      assert.deepEqual(restoredViaUI.values, [
+        [7, 5, 12],
+        [42, null, null],
+      ]);
+      originalId = restoredViaUI.id;
+      await page.evaluate(() => {
+        const prototype = Object.getPrototypeOf(localStorage);
+        window.originalStorageSetItem = prototype.setItem;
+        prototype.setItem = function (key, value) {
+          if (key === 'opensheet-local-candidate-workbook-id')
+            throw new Error('Injected storage failure');
+          return window.originalStorageSetItem.call(this, key, value);
+        };
+      });
+      await page
+        .locator('#restore')
+        .setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backupBytes });
+      await page.waitForFunction(() =>
+        document
+          .querySelector('#status')
+          .textContent.startsWith('Workbook restored, but its ID could not be saved.'),
+      );
+      const saveFailure = await page.evaluate(async () => {
+        const book = window.candidateExample.book;
+        return {
+          id: book.id,
+          savedId: localStorage.getItem('opensheet-local-candidate-workbook-id'),
+          values: await book.getSheets()[0].range('A1:C2').getValues(),
+        };
+      });
+      assert.notEqual(saveFailure.id, originalId);
+      assert.equal(saveFailure.savedId, originalId);
+      assert.deepEqual(saveFailure.values, [
+        [7, 5, 12],
+        [42, null, null],
+      ]);
+      await page.evaluate((id) => {
+        Object.getPrototypeOf(localStorage).setItem = window.originalStorageSetItem;
+        localStorage.setItem('opensheet-local-candidate-workbook-id', id);
+      }, saveFailure.id);
+      originalId = saveFailure.id;
+      await page.reload();
+      await page.waitForFunction(
+        () => window.candidateExample || document.body.dataset.error,
+        null,
+        { timeout: 30000 },
+      );
+      const restoredAfterReload = await page.evaluate(async () => {
+        if (document.body.dataset.error) throw Error(document.body.dataset.error);
+        const book = window.candidateExample.book;
+        return {
+          id: book.id,
+          values: await book.getSheets()[0].range('A1:C2').getValues(),
+          readOnly: book.isReadOnly,
         };
       });
       const edited = await page.evaluate(async () => {
@@ -263,6 +422,12 @@ try {
         browser: browser.version(),
         initial,
         refreshed,
+        limitResult,
+        badRestore,
+        badSchema,
+        restoredViaUI,
+        saveFailure,
+        restoredAfterReload,
         failure,
         recovered,
         attachmentRace,
@@ -283,7 +448,8 @@ try {
         ],
         readOnly: false,
       };
-      assert.deepEqual(refreshed, expectedReload);
+      assert.deepEqual(refreshed, { ...expectedReload, id: badRestore.id });
+      assert.deepEqual(restoredAfterReload, expectedReload);
       assert.equal(failure.retainedId, missingId);
       assert.equal(failure.opened, false);
       assert.match(failure.status, /^Could not open workbook:/);
