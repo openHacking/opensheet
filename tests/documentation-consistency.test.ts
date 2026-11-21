@@ -5,6 +5,29 @@ import { supportedFunctions } from '@opensheetjs/formula';
 
 const read = (path: string) => readFileSync(path, 'utf8');
 
+// Replace inline code with spaces so examples are not mistaken for live links.
+// An unmatched delimiter remains prose, as in Markdown.
+const withoutInlineCode = (text: string): string => {
+  let result = '';
+  let position = 0;
+  const delimiters = /`+/g;
+  for (let opening = delimiters.exec(text); opening; opening = delimiters.exec(text)) {
+    let backslashes = 0;
+    for (let i = opening.index - 1; i >= 0 && text[i] === '\\'; i--) backslashes++;
+    if (backslashes % 2) continue;
+    let closing = delimiters.exec(text);
+    while (closing && closing[0].length !== opening[0].length) closing = delimiters.exec(text);
+    if (!closing) {
+      delimiters.lastIndex = opening.index + opening[0].length;
+      continue;
+    }
+    result +=
+      text.slice(position, opening.index) + ' '.repeat(delimiters.lastIndex - opening.index);
+    position = delimiters.lastIndex;
+  }
+  return result + text.slice(position);
+};
+
 // This deliberately does not attempt to resolve reference usages or anchors as a full
 // Markdown parser would. Both link forms must use the same fence rules.
 const proseLines = (source: string): { line: number; text: string }[] => {
@@ -56,7 +79,9 @@ describe('selected capability documentation', () => {
     const missing: string[] = [];
     for (const file of files) {
       for (const { line, text } of proseLines(read(file))) {
-        for (const match of text.matchAll(/!?\[[^\]]+\]\((<[^>]+>|[^\s)]+)(?:\s+"[^"]*")?\)/g)) {
+        for (const match of withoutInlineCode(text).matchAll(
+          /!?\[[^\]]+\]\((<[^>]+>|[^\s)]+)(?:\s+"[^"]*")?\)/g,
+        )) {
           const href = match[1].replace(/^<|>$/g, '');
           if (/^(?:[a-z][a-z\d+.-]*:|\/|#)/i.test(href)) continue;
           const path = href.split(/[?#]/, 1)[0];
@@ -84,6 +109,20 @@ describe('selected capability documentation', () => {
       }
     }
     expect(missing).toEqual([]);
+  });
+
+  it('ignores inline code examples while retaining real links and unmatched delimiters', () => {
+    expect(withoutInlineCode('`[example](missing.md)` [real](ok.md)')).toBe(
+      '                        [real](ok.md)',
+    );
+    expect(withoutInlineCode('`` ` [example](missing.md) ` `` [real](ok.md)')).toMatch(
+      /^\s+\[real\]\(ok\.md\)$/,
+    );
+    expect(withoutInlineCode('`unclosed [real](ok.md)')).toBe('`unclosed [real](ok.md)');
+    expect(withoutInlineCode('`unclosed ``[example](missing.md)`` [real](ok.md)')).toMatch(
+      /^`unclosed\s+\[real\]\(ok\.md\)$/,
+    );
+    expect(withoutInlineCode('\\` [real](ok.md)')).toBe('\\` [real](ok.md)');
   });
 
   it('extracts reference destinations outside matching fences', () => {
