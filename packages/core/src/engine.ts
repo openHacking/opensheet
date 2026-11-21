@@ -860,6 +860,15 @@ export class Engine {
       'CORRUPT_STORAGE',
       'Block directory references an unknown sheet',
     );
+    assert(
+      Object.values(this.head.blocks).every(
+        (pointer) =>
+          pointer.styles === undefined ||
+          pointer.styles.every((id) => Object.hasOwn(this.metadata.snapshot.styles, id)),
+      ),
+      'CORRUPT_STORAGE',
+      'Block directory references an unknown style',
+    );
   }
   private async restoreHead(head: Head) {
     assert(

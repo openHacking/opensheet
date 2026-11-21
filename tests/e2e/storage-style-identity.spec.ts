@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-for (const corruption of ['collision', 'oversized'] as const) {
+for (const corruption of ['collision', 'oversized', 'missing'] as const) {
   test(`invalid stored style ${corruption} preserves the workbook and can be repaired`, async ({
     page,
   }) => {
@@ -56,7 +56,8 @@ for (const corruption of ['collision', 'oversized'] as const) {
             req.onerror = () => reject(req.error);
           });
         const head = (await read(tx.objectStore('heads').get(id))) as Uint8Array;
-        const metaId = JSON.parse(new TextDecoder().decode(head.subarray(1)))[1].meta as string;
+        const storedHead = JSON.parse(new TextDecoder().decode(head.subarray(1)))[1];
+        const metaId = storedHead.meta as string;
         const [raw, ledger] = (await Promise.all([
           read(tx.objectStore('records').get(metaId)),
           read(tx.objectStore('sizes').get(metaId)),
@@ -66,7 +67,25 @@ for (const corruption of ['collision', 'oversized'] as const) {
         if (corruption === 'collision') {
           wrapper[1].styleIds[0] = 0;
           wrapper[1].styleIds[1] = '0';
-        } else wrapper[1].styleIds[0] = 'a'.repeat(101);
+        } else if (corruption === 'oversized') wrapper[1].styleIds[0] = 'a'.repeat(101);
+        else {
+          const directories = (await Promise.all(
+            (Object.values(storedHead.directory) as string[]).map((id) =>
+              read(tx.objectStore('records').get(id)),
+            ),
+          )) as Uint8Array[];
+          const referenced = directories
+            .flatMap(
+              (bytes) =>
+                Object.values(JSON.parse(new TextDecoder().decode(bytes.subarray(1)))[1]) as {
+                  styles?: string[];
+                }[],
+            )
+            .flatMap((pointer) => pointer.styles ?? [])
+            .find((id) => wrapper[1].styleIds.includes(id));
+          if (!referenced) throw new Error('Fixture has no indexed style');
+          wrapper[1].styleIds[wrapper[1].styleIds.indexOf(referenced)] = 'missing_style';
+        }
         const corrupt = new Uint8Array([0, ...new TextEncoder().encode(JSON.stringify(wrapper))]);
         const size = new Uint8Array([
           0,
@@ -88,7 +107,9 @@ for (const corruption of ['collision', 'oversized'] as const) {
     await page.reload();
     await expect(page.getByRole('heading', { name: 'Unable to open workbook' })).toBeVisible();
     await expect(page.locator('#startup-recovery-message')).toContainText(
-      'Invalid stored style identities',
+      corruption === 'missing'
+        ? 'Block directory references an unknown style'
+        : 'Invalid stored style identities',
     );
     expect(await capture()).toEqual(corrupt);
     expect(await page.evaluate(() => localStorage.getItem('opensheet.scene.budget'))).toBe(id);

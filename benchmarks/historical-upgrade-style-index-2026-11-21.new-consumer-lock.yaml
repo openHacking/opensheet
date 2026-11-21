@@ -1,0 +1,50 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  '@opensheetjs/core': file:../archives/core.tgz
+  '@opensheetjs/formula': file:../archives/formula.tgz
+
+importers:
+
+  .:
+    dependencies:
+      '@opensheetjs/core':
+        specifier: file:../archives/core.tgz
+        version: file:../archives/core.tgz
+      '@opensheetjs/formula':
+        specifier: file:../archives/formula.tgz
+        version: file:../archives/formula.tgz
+
+packages:
+
+  '@opensheetjs/core@file:../archives/core.tgz':
+    resolution: {integrity: sha512-m5uaMfrK4P60T1Fx2I4puIALYboKtOt/s6GX5Yh8t0bNck8bJchuBSIM1kkYjui7A8tszN41j1AUsyfjitzXbA==, tarball: file:../archives/core.tgz}
+    version: 0.2.0-dev.0
+
+  '@opensheetjs/formula@file:../archives/formula.tgz':
+    resolution: {integrity: sha512-k+Ojm0luSIJTbIh9fEu4NB6l4NhZ9k7LYxlnJHSn6nT3Xor4hvT7Q6PcqnTyBHX32CLmlZX+JyukyZTHYiUsMw==, tarball: file:../archives/formula.tgz}
+    version: 0.2.0-dev.0
+
+  immer@11.1.21:
+    resolution: {integrity: sha512-bZSadeCPGdaY5/qRLgr6mDSH1ra21rD3rqpiWk7+QTr4ayYPTE9qZYdLh/NdPhMe0wSrTvHD/Lk8q5EwhUs0aw==}
+
+  zod@4.6.6:
+    resolution: {integrity: sha512-4UmzQUF5fxvfcYHlbjBmejU+w+hbDnWFx4aS8kBx7nPBHcO2SqPbpAG8snbdg+Xse4pRefR98hgjFgIMCI/UhA==}
+
+snapshots:
+
+  '@opensheetjs/core@file:../archives/core.tgz':
+    dependencies:
+      '@opensheetjs/formula': file:../archives/formula.tgz
+      immer: 11.1.21
+      zod: 4.6.6
+
+  '@opensheetjs/formula@file:../archives/formula.tgz': {}
+
+  immer@11.1.21: {}
+
+  zod@4.6.6: {}
