@@ -79,8 +79,6 @@ for (const operation of ['creation', 'reset', 'published'] as const) {
       const reference = localStorage.getItem(
         operation === 'reset' ? 'opensheet.scene.budget' : 'opensheet.scene.sales',
       );
-      const path = `/@fs${location.pathname}`; // The caller supplies the module URL below instead.
-      void path;
       return {
         id: book.id,
         revision: book.revision,
@@ -96,6 +94,11 @@ for (const operation of ['creation', 'reset', 'published'] as const) {
       candidate: expect.any(String),
       reference: operation === 'published' ? actual.candidate : before.reference,
     });
+    if (operation === 'published') await expect(notice).not.toContainText('cleanup failed');
+    else
+      await expect(notice).toContainText(
+        `Temporary workbook ${actual.candidate} may remain in local storage because cleanup failed`,
+      );
     const recovered = await page.evaluate(
       async ({ url, id }) => {
         const { openWorkbook } = await import(/* @vite-ignore */ url);
@@ -227,7 +230,12 @@ for (const phase of ['unpublished', 'published'] as const) {
       candidate: expect.any(String),
       reference: phase === 'published' ? state.candidate : fixture.id,
     });
+    if (phase === 'unpublished')
+      await expect(message).toContainText(
+        `Temporary workbook ${state.candidate} may remain in local storage because cleanup failed`,
+      );
     if (phase === 'published') {
+      await expect(message).not.toContainText('cleanup failed');
       await recovery.evaluate((id) => {
         const proto = Object.getPrototypeOf(window.opensheet.getWorkbook());
         const close = proto.close;

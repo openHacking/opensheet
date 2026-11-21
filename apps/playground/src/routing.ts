@@ -50,13 +50,24 @@ export function createRouting(
       disposeCandidate(candidate);
     }
   }
-  async function discardCandidate(candidate: Workbook) {
+  async function discardCandidate(candidate: Workbook): Promise<boolean> {
     try {
       await candidate.deleteStorage();
+      return true;
     } catch {
       // Deletion may have failed; release the local owner without masking the cause.
       disposeCandidate(candidate);
+      return false;
     }
+  }
+  function cleanupFailure(error: unknown, candidate: Workbook): Error {
+    const message = error instanceof Error ? error.message : String(error);
+    const wrapped = new Error(
+      `${message}. Temporary workbook ${candidate.id} may remain in local storage because cleanup failed.`,
+      { cause: error },
+    );
+    if (error instanceof Error) wrapped.name = error.name;
+    return wrapped;
   }
   function showPage(page: 'spreadsheet' | 'api' | 'plugins', focus = false) {
     for (const id of ['spreadsheet', 'api', 'plugins'] as const) {
@@ -160,7 +171,7 @@ export function createRouting(
           await app.attachWorkbook(candidate);
         } catch (error) {
           if (candidate && !published) {
-            await discardCandidate(candidate);
+            if (!(await discardCandidate(candidate))) throw cleanupFailure(error, candidate);
           } else if (candidate && published) {
             try {
               if (currentWorkbook() !== candidate) await closeCandidate(candidate);
@@ -250,8 +261,9 @@ export function createRouting(
         completeScene(scene);
       }
     } catch (error) {
+      let failure = error;
       if (candidate && !published) {
-        await discardCandidate(candidate);
+        if (!(await discardCandidate(candidate))) failure = cleanupFailure(error, candidate);
       } else if (candidate && published) {
         try {
           if (app.getWorkbook() !== candidate) await closeCandidate(candidate);
@@ -260,7 +272,7 @@ export function createRouting(
         }
       }
       $<HTMLSelectElement>('scene-select').disabled = false;
-      const message = error instanceof Error ? error.message : String(error);
+      const message = failure instanceof Error ? failure.message : String(failure);
       notice(
         published
           ? `${message}. Reset workbook ${candidate?.id} was retained; reload to open the saved scene.`
@@ -389,7 +401,7 @@ export function createRouting(
             error,
           );
         }
-        await discardCandidate(candidate);
+        if (!(await discardCandidate(candidate))) throw cleanupFailure(error, candidate);
         throw error;
       }
     },
