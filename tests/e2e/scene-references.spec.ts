@@ -36,12 +36,11 @@ test('transactional scene references serialize competing updates and reject ABA 
   page,
   context,
 }) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
   const other = await context.newPage();
-  await Promise.all([page.goto('/#budget'), other.goto('/#budget')]);
-  await Promise.all([
-    expect(page.locator('#scene-title')).toHaveText('Budget Simulator'),
-    expect(other.locator('#scene-title')).toHaveText('Budget Simulator'),
-  ]);
+  await other.goto('/#budget');
+  await expect(other.locator('#scene-title')).toHaveText('Budget Simulator');
   const key = `scene-${Date.now()}`;
   const initialize = (p: typeof page, legacy: string | null) =>
     p.evaluate(

@@ -76,8 +76,45 @@ export function createRouting(
     else {
       const key = `opensheet.scene.${id}`;
       const saved = localStorage.getItem(key);
-      if (saved) await app.open(saved);
-      else {
+      if (saved) {
+        const previous = currentWorkbook();
+        if (app.hasDraft || previous?.persistenceState.pending)
+          throw new Error('Finish or cancel editing before changing scenes');
+        const revision = previous?.revision;
+        const candidate = previous && previous.id === saved ? previous : await openWorkbook(saved);
+        try {
+          if (
+            currentWorkbook() !== previous ||
+            previous?.revision !== revision ||
+            previous?.persistenceState.pending ||
+            app.hasDraft
+          )
+            throw new Error('Workbook changed while opening the saved scene; try again');
+          if (localStorage.getItem(key) !== saved)
+            throw new Error('Saved scene changed while opening; try again');
+          if (candidate === previous) await app.ready();
+          else await app.attachWorkbook(candidate);
+        } catch (error) {
+          let attached = false;
+          try {
+            attached = currentWorkbook() === candidate;
+          } catch {
+            // The editor may already have been disposed.
+          }
+          if (candidate !== previous && !attached) {
+            try {
+              await candidate.close();
+            } catch {
+              try {
+                candidate.dispose();
+              } catch {
+                // Preserve the original failure.
+              }
+            }
+          }
+          throw error;
+        }
+      } else {
         if (app.hasDraft) throw new Error('Finish or cancel editing before changing scenes');
         const previous = currentWorkbook();
         const revision = previous?.revision;

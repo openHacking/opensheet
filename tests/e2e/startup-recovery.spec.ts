@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('opening a saved scene does not overwrite a newer scene reference', async ({
+test('startup reports a changed saved scene and retries its newer reference', async ({
   page,
   context,
 }) => {
@@ -44,10 +44,11 @@ test('opening a saved scene does not overwrite a newer scene reference', async (
     { next: newId },
   );
   await opening.goto('/#budget');
-  await expect(opening.locator('#scene-title')).toHaveText('Budget Simulator');
-  expect(await opening.evaluate(() => window.opensheet.getWorkbook().id)).toBe(oldId);
+  await expect(opening.getByRole('heading', { name: 'Unable to open workbook' })).toBeVisible();
+  await expect(opening.locator('#startup-recovery-message')).toContainText('Saved scene changed');
   expect(await opening.evaluate(() => localStorage.getItem('opensheet.scene.budget'))).toBe(newId);
-  await opening.reload();
+  await opening.getByRole('button', { name: 'Try again' }).click();
+  await expect(opening.getByRole('heading', { name: 'Unable to open workbook' })).toBeHidden();
   await expect(opening.locator('#scene-title')).toHaveText('Budget Simulator');
   expect(await opening.evaluate(() => window.opensheet.getWorkbook().id)).toBe(newId);
   expect(
@@ -55,6 +56,22 @@ test('opening a saved scene does not overwrite a newer scene reference', async (
       window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
     ),
   ).toEqual([[271]]);
+  const prior = await opening.evaluate(
+    async ({ id, modulePath }) => {
+      const { openWorkbook } = await import(/* @vite-ignore */ modulePath);
+      const book = await openWorkbook(id);
+      try {
+        return {
+          readOnly: book.isReadOnly,
+          value: await book.getSheets()[0].range('A1').getValues(),
+        };
+      } finally {
+        await book.close();
+      }
+    },
+    { id: oldId, modulePath: `/@fs${process.cwd()}/packages/core/src/index.ts` },
+  );
+  expect(prior).toEqual({ readOnly: false, value: [[314]] });
 });
 
 test('failed restore preserves the saved reference and can retry after storage is repaired', async ({
@@ -1057,7 +1074,10 @@ for (const failure of ['before-attach', 'rollback-trap'] as const) {
       ).toEqual({ current: reference, reference });
       await recovery.evaluate(() => (window as any).restoreRecoveryAttach());
       await recovery.getByRole('button', { name: 'Open retained backup' }).click();
-    } else await recovery.getByRole('button', { name: 'Try again' }).click();
+    } else {
+      await recovery.evaluate(() => (window as any).restoreRecoveryAttach());
+      await recovery.getByRole('button', { name: 'Try again' }).click();
+    }
     await expect(recovery.getByRole('heading', { name: 'Unable to open workbook' })).toBeHidden();
     const result = await recovery.evaluate(async () => ({
       id: window.opensheet.getWorkbook().id,
