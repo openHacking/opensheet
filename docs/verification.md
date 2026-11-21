@@ -1172,3 +1172,7 @@ Recovery and undo/redo check all stored page descriptor fields against the sourc
 ### Retained-backup publication order
 
 Opening a retained backup prepares a separate workbook before writing the scene reference, then attaches it to the editor. If reference publication fails, the original editor workbook remains attached and the temporary candidate is closed; after publication, a failed attachment retains the saved backup reference. Three-browser tests inject a failed reference write and an intervening reference change, verify the original value and candidate lock release, exercise failures before and after attachment, and retry through reopen. The reference-change test is injected and the localStorage comparison is not atomic: ABA and changes after the check remain outside this guarantee.
+
+### Backup publication preflight
+
+Backup restore captures the current workbook and scene reference before preparing a candidate, then rechecks the workbook identity and revision, pending writes, draft, requested scene and reference before publishing. Three-browser JSON and binary tests hold the candidate after import and independently change the original revision, scene reference or draft. They verify the unpublished candidate is removed, preserve the original workbook or competing reference, and retry through reopen. The reference comparison uses localStorage and is not atomic; ABA and changes between the check and write remain possible. The staged import pause is injected rather than a physical interruption.

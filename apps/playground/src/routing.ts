@@ -26,6 +26,14 @@ export function createRouting(
   notice: (message: string) => void,
 ) {
   const bindings = createBindings();
+  function currentWorkbook() {
+    try {
+      return app.getWorkbook();
+    } catch (error) {
+      if ((error as { code?: string }).code === 'INVALID_ARGUMENT') return undefined;
+      throw error;
+    }
+  }
   function showPage(page: 'spreadsheet' | 'api' | 'plugins', focus = false) {
     for (const id of ['spreadsheet', 'api', 'plugins'] as const) {
       $(id === 'spreadsheet' ? 'spreadsheet-page' : `${id}-page`).hidden = id !== page;
@@ -67,16 +75,8 @@ export function createRouting(
       const saved = localStorage.getItem(`opensheet.scene.${id}`);
       if (saved) await app.open(saved);
       else {
-        const current = () => {
-          try {
-            return app.getWorkbook();
-          } catch (error) {
-            if ((error as { code?: string }).code === 'INVALID_ARGUMENT') return undefined;
-            throw error;
-          }
-        };
         if (app.hasDraft) throw new Error('Finish or cancel editing before changing scenes');
-        const previous = current();
+        const previous = currentWorkbook();
         const revision = previous?.revision;
         let candidate: Workbook | undefined;
         let published = false;
@@ -85,7 +85,7 @@ export function createRouting(
           candidate = new Workbook({ ...snapshot, workbookId: `wb-${crypto.randomUUID()}` });
           await candidate.ready();
           if (
-            current() !== previous ||
+            currentWorkbook() !== previous ||
             previous?.revision !== revision ||
             previous?.persistenceState.pending ||
             app.hasDraft
@@ -103,7 +103,7 @@ export function createRouting(
             }
           } else if (candidate && published) {
             try {
-              if (current() !== candidate) await candidate.close();
+              if (currentWorkbook() !== candidate) await candidate.close();
             } catch {
               candidate.dispose();
             }
@@ -275,14 +275,28 @@ export function createRouting(
       const scene = requestedScene();
       if (scene === 'performance') throw new Error('Open Budget Simulator to restore a backup');
       signal.throwIfAborted();
+      const previous = currentWorkbook();
+      if (app.hasDraft || previous?.persistenceState.pending)
+        throw new Error('Finish or cancel editing before restoring a backup');
+      const revision = previous?.revision;
+      const key = `opensheet.scene.${scene}`;
+      const reference = localStorage.getItem(key);
       const candidate = await createWorkbook();
       let attached = false;
-      const key = `opensheet.scene.${scene}`;
       let referenceWritten = false;
       try {
         if (/\.json$/i.test(file.name)) await candidate.importJSON(file, { signal });
         else await candidate.importBinary(file, { signal });
         signal.throwIfAborted();
+        if (
+          currentWorkbook() !== previous ||
+          previous?.revision !== revision ||
+          previous?.persistenceState.pending ||
+          app.hasDraft ||
+          requestedScene() !== scene ||
+          localStorage.getItem(key) !== reference
+        )
+          throw new Error('Workbook or saved scene changed during backup restore; try again');
         localStorage.setItem(key, candidate.id);
         referenceWritten = true;
         signal.throwIfAborted();
@@ -326,15 +340,7 @@ export function createRouting(
     openRetainedBackup: async (id: string) => {
       const scene = requestedScene();
       if (scene === 'performance') throw new Error('Open Budget Simulator to restore a backup');
-      const current = () => {
-        try {
-          return app.getWorkbook();
-        } catch (error) {
-          if ((error as { code?: string }).code === 'INVALID_ARGUMENT') return undefined;
-          throw error;
-        }
-      };
-      const previous = current();
+      const previous = currentWorkbook();
       if (app.hasDraft || previous?.persistenceState.pending)
         throw new Error('Finish or cancel editing before opening the retained backup');
       const revision = previous?.revision;
@@ -344,7 +350,7 @@ export function createRouting(
       let published = false;
       try {
         if (
-          current() !== previous ||
+          currentWorkbook() !== previous ||
           previous?.revision !== revision ||
           previous?.persistenceState.pending ||
           app.hasDraft ||
@@ -364,7 +370,7 @@ export function createRouting(
       } catch (error) {
         let attached = false;
         try {
-          attached = current() === candidate;
+          attached = currentWorkbook() === candidate;
         } catch {
           // A disposed editor cannot retain the candidate.
         }
