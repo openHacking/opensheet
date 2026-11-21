@@ -541,19 +541,37 @@ export class OpenSheet {
   dispose() {
     if (this.disposed || this.disposing) return;
     this.disposing = true;
-    this.plugins.dispose();
-    this.grid?.dispose();
-    this.stop?.();
-    this.book?.dispose();
-    this.toastView.dispose();
-    this.emit('lifecycle:disposed', undefined);
-    this.events.clear();
-    this.workbookActions.dispose();
-    this.toolbarView.dispose();
-    this.formulaBar.dispose();
-    this.tabsView.dispose();
-    this.element.remove();
+    let failure: unknown;
+    let failed = false;
+    const cleanup = (action: () => void) => {
+      try {
+        action();
+      } catch (error) {
+        if (!failed) failure = error;
+        else {
+          try {
+            console.error(error);
+          } catch {
+            // Preserve the first failure and continue releasing resources.
+          }
+        }
+        failed = true;
+      }
+    };
+    cleanup(() => this.plugins.dispose());
+    cleanup(() => this.grid?.dispose());
+    cleanup(() => this.stop?.());
+    cleanup(() => this.book?.dispose());
+    cleanup(() => this.toastView.dispose());
+    cleanup(() => this.emit('lifecycle:disposed', undefined));
+    cleanup(() => this.events.clear());
+    cleanup(() => this.workbookActions.dispose());
+    cleanup(() => this.toolbarView.dispose());
+    cleanup(() => this.formulaBar.dispose());
+    cleanup(() => this.tabsView.dispose());
+    cleanup(() => this.element.remove());
     this.disposed = true;
+    if (failed) throw failure;
   }
 }
 export function createOpenSheet(options: OpenSheetOptions) {
