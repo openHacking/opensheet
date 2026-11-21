@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-21T07:21:26.095Z",
+  "registry": "https://registry.npmjs.org/",
+  "sourceRevision": "cf2f5ce9ea621e4785e9287d8bec18dca4438b35",
+  "sourceDirty": true,
+  "node": "v22.19.0",
+  "records": [
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/core",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.0.0-stage",
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/formats",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/formula",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/react",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/testing",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.0.0-stage",
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.0.0-stage",
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    },
+    {
+      "name": "opensheet",
+      "candidate": "0.2.0-dev.0",
+      "versions": [
+        "0.1.0",
+        "0.1.1"
+      ],
+      "previewPublished": true,
+      "candidatePublished": false
+    }
+  ]
+}

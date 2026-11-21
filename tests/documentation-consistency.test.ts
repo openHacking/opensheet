@@ -161,6 +161,32 @@ describe('selected capability documentation', () => {
     expect(Number(inventory![1])).toBe(count);
   });
 
+  it('labels the workspace candidate consistently across package navigation', () => {
+    const candidate = JSON.parse(read('package.json')).version;
+    expect(read('README.md')).toContain(`unreleased ${candidate}`);
+    expect(read('llms.txt')).toContain(`unreleased ${candidate}`);
+    expect(read('docs/capabilities.md')).toContain(`unreleased development candidate ${candidate}`);
+    for (const entry of readdirSync('packages', { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const directory = join('packages', entry.name);
+      const manifest = JSON.parse(read(join(directory, 'package.json')));
+      expect(manifest.version, directory).toBe(candidate);
+      const text = read(join(directory, 'README.md'));
+      expect(text, directory).toContain(`unreleased ${candidate}`);
+      expect(text, directory).toContain('0.1.1 is a development preview published to npm');
+    }
+    expect(read('ROADMAP.md')).toContain(
+      'not release commitments or descriptions of shipped features',
+    );
+    expect(read('TODO.md')).toContain('All unchecked items are **planned**');
+  });
+
+  it('keeps agent navigation file entries pointed at existing files', () => {
+    const entries = [...read('llms.txt').matchAll(/^- ([^:\n]+):/gm)].map((match) => match[1]);
+    expect(entries.length).toBeGreaterThan(0);
+    expect(entries.filter((path) => !existsSync(path))).toEqual([]);
+  });
+
   it('identifies the supported unversioned directory-head exception on current storage pages', () => {
     for (const path of [
       'docs/storage-format.md',

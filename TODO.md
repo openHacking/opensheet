@@ -15,7 +15,8 @@ All unchecked items are **planned**, not implemented or verified by this documen
 
 ## A. Evidence, scope and documentation
 
-- [ ] **DOC-01 — Make current capabilities a single consistent story.** P0 / M0 / S / Docs + core / deps: none.
+- [x] **DOC-01 — Make current capabilities a single consistent story.** P0 / M0 / S / Docs + core / deps: none.
+  - Completed 2026-11-21; owner and adversarial reviewer: Codex (self-review). [Audit](docs/documentation-audit.md) records the reviewed claims, source and registry evidence, failure-path review and limits; [automated checks](tests/documentation-consistency.test.ts) cover version labels, agent paths and selected consistency rules. External release acceptance and independent maintainer review remain separate work.
   - Deliver: a capability inventory linking each claim to source, test or outstanding verification; align README, API, status, package READMEs and agent navigation.
   - Accept: no contradictory sync/async, published/unpublished, runtime or capacity claims; planning pages are labeled future work. Add a documentation consistency check or an explicit review checklist.
   - Starting point: this planning change corrects the known stale `llms.txt` statements, but the complete inventory/check remains open.

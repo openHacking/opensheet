@@ -56,8 +56,8 @@ test('order workload preserves inputs, calculations and metadata through native 
       });
       const original = await inspect();
       const json = await book.toJSON();
-    const chunks: BlobPart[] = [];
-    for await (const chunk of book.streamBinary()) chunks.push(Uint8Array.from(chunk));
+      const chunks: BlobPart[] = [];
+      for await (const chunk of book.streamBinary()) chunks.push(Uint8Array.from(chunk));
       const binary = new Blob(chunks);
       await book.importJSON(json);
       [orders, summary] = book.getSheets();
