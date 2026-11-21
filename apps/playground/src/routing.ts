@@ -67,8 +67,54 @@ export function createRouting(
       const saved = localStorage.getItem(`opensheet.scene.${id}`);
       if (saved) await app.open(saved);
       else {
-        await app.load(id === 'budget' ? await sample() : await createScene(id));
-        localStorage.setItem(`opensheet.scene.${id}`, app.getWorkbook().id);
+        const current = () => {
+          try {
+            return app.getWorkbook();
+          } catch (error) {
+            if ((error as { code?: string }).code === 'INVALID_ARGUMENT') return undefined;
+            throw error;
+          }
+        };
+        if (app.hasDraft) throw new Error('Finish or cancel editing before changing scenes');
+        const previous = current();
+        const revision = previous?.revision;
+        let candidate: Workbook | undefined;
+        let published = false;
+        try {
+          const snapshot = id === 'budget' ? await sample() : await createScene(id);
+          candidate = new Workbook({ ...snapshot, workbookId: `wb-${crypto.randomUUID()}` });
+          await candidate.ready();
+          if (
+            current() !== previous ||
+            previous?.revision !== revision ||
+            previous?.persistenceState.pending ||
+            app.hasDraft
+          )
+            throw new Error('Workbook changed during scene creation; try again');
+          localStorage.setItem(`opensheet.scene.${id}`, candidate.id);
+          published = true;
+          await app.attachWorkbook(candidate);
+        } catch (error) {
+          if (candidate && !published) {
+            try {
+              await candidate.deleteStorage();
+            } catch {
+              candidate.dispose();
+            }
+          } else if (candidate && published) {
+            try {
+              if (current() !== candidate) await candidate.close();
+            } catch {
+              candidate.dispose();
+            }
+            const message = error instanceof Error ? error.message : String(error);
+            throw new Error(
+              `${message}. Scene workbook ${candidate.id} was retained; reload to open the saved scene.`,
+              { cause: error },
+            );
+          }
+          throw error;
+        }
       }
     }
     completeScene(id);

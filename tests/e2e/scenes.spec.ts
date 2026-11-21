@@ -62,11 +62,11 @@ for (const failure of [false, true]) {
     await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
     await page.evaluate((shouldFail) => {
       const app = window.opensheet;
-      const load = app.load.bind(app);
-      app.load = async (...args) => {
+      const attach = app.attachWorkbook.bind(app);
+      app.attachWorkbook = async (...args) => {
         await new Promise<void>((resolve) => ((window as any).releaseSceneLoad = resolve));
         if (shouldFail) throw new Error('Injected scene failure');
-        return load(...args);
+        return attach(...args);
       };
     }, failure);
     await page.locator('#scene-select').selectOption('sales');
