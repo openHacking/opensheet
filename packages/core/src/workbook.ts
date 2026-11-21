@@ -174,6 +174,19 @@ export class Workbook {
       'WORKER_UNAVAILABLE',
       'A browser Worker or injected workerFactory is required',
     );
+    if (!options.workerFactory && typeof window !== 'undefined') {
+      let opaqueOrigin = false;
+      try {
+        opaqueOrigin = globalThis.origin === 'null';
+      } catch {
+        // The normal storage and Worker checks still report denied access.
+      }
+      assert(
+        !opaqueOrigin,
+        'STORAGE_UNAVAILABLE',
+        'This frame has an opaque origin and cannot safely use local workbook storage; open the app directly over HTTPS or localhost, or use a trusted same-origin frame',
+      );
+    }
     let Channel: typeof BroadcastChannel | undefined;
     try {
       const candidate = globalThis.BroadcastChannel;

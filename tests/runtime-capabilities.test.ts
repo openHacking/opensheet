@@ -33,6 +33,32 @@ describe('runtime prerequisites', () => {
     await book.close();
   });
 
+  it('rejects opaque browser origins before allocating a channel or Worker', () => {
+    const worker = vi.fn();
+    const channel = vi.fn();
+    vi.stubGlobal('window', {});
+    vi.stubGlobal('origin', 'null');
+    vi.stubGlobal('Worker', worker);
+    vi.stubGlobal('BroadcastChannel', channel);
+    expect(() => new Workbook()).toThrow(
+      expect.objectContaining({
+        code: 'STORAGE_UNAVAILABLE',
+        message: expect.stringContaining('opaque origin'),
+      }),
+    );
+    expect(worker).not.toHaveBeenCalled();
+    expect(channel).not.toHaveBeenCalled();
+    const failure = new Error('injected runtime reached');
+    expect(
+      () =>
+        new Workbook(undefined, {
+          workerFactory: () => {
+            throw failure;
+          },
+        }),
+    ).toThrow(failure);
+  });
+
   it('reports denied Worker property access before attempting initialization', () => {
     const original = Object.getOwnPropertyDescriptor(globalThis, 'Worker');
     Object.defineProperty(globalThis, 'Worker', {

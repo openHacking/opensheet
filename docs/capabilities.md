@@ -37,7 +37,7 @@ The initial cross-document review and registry observation are recorded in [docu
 
 - Workbook reads/writes are asynchronous; lightweight metadata and pure file utilities are synchronous.
 - A Node import smoke pass does not imply a Node storage engine. Injection must provide the worker/storage runtime and revision coordination.
-- Browser requirements include module Workers, IndexedDB, Web Locks and BroadcastChannel. Presence checks do not establish permission, quota or durability under origin eviction.
+- Browser requirements include a non-opaque origin, module Workers, IndexedDB, Web Locks and BroadcastChannel. Sandboxed frames without same-origin access are rejected before Worker creation; use a trusted same-origin frame or open the app directly. Presence checks do not establish permission, quota or durability under origin eviction.
 - npm publication state is distinct from local build state; verify registry artifacts for a release, rather than infer publication from this workspace.
 - Never substitute cache reservations for total memory, a hot-cell benchmark for dispersed edits, or historical results for current-commit acceptance.
 - Formula count comes from `supportedFunctions`; examples must use only supported modes.
