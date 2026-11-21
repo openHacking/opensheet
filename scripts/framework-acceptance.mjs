@@ -306,26 +306,46 @@ try {
             await invoke('unmount');
             assert.equal((await snapshot()).workers, 0);
             result.checks.push('async initialization errors reach host');
-            await invoke('failEditorConstruction');
-            await invoke('mount');
-            await page.waitForFunction(() => window.hostFixture.state.errors.length > 0);
-            assert.match(
-              (await snapshot()).errors[0].message,
-              /Injected editor construction failure/,
-            );
-            assert.equal((await snapshot()).ready, 0);
-            assert.equal((await snapshot()).workers, 0);
-            await invoke('unmount');
-            assert.deepEqual(await invoke('constructionResources'), { listeners: 0, observers: 0 });
-            await invoke('restoreConstruction');
-            await invoke('mount');
-            await page.waitForFunction(() => window.hostFixture.state.ready === 1);
-            await invoke('unmount');
-            assert.equal((await snapshot()).workers, 0);
-            assert.equal((await snapshot()).grids, 0);
-            result.checks.push(
-              'synchronous construction failure reaches host and remount succeeds',
-            );
+            for (const phase of [
+              'toolbar-observe',
+              'toolbar-listener',
+              'toolbar-disconnect',
+              'formula-observe',
+              'formula-listener',
+              'formula-disconnect',
+              'formula-dom',
+              'editor-dom',
+              'host-append',
+            ]) {
+              await invoke('failEditorConstruction', phase);
+              await invoke('mount');
+              await page.waitForFunction(() => window.hostFixture.state.errors.length > 0);
+              assert.match(
+                (await snapshot()).errors[0].message,
+                /Injected editor construction failure/,
+              );
+              assert.equal((await snapshot()).ready, 0);
+              assert.equal((await snapshot()).workers, 0);
+              if (phase.endsWith('-disconnect'))
+                assert.ok(
+                  (await page.evaluate(() => window.hostFixture.reportedObserverErrors)).some(
+                    (message) => message.includes('Injected observer cleanup failure'),
+                  ),
+                );
+              await invoke('unmount');
+              assert.deepEqual(
+                await invoke('constructionResources'),
+                { listeners: 0, observers: 0 },
+                phase,
+              );
+              await invoke('restoreConstruction');
+              await invoke('mount');
+              await page.waitForFunction(() => window.hostFixture.state.ready === 1);
+              await invoke('unmount');
+              assert.equal((await snapshot()).workers, 0);
+              assert.equal((await snapshot()).grids, 0);
+            }
+            result.checks.push('nine construction failures release resources and permit remount');
             if (framework === 'react') {
               for (const observerFailure of ['sync', 'async']) {
                 await invoke('failEditorConstruction');

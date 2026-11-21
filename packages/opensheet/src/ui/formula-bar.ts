@@ -88,24 +88,6 @@ export class FormulaBar {
       },
       { signal: this.abort.signal },
     );
-    document.addEventListener(
-      'pointerup',
-      () => {
-        this.interactingRecovery = false;
-      },
-      { signal: this.abort.signal },
-    );
-    document.addEventListener(
-      'pointercancel',
-      () => {
-        this.interactingRecovery = false;
-      },
-      { signal: this.abort.signal },
-    );
-    if (typeof ResizeObserver !== 'undefined') {
-      this.referenceResize = new ResizeObserver(() => this.syncReferenceMirror());
-      this.referenceResize.observe(this.formula);
-    }
     this.formula.addEventListener(
       'scroll',
       () => {
@@ -404,6 +386,33 @@ export class FormulaBar {
       },
       { signal: this.abort.signal },
     );
+    try {
+      document.addEventListener(
+        'pointerup',
+        () => {
+          this.interactingRecovery = false;
+        },
+        { signal: this.abort.signal },
+      );
+      document.addEventListener(
+        'pointercancel',
+        () => {
+          this.interactingRecovery = false;
+        },
+        { signal: this.abort.signal },
+      );
+      if (typeof ResizeObserver !== 'undefined') {
+        this.referenceResize = new ResizeObserver(() => this.syncReferenceMirror());
+        this.referenceResize.observe(this.formula);
+      }
+    } catch (error) {
+      try {
+        this.dispose();
+      } catch (cleanupError) {
+        console.error(cleanupError);
+      }
+      throw error;
+    }
   }
   private setEditingDirty(dirty: boolean) {
     this.editingDirty = dirty;
@@ -679,7 +688,10 @@ export class FormulaBar {
     if (restoreFocus) this.actions.focus();
   }
   dispose() {
-    this.referenceResize?.disconnect();
-    this.abort.abort();
+    try {
+      this.referenceResize?.disconnect();
+    } finally {
+      this.abort.abort();
+    }
   }
 }

@@ -1,0 +1,126 @@
+{
+  "startedAt": "2026-11-21T12:16:34.374Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 397,
+    "sha256": "8be697f9177d80e25b80ee8f589f44cc19170d2a7f74c24bd457d073131c9ef5"
+  },
+  "artifactDirectory": null,
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "94a60bdd4481c3c87c62c2da7a3b9a024b3c0bda3c4c8eac7a6534ffaff4da46"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "12cc6bab28f6fa4b36856dac83b078830f019cd9d2d0b77370eb01274f1e9990"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "367f43f540674a9aca24476e2b9d78f727c27ca25151c6653f93585e2f1df2ef"
+    },
+    {
+      "name": "@opensheetjs/react",
+      "version": "0.2.0-dev.0",
+      "sha256": "e8f4285810af133ca14a574ed25720d16e77c962a1e41edd135415e8ec2d4bd4"
+    },
+    {
+      "name": "@opensheetjs/vue",
+      "version": "0.2.0-dev.0",
+      "sha256": "7a9c62822dce992812aa4d9070281b3aa67c51eac37b6963daa6134527439a04"
+    }
+  ],
+  "results": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "mode": "development",
+      "framework": "react",
+      "checks": [
+        "initialFile is mount-only; readOnly updates",
+        "current callbacks, controlled replacement, unmount and writer lock release",
+        "unmount during async readiness suppresses stale callbacks",
+        "ten rapid navigation cycles leave no stale readiness or Workers",
+        "async initialization errors reach host"
+      ],
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: toolbar-observe\n+ actual - expected\n\n  {\n    listeners: 0,\n+   observers: 2\n-   observers: 0\n  }\n",
+      "pageErrors": [],
+      "observation": {
+        "ready": 0,
+        "errors": [
+          {
+            "version": 0,
+            "message": "Error: Injected editor construction failure"
+          },
+          {
+            "version": 0,
+            "message": "Error: Injected editor construction failure"
+          }
+        ],
+        "workerUrls": [
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module",
+          "http://127.0.0.1:5191/embedded/sheets/node_modules/.pnpm/@opensheetjs+core@file+tarballs+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js?worker_file&type=module"
+        ],
+        "workers": 0,
+        "createdWorkers": 28,
+        "grids": 0
+      }
+    }
+  ],
+  "scope": "Installs locally packed package tarballs in an isolated consumer with no OpenSheet source aliases; explicit Zod CSP configuration shim. Development Strict Mode and production Vite builds. Exact direct runtime versions; generated consumer dependency lock is preserved. Browser lifecycle assertions, not a memory benchmark.",
+  "fixtureSha256": "da07596b72a9ad1b5284a48573b15d659c96993ee31a82fdb4398acd77c78123",
+  "configSha256": "8d84b397d2ed62b22ae3545a9ea9bd71fe0cfd4761cce05d92b476b8bab6055d",
+  "cspShimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6",
+  "ssrFixtureSha256": "7b7dc10e3c6ea527f554c0d7be9b64a5e2617685b454896cacaf8e251303e1ba",
+  "lock": {
+    "file": "/Volumes/github/private/opensheet/benchmarks/framework-early-construction-baseline-2026-11-21.consumer-lock.yaml",
+    "sha256": "361fa79ec093db05128a0307abec7d3cb3540afddd81b43def46ec6cd4f62171"
+  },
+  "ssr": {
+    "react": "<div class=\"os-framework-host\"></div>",
+    "vue": "<div class=\"os-framework-host\"></div>",
+    "ready": 0,
+    "status": "passed"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: toolbar-observe\n+ actual - expected\n\n  {\n    listeners: 0,\n+   observers: 2\n-   observers: 0\n  }\n"
+}

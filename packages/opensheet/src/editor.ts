@@ -49,81 +49,92 @@ export class OpenSheet {
     if (!container) throw new OpenSheetError('INVALID_ARGUMENT', 'Container was not found');
     this.element = document.createElement('div');
     this.element.className = 'opensheet';
-    this.workbookActions = new WorkbookActions(this.element, {
-      book: () => (this.disposed ? undefined : this.book),
-      grid: () => (this.disposed ? undefined : this.grid),
-      select: (selection) => this.selection.set(selection),
-      canEdit: () => !this.importing && this.options.mode !== 'read',
-      preserveFocus: () =>
-        !!this.grid?.isComposing || this.hasDraft || this.formulaBar.canPickReference(),
-      run: (fn) => this.run(fn),
-      notice: (message) => this.notify(message),
-    });
-    this.toolbarView = new Toolbar(
-      {
+    const rollback: Array<() => void> = [
+      () => this.element.remove(),
+      () => this.events.clear(),
+      () => this.toastView.dispose(),
+    ];
+    try {
+      this.workbookActions = new WorkbookActions(this.element, {
+        book: () => (this.disposed ? undefined : this.book),
+        grid: () => (this.disposed ? undefined : this.grid),
+        select: (selection) => this.selection.set(selection),
+        canEdit: () => !this.importing && this.options.mode !== 'read',
+        preserveFocus: () =>
+          !!this.grid?.isComposing || this.hasDraft || this.formulaBar.canPickReference(),
+        run: (fn) => this.run(fn),
+        notice: (message) => this.notify(message),
+      });
+      rollback.push(() => this.workbookActions.dispose());
+      this.toolbarView = new Toolbar(
+        {
+          getWorkbook: () => this.getWorkbook(),
+          getSelection: () => this.selection.get(),
+          getSelectionState: () =>
+            this.grid ? { owner: this.grid, version: this.grid.selectionVersion } : undefined,
+          run: (fn) => this.run(fn),
+          openMenu: (kind, trigger) => this.workbookActions.toolbar(kind, trigger),
+          annotate: () => this.workbookActions.annotate(),
+          openSelectionMenu: (kind, trigger) => this.workbookActions.selectionMenu(kind, trigger),
+        },
+        options.toolbar !== false,
+      );
+      rollback.push(() => this.toolbarView.dispose());
+      this.formulaBar = new FormulaBar({
+        book: () => this.getWorkbook(),
+        selection: () => this.selection.get(),
+        select: (s) => this.selection.set(s),
+        move: (rows, columns, extend) => this.grid?.moveSelection(rows, columns, extend),
+        references: (selections) => this.grid?.setFormulaReferences(selections),
+        draft: (dirty) => this.setDraft('formula', dirty),
+        focus: () => this.grid?.focus(),
+        run: (fn) => this.run(fn),
+      });
+      rollback.push(() => this.formulaBar.dispose());
+      this.tabsView = new SheetTabs({
+        book: () => this.getWorkbook(),
+        activeSheet: () => this.grid!.activeSheetId,
+        setSheet: (id) => this.grid!.setSheet(id),
+        openMenu: (id, trigger) => this.workbookActions.sheetMenu(id, trigger),
+        preserveFormulaFocus: () =>
+          !!this.grid?.isComposing ||
+          this.formulaBar.canPickReference() ||
+          this.transferCellFormulaDraft(),
+        run: (fn) => this.run(fn),
+      });
+      rollback.push(() => this.tabsView.dispose());
+      this.viewport = document.createElement('div');
+      this.viewport.className = 'os-viewport';
+      const footer = document.createElement('div');
+      footer.className = 'os-footer';
+      footer.append(this.tabsView.element, this.statusBar.element);
+      this.element.append(
+        this.toolbarView.element,
+        this.formulaBar.element,
+        this.viewport,
+        footer,
+        this.toastView.element,
+      );
+      this.plugins = new PluginRegistry({
         getWorkbook: () => this.getWorkbook(),
         getSelection: () => this.selection.get(),
-        getSelectionState: () =>
-          this.grid ? { owner: this.grid, version: this.grid.selectionVersion } : undefined,
-        run: (fn) => this.run(fn),
-        openMenu: (kind, trigger) => this.workbookActions.toolbar(kind, trigger),
-        annotate: () => this.workbookActions.annotate(),
-        openSelectionMenu: (kind, trigger) => this.workbookActions.selectionMenu(kind, trigger),
-      },
-      options.toolbar !== false,
-    );
-    this.formulaBar = new FormulaBar({
-      book: () => this.getWorkbook(),
-      selection: () => this.selection.get(),
-      select: (s) => this.selection.set(s),
-      move: (rows, columns, extend) => this.grid?.moveSelection(rows, columns, extend),
-      references: (selections) => this.grid?.setFormulaReferences(selections),
-      draft: (dirty) => this.setDraft('formula', dirty),
-      focus: () => this.grid?.focus(),
-      run: (fn) => this.run(fn),
-    });
-    this.tabsView = new SheetTabs({
-      book: () => this.getWorkbook(),
-      activeSheet: () => this.grid!.activeSheetId,
-      setSheet: (id) => this.grid!.setSheet(id),
-      openMenu: (id, trigger) => this.workbookActions.sheetMenu(id, trigger),
-      preserveFormulaFocus: () =>
-        !!this.grid?.isComposing ||
-        this.formulaBar.canPickReference() ||
-        this.transferCellFormulaDraft(),
-      run: (fn) => this.run(fn),
-    });
-    this.viewport = document.createElement('div');
-    this.viewport.className = 'os-viewport';
-    const footer = document.createElement('div');
-    footer.className = 'os-footer';
-    footer.append(this.tabsView.element, this.statusBar.element);
-    this.element.append(
-      this.toolbarView.element,
-      this.formulaBar.element,
-      this.viewport,
-      footer,
-      this.toastView.element,
-    );
-    this.plugins = new PluginRegistry({
-      getWorkbook: () => this.getWorkbook(),
-      getSelection: () => this.selection.get(),
-      addToolbar: (action) => this.toolbarView.add(action),
-      notify: (m) => this.notify(m),
-      onError: (e) => {
-        this.emit('plugin:error', e);
-        this.error(e);
-      },
-    });
-    try {
+        addToolbar: (action) => this.toolbarView.add(action),
+        notify: (m) => this.notify(m),
+        onError: (e) => {
+          this.emit('plugin:error', e);
+          this.error(e);
+        },
+      });
+      rollback.push(() => this.plugins.dispose());
       container.append(this.element);
     } catch (error) {
-      // Construction has already installed observers and document listeners.
-      // Release them if the host rejects the final attachment.
-      try {
-        this.dispose();
-      } catch (cleanupError) {
-        console.error(cleanupError);
+      this.disposed = true;
+      for (const cleanup of rollback.reverse()) {
+        try {
+          cleanup();
+        } catch (cleanupError) {
+          console.error(cleanupError);
+        }
       }
       throw error;
     }

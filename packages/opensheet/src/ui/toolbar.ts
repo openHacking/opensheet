@@ -107,26 +107,35 @@ export class Toolbar {
     this.buildToolbar();
     this.items.append(this.pluginToolbar);
     this.element.hidden = !visible;
-    const resize = new ResizeObserver(() => this.layoutToolbar());
-    resize.observe(this.element);
-    this.cleanups.push(() => resize.disconnect());
-    const dismissMore = (event: PointerEvent) => {
-      if (!more.contains(event.target as Node)) this.setMoreOpen(false);
-    };
-    const escapeMore = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && !this.moreMenu.hidden) {
-        this.setMoreOpen(false);
-        this.moreButton.focus({ preventScroll: true });
+    try {
+      const resize = new ResizeObserver(() => this.layoutToolbar());
+      this.cleanups.push(() => resize.disconnect());
+      resize.observe(this.element);
+      const dismissMore = (event: PointerEvent) => {
+        if (!more.contains(event.target as Node)) this.setMoreOpen(false);
+      };
+      const escapeMore = (event: KeyboardEvent) => {
+        if (event.key === 'Escape' && !this.moreMenu.hidden) {
+          this.setMoreOpen(false);
+          this.moreButton.focus({ preventScroll: true });
+        }
+      };
+      document.addEventListener('pointerdown', dismissMore);
+      this.cleanups.push(() => document.removeEventListener('pointerdown', dismissMore));
+      document.addEventListener('keydown', escapeMore);
+      this.cleanups.push(() => document.removeEventListener('keydown', escapeMore));
+      this.frame = requestAnimationFrame(() => {
+        this.frame = 0;
+        this.layoutToolbar();
+      });
+    } catch (error) {
+      try {
+        this.dispose();
+      } catch (cleanupError) {
+        console.error(cleanupError);
       }
-    };
-    document.addEventListener('pointerdown', dismissMore);
-    document.addEventListener('keydown', escapeMore);
-    this.cleanups.push(() => document.removeEventListener('pointerdown', dismissMore));
-    this.cleanups.push(() => document.removeEventListener('keydown', escapeMore));
-    this.frame = requestAnimationFrame(() => {
-      this.frame = 0;
-      this.layoutToolbar();
-    });
+      throw error;
+    }
   }
   private button(label: string, action: () => void, title = label, icon?: IconNode, stable = true) {
     return button(
@@ -344,6 +353,16 @@ export class Toolbar {
     this.disposed = true;
     cancelAnimationFrame(this.frame);
     this.abort.abort();
-    this.cleanups.forEach((fn) => fn());
+    let failure: unknown;
+    let failed = false;
+    for (const cleanup of this.cleanups) {
+      try {
+        cleanup();
+      } catch (error) {
+        if (!failed) failure = error;
+        failed = true;
+      }
+    }
+    if (failed) throw failure;
   }
 }

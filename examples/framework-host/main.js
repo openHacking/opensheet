@@ -155,7 +155,7 @@ window.hostFixture = {
     state.app = null;
     await frames();
   },
-  failEditorConstruction() {
+  failEditorConstruction(phase = 'host-append') {
     const append = Element.prototype.append;
     const add = document.addEventListener;
     const remove = document.removeEventListener;
@@ -169,7 +169,12 @@ window.hostFixture = {
     const listeners = new Set();
     const observers = new Set();
     document.addEventListener = function (type, listener, options) {
-      if ((type === 'pointerdown' || type === 'keydown') && listener) {
+      if (
+        (['toolbar-listener', 'toolbar-disconnect'].includes(phase) && type === 'keydown') ||
+        (phase === 'formula-listener' && type === 'pointercancel')
+      )
+        throw new Error('Injected editor construction failure');
+      if (['pointerdown', 'pointerup', 'pointercancel', 'keydown'].includes(type) && listener) {
         listeners.add(listener);
         if (typeof options === 'object' && options?.signal)
           options.signal.addEventListener('abort', () => listeners.delete(listener), {
@@ -187,9 +192,27 @@ window.hostFixture = {
         super(...args);
         observers.add(this);
       }
+      observe(target, ...args) {
+        const result = super.observe(target, ...args);
+        this.targetKind = target.classList.contains('os-toolbar')
+          ? 'toolbar'
+          : target.classList.contains('os-formula-input')
+            ? 'formula'
+            : 'other';
+        if (
+          (phase === 'toolbar-observe' && target.classList.contains('os-toolbar')) ||
+          (['formula-observe', 'formula-disconnect'].includes(phase) &&
+            target.classList.contains('os-formula-input'))
+        )
+          throw new Error('Injected editor construction failure');
+        return result;
+      }
       disconnect() {
         observers.delete(this);
-        return super.disconnect();
+        const result = super.disconnect();
+        if (phase === `${this.targetKind}-disconnect`)
+          throw new Error('Injected observer cleanup failure');
+        return result;
       }
     };
     window.hostFixture.constructionResources = () => ({
@@ -198,8 +221,22 @@ window.hostFixture = {
     });
     Element.prototype.append = function (...children) {
       if (
-        this.classList.contains('os-framework-host') &&
-        children.some((child) => child instanceof Element && child.classList.contains('opensheet'))
+        (phase === 'host-append' &&
+          this.classList.contains('os-framework-host') &&
+          children.some(
+            (child) => child instanceof Element && child.classList.contains('opensheet'),
+          )) ||
+        (phase === 'formula-dom' &&
+          this.classList.contains('os-formula-bar') &&
+          children.some(
+            (child) =>
+              child instanceof Element && child.classList.contains('os-formula-error-button'),
+          )) ||
+        (phase === 'editor-dom' &&
+          this.classList.contains('opensheet') &&
+          children.some(
+            (child) => child instanceof Element && child.classList.contains('os-toolbar'),
+          ))
       )
         throw new Error('Injected editor construction failure');
       return append.apply(this, children);
