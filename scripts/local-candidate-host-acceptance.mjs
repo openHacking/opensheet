@@ -10,9 +10,10 @@ import { sourceFingerprint } from './benchmark-fingerprint.mjs';
 
 const output = process.argv[2];
 const artifacts = resolve(process.argv[3] ?? 'artifacts/opensheet-0.2.0-dev.0');
+const exampleDirectory = resolve(process.argv[4] ?? 'examples/local-candidate');
 if (!output)
   throw new Error(
-    'Usage: node scripts/local-candidate-host-acceptance.mjs NEW_REPORT.json [ARTIFACT_DIRECTORY]',
+    'Usage: node scripts/local-candidate-host-acceptance.mjs NEW_REPORT.json [ARTIFACT_DIRECTORY] [EXAMPLE_DIRECTORY]',
   );
 const root = process.cwd(),
   temp = mkdtempSync(join(tmpdir(), 'opensheet-local-host-'));
@@ -21,6 +22,7 @@ const report = {
   startedAt: new Date().toISOString(),
   source: sourceFingerprint(),
   artifactDirectory: artifacts,
+  exampleDirectory,
   results: [],
   scope:
     'Actual local candidate archives, isolated pnpm/Vite host under a subpath, three headless browsers. No registry publication of OpenSheet, strict CSP, SSR, native keyboard, memory or physical-device acceptance.',
@@ -30,7 +32,7 @@ const save = (flag = 'w') =>
 let server;
 try {
   save('wx');
-  cpSync(join(root, 'examples/local-candidate'), temp, { recursive: true });
+  cpSync(exampleDirectory, temp, { recursive: true });
   report.example = Object.fromEntries(
     ['package.json', 'index.html', 'main.js', 'vite.config.js'].map((file) => [
       file,
@@ -198,6 +200,181 @@ try {
           grids: document.querySelectorAll('.os-grid').length,
         };
       });
+      const prematureDownloads = [];
+      page.on('download', (download) => prematureDownloads.push(download.suggestedFilename()));
+      await page.evaluate(() => {
+        const { app, book } = window.candidateExample;
+        app.selection.set({
+          sheetId: book.getSheets()[0].id,
+          startRow: 2,
+          endRow: 3,
+          startColumn: 0,
+          endColumn: 1,
+        });
+      });
+      await page.getByRole('grid', { exact: true }).focus();
+      await page.getByRole('grid', { exact: true }).press('Enter');
+      const draftEditor = page.getByRole('textbox', { name: 'Edit cell', exact: true });
+      await draftEditor.fill('123');
+      await page.waitForFunction(() => window.candidateExample.app.hasDraft);
+      const draftOutcome = Promise.race([
+        page.waitForEvent('download', { timeout: 5000 }).then(
+          () => 'downloaded',
+          () => 'timeout',
+        ),
+        page
+          .waitForFunction(
+            () =>
+              document
+                .querySelector('#status')
+                .textContent.includes('Finish editing and wait for saving'),
+            null,
+            { timeout: 5000 },
+          )
+          .then(
+            () => 'blocked',
+            () => 'timeout',
+          ),
+      ]);
+      await page.evaluate(() => document.querySelector('#backup').click());
+      assert.equal(await draftOutcome, 'blocked', 'Draft backup should not start a download');
+      const draftGuard = await page.evaluate(() => ({
+        draft: window.candidateExample.app.hasDraft,
+        enabled: !document.querySelector('#backup').disabled,
+      }));
+      assert.deepEqual(draftGuard, { draft: true, enabled: true });
+      await draftEditor.press('Escape');
+      await page.evaluate(() => {
+        const book = window.candidateExample.book,
+          worker = book.worker;
+        const post = worker.postMessage.bind(worker),
+          handler = worker.onmessage;
+        let id;
+        worker.postMessage = function (message, ...rest) {
+          if (message.method === 'execute') id = message.id;
+          return post(message, ...rest);
+        };
+        worker.onmessage = (event) => {
+          if (event.data.id === id) window.heldBackupResponse = event;
+          else handler.call(worker, event);
+        };
+        window.releasePendingBackupWrite = async () => {
+          worker.postMessage = post;
+          worker.onmessage = handler;
+          handler.call(worker, window.heldBackupResponse);
+          await window.pendingBackupWrite;
+          await book.undo();
+        };
+        window.pendingBackupWrite = book
+          .getSheets()[0]
+          .range('A3')
+          .setValues([[777]]);
+      });
+      await page.waitForFunction(() => window.heldBackupResponse);
+      await page.locator('#backup').click();
+      await page.waitForFunction(
+        () =>
+          document
+            .querySelector('#status')
+            .textContent.includes('Finish editing and wait for saving'),
+        null,
+        { timeout: 5000 },
+      );
+      const pendingGuard = await page.evaluate(
+        () => window.candidateExample.book.persistenceState.pending,
+      );
+      assert.ok(pendingGuard > 0);
+      await page.evaluate(() => window.releasePendingBackupWrite());
+      await page.evaluate(() => {
+        const book = window.candidateExample.book,
+          original = book.toJSON;
+        let release;
+        const gate = new Promise((resolve) => (release = resolve));
+        book.toJSON = async function (...args) {
+          const snapshot = await original.apply(this, args);
+          window.backupSnapshotHeld = true;
+          await gate;
+          return snapshot;
+        };
+        window.releaseHeldBackup = () => {
+          book.toJSON = original;
+          release();
+        };
+      });
+      await page.locator('#backup').click();
+      await page.waitForFunction(() => window.backupSnapshotHeld);
+      await page.evaluate(async () =>
+        window.candidateExample.book
+          .getSheets()[0]
+          .range('A3')
+          .setValues([[888]]),
+      );
+      await page.evaluate(() => window.releaseHeldBackup());
+      await page.waitForFunction(
+        () =>
+          document
+            .querySelector('#status')
+            .textContent.includes('Workbook changed while creating the backup'),
+        null,
+        { timeout: 5000 },
+      );
+      const changedGuard = await page.evaluate(async () => {
+        const book = window.candidateExample.book;
+        const value = await book.getSheets()[0].range('A3').getValues();
+        await book.undo();
+        return { value, enabled: !document.querySelector('#backup').disabled };
+      });
+      assert.deepEqual(changedGuard, { value: [[888]], enabled: true });
+      await page.evaluate(() => {
+        const book = window.candidateExample.book,
+          original = book.toJSON;
+        window.backupSnapshotHeld = false;
+        let release;
+        const gate = new Promise((resolve) => (release = resolve));
+        book.toJSON = async function (...args) {
+          const snapshot = await original.apply(this, args);
+          window.backupSnapshotHeld = true;
+          await gate;
+          return snapshot;
+        };
+        window.releaseHeldBackup = () => {
+          book.toJSON = original;
+          release();
+        };
+      });
+      await page.locator('#backup').click();
+      await page.waitForFunction(() => window.backupSnapshotHeld);
+      await page.evaluate(() => {
+        const { app, book } = window.candidateExample;
+        app.selection.set({
+          sheetId: book.getSheets()[0].id,
+          startRow: 2,
+          endRow: 3,
+          startColumn: 0,
+          endColumn: 1,
+        });
+      });
+      await page.getByRole('grid', { exact: true }).focus();
+      await page.getByRole('grid', { exact: true }).press('Enter');
+      await draftEditor.fill('321');
+      await page.waitForFunction(() => window.candidateExample.app.hasDraft);
+      await page.evaluate(() => window.releaseHeldBackup());
+      await page.waitForFunction(
+        () =>
+          document
+            .querySelector('#status')
+            .textContent.includes('Workbook changed while creating the backup'),
+        null,
+        { timeout: 5000 },
+      );
+      const lateDraftGuard = {
+        draft: await draftEditor.inputValue(),
+        active: await page.evaluate(() => window.candidateExample.app.hasDraft),
+      };
+      assert.deepEqual(lateDraftGuard, { draft: '321', active: true });
+      await draftEditor.press('Escape');
+      assert.deepEqual(prematureDownloads, []);
+      const guardedDownloads = [...prematureDownloads];
       await page.evaluate(() => {
         window.originalBlob = globalThis.Blob;
         globalThis.Blob = class extends window.originalBlob {
@@ -431,6 +608,11 @@ try {
         failure,
         recovered,
         attachmentRace,
+        draftGuard,
+        pendingGuard,
+        changedGuard,
+        lateDraftGuard,
+        guardedDownloads,
         edited,
         workerUrls,
         errors,

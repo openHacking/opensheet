@@ -49,7 +49,20 @@ try {
     busy(true);
     status.textContent = '';
     try {
-      const json = await backupWorkbook(book);
+      const current = book;
+      const revision = current.revision;
+      if (app.hasDraft || current.persistenceState.pending)
+        throw new Error('Finish editing and wait for saving before creating a backup.');
+      const json = await backupWorkbook(current);
+      if (
+        app.getWorkbook() !== current ||
+        app.hasDraft ||
+        current.persistenceState.pending ||
+        current.revision !== revision
+      )
+        throw new Error(
+          'Workbook changed while creating the backup. Finish editing and try again.',
+        );
       const blob = new Blob([json], { type: 'application/json' });
       if (blob.size > maxBackupBytes) throw new Error('Backup exceeds the 64 MiB example limit');
       const url = URL.createObjectURL(blob);

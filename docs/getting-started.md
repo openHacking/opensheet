@@ -16,7 +16,7 @@ Only one instance is the writer at a time. Another instance may open read-only u
 
 ## Save a portable copy
 
-Choose **Download backup** to save the complete native workbook as JSON outside the local database. To restore, choose **Restore backup** and select that file. A successful restore creates a new local workbook and saves its ID for the next reload; the prior workbook remains in local storage. A malformed file leaves the current workbook in place. If the workbook was restored but its ID could not be saved, the example reports that distinction and asks you to export a backup before refreshing.
+Finish the current cell edit and wait for saving before choosing **Download backup**. The example refuses to download while a draft or write is pending, or if the workbook changes while the snapshot is being created; finish editing and retry. A successful download saves the complete native workbook as JSON outside the local database. To restore, choose **Restore backup** and select that file. A successful restore creates a new local workbook and saves its ID for the next reload; the prior workbook remains in local storage. A malformed file leaves the current workbook in place. If the workbook was restored but its ID could not be saved, the example reports that distinction and asks you to export a backup before refreshing.
 
 The example uses `book.toJSON()` and `app.load(file)`, so it materializes the complete workbook. Its download and restore controls each limit the file to 64 MiB; larger workbooks need an application designed for the [streaming export APIs](api.md#native-json-and-binary-io) and an appropriate import workflow. The underlying API and the example limit are separate.
 
