@@ -1240,3 +1240,7 @@ The interoperability manifest indexes two independently authored openpyxl workbo
 ### Candidate bundle breakdown (2026-11-22)
 
 The [bundle breakdown](bundle-breakdown.md) records raw/gzip sizes and package contributions for installed core, editor, separate Worker and adapter entries, plus an esbuild dynamic-import graph that excludes SheetJS from the initial graph. Three same-host runs, including a rebuild, produced matching output hashes; one rebuilt package archive and consumer lock differed. Each completed run verifies a frozen reinstall and retains its consumer lock. Initial frozen-install and integrity-copy failures are retained and described. The graph check does not execute these bundles or measure browser network, runtime, memory, strict CSP or other bundlers.
+
+### Lazy XLSX browser execution (2026-11-22)
+
+The [localhost runtime run](../benchmarks/bundle-breakdown-served-2026-11-22.json) serves the same hash-checked lazy esbuild outputs and separate Worker measured by the bundle harness. Chromium, Firefox and WebKit mount the editor under a subpath, load one stylesheet, calculate a formula and issue no XLSX chunk request before activation. Two XLSX write/read conversions per browser verify values after import and reopen, with one observed request for the optional chunk. The consumer uses a frozen lock; measured Worker and served bytes are hash-checked. This does not cover strict CSP for these outputs, external network behavior, native input, other bundlers or comprehensive XLSX compatibility.

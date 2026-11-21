@@ -1,0 +1,393 @@
+{
+  "startedAt": "2026-11-21T18:29:37.733Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 399,
+    "sha256": "1948c857b24132a98a49e932231cd6eb0d69ed5e7566f9f2dd32c24b1e24edf6"
+  },
+  "node": "v22.19.0",
+  "esbuild": "0.25.12",
+  "scope": "Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Localhost runtime checks use these lazy outputs; not a Vite, real-network transfer, runtime-memory, execution-time or complete consumer bundle measurement.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "adc55a25384b1795c35b4bbad0eeb534e18c3d461cc1235f0ded6f3460e34ce7"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "12cc6bab28f6fa4b36856dac83b078830f019cd9d2d0b77370eb01274f1e9990"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "7ad9d3eb302f9ead35d15fa58e4672a907eaec842f4dbc69e47274df8d6b7573"
+    },
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "41c9d947753a04d4027bf4fc1236960d904f55255c6cc5a99759078064edaf21"
+    }
+  ],
+  "scenarios": {
+    "core": {
+      "out/core/core.js": {
+        "bytes": 543307,
+        "gzipBytes": 120318,
+        "sha256": "fc9b25dfb9166e42785c4ef76c73f153c3f488eb19633d66b3d750a53b849f33",
+        "entryPoint": "core.js",
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 8942,
+          "zod": 453842,
+          "immer": 9516,
+          "@opensheetjs/core": 70866,
+          "entry-or-other": 47
+        }
+      }
+    },
+    "editor": {
+      "out/editor/editor.js": {
+        "bytes": 686212,
+        "gzipBytes": 160812,
+        "sha256": "073f600d95e0d69df79713703b0db8e808e87c2103168558b5643782129d50fc",
+        "entryPoint": "editor.js",
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 12386,
+          "zod": 454062,
+          "immer": 9516,
+          "@opensheetjs/core": 70824,
+          "opensheet": 68564,
+          "@opensheetjs/plugin-sdk": 3896,
+          "@opensheetjs/renderer": 63377,
+          "lucide": 2448,
+          "entry-or-other": 32
+        }
+      },
+      "out/editor/editor.css": {
+        "bytes": 9941,
+        "gzipBytes": 2663,
+        "sha256": "e1a582051a69ee0d4e9fe18a221d4acf9adb99cbc2e10004bc0d8890b5696825",
+        "entryPoint": null,
+        "imports": [],
+        "contributions": {
+          "opensheet": 9940
+        }
+      }
+    },
+    "adapter": {
+      "out/adapter/adapter.js": {
+        "bytes": 1051384,
+        "gzipBytes": 287181,
+        "sha256": "02d950525b8f34ab4c4ef6a8c7b75a29aeb649e8860b73428abe409af1e8c3aa",
+        "entryPoint": "adapter.js",
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 24497,
+          "zod": 454707,
+          "@opensheetjs/core": 28047,
+          "@opensheetjs/adapter-sheetjs": 40680,
+          "xlsx": 503114,
+          "entry-or-other": 49
+        }
+      }
+    },
+    "worker": {
+      "out/worker/engine.worker.js": {
+        "bytes": 640426,
+        "gzipBytes": 150613,
+        "sha256": "de8926fd584274cb68f00c37380bc8dda07367da2e116b7e6d209a3f7848820b",
+        "entryPoint": "node_modules/.pnpm/@opensheetjs+core@file+archives+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js",
+        "imports": [],
+        "contributions": {
+          "zod": 454032,
+          "@opensheetjs/formula": 24061,
+          "@opensheetjs/core": 162239
+        }
+      }
+    },
+    "lazy": {
+      "out/lazy/lazy.js": {
+        "bytes": 139378,
+        "gzipBytes": 39962,
+        "sha256": "737aa88e9a02992feea37a198c339b84b18f683e676628f0d273af519abc69a0",
+        "entryPoint": "lazy.js",
+        "imports": [
+          {
+            "path": "out/lazy/chunk-VJGEWAOW.js",
+            "kind": "import-statement"
+          },
+          {
+            "path": "out/lazy/xlsx-optional-ZB3PPROU.js",
+            "kind": "dynamic-import"
+          }
+        ],
+        "contributions": {
+          "opensheet": 68461,
+          "@opensheetjs/plugin-sdk": 3896,
+          "@opensheetjs/renderer": 63257,
+          "lucide": 2448,
+          "entry-or-other": 83
+        }
+      },
+      "out/lazy/xlsx-optional-ZB3PPROU.js": {
+        "bytes": 543834,
+        "gzipBytes": 177202,
+        "sha256": "25d3450e99e5add2735ed141dadc709cc85ef841f974c16685783652e17a8de5",
+        "entryPoint": "xlsx-optional.js",
+        "imports": [
+          {
+            "path": "out/lazy/chunk-VJGEWAOW.js",
+            "kind": "import-statement"
+          }
+        ],
+        "contributions": {
+          "@opensheetjs/adapter-sheetjs": 40659,
+          "xlsx": 502780,
+          "entry-or-other": 0
+        }
+      },
+      "out/lazy/chunk-VJGEWAOW.js": {
+        "bytes": 570565,
+        "gzipBytes": 129605,
+        "sha256": "503726d4b808365b5c2c1385d1c72d7c94d6cc9f0ea93267e3b181207d4b81e2",
+        "entryPoint": null,
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 27720,
+          "zod": 453869,
+          "immer": 9516,
+          "@opensheetjs/core": 79112
+        }
+      },
+      "out/lazy/lazy.css": {
+        "bytes": 9941,
+        "gzipBytes": 2663,
+        "sha256": "e1a582051a69ee0d4e9fe18a221d4acf9adb99cbc2e10004bc0d8890b5696825",
+        "entryPoint": null,
+        "imports": [],
+        "contributions": {
+          "opensheet": 9940
+        }
+      }
+    }
+  },
+  "xlsxIntegrity": {
+    "source": "pnpm-lock.yaml",
+    "integrity": "sha512-oLDq3jw7AcLqKWH2AhCpVTZl8mf6X2YReP+Neh0SJUzV/BdZYjth94tG5toiMB1PPrYtxOCfaoUCkvtuH+3AJA=="
+  },
+  "lock": {
+    "path": "benchmarks/bundle-breakdown-served-2026-11-22.consumer-lock.yaml",
+    "sha256": "61bb2d8d4260a63704a6cf15162034f0514f480e7c9d13edaa7bdc36786c061a",
+    "frozenReinstall": "passed"
+  },
+  "entryHashes": {
+    "core.js": "2777bb09c1be0654c145b43ea36a0800c0440892de3b0fa708ce05cceb1a6506",
+    "editor.js": "d854eac02cc10b49f0e7b7e2dbb8af56d42f939857998f1220b87380207c7958",
+    "adapter.js": "8cd3b5e82eb9f8e107cad9e8e9c4498a21133bfd7f1822b0a0ef87db0719769a",
+    "lazy.js": "671f6ed122214649befcc0f6bbf2f683e939708a2d4fbddfa38c37ef2b7009cb",
+    "xlsx-optional.js": "a3ba17f96b63ebb7c5616342956f76baffa8ca4e0be1833438b341661b3f7a65"
+  },
+  "lazyIsolation": {
+    "initial": [
+      "out/lazy/lazy.js",
+      "out/lazy/chunk-VJGEWAOW.js",
+      "out/lazy/lazy.css"
+    ],
+    "xlsxOutputs": [
+      "out/lazy/xlsx-optional-ZB3PPROU.js"
+    ],
+    "status": "passed"
+  },
+  "runtime": {
+    "prefix": "/embedded/sheets/",
+    "htmlSha256": "badc6b51700ae4e11caf4222974ab9b0782f39db2f1c40912126c3a08afa5ed5",
+    "runtimeSha256": "95f09538aec9f35be05f10416d2deddf248280777e2841f944640a7e5db3c8e9",
+    "workerSha256": "de8926fd584274cb68f00c37380bc8dda07367da2e116b7e6d209a3f7848820b",
+    "results": [
+      {
+        "engine": "chromium",
+        "browser": "153.0.8010.12",
+        "before": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "height": 500,
+          "stylesheets": 1
+        },
+        "beforeRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-VJGEWAOW.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "afterRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-VJGEWAOW.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/xlsx-optional-ZB3PPROU.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "converted": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "reopened": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "bytes": 15888,
+          "readOnly": false
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "engine": "firefox",
+        "browser": "155.0",
+        "before": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "height": 500,
+          "stylesheets": 1
+        },
+        "beforeRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-VJGEWAOW.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "afterRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-VJGEWAOW.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/xlsx-optional-ZB3PPROU.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "converted": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "reopened": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "bytes": 15888,
+          "readOnly": false
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "engine": "webkit",
+        "browser": "26.6",
+        "before": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "height": 500,
+          "stylesheets": 1
+        },
+        "beforeRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-VJGEWAOW.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "afterRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-VJGEWAOW.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/xlsx-optional-ZB3PPROU.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "converted": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "reopened": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "bytes": 15888,
+          "readOnly": false
+        },
+        "errors": [],
+        "failures": []
+      }
+    ]
+  },
+  "finishedAt": "2026-11-21T18:29:49.653Z"
+}

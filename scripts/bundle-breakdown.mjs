@@ -7,6 +7,7 @@ import { join, resolve } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { build, version as esbuildVersion } from 'esbuild';
 import { sourceFingerprint } from './benchmark-fingerprint.mjs';
+import { runLazyRuntime } from './bundle-runtime.mjs';
 
 const output = process.argv[2];
 if (!output || !output.endsWith('.json'))
@@ -20,7 +21,7 @@ const report = {
   node: process.version,
   esbuild: esbuildVersion,
   scope:
-    'Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Not a Vite/real network transfer, runtime memory, execution-time or complete consumer bundle measurement.',
+    'Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Localhost runtime checks use these lazy outputs; not a Vite, real-network transfer, runtime-memory, execution-time or complete consumer bundle measurement.',
   packages: [],
   scenarios: {},
 };
@@ -201,6 +202,7 @@ try {
     'XLSX code was included in the initial load',
   );
   report.lazyIsolation = { initial: [...initial], xlsxOutputs, status: 'passed' };
+  report.runtime = await runLazyRuntime(temp, report.scenarios.lazy, xlsxOutputs);
   report.finishedAt = new Date().toISOString();
   save();
 } catch (error) {

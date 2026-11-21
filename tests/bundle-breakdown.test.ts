@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 
 it('retains reproducible bundle measurements and the lazy XLSX boundary', () => {
-  const names = ['final', 'repeat', 'rebuilt'];
+  const names = ['final', 'repeat', 'rebuilt', 'served'];
   const reports = names.map((name) =>
     JSON.parse(readFileSync(`benchmarks/bundle-breakdown-${name}-2026-11-22.json`, 'utf8')),
   );
@@ -54,4 +54,33 @@ it('retains reproducible bundle measurements and the lazy XLSX boundary', () => 
     );
   expect(fingerprints(reports[1])).toEqual(fingerprints(reports[0]));
   expect(fingerprints(reports[2])).toEqual(fingerprints(reports[0]));
+  expect(fingerprints(reports[3])).toEqual(fingerprints(reports[0]));
+  const served = reports[3];
+  expect(served.runtime.workerSha256).toBe(
+    served.scenarios.worker['out/worker/engine.worker.js'].sha256,
+  );
+  expect(served.runtime.results.map((result: any) => result.engine)).toEqual([
+    'chromium',
+    'firefox',
+    'webkit',
+  ]);
+  const xlsxPaths = served.lazyIsolation.xlsxOutputs.map(
+    (file: string) => served.runtime.prefix + file.split('/').at(-1),
+  );
+  for (const result of served.runtime.results) {
+    expect(result.before).toEqual({ values: [[6, 7, 13]], height: 500, stylesheets: 1 });
+    expect(result.beforeRequests).toContain(`${served.runtime.prefix}engine.worker.js`);
+    for (const path of xlsxPaths) {
+      expect(result.beforeRequests).not.toContain(path);
+      expect(result.afterRequests.filter((request: string) => request === path)).toHaveLength(1);
+    }
+    expect(result.converted).toMatchObject({
+      values: [[6, 7, 13]],
+      reopened: [[6, 7, 13]],
+      readOnly: false,
+    });
+    expect(result.converted.bytes).toBeGreaterThan(0);
+    expect(result.errors).toEqual([]);
+    expect(result.failures).toEqual([]);
+  }
 });
