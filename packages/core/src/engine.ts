@@ -455,6 +455,26 @@ export class Engine {
           pointer.styles.every((style) => typeof style === 'string')))
     );
   }
+  private samePointer(a: Pointer | null | undefined, b: Pointer | null | undefined): boolean {
+    if (!a || !b) return !a && !b;
+    const sameList = (left: string[] | undefined, right: string[] | undefined) =>
+      left === right ||
+      (left !== undefined &&
+        right !== undefined &&
+        left.length === right.length &&
+        left.every((value, index) => value === right[index]));
+    return (
+      a.id === b.id &&
+      a.bytes === b.bytes &&
+      a.count === b.count &&
+      a.endRow === b.endRow &&
+      a.endColumn === b.endColumn &&
+      a.rowMask === b.rowMask &&
+      a.columnMask === b.columnMask &&
+      sameList(a.formulas, b.formulas) &&
+      sameList(a.styles, b.styles)
+    );
+  }
   private async readHistory(id: string): Promise<History> {
     const history = await this.db.get<History>('records', id);
     const owned = (value: unknown) => typeof value === 'string' && value.startsWith(`${this.id}/`);
@@ -591,7 +611,7 @@ export class Engine {
         let connected = metadataId === (redo ? history.before : history.after);
         for (const [address, before, after] of history.changes) {
           const current = Object.hasOwn(blocks, address) ? blocks[address] : undefined;
-          connected &&= current?.id === (redo ? before : after)?.id;
+          connected &&= this.samePointer(current, redo ? before : after);
           if (Object.hasOwn(blocks, address)) account(address, blocks[address], -1);
           const pointer = redo ? after : before;
           if (pointer) {
@@ -3445,7 +3465,7 @@ export class Engine {
           const current = Object.hasOwn(this.head.blocks, address)
             ? this.head.blocks[address]
             : undefined;
-          return current?.id === (redo ? before : after)?.id;
+          return this.samePointer(current, redo ? before : after);
         }),
       'CORRUPT_STORAGE',
       'Workbook history does not match the current revision; restore a backup',

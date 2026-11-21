@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 for (const direction of ['undo', 'redo'] as const) {
-  for (const corruption of ['page', 'metadata'] as const) {
+  for (const corruption of ['page', 'metadata', 'extent', 'style-index', 'row-mask'] as const) {
     for (const depth of ['next', 'later'] as const) {
       test(`rejects a disconnected ${direction} ${corruption} history at ${depth} depth before cleanup`, async ({
         page,
@@ -14,7 +14,7 @@ for (const direction of ['undo', 'redo'] as const) {
             const book = window.opensheet.getWorkbook(),
               sheet = book.getSheets()[0];
             await sheet.range('A1').setValues([[372]]);
-            if (corruption === 'page') {
+            if (corruption !== 'metadata') {
               await sheet.range('A1').setValues([[373]]);
               await sheet.range('A1').setValues([[374]]);
             } else {
@@ -22,7 +22,7 @@ for (const direction of ['undo', 'redo'] as const) {
               await sheet.range('A1').setStyle({ italic: true });
             }
             if (depth === 'later') {
-              if (corruption === 'page') await sheet.range('A2').setValues([[41]]);
+              if (corruption !== 'metadata') await sheet.range('A2').setValues([[41]]);
               else await sheet.range('A2').setStyle({ underline: true });
             }
             if (direction === 'redo') {
@@ -52,13 +52,23 @@ for (const direction of ['undo', 'redo'] as const) {
               ledger = await read('sizes', historyId);
             const wrapper = decode(raw),
               history = wrapper[1];
-            if (corruption === 'page') {
+            if (corruption !== 'metadata') {
               const change = history.changes.find(
                 (entry: any[]) => entry[1] && entry[2] && entry[1].id !== entry[2].id,
               );
               if (!change) throw new Error('Fixture needs two distinct page versions');
-              if (direction === 'undo') change[2] = change[1];
-              else change[1] = change[2];
+              if (corruption === 'page') {
+                if (direction === 'undo') change[2] = change[1];
+                else change[1] = change[2];
+              } else {
+                const source = direction === 'undo' ? change[2] : change[1];
+                if (corruption === 'extent') source.endRow = source.endRow === 1 ? 2 : 1;
+                if (corruption === 'row-mask') source.rowMask = source.rowMask === '1' ? '2' : '1';
+                if (corruption === 'style-index') {
+                  if (!source.styles?.length) throw new Error('Fixture needs indexed styles');
+                  source.styles = source.styles.slice(1);
+                }
+              }
             } else {
               if (history.before === history.after)
                 throw new Error('Fixture needs two metadata versions');
@@ -156,7 +166,7 @@ for (const direction of ['undo', 'redo'] as const) {
         expect(result).toEqual({
           first: true,
           second: true,
-          value: [[corruption === 'page' ? (direction === 'undo' ? 374 : 373) : 372]],
+          value: [[corruption !== 'metadata' ? (direction === 'undo' ? 374 : 373) : 372]],
         });
       });
     }
