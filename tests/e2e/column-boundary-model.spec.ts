@@ -155,3 +155,177 @@ test('column edits around a filter and merge follow an independent model through
   }, file);
   expect(result).toBeNull();
 });
+
+test('generated column positions preserve filtering and merge geometry across history', async ({
+  page,
+}) => {
+  test.setTimeout(120_000);
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  const file = JSON.stringify(
+    createWorkbookFile({ sheets: [{ name: 'Generated', rows: 4, columns: 7 }] }),
+  );
+  const result = await page.evaluate(async (fileJSON) => {
+    type Model = {
+      rows: (number | null)[][];
+      ids: number[];
+      next: number;
+      key: number;
+      start: number;
+      end: number;
+    };
+    const app = window.opensheet;
+    for (const seed of [3029, 7341, 11117]) {
+      await app.load(JSON.parse(fileJSON));
+      let book = app.getWorkbook(),
+        sheet = book.getSheets()[0];
+      let rng = seed;
+      const random = (n: number) => {
+        rng = (Math.imul(rng, 1664525) + 1013904223) >>> 0;
+        return Math.floor((rng / 0x100000000) * n);
+      };
+      let model: Model = {
+        rows: Array.from({ length: 4 }, (_, r) =>
+          Array.from({ length: 7 }, (_, c) =>
+            r === 3 && c >= 4 && c < 6 ? null : seed + r * 10 + c,
+          ),
+        ),
+        ids: [0, 1, 2, 3, 4, 5, 6],
+        next: 7,
+        key: 2,
+        start: 4,
+        end: 6,
+      };
+      await sheet.range('A1:G4').setValues(model.rows);
+      await sheet.setFilter({
+        mode: 'all',
+        headerRows: 0,
+        criteria: [{ column: model.key, operator: 'gt', value: seed + 15 }],
+      });
+      await sheet.range('E4:F4').merge();
+      const clone = (value: Model) => ({
+        ...value,
+        ids: [...value.ids],
+        rows: value.rows.map((row) => [...row]),
+      });
+      const trace: string[] = [],
+        coverage = new Set<string>();
+      const verify = async () => {
+        const meta = book.sheetData(sheet.id);
+        const actual = await sheet
+          .range({ startRow: 0, endRow: 4, startColumn: 0, endColumn: model.rows[0].length })
+          .getValues();
+        const hidden = model.rows.flatMap((row, i) =>
+          row[model.key] === null || row[model.key]! <= seed + 15 ? [i] : [],
+        );
+        const filter = {
+          mode: 'all',
+          headerRows: 0,
+          criteria: [{ column: model.key, operator: 'gt', value: seed + 15 }],
+        };
+        const merge = [{ startRow: 3, startColumn: model.start, endRow: 4, endColumn: model.end }];
+        if (
+          JSON.stringify(actual) !== JSON.stringify(model.rows) ||
+          JSON.stringify(book.filteredRows(sheet.id)) !== JSON.stringify(hidden) ||
+          JSON.stringify(meta.columnOrder) !== JSON.stringify(model.ids) ||
+          meta.nextColumnId !== model.next ||
+          JSON.stringify(meta.filter) !== JSON.stringify(filter) ||
+          JSON.stringify(meta.merges) !== JSON.stringify(merge) ||
+          sheet.columnCount !== model.rows[0].length
+        )
+          throw new Error(
+            JSON.stringify({
+              seed,
+              trace,
+              model,
+              actual,
+              hidden: book.filteredRows(sheet.id),
+              columnOrder: meta.columnOrder,
+              nextColumnId: meta.nextColumnId,
+              filter: meta.filter,
+              merges: meta.merges,
+            }),
+          );
+      };
+      for (let step = 0; step < 36; step++) {
+        const width = model.rows[0].length;
+        const insert = step < 5 || width <= 7 || (width < 13 && random(2) === 0);
+        const allowed = insert
+          ? Array.from({ length: width + 1 }, (_, i) => i).filter(
+              (i) => i <= model.start || i >= model.end,
+            )
+          : Array.from({ length: width }, (_, i) => i).filter(
+              (i) => i !== model.key && (i < model.start || i >= model.end),
+            );
+        const scripted = insert
+          ? [0, model.key, model.key + 1, model.start, model.end][step]
+          : undefined;
+        const index = scripted !== undefined ? scripted : allowed[random(allowed.length)];
+        const location =
+          index < model.key
+            ? 'before-filter'
+            : index === model.key
+              ? 'at-filter'
+              : index < model.start
+                ? 'between'
+                : index === model.start
+                  ? 'merge-start'
+                  : index === model.end
+                    ? 'merge-end'
+                    : 'after-merge';
+        coverage.add(`${insert ? 'insert' : 'delete'}-${location}`);
+        const before = clone(model);
+        if (insert) {
+          await sheet.insertColumns(index);
+          model.ids.splice(index, 0, model.next++);
+          for (const row of model.rows) row.splice(index, 0, null);
+          if (index <= model.key) model.key++;
+          if (index <= model.start) {
+            model.start++;
+            model.end++;
+          }
+        } else {
+          await sheet.deleteColumns(index);
+          model.ids.splice(index, 1);
+          for (const row of model.rows) row.splice(index, 1);
+          if (index < model.key) model.key--;
+          if (index < model.start) {
+            model.start--;
+            model.end--;
+          }
+        }
+        trace.push(`${insert ? 'insert' : 'delete'}:${index}`);
+        await verify();
+        const after = clone(model);
+        if (!(await book.undo())) throw new Error(`seed ${seed}: undo failed`);
+        model = before;
+        await verify();
+        if (!(await book.redo())) throw new Error(`seed ${seed}: redo failed`);
+        model = after;
+        await verify();
+        if (step % 6 === 5) {
+          await app.open(book.id);
+          book = app.getWorkbook();
+          sheet = book.getSheets()[0];
+          await verify();
+        }
+      }
+      for (const required of [
+        'insert-before-filter',
+        'insert-at-filter',
+        'insert-between',
+        'insert-merge-start',
+        'insert-merge-end',
+        'delete-before-filter',
+        'delete-between',
+        'delete-after-merge',
+      ])
+        if (!coverage.has(required))
+          throw new Error(
+            JSON.stringify({ seed, missing: required, trace, coverage: [...coverage] }),
+          );
+    }
+    return 'ok';
+  }, file);
+  expect(result).toBe('ok');
+});
