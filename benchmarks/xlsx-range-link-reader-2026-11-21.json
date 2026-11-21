@@ -1,0 +1,170 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "scope": "Synthetic openpyxl workbook with one manually edited OOXML range reference; openpyxl readback before and after one LibreOfficeDev headless save, followed by SheetJS/OpenSheet import. No Excel, stable LibreOffice, native navigation, or visual assessment.",
+  "before": {
+    "openpyxl": "3.1.5",
+    "cells": [
+      {
+        "value": "one",
+        "target": "https://example.com/路径#片段",
+        "location": null
+      },
+      {
+        "value": "two",
+        "target": "https://example.com/路径#片段",
+        "location": null
+      },
+      {
+        "value": "three",
+        "target": "https://example.com/路径#片段",
+        "location": null
+      }
+    ],
+    "rawRefs": [
+      "A1:A3"
+    ]
+  },
+  "after": {
+    "openpyxl": "3.1.5",
+    "cells": [
+      {
+        "value": "one",
+        "target": "https://example.com/路径",
+        "location": "片段"
+      },
+      {
+        "value": "two",
+        "target": "https://example.com/路径",
+        "location": "片段"
+      },
+      {
+        "value": "three",
+        "target": "https://example.com/路径",
+        "location": "片段"
+      }
+    ],
+    "rawRefs": [
+      "A1",
+      "A2",
+      "A3"
+    ]
+  },
+  "sourceImport": {
+    "targets": [
+      "https://example.com/路径#片段",
+      "https://example.com/路径#片段",
+      "https://example.com/路径#片段"
+    ],
+    "issues": [
+      {
+        "code": "XLSX_LINK_URL_UTF8_RESTORED",
+        "feature": "link",
+        "message": "Unicode link target restored from a verified XLSX relationship",
+        "action": "preserved",
+        "severity": "info",
+        "sheetId": "sheet_1aea6e2fe2b7450eabed02674d2d2222",
+        "address": "A1",
+        "count": 3
+      },
+      {
+        "code": "UNSUPPORTED_METADATA",
+        "feature": "!margins",
+        "message": "Worksheet metadata !margins is not preserved",
+        "action": "dropped",
+        "severity": "warning",
+        "sheetId": "sheet_1aea6e2fe2b7450eabed02674d2d2222",
+        "count": 1
+      },
+      {
+        "code": "DATA_INTERCHANGE",
+        "feature": "xlsx-container",
+        "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+        "action": "preserved",
+        "severity": "info",
+        "count": 1
+      }
+    ]
+  },
+  "savedImport": {
+    "targets": [
+      "https://example.com/路径#片段",
+      "https://example.com/路径#片段",
+      "https://example.com/路径#片段"
+    ],
+    "issues": [
+      {
+        "code": "WORKSHEET_SELECTION_DROPPED",
+        "feature": "worksheet-selection",
+        "action": "dropped",
+        "severity": "warning",
+        "message": "Worksheet selection and active cell are not imported",
+        "count": 1
+      },
+      {
+        "code": "WORKSHEET_ACTIVE_TAB_DROPPED",
+        "feature": "worksheet-view",
+        "action": "dropped",
+        "severity": "warning",
+        "message": "Worksheet tab selection is not imported",
+        "count": 1
+      },
+      {
+        "code": "XLSX_LINK_URL_UTF8_RESTORED",
+        "feature": "link",
+        "message": "Unicode link target restored from a verified XLSX relationship",
+        "action": "preserved",
+        "severity": "info",
+        "sheetId": "sheet_a0a126c51fd341b68b0f3a6e2bec821f",
+        "address": "A1",
+        "count": 3
+      },
+      {
+        "code": "RICH_TEXT_FLATTENED",
+        "feature": "rich-text",
+        "message": "Rich text flattened to plain text",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_a0a126c51fd341b68b0f3a6e2bec821f",
+        "count": 3
+      },
+      {
+        "code": "UNSUPPORTED_METADATA",
+        "feature": "!margins",
+        "message": "Worksheet metadata !margins is not preserved",
+        "action": "dropped",
+        "severity": "warning",
+        "sheetId": "sheet_a0a126c51fd341b68b0f3a6e2bec821f",
+        "count": 1
+      },
+      {
+        "code": "DATA_INTERCHANGE",
+        "feature": "xlsx-container",
+        "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+        "action": "preserved",
+        "severity": "info",
+        "count": 1
+      }
+    ]
+  },
+  "artifacts": {
+    "source": {
+      "file": "xlsx-range-link-reader-2026-11-21.xlsx",
+      "sha256": "089c582678d084332f9b038e93c9618e542148ab12064227ae387b954da5913f"
+    },
+    "saved": {
+      "file": "xlsx-range-link-reader-2026-11-21.saved.xlsx",
+      "sha256": "9fefe751b46decb6abd17cfce0c8ed075773f4c57ec5690049cfc40d7e986917"
+    }
+  },
+  "versions": {
+    "node": "v22.19.0",
+    "openpyxl": "3.1.5"
+  },
+  "source": {
+    "commit": "5ff528132424d11377200a4cb4b7410f75bdbe7e",
+    "adapterBundleSha256": "abddcbd78f814bdf8f87c18927b008900c9f5c90649232fbb60b62d6210f6682",
+    "fixtureScriptSha256": "7facb475f9e3e2fc59863e57ba3be33a49ed5174ed2731833d470f7e885243f7",
+    "readerScriptSha256": "6cfa0d630e1dcfe0edb41156f0e96153cf4195e6bfd530331faaf0a1eebc52a2"
+  },
+  "conversionLog": "convert /Volumes/github/private/opensheet/benchmarks/xlsx-range-link-reader-2026-11-21.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-range-links-jG4Jtx/xlsx-range-link-reader-2026-11-21.xlsx using filter : Calc Office Open XML"
+}

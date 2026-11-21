@@ -122,3 +122,42 @@ test('restores Unicode range links through worker import and reopen', async ({ p
     after: Array(3).fill('https://example.com/路径#片段'),
   });
 });
+
+for (const suffix of ['', '.saved']) {
+  test(`imports independent range links${suffix || ' source'} and reopens`, async ({ page }) => {
+    const bytes = readFileSync(`benchmarks/xlsx-range-link-reader-2026-11-21${suffix}.xlsx`);
+    await page.goto('/#budget');
+    await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+    await page.locator('#file').setInputFiles({
+      name: 'range.xlsx',
+      mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: bytes,
+    });
+    const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
+    await expect(dialog).toContainText(
+      'Unicode link target restored from a verified XLSX relationship',
+    );
+    await dialog.getByRole('button', { name: 'Import converted workbook' }).click();
+    await expect(page.getByRole('tab', { name: 'Range', exact: true })).toBeVisible();
+    const result = await page.evaluate(async () => {
+      const app = window.opensheet;
+      let book = app.getWorkbook();
+      let sheet = book.getSheets()[0];
+      const before = (await sheet.range('A1:A3').getLinks()).map((row) => row[0]?.target);
+      const values = (await sheet.range('A1:A3').getValues()).map((row) => row[0]);
+      await app.open(book.id);
+      book = app.getWorkbook();
+      sheet = book.getSheets()[0];
+      return {
+        before,
+        values,
+        after: (await sheet.range('A1:A3').getLinks()).map((row) => row[0]?.target),
+      };
+    });
+    expect(result).toEqual({
+      before: Array(3).fill('https://example.com/路径#片段'),
+      values: ['one', 'two', 'three'],
+      after: Array(3).fill('https://example.com/路径#片段'),
+    });
+  });
+}

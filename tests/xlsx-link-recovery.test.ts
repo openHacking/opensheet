@@ -296,3 +296,91 @@ it('does not restore a range cell overlapped by a location-only hyperlink', () =
     ]),
   );
 });
+
+it('restores an openpyxl range hyperlink with a locally declared relationship namespace', () => {
+  const bytes = readFileSync('benchmarks/xlsx-range-link-reader-2026-11-21.xlsx');
+  const workbook = XLSX.read(bytes, { type: 'buffer', bookFiles: true, cellHTML: false });
+  const result = fromSheetJS(workbook);
+  const reader = new FileReader(result.file);
+  try {
+    for (let row = 0; row < 3; row++)
+      expect(reader.getCell(result.file.sheets[0].id, row, 0)?.link?.target).toBe(
+        'https://example.com/路径#片段',
+      );
+  } finally {
+    reader.dispose();
+  }
+  expect(result.report.issues).toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED', count: 3 }),
+  );
+});
+
+it.each([
+  [
+    'missing relationship namespace',
+    (xml: string) =>
+      xml.replace(
+        ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"',
+        '',
+      ),
+  ],
+  [
+    'incorrect local relationship namespace',
+    (xml: string) =>
+      xml.replace(
+        'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"',
+        'xmlns:r="https://example.com/forged"',
+      ),
+  ],
+  [
+    'relationship namespace on a sibling',
+    (xml: string) =>
+      xml
+        .replace(
+          '<hyperlinks>',
+          '<hyperlinks><unrelated xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>',
+        )
+        .replace(
+          ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" ref=',
+          ' ref=',
+        ),
+  ],
+])('does not recover when %s', (_name, mutate) => {
+  const bytes = readFileSync('benchmarks/xlsx-range-link-reader-2026-11-21.xlsx');
+  const workbook = XLSX.read(bytes, {
+    type: 'buffer',
+    bookFiles: true,
+    cellHTML: false,
+  }) as RawWorkbook;
+  rewrite(workbook, sheetPath, mutate);
+  const result = fromSheetJS(workbook);
+  expect(result.report.issues).toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN', count: 3 }),
+  );
+  expect(result.report.issues).not.toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED' }),
+  );
+});
+
+it('accepts the relationship namespace on the hyperlinks container', () => {
+  const bytes = readFileSync('benchmarks/xlsx-range-link-reader-2026-11-21.xlsx');
+  const workbook = XLSX.read(bytes, {
+    type: 'buffer',
+    bookFiles: true,
+    cellHTML: false,
+  }) as RawWorkbook;
+  rewrite(workbook, sheetPath, (xml) =>
+    xml
+      .replace(
+        '<hyperlinks>',
+        '<hyperlinks xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">',
+      )
+      .replace(
+        ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" ref=',
+        ' ref=',
+      ),
+  );
+  expect(fromSheetJS(workbook).report.issues).toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED', count: 3 }),
+  );
+});

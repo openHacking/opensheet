@@ -492,6 +492,8 @@ export function rawHyperlinkTargets(
     const tree: string[] = [];
     let worksheetRoot = false;
     let hyperlinkContainer = false;
+    let rootRelationshipNamespace: string | undefined;
+    let containerRelationshipNamespace: string | undefined;
     try {
       const xml = new TextDecoder(xmlEncoding(worksheet), { fatal: true }).decode(worksheet);
       for (const tag of elementTags(xml)) {
@@ -510,9 +512,10 @@ export function rawHyperlinkTargets(
           if (
             node[2] !== 'worksheet' ||
             fields?.get('xmlns') !== mainNamespace ||
-            fields.get('xmlns:r') !== relationshipNamespace
+            (fields.has('xmlns:r') && fields.get('xmlns:r') !== relationshipNamespace)
           )
             return new Map();
+          rootRelationshipNamespace = fields.get('xmlns:r');
         } else if (!tree.length) return new Map();
         if (node[2] === 'hyperlinks') {
           const fields = attributes(tag);
@@ -526,6 +529,7 @@ export function rawHyperlinkTargets(
           )
             return new Map();
           hyperlinkContainer = true;
+          containerRelationshipNamespace = fields.get('xmlns:r') ?? rootRelationshipNamespace;
         }
         if (node[2] === 'hyperlink') {
           const fields = attributes(tag);
@@ -535,7 +539,9 @@ export function rawHyperlinkTargets(
             tree[1] !== 'hyperlinks' ||
             !fields ||
             (fields.has('xmlns') && fields.get('xmlns') !== mainNamespace) ||
-            (fields.has('xmlns:r') && fields.get('xmlns:r') !== relationshipNamespace)
+            (fields.has('xmlns:r') && fields.get('xmlns:r') !== relationshipNamespace) ||
+            (fields.has('r:id') &&
+              (fields.get('xmlns:r') ?? containerRelationshipNamespace) !== relationshipNamespace)
           )
             return new Map();
           if (++totalRelations > 20000) return new Map();

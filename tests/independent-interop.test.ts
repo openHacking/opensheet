@@ -669,3 +669,38 @@ it('pins LibreOffice annotation round-trip evidence including empty notes', asyn
     await book.close();
   }
 });
+
+it('pins independently read range links before and after LibreOffice save', () => {
+  const report = JSON.parse(
+    readFileSync(new URL('xlsx-range-link-reader-2026-11-21.json', root), 'utf8'),
+  );
+  expect(report.before.rawRefs).toEqual(['A1:A3']);
+  expect(report.after.rawRefs).toEqual(['A1', 'A2', 'A3']);
+  for (const [index, artifact] of (
+    Object.values(report.artifacts) as { file: string; sha256: string }[]
+  ).entries()) {
+    const bytes = readFileSync(new URL(artifact.file, root));
+    expect(createHash('sha256').update(bytes).digest('hex')).toBe(artifact.sha256);
+    const result = fromSheetJS(
+      XLSX.read(bytes, { type: 'buffer', bookFiles: true, cellHTML: false }),
+    );
+    expect(result.report.issues).toContainEqual(
+      expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED', count: 3 }),
+    );
+    const reader = new FileReader(result.file);
+    try {
+      for (let row = 0; row < 3; row++)
+        expect(reader.getCell(result.file.sheets[0].id, row, 0)?.link?.target).toBe(
+          'https://example.com/路径#片段',
+        );
+    } finally {
+      reader.dispose();
+    }
+    const inspection = index === 0 ? report.before : report.after;
+    expect(inspection.cells.map((cell: { value: string }) => cell.value)).toEqual([
+      'one',
+      'two',
+      'three',
+    ]);
+  }
+});
