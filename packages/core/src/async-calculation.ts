@@ -19,7 +19,7 @@ import { ByteCache } from './storage.js';
 type EvaluationWork = { remaining: number; signal?: AbortSignal };
 type ScalarMemo = { generation: number; cache: ByteCache<CellValue> };
 export class AsyncCalculation {
-  private cache: ByteCache<CellValue>;
+  private cache: ByteCache<{ value: CellValue; depth: number }>;
   private dependencies = new ReferenceIndex();
   private cacheGeneration = 0;
   private scalarGeneration = 0;
@@ -101,12 +101,18 @@ export class AsyncCalculation {
     stack = new Set<string>(),
     work?: EvaluationWork,
     memo?: ScalarMemo,
+    parent?: { depth: number },
   ): Promise<CellValue> {
     work?.signal?.throwIfAborted();
     if (work && --work.remaining < 0) return { error: '#LIMIT!' };
     const id = `${sheet}:${row}:${column}`;
+    if (stack.has(id)) return { error: '#CYCLE!' };
     const cached = this.cache.get(id);
-    if (cached !== undefined) return cached;
+    if (cached !== undefined) {
+      if (stack.size + cached.depth > 128) return { error: '#LIMIT!' };
+      if (parent) parent.depth = Math.max(parent.depth, cached.depth);
+      return cached.value;
+    }
     const generation = this.cacheGeneration;
     const scalarGeneration = this.scalarGeneration;
     if (memo) {
@@ -117,7 +123,6 @@ export class AsyncCalculation {
       const scalar = memo.cache.get(id);
       if (scalar !== undefined) return scalar;
     }
-    if (stack.has(id)) return { error: '#CYCLE!' };
     const cell = await this.read(sheet, row, column);
     work?.signal?.throwIfAborted();
     if (!cell || cell.input.type !== 'formula') {
@@ -134,19 +139,22 @@ export class AsyncCalculation {
     }
     if (stack.size >= 128) return { error: '#LIMIT!' };
     stack.add(id);
+    const childDepth = { depth: 0 };
     let result: CellValue;
     let ast: AST | undefined;
     try {
       const persisted = await this.persistedAST?.(sheet, row, column);
       ast = persisted ?? parseFormula(cell.input.expression);
-      result = await this.evaluate(sheet, ast, stack, work, memo);
+      result = await this.evaluate(sheet, ast, stack, work, memo, childDepth);
     } catch (error) {
       if (work?.signal?.aborted || (error as { code?: string }).code === 'ABORTED') throw error;
       result = { error: error instanceof Error ? error.message : '#VALUE!' };
     } finally {
       stack.delete(id);
     }
-    return this.remember(id, sheet, row, column, ast, result, generation);
+    const depth = childDepth.depth + 1;
+    if (parent) parent.depth = Math.max(parent.depth, depth);
+    return this.remember(id, sheet, row, column, ast, result, generation, depth);
   }
   /** Reuse bounded scalar references only for the lifetime of one caller-owned read. */
   readSession(minimumScratchBytes = 0) {
@@ -215,6 +223,7 @@ export class AsyncCalculation {
     stack: Set<string>,
     shared?: EvaluationWork,
     memo?: ScalarMemo,
+    depth?: { depth: number },
   ) {
     const work = shared ?? { remaining: 10_000_000 };
     let textWork: { remaining: number } | undefined;
@@ -223,7 +232,9 @@ export class AsyncCalculation {
       work.signal?.throwIfAborted();
       if (--work.remaining < 0) return { error: '#LIMIT!' };
       const target = r.sheet ? this.find(r.sheet) : sheet;
-      return target ? this.value(target, r.row, r.column, stack, shared, memo) : { error: '#REF!' };
+      return target
+        ? this.value(target, r.row, r.column, stack, shared, memo, depth)
+        : { error: '#REF!' };
     };
     const literal = (value: CellValue): AST => ({ kind: 'literal', value });
     const run = async (ast: AST): Promise<CellValue> => {
@@ -350,6 +361,7 @@ export class AsyncCalculation {
     ast: AST | undefined,
     result: CellValue,
     generation: number,
+    depth: number,
   ) {
     // Internal failures depend on the active traversal and are not stable cached values.
     if (result && typeof result === 'object' && ['#LIMIT!', '#CYCLE!'].includes(result.error))
@@ -397,13 +409,13 @@ export class AsyncCalculation {
       sheet,
       range: { startRow: row, endRow: row + 1, startColumn: column, endColumn: column + 1 },
     });
-    const bytes = 64 + JSON.stringify(refs).length * 2 + JSON.stringify(result).length * 2;
+    const bytes = 80 + JSON.stringify(refs).length * 2 + JSON.stringify(result).length * 2;
     if (bytes > this.cache.budget) {
       this.cacheGeneration++;
       return result;
     }
     if (generation !== this.cacheGeneration) return result;
-    this.cache.set(id, result, bytes);
+    this.cache.set(id, { value: result, depth }, bytes);
     if (generation !== this.cacheGeneration) this.cache.delete(id);
     else this.dependencies.add(id, refs);
     return result;

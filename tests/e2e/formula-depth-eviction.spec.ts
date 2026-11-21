@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('documents formula depth results before and after Worker cache eviction', async ({ page }) => {
+test('keeps formula depth results stable before and after Worker cache eviction', async ({
+  page,
+}) => {
   test.setTimeout(60_000);
   await page.goto('/');
   const result = await page.evaluate(async (url) => {
@@ -45,7 +47,7 @@ test('documents formula depth results before and after Worker cache eviction', a
   }, `/@fs${process.cwd()}/packages/core/src/index.ts`);
   expect(result.cold).toEqual({ error: '#LIMIT!' });
   expect(result.intermediate).toBe(129);
-  expect(result.warm).toBe(130);
+  expect(result.warm).toEqual({ error: '#LIMIT!' });
   expect(result.evicted).toEqual({ error: '#LIMIT!' });
   expect(result.reopened).toEqual({ error: '#LIMIT!' });
   expect(result.afterReads).toBe(result.revision);

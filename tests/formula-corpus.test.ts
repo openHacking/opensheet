@@ -180,7 +180,7 @@ describe('independent formula contract corpus', () => {
     );
     expect(await calculation.value('sheet', 129, 0)).toEqual({ error: '#LIMIT!' });
     expect(await calculation.value('sheet', 128, 0)).toBe(129);
-    expect(await calculation.value('sheet', 129, 0)).toBe(129);
+    expect(await calculation.value('sheet', 129, 0)).toEqual({ error: '#LIMIT!' });
     const cells = Object.fromEntries(
       Array.from({ length: 130 }, (_, row) => [
         `${row}:0`,
@@ -205,7 +205,7 @@ describe('independent formula contract corpus', () => {
     );
     expect(synchronous.value('sheet', 129, 0)).toEqual({ error: '#LIMIT!' });
     expect(synchronous.value('sheet', 128, 0)).toBe(129);
-    expect(synchronous.value('sheet', 129, 0)).toBe(129);
+    expect(synchronous.value('sheet', 129, 0)).toEqual({ error: '#LIMIT!' });
   });
 
   it('propagates circular dependency failures through IFERROR independently of read order', async () => {
