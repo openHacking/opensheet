@@ -437,6 +437,7 @@ All unchecked items are **planned**, not implemented or verified by this documen
 ## G. File interoperability and export safety
 
 - [ ] **IO-01 — Create a feature-indexed file corpus.** P0 / M0 / M / Interop + QA / deps: DISC-01.
+  - [x] Rule-loss corpus entry (2026-11-21): indexed the independently generated openpyxl fixture with its SHA-256, three scalar values, three validation rules and two conditional-formatting ranges, expected dropped reports, strict-mode rejection and reproduction procedure. Independent openpyxl readback and regression tests verify the evidence; detection requires raw worksheet parts. Broader unsupported-feature coverage remains open.
   - Deliver: synthetic/redistributable workbook fixtures and manifest covering types, dates, formulas, formats, merges, dimensions, multiple sheets and unsupported features.
   - Accept: each fixture has source provenance, expected supported result, expected loss and independent-reader procedure; no private customer workbook is committed.
   - Progress (2026-10-23): `tests/fixtures/interop/manifest.json` indexes a CC0 hand-authored FODS fixture and independently generated XLSX evidence, with scalar expectations, losses, hashes and CI regression. Broader unsupported-feature coverage remains open.

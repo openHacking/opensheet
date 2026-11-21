@@ -128,6 +128,42 @@ const evidence = JSON.parse(
   readFileSync(new URL('interop-reader-2026-10-23-type-probe.json', root), 'utf8'),
 );
 
+it('checks the indexed independent worksheet-rule fixture and strict loss contract', () => {
+  const entry = manifest.fixtures.find((item: { id: string }) => item.id === 'worksheet-rules');
+  expect(entry).toBeDefined();
+  const bytes = readFileSync(
+    new URL(entry.source, new URL('./fixtures/interop/', import.meta.url)),
+  );
+  expect(createHash('sha256').update(bytes).digest('hex')).toBe(entry.sha256);
+  const workbook = XLSX.read(bytes, { type: 'buffer', bookFiles: true });
+  const result = fromSheetJS(workbook);
+  const reader = new FileReader(result.file);
+  try {
+    for (const [key, expected] of Object.entries(entry.expectedValues)) {
+      const [name, cell] = key.split('!');
+      const sheet = result.file.sheets.find((item) => item.name === name)!;
+      const { r, c } = XLSX.utils.decode_cell(cell);
+      expect(reader.getCell(sheet.id, r, c)?.input).toEqual({
+        type: typeof expected === 'string' ? 'string' : 'number',
+        value: expected,
+      });
+    }
+  } finally {
+    reader.dispose();
+  }
+  for (const issue of entry.expectedImportIssues)
+    expect(result.report.issues).toContainEqual(expect.objectContaining(issue));
+  expect(() => fromSheetJS(workbook, { unsupported: 'strict' })).toThrow(
+    'Strict compatibility check failed',
+  );
+  const withoutRawParts = { ...workbook, files: undefined };
+  const incomplete = fromSheetJS(withoutRawParts).report.issues;
+  for (const issue of entry.expectedImportIssues)
+    expect(incomplete).not.toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: issue.code })]),
+    );
+});
+
 it('pins independent long-formula recalculation observations', () => {
   const report = JSON.parse(
     readFileSync(new URL('formula-length-reader-2026-11-12.json', root), 'utf8'),
