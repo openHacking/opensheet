@@ -161,8 +161,16 @@ export class Workbook {
       'INVALID_ARGUMENT',
       'Invalid viewport cache budget',
     );
+    let workerAvailable = false;
+    if (!options.workerFactory) {
+      try {
+        workerAvailable = typeof Worker === 'function';
+      } catch {
+        // Access itself can be denied in restricted browser contexts.
+      }
+    }
     assert(
-      options.workerFactory || typeof Worker !== 'undefined',
+      options.workerFactory || workerAvailable,
       'WORKER_UNAVAILABLE',
       'A browser Worker or injected workerFactory is required',
     );
@@ -208,9 +216,26 @@ export class Workbook {
     const retryBytes = Math.min(512 * 1024, Math.floor(cacheBudget / 16));
     this.seen = new ByteCache(retryBytes);
     this.cache = new ByteCache(cacheBudget - retryBytes);
-    this.worker =
-      options.workerFactory?.() ??
-      new Worker(new URL('./engine.worker.js', import.meta.url), { type: 'module' });
+    const injectedWorker = options.workerFactory?.();
+    if (injectedWorker != null) {
+      this.worker = injectedWorker;
+    } else {
+      try {
+        this.worker = new Worker(new URL('./engine.worker.js', import.meta.url), {
+          type: 'module',
+        });
+      } catch (error) {
+        if (
+          error instanceof Error &&
+          (error.name === 'SecurityError' || error.name === 'NotAllowedError')
+        )
+          throw new OpenSheetError(
+            'WORKER_UNAVAILABLE',
+            'Worker creation was denied; check the site security policy and allow module Workers, then reopen the workbook',
+          );
+        throw error;
+      }
+    }
     this.worker.onmessage = (event) => {
       const message = event.data;
       if (message.storage) {

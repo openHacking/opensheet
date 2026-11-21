@@ -33,6 +33,69 @@ describe('runtime prerequisites', () => {
     await book.close();
   });
 
+  it('reports denied Worker property access before attempting initialization', () => {
+    const original = Object.getOwnPropertyDescriptor(globalThis, 'Worker');
+    Object.defineProperty(globalThis, 'Worker', {
+      configurable: true,
+      get: () => {
+        throw new DOMException('Blocked', 'SecurityError');
+      },
+    });
+    try {
+      expect(() => new Workbook()).toThrow(expect.objectContaining({ code: 'WORKER_UNAVAILABLE' }));
+    } finally {
+      if (original) Object.defineProperty(globalThis, 'Worker', original);
+      else Reflect.deleteProperty(globalThis, 'Worker');
+    }
+  });
+
+  it('rejects a non-constructor Worker before attempting initialization', () => {
+    vi.stubGlobal('Worker', {});
+    expect(() => new Workbook()).toThrow(expect.objectContaining({ code: 'WORKER_UNAVAILABLE' }));
+  });
+
+  it.each(['SecurityError', 'NotAllowedError'])(
+    'reports %s when the browser denies Worker construction',
+    (name) => {
+      vi.stubGlobal(
+        'Worker',
+        class {
+          constructor() {
+            throw new DOMException('Blocked', name);
+          }
+        },
+      );
+      expect(() => new Workbook()).toThrow(
+        expect.objectContaining({
+          code: 'WORKER_UNAVAILABLE',
+          message: expect.stringContaining('security policy'),
+        }),
+      );
+    },
+  );
+
+  it('preserves unexpected Worker construction and injected factory errors', () => {
+    const browserError = new TypeError('Worker bug');
+    vi.stubGlobal(
+      'Worker',
+      class {
+        constructor() {
+          throw browserError;
+        }
+      },
+    );
+    expect(() => new Workbook()).toThrow(browserError);
+    const factoryError = new DOMException('Host policy', 'SecurityError');
+    expect(
+      () =>
+        new Workbook(undefined, {
+          workerFactory: () => {
+            throw factoryError;
+          },
+        }),
+    ).toThrow(factoryError);
+  });
+
   it('reports denied IndexedDB property access before allocating a Worker', () => {
     const original = Object.getOwnPropertyDescriptor(globalThis, 'indexedDB');
     const worker = vi.fn();
