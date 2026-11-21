@@ -25,6 +25,12 @@ export function hasXlsxEscapeText(value: unknown): boolean {
 export function hasXlsxControlText(value: unknown): boolean {
   return typeof value === 'string' && /[\u0000-\u0008\u000b-\u001f\ufffe\uffff]/.test(value);
 }
+export function hasXlsxUnpairedSurrogate(value: unknown): boolean {
+  return (
+    typeof value === 'string' &&
+    /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(value)
+  );
+}
 function hasBracketedReference(expression: string): boolean {
   if (!expression.includes('[')) return false;
   let quoted = false;
@@ -462,6 +468,23 @@ export function exportCell(
       address: address(row, col),
     });
   if (
+    hasXlsxUnpairedSurrogate(x.v) ||
+    hasXlsxUnpairedSurrogate(x.f) ||
+    hasXlsxUnpairedSurrogate(x.z) ||
+    hasXlsxUnpairedSurrogate(c.note) ||
+    hasXlsxUnpairedSurrogate(c.link?.target) ||
+    hasXlsxUnpairedSurrogate(c.link?.tooltip)
+  )
+    add(r, {
+      code: 'XLSX_UNPAIRED_SURROGATE_TEXT',
+      feature: 'text',
+      message: 'Unpaired UTF-16 surrogates may be replaced when written to XLSX',
+      action: 'approximated',
+      severity: 'warning',
+      sheetId: id,
+      address: address(row, col),
+    });
+  if (
     hasXlsxControlText(x.v) ||
     hasXlsxControlText(x.f) ||
     hasXlsxControlText(x.z) ||
@@ -472,7 +495,8 @@ export function exportCell(
     add(r, {
       code: 'XLSX_CONTROL_TEXT_INTEROP',
       feature: 'text',
-      message: 'Some spreadsheet applications may display control characters as escape sequences',
+      message:
+        'Some spreadsheet applications may display control characters as escape sequences or replace Unicode noncharacters',
       action: 'approximated',
       severity: 'warning',
       sheetId: id,

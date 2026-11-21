@@ -1541,6 +1541,82 @@ it('restores exported freeze boundaries after an independent LibreOffice save', 
   );
 });
 
+it('reports unpaired surrogates in XLSX text and names while preserving valid pairs', async () => {
+  const book = await createWorkbook({ sheets: [{ name: 'Bad\uD800', rows: 8, columns: 1 }] });
+  try {
+    const sheet = book.getSheets()[0];
+    await sheet.range('A1:A3').setValues([['\uD800'], ['\uDC00'], ['🙂']]);
+    await sheet.range('A4').setNote('note\uD800');
+    await sheet.range('A5').setLink({ target: 'https://example.com/', tooltip: 'tip\uDC00' });
+    await sheet.range('A6').setFormulas([['"\uD800"']]);
+    await sheet.range('A7').setStyle({ numberFormat: '0"\uD800"' });
+    await sheet.range('A8').setValues([['\uFFFE']]);
+    const file = await book.toJSON();
+    const { bytes, report } = writeXlsx(file, XLSX);
+    expect(report.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: 'XLSX_UNPAIRED_SURROGATE_SHEET_NAME', count: 1 }),
+        expect.objectContaining({ code: 'XLSX_UNPAIRED_SURROGATE_TEXT', count: 6, address: 'A1' }),
+        expect.objectContaining({
+          code: 'XLSX_CONTROL_TEXT_INTEROP',
+          count: 1,
+          address: 'A8',
+          message: expect.stringContaining('replace Unicode noncharacters'),
+        }),
+      ]),
+    );
+    expect(() => writeXlsx(file, XLSX, { unsupported: 'strict' })).toThrow(
+      'Strict compatibility check failed',
+    );
+    const parsed = XLSX.read(bytes, { type: 'array' });
+    const output = parsed.Sheets[parsed.SheetNames[0]];
+    expect(parsed.SheetNames[0]).not.toBe('Bad\uD800');
+    expect(output.A1.v).toBe('�');
+    expect(output.A2.v).toBe('�');
+    expect(output.A3.v).toBe('🙂');
+    expect(output.A4.c[0].t).toBe('note�');
+    expect(output.A5.l.Tooltip).toBe('tip�');
+    expect(output.A6.f).toBe('"�"');
+    expect(output.A8.v).toBe('�');
+    const validBook = await createWorkbook({ sheets: [{ name: 'Valid🙂', rows: 1, columns: 1 }] });
+    try {
+      await validBook
+        .getSheets()[0]
+        .range('A1')
+        .setValues([['🙂']]);
+      const validFile = await validBook.toJSON();
+      expect(() => writeXlsx(validFile, XLSX, { unsupported: 'strict' })).not.toThrow();
+      await validBook
+        .getSheets()[0]
+        .range('A1')
+        .setValues([['\uD800']]);
+      const unsupportedFile = await validBook.toJSON();
+      try {
+        writeXlsx(unsupportedFile, XLSX, { unsupported: 'strict' });
+        throw new Error('Expected strict export to fail');
+      } catch (error) {
+        expect(error).toMatchObject({
+          code: 'UNSUPPORTED_FEATURE',
+          details: {
+            issues: expect.arrayContaining([
+              expect.objectContaining({ code: 'XLSX_UNPAIRED_SURROGATE_TEXT' }),
+            ]),
+          },
+        });
+      }
+      expect(writeXlsx(validFile, XLSX).report.issues).not.toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ code: expect.stringContaining('UNPAIRED_SURROGATE') }),
+        ]),
+      );
+    } finally {
+      await validBook.deleteStorage();
+    }
+  } finally {
+    await book.deleteStorage();
+  }
+});
+
 it('reports literal XLSX escape-shaped text that the SheetJS reader changes', async () => {
   const book = await createWorkbook({ sheets: [{ name: '_x0041_', rows: 20, columns: 5 }] });
   try {
@@ -1553,6 +1629,7 @@ it('reports literal XLSX escape-shaped text that the SheetJS reader changes', as
     await sheet.range('A6:A8').setValues([['before\0after'], ['before\rafter'], ['line\nfeed']]);
     await sheet.range('A9').setValues([['tooltip']]);
     await sheet.range('A9').setLink({ target: 'https://example.com/', tooltip: 'before\rafter' });
+    await sheet.range('A10').setLink({ target: 'https://example.com/', tooltip: 'tip _x0041_' });
     const file = await book.toJSON();
     const result = writeXlsx(file, XLSX);
     expect(result.report.issues).toEqual(
@@ -1574,6 +1651,7 @@ it('reports literal XLSX escape-shaped text that the SheetJS reader changes', as
     expect(output.A4.f).toBe('"A"');
     expect(output.A5.v).toBe('_xZZZZ_');
     expect(output.A9.l.Tooltip).toBe('before_x000d_after');
+    expect(output.A10.l.Tooltip).toBe('tip _x0041_');
   } finally {
     await book.deleteStorage();
   }

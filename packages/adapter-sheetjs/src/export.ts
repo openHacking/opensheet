@@ -3,6 +3,7 @@ import {
   exportCell,
   hasXlsxControlText,
   hasXlsxEscapeText,
+  hasXlsxUnpairedSurrogate,
   XLSX_CELL_TEXT_LIMIT,
 } from './cells.js';
 import { add, finish, report } from './report.js';
@@ -212,6 +213,15 @@ export function buildSheetJS(
         code: 'XLSX_ESCAPE_SHEET_NAME_INTEROP',
         feature: 'sheet-name',
         message: 'Literal _xHHHH_ sequences in sheet names may change when this XLSX is read',
+        action: 'approximated',
+        severity: 'warning',
+        sheetId: id,
+      });
+    if (hasXlsxUnpairedSurrogate(sh.name))
+      add(r, {
+        code: 'XLSX_UNPAIRED_SURROGATE_SHEET_NAME',
+        feature: 'sheet-name',
+        message: 'Unpaired UTF-16 surrogates in sheet names may be replaced when written to XLSX',
         action: 'approximated',
         severity: 'warning',
         sheetId: id,

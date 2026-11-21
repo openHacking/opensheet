@@ -61,6 +61,27 @@ test('warns before exporting literal XLSX escape-shaped text', async ({ page }) 
   );
 });
 
+test('warns before downloading XLSX with an unpaired surrogate', async ({ page }) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  await page.evaluate(async () => {
+    await window.opensheet
+      .getWorkbook()
+      .getSheets()[0]
+      .range('A1')
+      .setValues([['\uD800']]);
+  });
+  const downloads: string[] = [];
+  page.on('download', (download) => downloads.push(download.suggestedFilename()));
+  await page.locator('#export-xlsx').click();
+  const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
+  await expect(dialog).toContainText(
+    'Unpaired UTF-16 surrogates may be replaced when written to XLSX',
+  );
+  await expect(dialog).toContainText('Launch budget: A1:');
+  expect(downloads).toEqual([]);
+});
+
 test('warns about long formulas before XLSX download', async ({ page }) => {
   await page.goto('/#budget');
   await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
