@@ -1168,3 +1168,7 @@ Recovery verifies that each undo and redo transition starts from the expected me
 ### Historical page descriptor continuity
 
 Recovery and undo/redo check all stored page descriptor fields against the source side of each history transition. Three-browser injection modifies an extent, style index or row mask while retaining the same page record ID, at both near and deeper undo/redo positions. Tests verify that all raw stores survive rejection and that history and reopen work after repair. A [0.1.1 upgrade probe](../benchmarks/historical-upgrade-history-pointer-2026-11-21.json) passed one synthetic workbook in three browsers; the report and consumer locks are retained, while temporary archives were removed. The check does not authenticate page bytes; long-history and large-directory costs remain unmeasured.
+
+### Retained-backup publication order
+
+Opening a retained backup prepares a separate workbook before writing the scene reference, then attaches it to the editor. If reference publication fails, the original editor workbook remains attached and the temporary candidate is closed; after publication, a failed attachment retains the saved backup reference. Three-browser tests inject a failed reference write and an intervening reference change, verify the original value and candidate lock release, exercise failures before and after attachment, and retry through reopen. The reference-change test is injected and the localStorage comparison is not atomic: ABA and changes after the check remain outside this guarantee.

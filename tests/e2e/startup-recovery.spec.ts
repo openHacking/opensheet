@@ -903,6 +903,10 @@ for (const failure of ['before-attach', 'rollback-trap'] as const) {
     await recovery.evaluate(
       ({ failure, oldId }) => {
         const app = window.opensheet;
+        const originalAttach = app.attachWorkbook.bind(app);
+        (window as any).restoreRecoveryAttach = () => {
+          app.attachWorkbook = originalAttach;
+        };
         app.attachWorkbook = async () => {
           throw new Error('Injected pre-attachment failure');
         };
@@ -944,6 +948,17 @@ for (const failure of ['before-attach', 'rollback-trap'] as const) {
       await expect
         .poll(() => recovery.evaluate(() => localStorage.getItem('opensheet.scene.budget')))
         .toBe(fixture.id);
+      const previousId = await recovery.evaluate(async (json) => {
+        (window as any).restoreRecoveryAttach();
+        const app = window.opensheet;
+        await app.load(JSON.parse(json));
+        const previous = app.getWorkbook();
+        await previous
+          .getSheets()[0]
+          .range('A1')
+          .setValues([[4321]]);
+        return previous.id;
+      }, fixture.json);
       await recovery.evaluate(() => {
         const original = Storage.prototype.setItem;
         (window as any).restoreRetainedSetItem = () => {
@@ -961,11 +976,86 @@ for (const failure of ['before-attach', 'rollback-trap'] as const) {
       );
       await expect(recovery.getByRole('button', { name: 'Open retained backup' })).toBeEnabled();
       expect(
-        await recovery.evaluate(() =>
-          window.opensheet.getWorkbook().getSheets()[0].range('A1').getValues(),
+        await recovery.evaluate(async () => {
+          const book = window.opensheet.getWorkbook();
+          return { id: book.id, value: await book.getSheets()[0].range('A1').getValues() };
+        }),
+      ).toEqual({ id: previousId, value: [[4321]] });
+      expect(
+        await recovery.evaluate(
+          async (id) => ({
+            reference: localStorage.getItem('opensheet.scene.budget'),
+            candidateLocked: ((await navigator.locks.query()).held ?? []).some(
+              (lock) => lock.name === `opensheet:opensheet:${id}`,
+            ),
+          }),
+          reference,
         ),
-      ).toEqual([[9876]]);
-      await recovery.evaluate(() => (window as any).restoreRetainedSetItem());
+      ).toEqual({ reference: fixture.id, candidateLocked: false });
+      await recovery.evaluate(() => {
+        (window as any).restoreRetainedSetItem();
+        (window as any).restoreRecoveryAttach();
+        const original = Storage.prototype.getItem;
+        let reads = 0;
+        Storage.prototype.getItem = function (key) {
+          if (key === 'opensheet.scene.budget' && ++reads === 2) {
+            Storage.prototype.getItem = original;
+            this.setItem(key, 'other-scene-reference');
+          }
+          return original.call(this, key);
+        };
+      });
+      await recovery.getByRole('button', { name: 'Open retained backup' }).click();
+      await expect(recovery.locator('#startup-recovery-message')).toContainText(
+        'saved scene changed',
+      );
+      expect(
+        await recovery.evaluate(() => ({
+          id: window.opensheet.getWorkbook().id,
+          reference: localStorage.getItem('opensheet.scene.budget'),
+        })),
+      ).toEqual({ id: previousId, reference: 'other-scene-reference' });
+      await recovery.evaluate((id) => {
+        localStorage.setItem('opensheet.scene.budget', id);
+        window.opensheet.attachWorkbook = async () => {
+          throw new Error('Injected retained attachment failure');
+        };
+      }, fixture.id);
+      await recovery.getByRole('button', { name: 'Open retained backup' }).click();
+      await expect(recovery.locator('#startup-recovery-message')).toContainText(
+        'Injected retained attachment failure',
+      );
+      expect(
+        await recovery.evaluate(
+          async (id) => ({
+            current: window.opensheet.getWorkbook().id,
+            reference: localStorage.getItem('opensheet.scene.budget'),
+            candidateLocked: ((await navigator.locks.query()).held ?? []).some(
+              (lock) => lock.name === `opensheet:opensheet:${id}`,
+            ),
+          }),
+          reference,
+        ),
+      ).toEqual({ current: previousId, reference, candidateLocked: false });
+      await recovery.evaluate(() => {
+        (window as any).restoreRecoveryAttach();
+        const attach = window.opensheet.attachWorkbook.bind(window.opensheet);
+        window.opensheet.attachWorkbook = async (book) => {
+          await attach(book);
+          throw new Error('Injected failure after retained attachment');
+        };
+      });
+      await recovery.getByRole('button', { name: 'Open retained backup' }).click();
+      await expect(recovery.locator('#startup-recovery-message')).toContainText(
+        'Injected failure after retained attachment',
+      );
+      expect(
+        await recovery.evaluate(() => ({
+          current: window.opensheet.getWorkbook().id,
+          reference: localStorage.getItem('opensheet.scene.budget'),
+        })),
+      ).toEqual({ current: reference, reference });
+      await recovery.evaluate(() => (window as any).restoreRecoveryAttach());
       await recovery.getByRole('button', { name: 'Open retained backup' }).click();
     } else await recovery.getByRole('button', { name: 'Try again' }).click();
     await expect(recovery.getByRole('heading', { name: 'Unable to open workbook' })).toBeHidden();

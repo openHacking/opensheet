@@ -1,4 +1,4 @@
-import { createWorkbook, Workbook, type OpenSheet } from 'opensheet';
+import { createWorkbook, openWorkbook, Workbook, type OpenSheet } from 'opensheet';
 import { createBindings } from './bindings.js';
 import { sample } from './budget.js';
 import { $ } from './dom.js';
@@ -326,11 +326,65 @@ export function createRouting(
     openRetainedBackup: async (id: string) => {
       const scene = requestedScene();
       if (scene === 'performance') throw new Error('Open Budget Simulator to restore a backup');
-      await app.open(id);
-      localStorage.setItem(`opensheet.scene.${scene}`, id);
-      state.currentScene = scene;
-      completeScene(scene);
-      showPage('spreadsheet');
+      const current = () => {
+        try {
+          return app.getWorkbook();
+        } catch (error) {
+          if ((error as { code?: string }).code === 'INVALID_ARGUMENT') return undefined;
+          throw error;
+        }
+      };
+      const previous = current();
+      if (app.hasDraft || previous?.persistenceState.pending)
+        throw new Error('Finish or cancel editing before opening the retained backup');
+      const revision = previous?.revision;
+      const key = `opensheet.scene.${scene}`;
+      const reference = localStorage.getItem(key);
+      const candidate = previous?.id === id ? previous : await openWorkbook(id);
+      let published = false;
+      try {
+        if (
+          current() !== previous ||
+          previous?.revision !== revision ||
+          previous?.persistenceState.pending ||
+          app.hasDraft ||
+          requestedScene() !== scene ||
+          localStorage.getItem(key) !== reference
+        )
+          throw new Error(
+            'Workbook or saved scene changed while opening the retained backup; try again',
+          );
+        localStorage.setItem(key, id);
+        published = true;
+        if (candidate !== previous) await app.attachWorkbook(candidate);
+        else await app.ready();
+        state.currentScene = scene;
+        completeScene(scene);
+        showPage('spreadsheet');
+      } catch (error) {
+        let attached = false;
+        try {
+          attached = current() === candidate;
+        } catch {
+          // A disposed editor cannot retain the candidate.
+        }
+        if (candidate !== previous && !attached) {
+          try {
+            await candidate.close();
+          } catch {
+            candidate.dispose();
+          }
+        }
+        if (published) {
+          const message = error instanceof Error ? error.message : String(error);
+          throw new RetainedBackupError(
+            id,
+            `${message}. Backup workbook ${id} was retained; try again.`,
+            error,
+          );
+        }
+        throw error;
+      }
     },
     start: async () => {
       routeBusy = true;
