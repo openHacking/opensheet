@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import * as XLSX from 'xlsx';
 import { FileReader, Workbook } from '@opensheetjs/core';
@@ -126,6 +126,75 @@ const manifest = JSON.parse(
 );
 const evidence = JSON.parse(
   readFileSync(new URL('interop-reader-2026-10-23-type-probe.json', root), 'utf8'),
+);
+
+it('pins every indexed source and requires provenance, losses and an independent procedure', () => {
+  const directory = new URL('./fixtures/interop/', import.meta.url);
+  const ids = new Set<string>();
+  expect(manifest.license).toBe('CC0-1.0');
+  for (const entry of manifest.fixtures) {
+    expect(ids.has(entry.id)).toBe(false);
+    ids.add(entry.id);
+    for (const key of [
+      'id',
+      'source',
+      'sha256',
+      'provenance',
+      'expectedLoss',
+      'independentProcedure',
+      'evidence',
+      'limitations',
+    ]) {
+      expect(entry[key], `${entry.id}: missing ${key}`).toEqual(expect.any(String));
+      expect(entry[key].trim(), `${entry.id}: empty ${key}`).not.toBe('');
+    }
+    expect(existsSync(new URL(entry.evidence, directory)), `${entry.id}: missing evidence`).toBe(
+      true,
+    );
+    expect(entry.features.length).toBeGreaterThan(0);
+    expect(new Set(entry.features).size).toBe(entry.features.length);
+    expect(Object.keys(entry.expectedValues).length).toBeGreaterThan(0);
+    expect(
+      createHash('sha256')
+        .update(readFileSync(new URL(entry.source, directory)))
+        .digest('hex'),
+    ).toBe(entry.sha256);
+  }
+});
+
+it.each(['defined-names', 'defined-name-formulas'])(
+  'checks indexed independent %s import and loss contract',
+  (id) => {
+    const entry = manifest.fixtures.find((item: { id: string }) => item.id === id);
+    expect(entry).toBeDefined();
+    const bytes = readFileSync(
+      new URL(entry.source, new URL('./fixtures/interop/', import.meta.url)),
+    );
+    const workbook = XLSX.read(bytes, { type: 'buffer', bookFiles: true, sheetStubs: true });
+    const result = fromSheetJS(workbook);
+    const reader = new FileReader(result.file);
+    try {
+      for (const [key, expected] of Object.entries(entry.expectedValues)) {
+        const [name, cell] = key.split('!');
+        const sheet = result.file.sheets.find((item) => item.name === name)!;
+        const { r, c } = XLSX.utils.decode_cell(cell);
+        expect(reader.getCell(sheet.id, r, c)?.input).toEqual({ type: 'number', value: expected });
+      }
+      for (const [key, expression] of Object.entries(entry.expectedFormulaInputs ?? {})) {
+        const [name, cell] = key.split('!');
+        const sheet = result.file.sheets.find((item) => item.name === name)!;
+        const { r, c } = XLSX.utils.decode_cell(cell);
+        expect(reader.getCell(sheet.id, r, c)?.input).toEqual({ type: 'formula', expression });
+      }
+    } finally {
+      reader.dispose();
+    }
+    for (const issue of entry.expectedImportIssues)
+      expect(result.report.issues).toContainEqual(expect.objectContaining(issue));
+    expect(() => fromSheetJS(workbook, { unsupported: 'strict' })).toThrow(
+      'Strict compatibility check failed',
+    );
+  },
 );
 
 it('checks the indexed independent worksheet-rule fixture and strict loss contract', () => {

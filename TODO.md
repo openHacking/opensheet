@@ -465,6 +465,7 @@ All unchecked items are **planned**, not implemented or verified by this documen
 ## G. File interoperability and export safety
 
 - [ ] **IO-01 — Create a feature-indexed file corpus.** P0 / M0 / M / Interop + QA / deps: DISC-01.
+  - [x] Defined-name corpus and source integrity (2026-11-22): indexed two openpyxl-authored workbooks with scoped names and name-dependent formulas, expected values/losses, hashes and reproduction. Tests verify all ten indexed source hashes and evidence paths; both new fixtures verify import reports and strict rejection. Independent openpyxl 3.1.5 regeneration/readback and 18 three-browser name-import cases passed. Generator hashes do not authenticate generated output; Excel, independent formula calculation and broader features remain open.
   - [x] Rule-loss corpus entry (2026-11-21): indexed the independently generated openpyxl fixture with its SHA-256, three scalar values, three validation rules and two conditional-formatting ranges, expected dropped reports, strict-mode rejection and reproduction procedure. Independent openpyxl readback and regression tests verify the evidence; detection requires raw worksheet parts. Broader unsupported-feature coverage remains open.
   - Deliver: synthetic/redistributable workbook fixtures and manifest covering types, dates, formulas, formats, merges, dimensions, multiple sheets and unsupported features.
   - Accept: each fixture has source provenance, expected supported result, expected loss and independent-reader procedure; no private customer workbook is committed.

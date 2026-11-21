@@ -53,7 +53,10 @@
         "Data!C1 becomes TRUE() with numeric cache 1",
         "LibreOffice TYPE(C1) changes from 4 to 8 because the cell is now a formula",
         "Column pixel/character metrics drift across the reader/font mapping; exact visual dimensions are not established"
-      ]
+      ],
+      "sha256": "0ed13dc94d8ced2102c834d247cd4e4311629230a25b148abd4d9e985a207f28",
+      "expectedLoss": "Unsupported formatting, rich text and metadata are reported; independent reader differences include a boolean-to-formula conversion and dimension drift.",
+      "limitations": "One hand-authored FODS fixture and LibreOfficeDev headless conversion; no Excel or complete visual equivalence."
     },
     {
       "id": "error-values",
@@ -69,7 +72,8 @@
       "expectedLoss": "OpenSheet #CYCLE! and #SPILL! become #VALUE! with two aggregated approximation occurrences; strict export rejects.",
       "independentProcedure": "Build packages; run node scripts/error-interop-reader.mjs --output=benchmarks/new-error-report.json with soffice installed. Inspect CSV and saved XLSX artifacts.",
       "evidence": "../../../benchmarks/error-interop-2026-10-31-verified.json",
-      "limitations": "Literal error cells only; no formula recalculation, visual assessment or Excel verification."
+      "limitations": "Literal error cells only; no formula recalculation, visual assessment or Excel verification.",
+      "sha256": "8bea27af0e9c15ddcce0d0aa2eb894f8fbd01cde10d31e816df41a2eb522ff41"
     },
     {
       "id": "empty-annotations",
@@ -91,7 +95,8 @@
       "expectedLoss": "The XLSX writer omits an explicitly empty tooltip, reported as EMPTY_LINK_TOOLTIP_DROPPED; strict export rejects.",
       "independentProcedure": "Build packages, then run node scripts/annotation-interop-reader.mjs --output=benchmarks/new-annotation-report.json with soffice installed. Inspect saved XLSX and loss report.",
       "evidence": "../../../benchmarks/annotation-interop-2026-10-31.json",
-      "limitations": "LibreOfficeDev headless save only; no Excel or visual validation."
+      "limitations": "LibreOfficeDev headless save only; no Excel or visual validation.",
+      "sha256": "91b9fd5d6573fd92adf8176e03f058dd2d531fbcca6e1b425c5d5d292d3cdc5e"
     },
     {
       "id": "axis-dimensions",
@@ -112,7 +117,8 @@
       "expectedLoss": "Explicit column widths are font-dependent and reported as approximations; zero-pixel row heights are reported as dropped on export.",
       "independentProcedure": "Build packages, run node scripts/axis-dimension-export.mjs NEW.xlsx, then inspect with python3 scripts/axis-dimension-fixture.py inspect NEW.xlsx.",
       "evidence": "../../../docs/verification.md",
-      "limitations": "One openpyxl version; no Excel, LibreOffice or visual measurement."
+      "limitations": "One openpyxl version; no Excel, LibreOffice or visual measurement.",
+      "sha256": "81c6a17ba09905a8d88d9cecc78ee208a60711b6f88c80b82309de1c85814e16"
     },
     {
       "id": "worksheet-panes",
@@ -127,7 +133,8 @@
       "expectedLoss": "The simple frozen pane is imported; the split pane and non-default selection are reported as dropped. Strict import rejects those losses.",
       "independentProcedure": "Run python3 scripts/xlsx-pane-fixture.py NEW.xlsx; inspect pane states with openpyxl and compare the adapter report.",
       "evidence": "../../../docs/verification.md",
-      "limitations": "Only one writer and two pane states; canonical raw worksheet relationships are required for freeze import."
+      "limitations": "Only one writer and two pane states; canonical raw worksheet relationships are required for freeze import.",
+      "sha256": "c285dc8b3582d25e017690d7242daaba531aa202febf83d326dcd7b9a715db5f"
     },
     {
       "id": "unfrozen-worksheet-view",
@@ -141,7 +148,8 @@
       "expectedLoss": "The active tab and D8 selection are reported as dropped; the sheet is not frozen.",
       "independentProcedure": "Run python3 scripts/xlsx-view-fixture.py NEW.xlsx; inspect tabSelected and selection with openpyxl, then import in each supported browser.",
       "evidence": "../../../docs/verification.md",
-      "limitations": "One synthetic openpyxl version; no Excel, other view settings or visual assessment."
+      "limitations": "One synthetic openpyxl version; no Excel, other view settings or visual assessment.",
+      "sha256": "2f792086133131519a50f5a08a57d5c96412cd3b391f3dc57feb4154401035e5"
     },
     {
       "id": "frozen-pane-variants",
@@ -156,7 +164,8 @@
       "expectedLoss": "Frozen row and column counts are restored; unsupported page margins are reported separately.",
       "independentProcedure": "Run python3 scripts/xlsx-freeze-fixture.py NEW.xlsx and inspect freeze_panes with openpyxl; import in each supported browser and reopen.",
       "evidence": "../../../docs/verification.md",
-      "limitations": "This fixture tests one openpyxl version and import only; a separate export round-trip uses LibreOfficeDev. No Excel or visual assessment."
+      "limitations": "This fixture tests one openpyxl version and import only; a separate export round-trip uses LibreOfficeDev. No Excel or visual assessment.",
+      "sha256": "b16c32c4f8fa7793da1487e64c30fd422b45a0b1d4fc9a1265df16e0752fbc66"
     },
     {
       "id": "worksheet-rules",
@@ -192,6 +201,69 @@
       "independentProcedure": "Run python3 scripts/xlsx-rule-fixture.py with openpyxl 3.1.5 to regenerate and independently read back the rules; compare the SHA-256 and import loss report. Run pnpm exec playwright test tests/e2e/xlsx-rule-loss.spec.ts for the browser preview.",
       "evidence": "../../../docs/verification.md",
       "limitations": "Only the listed rules and one openpyxl writer are covered. Detection counts conditional-formatting ranges, not individual rules; raw worksheet parts are required for detection; no Excel, LibreOffice save or visual assessment."
+    },
+    {
+      "id": "defined-names",
+      "source": "../../../benchmarks/xlsx-defined-names-openpyxl-2026-11-12.xlsx",
+      "sha256": "d00a231550c550f295c612e73b608af753fbe442d44aecde54a82504caa6d19b",
+      "provenance": "Synthetic CC0 workbook created and read back with openpyxl 3.1.5 by scripts/xlsx-defined-names-fixture.py; no customer data.",
+      "features": ["workbook-scoped-defined-names", "sheet-scoped-defined-names"],
+      "expectedValues": {
+        "Named data!A1": 11,
+        "Named data!A2": 22,
+        "Named data!A3": 33
+      },
+      "expectedImportIssues": [
+        {
+          "code": "NAMES_UNSUPPORTED",
+          "action": "dropped",
+          "count": 3
+        }
+      ],
+      "expectedLoss": "Three defined names are not preserved; strict import rejects.",
+      "independentProcedure": "Run python3 scripts/xlsx-defined-names-fixture.py NEW.xlsx with openpyxl 3.1.5; the script reads back names, values and formulas. Compare with the indexed fixture and adapter report; ZIP timestamps may change regenerated hashes.",
+      "evidence": "../../../benchmarks/xlsx-defined-names-openpyxl-2026-11-12.xlsx.json",
+      "limitations": "One openpyxl writer/version; no Excel or independent calculation. Workbook names are not supported by the native model."
+    },
+    {
+      "id": "defined-name-formulas",
+      "source": "../../../benchmarks/xlsx-defined-name-formulas-openpyxl-2026-11-12.xlsx",
+      "sha256": "679987bae5b25b65237a3f5ee4006f4d98a65cd455f9fb9fcdc036cc6b696741",
+      "provenance": "Synthetic CC0 workbook created and read back with openpyxl 3.1.5 by scripts/xlsx-defined-names-fixture.py; no customer data.",
+      "features": [
+        "workbook-scoped-defined-names",
+        "sheet-scoped-defined-names",
+        "defined-name-formulas",
+        "ordinary-formula",
+        "quoted-name-text"
+      ],
+      "expectedValues": {
+        "Named data!A1": 11,
+        "Named data!A2": 22,
+        "Named data!A3": 33
+      },
+      "expectedImportIssues": [
+        {
+          "code": "NAMES_UNSUPPORTED",
+          "action": "dropped",
+          "count": 3
+        },
+        {
+          "code": "DEFINED_NAME_REFERENCE_DROPPED",
+          "action": "dropped",
+          "count": 2
+        }
+      ],
+      "expectedLoss": "Three defined names are not preserved; two formulas referencing them remain as text but evaluate to #NAME?; strict import rejects.",
+      "independentProcedure": "Run python3 scripts/xlsx-defined-names-fixture.py NEW.xlsx --formulas with openpyxl 3.1.5; the script reads back names, values and formulas. Compare with the indexed fixture and adapter report; ZIP timestamps may change regenerated hashes.",
+      "evidence": "../../../benchmarks/xlsx-defined-name-formulas-openpyxl-2026-11-12.xlsx.json",
+      "limitations": "One openpyxl writer/version; no Excel or independent calculation. Workbook names are not supported by the native model.",
+      "expectedFormulaInputs": {
+        "Named data!B1": "GlobalValue*2",
+        "Named data!B2": "LocalValue+OtherValue",
+        "Named data!B3": "\"GlobalValue\"",
+        "Named data!B4": "SUM(A1:A3)"
+      }
     }
   ]
 }
