@@ -1,0 +1,20 @@
+# Browser runtime capability evidence
+
+The editable workbook's proposed desktop profile requires module Workers, IndexedDB, Web Locks and BroadcastChannel on a non-opaque origin. Playwright Chromium, Firefox and WebKit exercise this profile locally. Playwright WebKit is not native Safari; the versioned release profile and physical-device evidence are not yet approved. Node file/formula utilities are a separate profile described in [Node use](node-usage.md).
+
+On 2026-11-21 the [fresh-server matrix](../benchmarks/runtime-matrix-csp-2026-11-21.json) passed 51 tests with no skips, unexpected failures or flaky results on one macOS arm64 host. The report records browser and Node versions, commit, selected source/test hashes before and after, command, Playwright results and stderr. The worktree contained unrelated staged changes; the tested source files listed in the report did not change during the run. It does not fingerprint every bundled dependency or the served assets and is not a performance or release-device result.
+
+| Boundary | Evidence in the matrix | Scope and remaining gap |
+| --- | --- | --- |
+| Core work and persistence | [Order workflow](../tests/e2e/order-workload.spec.ts) exercises edits, calculations and native exports in all three engines. | One scripted workload, not all operations or hardware. |
+| Opaque and same-origin frames | [Sandbox test](../tests/e2e/opaque-sandbox-capabilities.spec.ts) checks rejected opaque frames and a working trusted frame without changing the parent's data. | Not all sandbox policies or third-party storage configurations. |
+| Worker creation | [Injected denial](../tests/e2e/worker-startup-denial.spec.ts) and [actual CSP/missing asset](../tests/e2e/worker-csp-startup.spec.ts) test errors and reopening saved data. | CSP is tested on the local development server; other policies and browsers remain unverified. |
+| IndexedDB | [Malformed main/Worker capability](../tests/e2e/malformed-indexeddb.spec.ts) checks actionable failure, pre-allocation rejection on the main thread, retry and saved values. | Injected faults are not a native private-mode or quota-exhaustion trial. |
+| Web Locks | [Malformed/denied Worker lock](../tests/e2e/malformed-web-locks.spec.ts) checks failure and retry; [handover](../tests/e2e/lock-handover.spec.ts) checks contention, failed recovery and takeover. | Lock restrictions are injected; physical interruptions and every scheduling race are not covered. |
+| BroadcastChannel | [Startup tests](../tests/e2e/broadcast-channel-startup.spec.ts) check injected denial, cleanup and reopen. | Actual restricted channel contexts remain untested. |
+
+Run `node scripts/runtime-matrix.mjs NEW_REPORT.json` after installing the workspace and Playwright browser dependencies. The harness disables reuse of an existing development server, checks selected file hashes before and after, refuses to overwrite a report and retains Playwright output even on a test failure. If port 5173 is occupied, stop the other server or choose an isolated environment. The CI workflow installs all three browser engines and runs the broader browser suite, but this local run does not establish a successful GitHub Actions run.
+
+The earlier [first](../benchmarks/runtime-matrix-2026-11-21.json) and [fresh-server](../benchmarks/runtime-matrix-fresh-2026-11-21.json) runs each passed 45 tests. Their `scope` text incorrectly says CSP was included: those commands did not include the CSP test. The first also allowed server reuse. They are retained as historical runs and must not be used as CSP evidence. An earlier harness attempt lost its test output after a wrong source-file path caused post-run fingerprinting to fail; a second attempt failed before testing because of a missing import. Neither attempt counts as a pass.
+
+Feature presence and successful initialization do not guarantee future quota, persistence across eviction, continuous permissions or storage durability after hardware failure. Keep separately verified backups. QA-01 remains open for broader restricted contexts and the full agreed environment matrix.

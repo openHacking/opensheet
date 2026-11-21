@@ -1,0 +1,1994 @@
+{
+  "started": "2026-11-21T09:41:55.583Z",
+  "finished": "2026-11-21T09:42:22.463Z",
+  "command": [
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "tests/e2e/order-workload.spec.ts",
+    "tests/e2e/opaque-sandbox-capabilities.spec.ts",
+    "tests/e2e/broadcast-channel-startup.spec.ts",
+    "tests/e2e/worker-startup-denial.spec.ts",
+    "tests/e2e/worker-csp-startup.spec.ts",
+    "tests/e2e/malformed-indexeddb.spec.ts",
+    "tests/e2e/malformed-web-locks.spec.ts",
+    "tests/e2e/lock-handover.spec.ts",
+    "--workers=3",
+    "--reporter=json"
+  ],
+  "freshServer": true,
+  "scope": "Local headless Playwright on one host; injected missing capabilities and CSP plus opaque/same-origin frames, task workflow, persistence and lock handover. Not native Safari, a real private-mode trial, a physical device matrix or a guarantee against future storage eviction.",
+  "environment": {
+    "platform": "darwin",
+    "release": "25.5.0",
+    "arch": "arm64",
+    "node": "v22.19.0",
+    "browserVersions": {
+      "chromium": "153.0.8010.12",
+      "firefox": "155.0",
+      "webkit": "26.6"
+    }
+  },
+  "source": {
+    "commit": "248c06b0045b52c353d91fab0e19443794656cc4",
+    "status": "M  TODO.md\nA  benchmarks/capacity-1a2cdb2-2026-11-12-1m-failed.json\nA  benchmarks/capacity-1a2cdb2-2026-11-12-1m-repeat-failed.json\nA  benchmarks/capacity-1a2cdb2-2026-11-12-post-paired.json\nA  benchmarks/capacity-1a2cdb2-2026-11-12-traced.json\nA  benchmarks/capacity-search-paired-2026-11-12.json\nM  docs/performance.md\nA  scripts/capacity-search-paired.mjs\n?? benchmarks/runtime-matrix-2026-11-21.json\n?? benchmarks/runtime-matrix-fresh-2026-11-21.json\n?? scripts/runtime-matrix.mjs",
+    "sha256": {
+      "packages/core/src/workbook.ts": "8f41198651663d8c57b9918712e0d2bf1ae3c673fe2ed779b3e54c90a2ff3543",
+      "packages/core/src/engine.ts": "4ee3d341edbac6818a014b9d43e80e042ca8511a8c4b257fdebfb1d245c14d8a",
+      "packages/core/src/storage.ts": "4dd6ff54253b39bd3fafd056aa46a2d18c20e10fe9ff2dc77f9a1fa1a2efdece",
+      "packages/core/src/engine.worker.js": "9c87aeff039189de4191a499334638087c2569218a1e37beeb0987579ec150e0",
+      "packages/core/src/worker-runtime.ts": "fd629a9813c63e18ece87afa64248953a6eea0df88a0849db1bfe23a00b39da6",
+      "apps/playground/src/routing.ts": "c5de1afe852603c1b7a0c5786bebd4b63e29e04c10c60c414cb775432164ac2a",
+      "playwright.config.ts": "00c78f05a3b31701f323997a4389abbbed60daae6fdf1794550645c497099aae",
+      "pnpm-lock.yaml": "a418e48a549f230419aa6ad67785ae240fabf67f3723a61b0c7113a92d650cfa",
+      "scripts/runtime-matrix.mjs": "4b2bd649c377b9f681b7c56e0960dc605ea597334ab1668af8d4bf0b7efe927f",
+      "tests/e2e/order-workload.spec.ts": "b262f1b6b21ebe2d0971a6ba53b9865fb447d1525193379c917c2edef1c0ed4f",
+      "tests/e2e/opaque-sandbox-capabilities.spec.ts": "a43357655aebac8537a85d0c908afd8e9841c21c487bed730d5c9f648e9a8d1e",
+      "tests/e2e/broadcast-channel-startup.spec.ts": "0ce6d1bddcf35a5fb38b734e9191204b8fcaa950f1f31eadd4af230e51158a85",
+      "tests/e2e/worker-startup-denial.spec.ts": "a9e88bb89c5a31a60e29b5a0803609ed007baea280d76c91960c6847e90277cc",
+      "tests/e2e/worker-csp-startup.spec.ts": "9a62e06e6bab8bca8f732d05d5dca33205afa0b3cff1d86a15b0e034de855ded",
+      "tests/e2e/malformed-indexeddb.spec.ts": "fefe8254aba08a45283dbfff191f165788ce4a974c70e43e43fb6f0ff99d0742",
+      "tests/e2e/malformed-web-locks.spec.ts": "80ecb50a094b7c064a82c798f7d5c8fa6d1f25b563bb12e565f0d671403464b1",
+      "tests/e2e/lock-handover.spec.ts": "4946845dc294b13ee99cf219f65030d820c69b357966c218f4c25b646a3db95e"
+    },
+    "sha256After": {
+      "packages/core/src/workbook.ts": "8f41198651663d8c57b9918712e0d2bf1ae3c673fe2ed779b3e54c90a2ff3543",
+      "packages/core/src/engine.ts": "4ee3d341edbac6818a014b9d43e80e042ca8511a8c4b257fdebfb1d245c14d8a",
+      "packages/core/src/storage.ts": "4dd6ff54253b39bd3fafd056aa46a2d18c20e10fe9ff2dc77f9a1fa1a2efdece",
+      "packages/core/src/engine.worker.js": "9c87aeff039189de4191a499334638087c2569218a1e37beeb0987579ec150e0",
+      "packages/core/src/worker-runtime.ts": "fd629a9813c63e18ece87afa64248953a6eea0df88a0849db1bfe23a00b39da6",
+      "apps/playground/src/routing.ts": "c5de1afe852603c1b7a0c5786bebd4b63e29e04c10c60c414cb775432164ac2a",
+      "playwright.config.ts": "00c78f05a3b31701f323997a4389abbbed60daae6fdf1794550645c497099aae",
+      "pnpm-lock.yaml": "a418e48a549f230419aa6ad67785ae240fabf67f3723a61b0c7113a92d650cfa",
+      "scripts/runtime-matrix.mjs": "4b2bd649c377b9f681b7c56e0960dc605ea597334ab1668af8d4bf0b7efe927f",
+      "tests/e2e/order-workload.spec.ts": "b262f1b6b21ebe2d0971a6ba53b9865fb447d1525193379c917c2edef1c0ed4f",
+      "tests/e2e/opaque-sandbox-capabilities.spec.ts": "a43357655aebac8537a85d0c908afd8e9841c21c487bed730d5c9f648e9a8d1e",
+      "tests/e2e/broadcast-channel-startup.spec.ts": "0ce6d1bddcf35a5fb38b734e9191204b8fcaa950f1f31eadd4af230e51158a85",
+      "tests/e2e/worker-startup-denial.spec.ts": "a9e88bb89c5a31a60e29b5a0803609ed007baea280d76c91960c6847e90277cc",
+      "tests/e2e/worker-csp-startup.spec.ts": "9a62e06e6bab8bca8f732d05d5dca33205afa0b3cff1d86a15b0e034de855ded",
+      "tests/e2e/malformed-indexeddb.spec.ts": "fefe8254aba08a45283dbfff191f165788ce4a974c70e43e43fb6f0ff99d0742",
+      "tests/e2e/malformed-web-locks.spec.ts": "80ecb50a094b7c064a82c798f7d5c8fa6d1f25b563bb12e565f0d671403464b1",
+      "tests/e2e/lock-handover.spec.ts": "4946845dc294b13ee99cf219f65030d820c69b357966c218f4c25b646a3db95e"
+    },
+    "consistent": true
+  },
+  "exitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stderr": "",
+  "playwright": {
+    "config": {
+      "argv": [
+        "/Users/openhacking/.nvm/versions/node/v22.19.0/bin/node",
+        "/Volumes/github/private/opensheet/node_modules/.pnpm/@playwright+test@1.63.0/node_modules/@playwright/test/cli.js",
+        "test",
+        "tests/e2e/order-workload.spec.ts",
+        "tests/e2e/opaque-sandbox-capabilities.spec.ts",
+        "tests/e2e/broadcast-channel-startup.spec.ts",
+        "tests/e2e/worker-startup-denial.spec.ts",
+        "tests/e2e/worker-csp-startup.spec.ts",
+        "tests/e2e/malformed-indexeddb.spec.ts",
+        "tests/e2e/malformed-web-locks.spec.ts",
+        "tests/e2e/lock-handover.spec.ts",
+        "--workers=3",
+        "--reporter=json"
+      ],
+      "configFile": "/Volumes/github/private/opensheet/playwright.config.ts",
+      "rootDir": "/Volumes/github/private/opensheet/tests/e2e",
+      "failOnFlakyTests": false,
+      "forbidOnly": false,
+      "fullyParallel": false,
+      "globalSetup": null,
+      "globalTeardown": null,
+      "globalTimeout": 0,
+      "grep": {},
+      "grepInvert": null,
+      "maxFailures": 0,
+      "metadata": {
+        "actualWorkers": 3
+      },
+      "preserveOutput": "always",
+      "projects": [
+        {
+          "outputDir": "/Volumes/github/private/opensheet/test-results",
+          "repeatEach": 1,
+          "retries": 0,
+          "metadata": {
+            "actualWorkers": 3
+          },
+          "id": "chromium",
+          "name": "chromium",
+          "testDir": "/Volumes/github/private/opensheet/tests/e2e",
+          "testIgnore": [],
+          "testMatch": [
+            "**/*.spec.ts"
+          ],
+          "timeout": 30000
+        },
+        {
+          "outputDir": "/Volumes/github/private/opensheet/test-results",
+          "repeatEach": 1,
+          "retries": 0,
+          "metadata": {
+            "actualWorkers": 3
+          },
+          "id": "webkit",
+          "name": "webkit",
+          "testDir": "/Volumes/github/private/opensheet/tests/e2e",
+          "testIgnore": [],
+          "testMatch": [
+            "**/*.spec.ts"
+          ],
+          "timeout": 30000
+        },
+        {
+          "outputDir": "/Volumes/github/private/opensheet/test-results",
+          "repeatEach": 1,
+          "retries": 0,
+          "metadata": {
+            "actualWorkers": 3
+          },
+          "id": "firefox",
+          "name": "firefox",
+          "testDir": "/Volumes/github/private/opensheet/tests/e2e",
+          "testIgnore": [],
+          "testMatch": [
+            "**/*.spec.ts"
+          ],
+          "timeout": 30000
+        }
+      ],
+      "quiet": false,
+      "reporter": [
+        [
+          "json"
+        ]
+      ],
+      "reportSlowTests": {
+        "max": 5,
+        "threshold": 300000
+      },
+      "shard": null,
+      "tags": [],
+      "updateSnapshots": "missing",
+      "updateSourceMethod": "patch",
+      "version": "1.63.0",
+      "workers": 3,
+      "webServer": {
+        "command": "pnpm dev",
+        "url": "http://127.0.0.1:5173",
+        "reuseExistingServer": false
+      }
+    },
+    "suites": [
+      {
+        "title": "broadcast-channel-startup.spec.ts",
+        "file": "broadcast-channel-startup.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "denied tab synchronization releases the writer and allows the saved workbook to reopen",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 742,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:56.984Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "88e59fbd2c35182f8050-ca05e850ce055f79dba3",
+            "file": "broadcast-channel-startup.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "channel denial leaves no new workbook, and Worker denial closes the channel",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 394,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:57.912Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "88e59fbd2c35182f8050-206fd30712f4eb56464d",
+            "file": "broadcast-channel-startup.spec.ts",
+            "line": 67,
+            "column": 1
+          },
+          {
+            "title": "denied tab synchronization releases the writer and allows the saved workbook to reopen",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 3,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1049,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:03.314Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "88e59fbd2c35182f8050-c537ea6b5fb61d4a3c5d",
+            "file": "broadcast-channel-startup.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "channel denial leaves no new workbook, and Worker denial closes the channel",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 3,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 609,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:04.599Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "88e59fbd2c35182f8050-ca2cbc84369c774b66a3",
+            "file": "broadcast-channel-startup.spec.ts",
+            "line": 67,
+            "column": 1
+          },
+          {
+            "title": "denied tab synchronization releases the writer and allows the saved workbook to reopen",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1743,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:11.588Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "88e59fbd2c35182f8050-e226a338895c8bfbfeea",
+            "file": "broadcast-channel-startup.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "channel denial leaves no new workbook, and Worker denial closes the channel",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 614,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:14.283Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "88e59fbd2c35182f8050-8c077a85b0d5d3bf8087",
+            "file": "broadcast-channel-startup.spec.ts",
+            "line": 67,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "title": "lock-handover.spec.ts",
+        "file": "lock-handover.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "failed Worker releases its writer lock after error",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 1,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1169,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:56.976Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-17616bb675a8a25efe84",
+            "file": "lock-handover.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "failed Worker releases its writer lock after messageerror",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 1,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 943,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:58.338Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-3ba8d48966af68934da7",
+            "file": "lock-handover.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "a read-only tab can take over after the writer closes, reloading the latest head",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 1,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1166,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:59.294Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-e17af809793d90dc97eb",
+            "file": "lock-handover.spec.ts",
+            "line": 51,
+            "column": 1
+          },
+          {
+            "title": "competing readers cannot both become writers",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 1,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 829,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:00.473Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-08edf8b6ebf8c291f032",
+            "file": "lock-handover.spec.ts",
+            "line": 109,
+            "column": 1
+          },
+          {
+            "title": "failed recovery releases the lock for another reader",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 1,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 889,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:01.310Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-2604d735a1d9619509db",
+            "file": "lock-handover.spec.ts",
+            "line": 158,
+            "column": 1
+          },
+          {
+            "title": "explicit read-only mode never exposes the handover action",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 1,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 895,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:02.212Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-3e679a91bbf891d951be",
+            "file": "lock-handover.spec.ts",
+            "line": 219,
+            "column": 1
+          },
+          {
+            "title": "failed Worker releases its writer lock after error",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 4,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1786,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:03.606Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-18b5fc92d023867f4bd9",
+            "file": "lock-handover.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "failed Worker releases its writer lock after messageerror",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 4,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1714,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:05.668Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-ef666f497300d1605951",
+            "file": "lock-handover.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "a read-only tab can take over after the writer closes, reloading the latest head",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 4,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 2441,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:07.395Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-9e9102c5cc4331ec0cfb",
+            "file": "lock-handover.spec.ts",
+            "line": 51,
+            "column": 1
+          },
+          {
+            "title": "competing readers cannot both become writers",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 4,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1713,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:09.847Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-e4847ae751659b38f21b",
+            "file": "lock-handover.spec.ts",
+            "line": 109,
+            "column": 1
+          },
+          {
+            "title": "failed recovery releases the lock for another reader",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 4,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1299,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:11.569Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-6135444c1a1fcdf526b1",
+            "file": "lock-handover.spec.ts",
+            "line": 158,
+            "column": 1
+          },
+          {
+            "title": "explicit read-only mode never exposes the handover action",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 4,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1096,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:12.881Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-960461d8997cda5cb69a",
+            "file": "lock-handover.spec.ts",
+            "line": 219,
+            "column": 1
+          },
+          {
+            "title": "failed Worker releases its writer lock after error",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 7,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1896,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:12.960Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-45dd473bfbfabcca95bc",
+            "file": "lock-handover.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "failed Worker releases its writer lock after messageerror",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 7,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1451,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:15.482Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-e4cf9590de42d544b994",
+            "file": "lock-handover.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "a read-only tab can take over after the writer closes, reloading the latest head",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 7,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1837,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:16.941Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-3e8aab5377d59c15644f",
+            "file": "lock-handover.spec.ts",
+            "line": 51,
+            "column": 1
+          },
+          {
+            "title": "competing readers cannot both become writers",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 7,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1375,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:18.784Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-f99fe74bf3636041bc7c",
+            "file": "lock-handover.spec.ts",
+            "line": 109,
+            "column": 1
+          },
+          {
+            "title": "failed recovery releases the lock for another reader",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 7,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1283,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:20.164Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-14c86e8d27ddd03dd9c8",
+            "file": "lock-handover.spec.ts",
+            "line": 158,
+            "column": 1
+          },
+          {
+            "title": "explicit read-only mode never exposes the handover action",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 7,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 808,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:21.452Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "55dc9dd38e72fe49d5fe-05a77db5ab888b8ecb17",
+            "file": "lock-handover.spec.ts",
+            "line": 219,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "title": "malformed-indexeddb.spec.ts",
+        "file": "malformed-indexeddb.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "rejects a malformed main-thread IndexedDB before allocating resources and retries",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 2,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1143,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:56.981Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "a65ae44f6f2f81135c19-9adf26ea21dadc89cba1",
+            "file": "malformed-indexeddb.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "rejects malformed Worker-side IndexedDB and reopens unchanged data after retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 2,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1172,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:58.319Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "a65ae44f6f2f81135c19-4ae77457a05af1cf8236",
+            "file": "malformed-indexeddb.spec.ts",
+            "line": 60,
+            "column": 1
+          },
+          {
+            "title": "rejects a malformed main-thread IndexedDB before allocating resources and retries",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 5,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1369,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:03.600Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "a65ae44f6f2f81135c19-fb241fbedcfa39315ce2",
+            "file": "malformed-indexeddb.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "rejects malformed Worker-side IndexedDB and reopens unchanged data after retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 5,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1514,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:05.247Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "a65ae44f6f2f81135c19-2de3ba45a8a29a2250cf",
+            "file": "malformed-indexeddb.spec.ts",
+            "line": 60,
+            "column": 1
+          },
+          {
+            "title": "rejects a malformed main-thread IndexedDB before allocating resources and retries",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 8,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1773,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:14.333Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "a65ae44f6f2f81135c19-24901b658c0e28c8b26d",
+            "file": "malformed-indexeddb.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "rejects malformed Worker-side IndexedDB and reopens unchanged data after retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 8,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 1186,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:16.600Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "a65ae44f6f2f81135c19-679dccce8361fdddf7ae",
+            "file": "malformed-indexeddb.spec.ts",
+            "line": 60,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "title": "malformed-web-locks.spec.ts",
+        "file": "malformed-web-locks.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "Worker malformed Web Locks preserves the saved workbook for retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1073,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:58.354Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "02a5fe6f46a5dfbf7c1c-eaab6658e63e1c266954",
+            "file": "malformed-web-locks.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "Worker not-allowed Web Locks preserves the saved workbook for retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 941,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:59.435Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "02a5fe6f46a5dfbf7c1c-af8d42180ae6c234c780",
+            "file": "malformed-web-locks.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "Worker malformed Web Locks preserves the saved workbook for retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 3,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1549,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:05.230Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "02a5fe6f46a5dfbf7c1c-727eec61319499204d49",
+            "file": "malformed-web-locks.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "Worker not-allowed Web Locks preserves the saved workbook for retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 3,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1736,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:06.789Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "02a5fe6f46a5dfbf7c1c-efc91cf879392299070a",
+            "file": "malformed-web-locks.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "Worker malformed Web Locks preserves the saved workbook for retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1431,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:14.910Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "02a5fe6f46a5dfbf7c1c-5114eef3b6df82f60f16",
+            "file": "malformed-web-locks.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "Worker not-allowed Web Locks preserves the saved workbook for retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1204,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:16.350Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "02a5fe6f46a5dfbf7c1c-afcc1237435c7dc5fcd2",
+            "file": "malformed-web-locks.spec.ts",
+            "line": 4,
+            "column": 3
+          }
+        ]
+      },
+      {
+        "title": "opaque-sandbox-capabilities.spec.ts",
+        "file": "opaque-sandbox-capabilities.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "reports initialization failures in an opaque sandbox without modifying a saved workbook",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 2,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 2476,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:41:59.514Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "7173b418ffadc8dce63a-1cc95df87ce7b0722b42",
+            "file": "opaque-sandbox-capabilities.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "reports initialization failures in an opaque sandbox without modifying a saved workbook",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 5,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 2723,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:06.789Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "7173b418ffadc8dce63a-7d395c694c7fcf3d19df",
+            "file": "opaque-sandbox-capabilities.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "reports initialization failures in an opaque sandbox without modifying a saved workbook",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1142,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:17.564Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "7173b418ffadc8dce63a-359b0e57ca0b216647d4",
+            "file": "opaque-sandbox-capabilities.spec.ts",
+            "line": 3,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "title": "order-workload.spec.ts",
+        "file": "order-workload.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "order workload preserves inputs, calculations and metadata through native exports",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 788,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:00.580Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "f9c7e9628bcde43cc0bf-52cad37b06dceee13ac4",
+            "file": "order-workload.spec.ts",
+            "line": 4,
+            "column": 1
+          },
+          {
+            "title": "order workload preserves inputs, calculations and metadata through native exports",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 3,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1092,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:08.692Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "f9c7e9628bcde43cc0bf-ba47e4348246fd1a3ac8",
+            "file": "order-workload.spec.ts",
+            "line": 4,
+            "column": 1
+          },
+          {
+            "title": "order workload preserves inputs, calculations and metadata through native exports",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 8,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 877,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:17.859Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "f9c7e9628bcde43cc0bf-da17afecd3b788ee77b1",
+            "file": "order-workload.spec.ts",
+            "line": 4,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "title": "worker-csp-startup.spec.ts",
+        "file": "worker-csp-startup.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "startup reports policy and saved data survives retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 935,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:01.387Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "e561347ad59838de42dc-dd70f70aca5106e113ed",
+            "file": "worker-csp-startup.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "startup reports missing-asset and saved data survives retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 0,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 794,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:02.338Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "e561347ad59838de42dc-bc20683ee167343bb435",
+            "file": "worker-csp-startup.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "startup reports policy and saved data survives retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 5,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1553,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:09.530Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "e561347ad59838de42dc-e0847b1fac10e345e626",
+            "file": "worker-csp-startup.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "startup reports missing-asset and saved data survives retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 5,
+                    "parallelIndex": 0,
+                    "status": "passed",
+                    "duration": 1223,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:11.093Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "e561347ad59838de42dc-49452fcbd0815c984529",
+            "file": "worker-csp-startup.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "startup reports policy and saved data survives retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1202,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:18.717Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "e561347ad59838de42dc-d21117fa78470b785da2",
+            "file": "worker-csp-startup.spec.ts",
+            "line": 4,
+            "column": 3
+          },
+          {
+            "title": "startup reports missing-asset and saved data survives retry",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 6,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 1230,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:19.925Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "e561347ad59838de42dc-8cac205c1010a75ffa21",
+            "file": "worker-csp-startup.spec.ts",
+            "line": 4,
+            "column": 3
+          }
+        ]
+      },
+      {
+        "title": "worker-startup-denial.spec.ts",
+        "file": "worker-startup-denial.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [
+          {
+            "title": "denied Worker construction reports a remedy and permits reopening saved data",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "chromium",
+                "projectName": "chromium",
+                "results": [
+                  {
+                    "workerIndex": 2,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 542,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:02.012Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "579a1a50e53fe9bcec1c-fd2262a7f69e0db5cb43",
+            "file": "worker-startup-denial.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "denied Worker construction reports a remedy and permits reopening saved data",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "webkit",
+                "projectName": "webkit",
+                "results": [
+                  {
+                    "workerIndex": 3,
+                    "parallelIndex": 2,
+                    "status": "passed",
+                    "duration": 948,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:09.798Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "579a1a50e53fe9bcec1c-c4b22849968ffe029d70",
+            "file": "worker-startup-denial.spec.ts",
+            "line": 3,
+            "column": 1
+          },
+          {
+            "title": "denied Worker construction reports a remedy and permits reopening saved data",
+            "ok": true,
+            "tags": [],
+            "tests": [
+              {
+                "timeout": 30000,
+                "annotations": [],
+                "expectedStatus": "passed",
+                "projectId": "firefox",
+                "projectName": "firefox",
+                "results": [
+                  {
+                    "workerIndex": 8,
+                    "parallelIndex": 1,
+                    "status": "passed",
+                    "duration": 762,
+                    "errors": [],
+                    "stdout": [],
+                    "stderr": [],
+                    "retry": 0,
+                    "startTime": "2026-11-21T09:42:18.745Z",
+                    "annotations": [],
+                    "attachments": []
+                  }
+                ],
+                "status": "expected"
+              }
+            ],
+            "id": "579a1a50e53fe9bcec1c-629aa0f7e2ff8585a99d",
+            "file": "worker-startup-denial.spec.ts",
+            "line": 3,
+            "column": 1
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "stats": {
+      "startTime": "2026-11-21T09:41:56.040Z",
+      "duration": 26399.184999999998,
+      "expected": 51,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  }
+}
