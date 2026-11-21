@@ -58,6 +58,42 @@ async function openReferences(): Promise<IDBDatabase> {
   });
 }
 
+/** Reads an existing record without initializing or consulting legacy storage. */
+export async function readSceneReference(key: string): Promise<SceneReference | null> {
+  checkKey(key);
+  const db = await openReferences();
+  return new Promise((resolve, reject) => {
+    let result: SceneReference | null = null;
+    let failure: unknown;
+    try {
+      const tx = db.transaction(storeName, 'readonly');
+      const request = tx.objectStore(storeName).get(key);
+      request.onsuccess = () => {
+        try {
+          result = request.result === undefined ? null : checkedReference(request.result);
+        } catch (error) {
+          failure = error;
+          tx.abort();
+        }
+      };
+      tx.oncomplete = () => {
+        db.close();
+        resolve(result);
+      };
+      tx.onabort = () => {
+        db.close();
+        reject(failure ?? tx.error ?? new Error('Scene reference transaction aborted'));
+      };
+      tx.onerror = () => {
+        /* onabort reports the failure */
+      };
+    } catch (error) {
+      db.close();
+      reject(error);
+    }
+  });
+}
+
 /** Atomically initializes a missing record from a caller-captured legacy value. */
 export async function initializeSceneReference(
   key: string,

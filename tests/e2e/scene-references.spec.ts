@@ -1,5 +1,37 @@
 import { expect, test } from '@playwright/test';
 
+test('reading scene references does not initialize or depend on legacy storage', async ({
+  page,
+}) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  const result = await page.evaluate(async () => {
+    const path = '/src/scene-references.ts';
+    const api = await import(/* @vite-ignore */ path);
+    const key = `read-${Date.now()}`;
+    const missing = await api.readSceneReference(key);
+    const initialized = await api.initializeSceneReference(key, 'legacy-workbook');
+    const original = Storage.prototype.getItem;
+    Storage.prototype.getItem = () => {
+      throw new DOMException('Denied', 'SecurityError');
+    };
+    try {
+      const first = await api.readSceneReference(key);
+      if (!first) throw new Error('Expected initialized reference');
+      first.value = 'mutated';
+      const second = await api.readSceneReference(key);
+      return { missing, initialized, second };
+    } finally {
+      Storage.prototype.getItem = original;
+    }
+  });
+  expect(result).toEqual({
+    missing: null,
+    initialized: { value: 'legacy-workbook', revision: 0 },
+    second: { value: 'legacy-workbook', revision: 0 },
+  });
+});
+
 test('transactional scene references serialize competing updates and reject ABA writes', async ({
   page,
   context,
@@ -122,6 +154,12 @@ test('corrupt or exhausted scene reference records are rejected without rewritin
       corruption = (error as Error).message;
     }
     const afterCorrupt = await read();
+    let readCorruption = '';
+    try {
+      await api.readSceneReference(key);
+    } catch (error) {
+      readCorruption = (error as Error).message;
+    }
     const exhausted = { value: 'old', revision: Number.MAX_SAFE_INTEGER };
     await write(exhausted);
     let limit = '';
@@ -132,10 +170,11 @@ test('corrupt or exhausted scene reference records are rejected without rewritin
     }
     const afterExhausted = await read();
     db.close();
-    return { corruption, afterCorrupt, limit, afterExhausted };
+    return { corruption, readCorruption, afterCorrupt, limit, afterExhausted };
   });
   expect(result).toEqual({
     corruption: 'Corrupt scene reference',
+    readCorruption: 'Corrupt scene reference',
     afterCorrupt: { value: 'old', revision: 4, extra: true },
     limit: 'Scene reference revision exhausted',
     afterExhausted: { value: 'old', revision: Number.MAX_SAFE_INTEGER },
