@@ -697,14 +697,47 @@ export function reportWorksheetLosses(
     if (parts.has(path)) throw new OpenSheetError('INVALID_ARGUMENT', 'Ambiguous XLSX part names');
     parts.set(path, part);
   }
-  // These conventional package paths identify parts, not necessarily displayed
-  // objects: orphaned parts are also discarded. Other paths remain unaudited.
+  const manifest = parts.get('[content_types].xml')?.content;
+  if (manifest instanceof Uint8Array && manifest.byteLength > 4 * 1024 * 1024)
+    throw new OpenSheetError(
+      'LIMIT_EXCEEDED',
+      'XLSX content type manifest exceeds inspection budget',
+    );
+  const manifestXml = manifest instanceof Uint8Array ? decodeXml(manifest) : undefined;
+  const declared = manifestXml ? declaredWorksheets(manifestXml) : new Set<string>();
+  const overrides = new Map<string, number>();
+  const defaults = new Map<string, number>();
+  if (manifestXml)
+    for (const tag of elementTags(manifestXml)) {
+      const kind = /^<(?:[\w.-]+:)?(Override|Default)(?=[\s/>])/.exec(tag)?.[1];
+      if (!kind) continue;
+      const fields = attributes(tag);
+      const type = fields?.get('ContentType')?.toLowerCase();
+      const name = fields?.get(kind === 'Override' ? 'PartName' : 'Extension');
+      if (!type || !name || (kind === 'Override' && !name.startsWith('/'))) continue;
+      const keys = [kind === 'Override' ? partName(name) : name.toLowerCase()];
+      if (kind === 'Override') {
+        try {
+          keys.push(partName(decodeURI(name)));
+        } catch {
+          // Keep the literal path when the URI is malformed.
+        }
+      }
+      const map = kind === 'Override' ? overrides : defaults;
+      const flags =
+        (type === 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml' ? 1 : 0) |
+        (/^(?:image|audio|video)\//.test(type) ? 2 : 0);
+      for (const key of keys) map.set(key, (map.get(key) ?? 0) | flags);
+    }
+  // Parts can be orphaned; these counts describe package parts, not visible objects.
   let charts = 0;
   let media = 0;
   for (const [name, part] of parts) {
     if (!(part?.content instanceof Uint8Array)) continue;
-    if (/^xl\/charts\/chart[0-9]+\.xml$/.test(name)) charts++;
-    if (/^xl\/media\/[^/]+$/.test(name)) media++;
+    const extension = /\.([^./]+)$/.exec(name)?.[1];
+    const flags = overrides.get(name) ?? (extension ? defaults.get(extension) : undefined) ?? 0;
+    if (/^xl\/charts\/chart[0-9]+\.xml$/.test(name) || flags & 1) charts++;
+    if (/^xl\/media\/[^/]+$/.test(name) || flags & 2) media++;
   }
   if (charts)
     add(report, {
@@ -724,14 +757,6 @@ export function reportWorksheetLosses(
       severity: 'warning',
       count: media,
     });
-  const manifest = parts.get('[content_types].xml')?.content;
-  if (manifest instanceof Uint8Array && manifest.byteLength > 4 * 1024 * 1024)
-    throw new OpenSheetError(
-      'LIMIT_EXCEEDED',
-      'XLSX content type manifest exceeds inspection budget',
-    );
-  const declared =
-    manifest instanceof Uint8Array ? declaredWorksheets(decodeXml(manifest)) : new Set<string>();
   let inspectedBytes = 0;
   let ambiguousParts = 0;
   let incompleteParts = 0;
