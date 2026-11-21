@@ -370,7 +370,7 @@ test('replacing a removed sheet ID in one transaction preserves old and new page
   });
 });
 
-for (const fault of ['page', 'head'] as const) {
+for (const fault of ['page', 'head', 'cancel'] as const) {
   test(`initial-sheet ${fault} failure rolls back staged records and can be retried`, async ({
     page,
   }) => {
@@ -381,17 +381,35 @@ for (const fault of ['page', 'head'] as const) {
         body:
           (await response.text()) +
           `
-let watchInitialSheet = false, initialSheetWrites = 0;
+let watchInitialSheet = false, initialSheetWrites = 0, releaseInitialSheet = false;
 const initialSheetFault = ${JSON.stringify(fault)};
-addEventListener('message', ({data}) => { if (data.watchInitialSheet) watchInitialSheet = true; });
+addEventListener('message', ({data}) => {
+  if (data.watchInitialSheet) watchInitialSheet = true;
+  if (data.method === 'cancel') releaseInitialSheet = true;
+});
 const originalPut = IDBObjectStore.prototype.put;
 IDBObjectStore.prototype.put = function(...args) {
-  if (initialSheetFault === 'page' && watchInitialSheet && this.name === 'records' && initialSheetWrites === 1) {
+  const value = args[0];
+  const page = this.name === 'records' && value instanceof Uint8Array &&
+    value[0] === 1 && value[1] === 79 && value[2] === 83 && value[3] === 80;
+  if (initialSheetFault === 'page' && watchInitialSheet && page && initialSheetWrites === 1) {
     watchInitialSheet = false;
     postMessage({initialSheetWritesBeforeFailure: initialSheetWrites});
     throw new DOMException('Injected page failure', 'QuotaExceededError');
   }
   const request = originalPut.apply(this, args);
+  if (initialSheetFault === 'cancel' && watchInitialSheet && page && initialSheetWrites === 1) {
+    const store = this, recordKey = args[1];
+    request.addEventListener('success', () => {
+      watchInitialSheet = false;
+      postMessage({initialSheetCancelReady: initialSheetWrites});
+      const keepAlive = () => {
+        const read = store.get(recordKey);
+        read.onsuccess = () => { if (!releaseInitialSheet) keepAlive(); };
+      };
+      keepAlive();
+    }, {once: true});
+  }
   if (initialSheetFault === 'head' && watchInitialSheet && this.name === 'heads') {
     const transaction = this.transaction;
     request.addEventListener('success', () => {
@@ -400,8 +418,8 @@ IDBObjectStore.prototype.put = function(...args) {
       postMessage({initialSheetWritesBeforeFailure: initialSheetWrites});
     }, {once: true});
   }
-  if (watchInitialSheet && this.name === 'records')
-    this.transaction.addEventListener('complete', () => { initialSheetWrites++; }, {once: true});
+  if (watchInitialSheet && page)
+    request.addEventListener('success', () => { initialSheetWrites++; }, {once: true});
   return request;
 };`,
       });
@@ -447,6 +465,10 @@ IDBObjectStore.prototype.put = function(...args) {
       let writes = 0;
       worker.addEventListener('message', ({ data }) => {
         if (data.initialSheetWritesBeforeFailure) writes = data.initialSheetWritesBeforeFailure;
+        if (data.initialSheetCancelReady) {
+          writes = data.initialSheetCancelReady;
+          book.cancel();
+        }
       });
       worker.postMessage({ watchInitialSheet: true });
       const error = await book
@@ -479,9 +501,12 @@ IDBObjectStore.prototype.put = function(...args) {
     if (fault === 'page') {
       expect(result.writes).toBe(1);
       expect(result.error).toBe('QuotaExceededError');
-    } else {
+    } else if (fault === 'head') {
       expect(result.writes).toBeGreaterThanOrEqual(2);
       expect(result.error).not.toBe('unexpected success');
+    } else {
+      expect(result.writes).toBe(1);
+      expect(result.error).toBe('ABORTED');
     }
     expect(result.failed).toEqual({ ...result.before, missing: true });
     expect(result.reopened).toEqual({ revision: result.before.revision, missing: true });
