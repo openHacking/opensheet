@@ -246,3 +246,28 @@ it('invalidates a long cached chain without recursive eviction or stale outputs'
   for (let row = 1; row <= 500; row++) expect(await calculation.value('s', row, 0)).toBe(row + 5);
   expect(calculation.cacheBytes).toBeLessThanOrEqual(1024 * 1024);
 });
+
+it('documents the current depth-limit change after formula cache eviction', async () => {
+  const budget = 128 * 1024;
+  const calculation = new AsyncCalculation(
+    async (sheet, row, column) => ({
+      rowId: row,
+      columnId: column,
+      input:
+        sheet === 'filler'
+          ? { type: 'formula' as const, expression: `${row}+1` }
+          : row === 0
+            ? { type: 'number' as const, value: 1 }
+            : { type: 'formula' as const, expression: `A${row}+1` },
+    }),
+    () => undefined,
+    budget,
+  );
+  expect(await calculation.value('chain', 129, 0)).toEqual({ error: '#LIMIT!' });
+  expect(await calculation.value('chain', 128, 0)).toBe(129);
+  expect(await calculation.value('chain', 129, 0)).toBe(130);
+  for (let row = 0; row < 2000; row++)
+    expect(await calculation.value('filler', row, 0)).toBe(row + 1);
+  expect(calculation.cacheBytes).toBeLessThanOrEqual(budget);
+  expect(await calculation.value('chain', 129, 0)).toEqual({ error: '#LIMIT!' });
+});
