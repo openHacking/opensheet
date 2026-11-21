@@ -32,6 +32,7 @@ export function createPerformance(
   let task: Promise<void> | undefined;
   let mode: 'single' | 'capacity' = 'single';
   let running = false,
+    resetting = false,
     stopped = false,
     abort = new AbortController(),
     progress = 'Ready',
@@ -74,7 +75,7 @@ export function createPerformance(
     `<div class="performance-controls"><label>Cells<input id="perf-cells" type="number" min="10000" max="${LIMIT}" step="10000" value="${target}"></label><label>Budget (MiB)<input id="perf-budget" type="number" min="1" max="8192" value="${budgetMiB}"></label><div class="performance-buttons"><button class="button primary" id="perf-run">Test size</button><button class="button secondary" id="perf-probe">Find capacity</button><button class="button secondary" id="perf-stop">Stop</button><button class="button secondary" id="perf-restore">Restore</button><button class="button secondary" id="perf-clear">Clear test data</button><button class="button secondary" id="perf-download">Download results</button></div></div><p>100 columns · 60% numbers / 30% 32-byte text / 10% booleans · fixed seed. Each size: 3 rounds, 100 edits, 300 scrolling frames.</p><p>Pass: edit P95 ≤100 ms · complete scroll frame P95 ≤33 ms · reopen to editable viewport ≤10 s. Formula and XLSX performance are separate workloads.</p><p id="perf-progress" role="status" aria-live="polite"></p><div id="perf-summary"></div><div class="performance-results"><table><thead><tr><th>Cells</th><th>Result</th><th>Edit P95</th><th>Scroll P95</th><th>Restore</th><th>Verify</th><th>Elapsed</th><th>MiB</th><th>Bytes/cell</th><th>Worker cache</th><th>Viewport cache</th><th>Main heap</th></tr></thead><tbody id="perf-results"></tbody></table></div>`;
   function update() {
     if (state.currentScene !== 'performance' || !$('perf-progress')) return;
-    app.element.inert = running;
+    app.element.inert = running || resetting;
     $('perf-progress').textContent = progress;
     $('perf-summary').textContent =
       `Largest passed: ${largest.toLocaleString()} · Smallest failed: ${smallest?.toLocaleString() ?? '—'} · Origin usage: ${quota.usage === undefined ? 'unknown' : mib(quota.usage) + ' MiB'} · Estimated origin quota: ${quota.quota === undefined ? 'unknown' : mib(quota.quota) + ' MiB'} (includes other same-origin storage). Application bytes count encoded records, staging and history; browser disk usage is a separate estimate.`;
@@ -108,15 +109,15 @@ export function createPerformance(
       'perf-cells',
       'perf-budget',
     ])
-      $<HTMLButtonElement>(id).disabled = running;
+      $<HTMLButtonElement>(id).disabled = running || resetting;
     $<HTMLButtonElement>('perf-stop').disabled = !running;
-    $<HTMLSelectElement>('scene-select').disabled = running;
+    $<HTMLSelectElement>('scene-select').disabled = running || resetting;
     for (const el of document.querySelectorAll<
       HTMLButtonElement | HTMLInputElement | HTMLSelectElement
     >(
       '.document-actions button, .utility-bar input, .utility-bar button, .utility-bar select, #reset-demo',
     ))
-      el.disabled = running;
+      el.disabled = running || resetting;
   }
   async function empty() {
     app.getGrid()?.dispose();
@@ -617,6 +618,24 @@ export function createPerformance(
   }
   return {
     start,
+    reset: async () => {
+      resetting = true;
+      update();
+      try {
+        const snapshot = createWorkbookFile({
+          sheets: [{ name: 'Performance', rows: 100, columns: 100 }],
+        });
+        await app.loadJSON(snapshot);
+        lastBook = app.getWorkbook();
+        results = [];
+        largest = 0;
+        smallest = undefined;
+        progress = 'Test data reset.';
+      } finally {
+        resetting = false;
+        update();
+      }
+    },
     update,
     leave: async () => {
       stopped = true;

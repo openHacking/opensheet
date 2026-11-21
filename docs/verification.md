@@ -1179,4 +1179,8 @@ Backup restore captures the current workbook and scene reference before preparin
 
 ### Scene creation and reset reference preflight
 
-Non-performance scene creation and reset capture the scene reference before preparing a new workbook and compare it again before publication. Two-page tests in Chromium, Firefox and WebKit publish a separate real workbook to the reference while the candidate is paused. The initiating page retains its original workbook, deletes the unpublished candidate and can later open the competing workbook and value. Separate injected final-read failures preserve the original workbook and permit retry. This is not an atomic compare-and-swap: ABA and writes after the check remain possible. Performance-scene reset is not covered by this check.
+Non-performance scene creation and reset capture the scene reference before preparing a new workbook and compare it again before publication. Two-page tests in Chromium, Firefox and WebKit publish a separate real workbook to the reference while the candidate is paused. The initiating page retains its original workbook, deletes the unpublished candidate and can later open the competing workbook and value. Separate injected final-read failures preserve the original workbook and permit retry. This is not an atomic compare-and-swap: ABA and writes after the check remain possible. The performance scene uses a separate fixed workbook and does not use this reference.
+
+### Performance scene reset
+
+The performance scene now resets by importing an empty fixture into its dedicated workbook, using the existing durable import publication path. Three-browser tests check reset and reopen, read-only second-tab rejection, an injected head-transaction abort followed by retry, disabled controls during a delayed completion, and a failure after publication that reports the result may have completed. The fault is injected; physical interruption, other timings and large-workbook reset cost remain open.

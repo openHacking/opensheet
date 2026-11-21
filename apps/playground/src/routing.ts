@@ -22,6 +22,7 @@ export function createRouting(
   refresh: () => void,
   showPanel: (panel: 'code' | 'insights') => void,
   startPerformance: () => Promise<void>,
+  resetPerformance: () => Promise<void>,
   leavePerformance: () => Promise<void>,
   notice: (message: string) => void,
 ) {
@@ -164,10 +165,12 @@ export function createRouting(
     button.disabled = true;
     let candidate: Workbook | undefined;
     let published = false;
+    let performanceResetStarted = false;
     try {
       if (scene === 'performance') {
-        localStorage.removeItem(`opensheet.scene.${scene}`);
-        await loadScene(scene);
+        performanceResetStarted = true;
+        await resetPerformance();
+        completeScene(scene);
       } else {
         const previous = app.getWorkbook();
         const revision = previous.revision;
@@ -209,7 +212,9 @@ export function createRouting(
       notice(
         published
           ? `${message}. Reset workbook ${candidate?.id} was retained; reload to open the saved scene.`
-          : message,
+          : performanceResetStarted && (error as { code?: string })?.code !== 'READ_ONLY'
+            ? `${message}. Reset may have completed; reopen the performance scene to check.`
+            : message,
       );
     } finally {
       routeBusy = false;
