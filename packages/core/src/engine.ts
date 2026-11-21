@@ -707,7 +707,11 @@ export class Engine {
         stored.styleIds.length === stored.snapshot.styles.length &&
         new Set(stored.styleIds).size === stored.styleIds.length &&
         stored.styleIds.every(
-          (id) => /^[-\w]+$/.test(id) && !['__proto__', 'prototype', 'constructor'].includes(id),
+          (id) =>
+            typeof id === 'string' &&
+            id.length <= 100 &&
+            /^[-\w]+$/.test(id) &&
+            !['__proto__', 'prototype', 'constructor'].includes(id),
         ),
       'CORRUPT_STORAGE',
       'Invalid stored style identities',
