@@ -1,0 +1,29 @@
+# Edit, reopen and back up a workbook
+
+This guide targets the **unreleased 0.2.0-dev.0 candidate**, not the published 0.1.1 preview. The [local candidate example](../examples/local-candidate/) is a small Vite host that installs local package archives. Its JavaScript is the runnable example for this guide; use the [published-version README](../README.md#usage) only with the matching published API.
+
+## Run the example
+
+You need Node 22 or later, pnpm 10.22.0, a browser with module Workers, IndexedDB, Web Locks and BroadcastChannel, and the local `opensheet-0.2.0-dev.0-attachment-fix` candidate archives. These locally staged archives are a specific build, not a guarantee that they contain later workspace changes. Follow the copy, install and preview commands in the [example README](../examples/local-candidate/README.md). Open the `/embedded/sheets/` URL printed by Vite. The host uses a non-root path intentionally; it needs a server origin such as localhost, not a `file:` URL. Installation may download third-party packages.
+
+The example imports the editor and its stylesheet, creates a 10-row workbook, writes `7` and `5` to A1 and B1, and writes a formula to C1. The displayed result is `12`. Its container has an explicit 500 px height. Click a cell and edit it; a successful write is committed to browser storage. The complete, tested implementation is [main.js](../examples/local-candidate/main.js).
+
+## Keep the workbook and reopen it
+
+A workbook has a local `book.id`. Store that ID in your application and use `openWorkbook(id)` to reopen the same local workbook after closing or disposing the previous instance. `await book.close()` releases the writer lock; `app.dispose()` also releases the editor and its workbook. Neither is a backup or deletes the saved workbook. An application must decide where to persist its ID and which workbook to open: the example deliberately creates a new workbook on each page load. See [creation, attachment and lifecycle](api.md#create-restore-and-close) for the available APIs.
+
+Only one instance is the writer at a time. Another instance may open read-only until the writer closes and the reader acquires the lock. Wait for writes to finish and surface `book.persistenceState` or `onPersistence` in a real host; `saved` means an acknowledgement was received, not that browser storage can never be evicted. See [storage failure and recovery](api.md) for error codes and the retry boundaries.
+
+## Save a portable copy
+
+The example's `backupWorkbook(book)` awaits `book.toJSON()` and serializes the complete native workbook as JSON. Save that string as a file outside the browser's local database; your application must provide the download or other storage mechanism. The example’s `restoreBackup(app, json)` parses the JSON and passes the resulting workbook file to `app.load(file)`; importing creates a local workbook. Treat files from others as untrusted and handle validation errors. Full JSON materializes the complete workbook and may require substantial memory; use the [streaming export APIs](api.md#native-json-and-binary-io) for larger exports.
+
+This native backup is distinct from XLSX. When exchanging spreadsheets with other applications, inspect the [file compatibility and loss report](04-sheetjs-and-formats.md); OpenSheet does not promise lossless Excel compatibility.
+
+## If opening fails
+
+- `WORKER_UNAVAILABLE` or `WORKER_FAILED`: verify the Worker asset URL and the site's security policy, then reopen the same ID. The message identifies possible causes, not a diagnosis.
+- `STORAGE_UNAVAILABLE`, `WEB_LOCKS_UNAVAILABLE` or `BROADCAST_CHANNEL_UNAVAILABLE`: check the browser capabilities and permissions, and use a supported origin. Private browsing and storage policies can restrict them.
+- A quota or budget failure is not a successful save. Keep any unsaved input, free space or adjust the configured budget, and retry only after checking the reported state. An exported copy is separate from local storage.
+
+See the [API guide](api.md), [runtime capability matrix](runtime-capabilities.md), and [implementation limitations](implementation-status.md) before relying on a specific deployment or file feature. The example and its automated verification do not establish strict CSP, server rendering, native accessibility, or support for every bundler and browser version.

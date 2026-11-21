@@ -35,6 +35,7 @@ All unchecked items are **planned**, not implemented or verified by this documen
   - Accept: record existing alternative, top blocker, essential functions/files, integration time and upgrade needs; update scope based on observed failures. Do not count internal demos as independent adoption.
 
 - [ ] **DOC-02 — Publish task-oriented, versioned documentation.** P1 / M3 / L / Docs + DX / deps: DOC-01, DX-01.
+  - [x] Candidate getting-started workflow (2026-11-21): added an edit, local reopen, JSON backup and restore guide linked to a runnable Vite host. A [three-browser isolated-host run](benchmarks/getting-started-host-restoration-2026-11-21.json) installs hash-checked local attachment-fix archives, frozen-reinstalls, edits and verifies restored/reopened data. An [older archive fails](benchmarks/getting-started-host-2026-11-21.json) the attachment lifecycle check; the guide identifies the tested build. Other guides, independent newcomer rehearsal, publication and later workspace changes remain open.
   - Deliver: installation, edit/save/reopen, formulas, file losses, error recovery, performance, accessibility, framework and plugin guides; searchable API reference and version labels.
   - Accept: snippets compile or run against packaged artifacts; a new developer can follow each supported workflow without reading source; limits and failure recovery appear next to relevant APIs.
 

@@ -1,0 +1,45 @@
+{
+  "startedAt": "2026-11-21T15:42:04.927Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 397,
+    "sha256": "05cadd0cacaa14ba39f432daf242b5b597cf85fc9ebc6811c528069bbaca5040"
+  },
+  "artifactDirectory": "/Volumes/github/private/opensheet/artifacts/opensheet-0.2.0-dev.0",
+  "results": [],
+  "scope": "Actual local candidate archives, isolated pnpm/Vite host under a subpath, three headless browsers. No registry publication of OpenSheet, strict CSP, SSR, native keyboard, memory or physical-device acceptance.",
+  "example": {
+    "package.json": "9307f6529730273bcb4f9427682c5e2f2516d16cccc44f95365b4d7e112944b0",
+    "index.html": "bdc971340a218ac33a641f6a371ebe6e64b64e3be807970d2e3e47d67964f06f",
+    "main.js": "d51020899fe2690a799d2faedc36b91f5601b48691cc4eabf31e42b8230ef96e",
+    "vite.config.js": "c426b6aa74865f556261f03b5ef08ecc8c9f1357b89c788711adade7e8c31373"
+  },
+  "archives": [
+    {
+      "name": "opensheet.tgz",
+      "sha256": "930bc023cdb4810677bd856dfe0d51a0057074678e7cc2d6b989530545996752"
+    },
+    {
+      "name": "core.tgz",
+      "sha256": "50bb9b6d01540afdcd4a7f9ecf0c6e55917213ae9d5438e95790e846bd0da7e2"
+    },
+    {
+      "name": "formula.tgz",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "plugin-sdk.tgz",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "renderer.tgz",
+      "sha256": "ae82bb322e13e8f013adcc3fc0a908ee8063b4ceeaf452c3354f2a057f8b8b21"
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/getting-started-host-2026-11-21.consumer-lock.yaml",
+    "sha256": "7d21a9e6cac248b060b91a0a1edcc2c604ba88044692426e5ff9fde6cf632362",
+    "frozenReinstall": "passed"
+  },
+  "error": "Error: page.evaluate: OpenSheetError: Workbook or transaction scope is disposed\n    at y (http://127.0.0.1:58748/embedded/sheets/assets/index-DIClplwd.js:57:43484)\n    at get metadata (http://127.0.0.1:58748/embedded/sheets/assets/index-DIClplwd.js:57:86235)\n    at ii.getSheets (http://127.0.0.1:58748/embedded/sheets/assets/index-DIClplwd.js:57:88495)\n    at eval (eval at evaluate (:311:30), <anonymous>:28:29)\n    at async <anonymous>:337:30"
+}

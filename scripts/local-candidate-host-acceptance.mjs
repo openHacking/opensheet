@@ -152,13 +152,14 @@ try {
         { timeout: 30000 },
       );
       const attachmentRace = await page.evaluate(async () => {
-        const { app, book } = window.candidateExample;
-        const snapshot = await book.toJSON();
+        const { app, book, backupWorkbook } = window.candidateExample;
+        const snapshot = JSON.parse(await backupWorkbook(book));
         const target = new book.constructor({
           ...snapshot,
           workbookId: `candidate_target_${crypto.randomUUID()}`,
         });
         await target.ready();
+        const backupValues = await target.getSheets()[0].range('A1:C2').getValues();
         const ready = target.ready.bind(target);
         let release;
         const pending = new Promise((resolve) => (release = resolve));
@@ -175,22 +176,31 @@ try {
         const code = await result;
         return {
           code,
+          backupValues,
           same: app.getWorkbook() === book,
           value: await book.getSheets()[0].range('A2').getValues(),
           grids: document.querySelectorAll('.os-grid').length,
         };
       });
       const edited = await page.evaluate(async () => {
-        const { app, book, openWorkbook } = window.candidateExample;
+        const { app, book, openWorkbook, backupWorkbook, restoreBackup, createOpenSheet } =
+          window.candidateExample;
+        const backup = await backupWorkbook(book);
         const value = (await book.getSheets()[0].range('A2').getValues())[0][0];
         const id = book.id;
         app.dispose();
         const removed = !document.querySelector('.opensheet');
+        const restoreApp = createOpenSheet({ container: '#sheet' });
+        const restored = await restoreBackup(restoreApp, backup);
+        const restoredValues = await restored.getSheets()[0].range('A1:C2').getValues();
+        await restored.deleteStorage();
+        restoreApp.dispose();
         const reopened = await openWorkbook(id);
         try {
           return {
             value,
             removed,
+            restoredValues,
             reopened: await reopened.getSheets()[0].range('A1:C2').getValues(),
           };
         } finally {
@@ -211,10 +221,23 @@ try {
       assert.deepEqual(initial.values, [[7, 5, 12]]);
       assert.equal(initial.height, 500);
       assert.equal(initial.stylesheets, 1);
-      assert.deepEqual(attachmentRace, { code: 'DISPOSED', same: true, value: [[42]], grids: 1 });
+      assert.deepEqual(attachmentRace, {
+        code: 'DISPOSED',
+        backupValues: [
+          [7, 5, 12],
+          [42, null, null],
+        ],
+        same: true,
+        value: [[42]],
+        grids: 1,
+      });
       assert.deepEqual(edited, {
         value: 42,
         removed: true,
+        restoredValues: [
+          [7, 5, 12],
+          [42, null, null],
+        ],
         reopened: [
           [7, 5, 12],
           [42, null, null],

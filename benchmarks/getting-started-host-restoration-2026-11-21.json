@@ -1,0 +1,262 @@
+{
+  "startedAt": "2026-11-21T15:47:53.458Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 397,
+    "sha256": "bd49521cab7fc71a85d91f5e5a55061bd5b6a1eef71fb2a88ba65e8b454258fd"
+  },
+  "artifactDirectory": "/Volumes/github/private/opensheet/artifacts/opensheet-0.2.0-dev.0-attachment-fix",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "attachmentRace": {
+        "code": "DISPOSED",
+        "backupValues": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ],
+        "same": true,
+        "value": [
+          [
+            42
+          ]
+        ],
+        "grids": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "restoredValues": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ],
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js"
+      ],
+      "errors": []
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "attachmentRace": {
+        "code": "DISPOSED",
+        "backupValues": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ],
+        "same": true,
+        "value": [
+          [
+            42
+          ]
+        ],
+        "grids": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "restoredValues": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ],
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js"
+      ],
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "initial": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "height": 500,
+        "stylesheets": 1
+      },
+      "attachmentRace": {
+        "code": "DISPOSED",
+        "backupValues": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ],
+        "same": true,
+        "value": [
+          [
+            42
+          ]
+        ],
+        "grids": 1
+      },
+      "edited": {
+        "value": 42,
+        "removed": true,
+        "restoredValues": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ],
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            42,
+            null,
+            null
+          ]
+        ]
+      },
+      "workerUrls": [
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js",
+        "/embedded/sheets/assets/engine.worker-CLSpz9Z_.js"
+      ],
+      "errors": []
+    }
+  ],
+  "scope": "Actual local candidate archives, isolated pnpm/Vite host under a subpath, three headless browsers. No registry publication of OpenSheet, strict CSP, SSR, native keyboard, memory or physical-device acceptance.",
+  "example": {
+    "package.json": "9307f6529730273bcb4f9427682c5e2f2516d16cccc44f95365b4d7e112944b0",
+    "index.html": "bdc971340a218ac33a641f6a371ebe6e64b64e3be807970d2e3e47d67964f06f",
+    "main.js": "9cd640d691d90f5b0a640aab24e3d2a2a83d7a4f133414a5e8cdf37fa6fc69fc",
+    "vite.config.js": "c426b6aa74865f556261f03b5ef08ecc8c9f1357b89c788711adade7e8c31373"
+  },
+  "archives": [
+    {
+      "name": "opensheet.tgz",
+      "sha256": "93cce086a38fe8a10c989b3acdfb99149b14c412ce3663306d1abd69b19eaa72"
+    },
+    {
+      "name": "core.tgz",
+      "sha256": "72aad2367c12a2ad9a9e11829c11fd59447791aded9d2e590efd70e41b16f48f"
+    },
+    {
+      "name": "formula.tgz",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "plugin-sdk.tgz",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "renderer.tgz",
+      "sha256": "16ab4b620c6fee7d96e021837c2d778d7a7f8a6c34a5532669c21a5e90d1d4ac"
+    }
+  ],
+  "lock": {
+    "path": "benchmarks/getting-started-host-restoration-2026-11-21.consumer-lock.yaml",
+    "sha256": "e9ee61208497fea09052786f41bf5d343d5ecd6f0f1b1ca1983694878193bc15",
+    "frozenReinstall": "passed"
+  },
+  "finishedAt": "2026-11-21T15:48:04.744Z"
+}
