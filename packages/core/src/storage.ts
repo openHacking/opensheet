@@ -72,8 +72,13 @@ export class Database {
   private constructor(readonly db: IDBDatabase) {}
   static async open(name = 'opensheet') {
     try {
-      assert(typeof indexedDB !== 'undefined', 'STORAGE_UNAVAILABLE', 'IndexedDB is required');
-      const req = indexedDB.open(name, 1);
+      const factory = globalThis.indexedDB;
+      assert(
+        factory && typeof factory.open === 'function',
+        'STORAGE_UNAVAILABLE',
+        'IndexedDB is required for local persistence; enable site storage or use a supported browser',
+      );
+      const req = factory.open(name, 1);
       req.onupgradeneeded = () => {
         req.result.createObjectStore('sizes');
         req.result.createObjectStore('heads');

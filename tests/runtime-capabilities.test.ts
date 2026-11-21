@@ -268,3 +268,54 @@ describe('runtime prerequisites', () => {
     },
   );
 });
+
+it.each([null, {}, { open: null }, { open: 'not callable' }])(
+  'rejects malformed IndexedDB %j before starting channel or Worker',
+  (value) => {
+    const worker = vi.fn();
+    const channel = vi.fn();
+    vi.stubGlobal('window', {});
+    vi.stubGlobal('Worker', worker);
+    vi.stubGlobal('BroadcastChannel', channel);
+    vi.stubGlobal('indexedDB', value);
+    expect(() => new Workbook()).toThrow(expect.objectContaining({ code: 'STORAGE_UNAVAILABLE' }));
+    expect(worker).not.toHaveBeenCalled();
+    expect(channel).not.toHaveBeenCalled();
+  },
+);
+
+it.each([undefined, null, {}, { open: null }])(
+  'reports unusable Worker-side IndexedDB %j as storage unavailable',
+  async (value) => {
+    vi.stubGlobal('indexedDB', value);
+    await expect(Database.open('malformed-indexed-db')).rejects.toEqual(
+      expect.objectContaining({ code: 'STORAGE_UNAVAILABLE' }),
+    );
+  },
+);
+
+it('handles a denied IndexedDB open getter without starting a Worker', async () => {
+  const worker = vi.fn();
+  vi.stubGlobal('window', {});
+  vi.stubGlobal('Worker', worker);
+  vi.stubGlobal('indexedDB', {
+    get open() {
+      throw new DOMException('Denied', 'SecurityError');
+    },
+  });
+  expect(() => new Workbook()).toThrow(expect.objectContaining({ code: 'STORAGE_UNAVAILABLE' }));
+  expect(worker).not.toHaveBeenCalled();
+  await expect(Database.open()).rejects.toEqual(
+    expect.objectContaining({ code: 'STORAGE_UNAVAILABLE' }),
+  );
+});
+
+it('preserves unexpected Worker-side IndexedDB open getter failures', async () => {
+  const failure = new Error('unexpected getter failure');
+  vi.stubGlobal('indexedDB', {
+    get open() {
+      throw failure;
+    },
+  });
+  await expect(Database.open()).rejects.toBe(failure);
+});

@@ -202,7 +202,7 @@ export class Workbook {
     if (!options.workerFactory && typeof window !== 'undefined') {
       let storageAvailable = false;
       try {
-        storageAvailable = typeof indexedDB !== 'undefined';
+        storageAvailable = typeof globalThis.indexedDB?.open === 'function';
       } catch {
         // Access itself can be denied in restricted browser contexts.
       }
