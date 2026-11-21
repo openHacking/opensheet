@@ -115,7 +115,7 @@ export function validateSnapshot(input: unknown): WorkbookSnapshot {
         'INVALID_ARGUMENT',
         'Invalid cell identity',
       );
-      assert(!c.styleId || !!s.styles[c.styleId], 'INVALID_ARGUMENT', 'Unknown style');
+      assert(!c.styleId || Object.hasOwn(s.styles, c.styleId), 'INVALID_ARGUMENT', 'Unknown style');
     }
     for (const id of Object.keys(sh.rows))
       assert(rows.has(+id), 'INVALID_ARGUMENT', 'Unknown row metadata');

@@ -1,4 +1,4 @@
-import { createSnapshot, createSheet } from '../packages/core/src/model.js';
+import { createSnapshot, createSheet, validateSnapshot } from '../packages/core/src/model.js';
 import { it, expect } from 'vitest';
 import { createWorkbook, Workbook, key, LIMITS, type Selection } from '@opensheetjs/core';
 import { exportRange } from '@opensheetjs/formats';
@@ -80,6 +80,19 @@ it('validates commands that add externally supplied sheets', async () => {
   await expect(async () => await b.execute({ type: 'constructor', payload: {} })).rejects.toThrow(
     /Unknown command/,
   );
+});
+it('requires a real style record for prototype-named style references', () => {
+  const snapshot = createSnapshot();
+  const sheet = snapshot.sheets[0];
+  sheet.cells['0:0'] = {
+    rowId: 0,
+    columnId: 0,
+    input: { type: 'number', value: 1 },
+    styleId: 'toString',
+  };
+  expect(() => validateSnapshot(snapshot)).toThrow('Unknown style');
+  Object.defineProperty(snapshot.styles, 'toString', { value: { bold: true }, enumerable: true });
+  expect(validateSnapshot(snapshot).styles['toString']).toEqual({ bold: true });
 });
 it('exports entire merges and rejects partial merged selections', async () => {
   const b = await createWorkbook(),

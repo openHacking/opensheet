@@ -2164,8 +2164,27 @@ export class Engine {
   private async applyLocal(command: Command, head: Head, metadata: Metadata) {
     const p = command.payload as any,
       sh = metadata.snapshot.sheets.find((s) => s.id === p.sheetId);
+    let initialCellCount = 0;
+    let initialCellBytes = 0;
+    if (command.type === 'core.sheet.add') {
+      for (const position in p.sheet.cells) {
+        if (!Object.hasOwn(p.sheet.cells, position)) continue;
+        initialCellCount++;
+        initialCellBytes += encodedBytes(p.sheet.cells[position]) * 4;
+        assert(
+          initialCellCount * 512 <= 32 * 1024 * 1024 && initialCellBytes <= 32 * 1024 * 1024,
+          'LIMIT_EXCEEDED',
+          'Initial sheet cells exceed the 32 MiB command budget; import as a new workbook',
+        );
+        if (initialCellCount % 1024 === 0) {
+          await yieldToTask();
+          this.check();
+        }
+      }
+    }
     const traversalCells =
       (p.cells?.length ?? 0) +
+      initialCellCount +
       [p.range, p.target].reduce(
         (total, range) =>
           total +
@@ -2257,6 +2276,29 @@ export class Engine {
       Object.assign(target!.cells, structuredClone(block.cells));
     }
     reduceCommand(snapshot, command);
+    if (command.type === 'core.sheet.add') {
+      const index = snapshot.sheets.findIndex((sheet) => sheet.id === p.sheet.id);
+      const added = snapshot.sheets[index];
+      const initialPages = new Map<string, Record<string, CellRecord>>();
+      let grouped = 0;
+      for (const [position, cell] of Object.entries(added.cells)) {
+        const address = blockAddress(added.id, cell.rowId, cell.columnId);
+        let page = initialPages.get(address);
+        if (!page) initialPages.set(address, (page = {}));
+        page[position] = cell;
+        if (++grouped % 1024 === 0) {
+          await yieldToTask();
+          this.check();
+        }
+      }
+      // Do not clear the sheet object retained in the returned command payload.
+      snapshot.sheets[index] = { ...added, cells: {} };
+      metadata.snapshot = snapshot;
+      for (const [address, cells] of initialPages) {
+        this.check();
+        await this.storeBlock(address, cells, head, metadata);
+      }
+    }
     const pages = new Map<string, Record<string, CellRecord>>();
     if (target && (!mergeDirty || mergeDirty.size)) {
       for (const cell of Object.values(target.cells)) {
