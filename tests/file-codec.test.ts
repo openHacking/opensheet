@@ -1128,6 +1128,17 @@ describe('native column files and binary pages', () => {
     expect(encoded.length).toBeLessThan(1500);
     expect(decodeBlock(encoded).cells).toEqual(cells);
   });
+  it.each([
+    ['\uFEFFfirst', '\uFEFFsecond', '\uFEFF'],
+    Array(16).fill('\uFEFFrepeat'),
+    ['\uFEFFwide', '\uD800'],
+  ])('preserves leading U+FEFF in encoded string columns: %j', (...values: string[]) => {
+    const cells: Record<string, import('@opensheetjs/core').CellRecord> = {};
+    values.forEach((value, row) => {
+      cells[key(row, 0)] = { rowId: row, columnId: 0, input: { type: 'string', value } };
+    });
+    expect(decodeBlock(encodeBlock(cells, [], [], {})).cells).toEqual(cells);
+  });
   it('preserves scalar cells, formulas and sparse properties in a mixed binary page', () => {
     const cells: Record<string, import('@opensheetjs/core').CellRecord> = {
       '0:0': { rowId: 0, columnId: 0, input: { type: 'number', value: -0 } },

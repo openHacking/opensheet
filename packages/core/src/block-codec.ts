@@ -4,9 +4,11 @@ import { encodeFileCells, decodeFileCells, type FileBlockData } from './file-cod
 export type EncodedBlock = Uint8Array;
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8', { fatal: true });
-function decodeText(bytes: Uint8Array): string {
+// String columns contain independent values, not UTF-8 files with a BOM.
+const valueDecoder = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
+function decodeText(bytes: Uint8Array, preserveBOM = false): string {
   try {
-    return decoder.decode(bytes);
+    return (preserveBOM ? valueDecoder : decoder).decode(bytes);
   } catch {
     throw new OpenSheetError('CORRUPT_STORAGE', 'Invalid page UTF-8');
   }
@@ -396,6 +398,7 @@ export class ColumnPage {
           if (!wide)
             return decodeText(
               new Uint8Array(vview.buffer, vview.byteOffset + arena + start, end - start),
+              true,
             );
           let text = '';
           for (let p = start; p < end; p += 2)

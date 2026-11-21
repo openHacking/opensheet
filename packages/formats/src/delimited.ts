@@ -15,7 +15,16 @@ export function stringifyDelimited(
             sanitized++;
             onSanitized?.(rowIndex, columnIndex);
           }
-          return s.includes(separator) || /["\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+          // A blank single-column row otherwise looks like a terminal newline,
+          // which readers may discard. A first field beginning with U+FEFF
+          // likewise needs quotes so it is not mistaken for a file BOM.
+          // Apply both rules to every row, consistently across streamed batches.
+          return (row.length === 1 && s === '') ||
+            (columnIndex === 0 && s.startsWith('\uFEFF')) ||
+            s.includes(separator) ||
+            /["\n\r]/.test(s)
+            ? `"${s.replace(/"/g, '""')}"`
+            : s;
         })
         .join(separator),
     )

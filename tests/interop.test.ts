@@ -1073,6 +1073,43 @@ describe('formats', () => {
     ]);
     expect(() => parseDelimited('"unfinished')).toThrow();
   });
+  it.each([',', '\t'])(
+    'preserves trailing single-column empty rows using separator %s',
+    (separator) => {
+      for (const rows of [[['first'], [''], ['']], [[''], ['']], [['']]]) {
+        const { text } = stringifyDelimited(rows, separator);
+        expect(parseDelimited(text, separator)).toEqual(rows);
+      }
+    },
+  );
+  it.each([',', '\t'])(
+    'round-trips generated rectangular delimited data with separator %s',
+    (separator) => {
+      let state = 0x4123abcd;
+      const random = (n: number) => {
+        state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+        return state % n;
+      };
+      const values = ['', 'x', 'x,y', 'x\ty', 'a"b', 'line\r\nnext', '=1+2'];
+      for (let trial = 0; trial < 300; trial++) {
+        const height = 1 + random(10);
+        const width = 1 + random(3);
+        const rows = Array.from({ length: height }, () =>
+          Array.from({ length: width }, () => values[random(values.length)]),
+        );
+        if (trial % 2 === 0) rows[height - 1] = Array(width).fill('');
+        expect(parseDelimited(stringifyDelimited(rows, separator, false).text, separator)).toEqual(
+          rows,
+        );
+      }
+    },
+  );
+  it.each([',', '\t'])('preserves a leading data BOM with separator %s', (separator) => {
+    const rows = [['\uFEFFvalue'], ['\uFEFF'], ['tail']];
+    const text = stringifyDelimited(rows, separator, false).text;
+    expect(parseDelimited(text, separator)).toEqual(rows);
+    expect(parseDelimited('\uFEFF' + text, separator)).toEqual(rows);
+  });
   it('enforces row and column limits on the final field without a newline', () => {
     expect(parseDelimited(Array(1000).fill('x').join(','))[0]).toHaveLength(1000);
     expect(() => parseDelimited(Array(1001).fill('x').join(','))).toThrow(/exceeds limits/);
