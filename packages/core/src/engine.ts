@@ -530,7 +530,8 @@ export class Engine {
       for (const metadataId of [h.before, h.after]) {
         if (checkedMetadata.has(metadataId)) continue;
         // Refuse to open a history that this engine could neither restore nor safely prune.
-        const { snapshot } = await this.readMetadataEnvelope(metadataId);
+        const stored = await this.readMetadataEnvelope(metadataId);
+        const { snapshot } = stored;
         // Persisted metadata has no cell pages. Validate its compressed shape
         // without allocating the expanded row/column orders of each revision.
         assert(
@@ -547,6 +548,7 @@ export class Engine {
           'CORRUPT_STORAGE',
           'Invalid historical workbook metadata; open with a compatible version or restore a backup',
         );
+        this.validateStoredStyleIds(stored);
         checkedMetadata.add(metadataId);
       }
       if (index < this.head.past.length) pastBytes += h.bytes;
@@ -699,11 +701,10 @@ export class Engine {
     );
     return stored;
   }
-  private async readMetadata(id: string): Promise<Metadata> {
-    const stored = await this.readMetadataEnvelope(id);
-    const snapshot = decodeFileMetadata(stored.snapshot);
+  private validateStoredStyleIds(stored: StoredMetadata): void {
     assert(
-      Array.isArray(stored.styleIds) &&
+      Array.isArray(stored.snapshot.styles) &&
+        Array.isArray(stored.styleIds) &&
         stored.styleIds.length === stored.snapshot.styles.length &&
         new Set(stored.styleIds).size === stored.styleIds.length &&
         stored.styleIds.every(
@@ -716,6 +717,11 @@ export class Engine {
       'CORRUPT_STORAGE',
       'Invalid stored style identities',
     );
+  }
+  private async readMetadata(id: string): Promise<Metadata> {
+    const stored = await this.readMetadataEnvelope(id);
+    const snapshot = decodeFileMetadata(stored.snapshot);
+    this.validateStoredStyleIds(stored);
     snapshot.styles = Object.fromEntries(
       stored.styleIds.map((id, i) => [id, stored.snapshot.styles[i]]),
     );

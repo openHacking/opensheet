@@ -57,3 +57,5 @@ Metadata, JSON page parsing and decoded binary pages have 32 MiB per-section wor
 
 
 Stored JSON records use a two-item envelope containing the IndexedDB key and value. Reads reject invalid UTF-8, malformed JSON, a malformed envelope or a different serialized key as `CORRUPT_STORAGE`. Workbook engine keys are strings and are checked directly; other IndexedDB key types use their JSON representation. An existing invalid or null workbook head is corruption, not a missing workbook, even when orphan cleanup is requested. Raw binary records do not carry their key in this envelope, so this check is not an integrity checksum or authentication mechanism.
+
+Current and historical metadata must contain valid, unique style IDs consistent with the style table. Undo and redo metadata are checked before recovery removes orphan or scratch records; a failure leaves those records available for diagnosis or backup recovery. This check does not establish the integrity of every referenced page.
