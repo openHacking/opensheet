@@ -141,3 +141,40 @@ test('manifest overrides take precedence and missing parts are not counted', () 
     'Strict compatibility check failed',
   );
 });
+
+test('previews graphics loss in the independent reader saved workbook', async ({ page }) => {
+  const saved = readFileSync(
+    new URL('../../benchmarks/xlsx-graphics.libreoffice.xlsx', import.meta.url),
+  );
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  const before = await page.evaluate(() => ({
+    id: window.opensheet.getWorkbook().id,
+    revision: window.opensheet.getWorkbook().revision,
+  }));
+  await page.locator('#file').setInputFiles({
+    name: 'graphics-reader.xlsx',
+    mimeType: 'application/octet-stream',
+    buffer: saved,
+  });
+  const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
+  await expect(dialog).toContainText('Chart parts in the XLSX package are not imported');
+  await expect(dialog).toContainText('Embedded media files in the XLSX package are not imported');
+  expect(
+    await page.evaluate(() => ({
+      id: window.opensheet.getWorkbook().id,
+      revision: window.opensheet.getWorkbook().revision,
+    })),
+  ).toEqual(before);
+  await dialog.getByRole('button', { name: 'Import converted workbook' }).click();
+  await expect(page.getByRole('tab', { name: 'Graphics data', exact: true })).toBeVisible();
+  const values = await page.evaluate(async () => {
+    const app = window.opensheet;
+    await app.open(app.getWorkbook().id);
+    return app.getWorkbook().getSheets()[0].range('A1:B2').getValues();
+  });
+  expect(values).toEqual([
+    ['Sales', 5],
+    ['Costs', 3],
+  ]);
+});

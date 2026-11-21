@@ -873,3 +873,44 @@ it('pins independently read range links before and after LibreOffice save', () =
     ]);
   }
 });
+
+it('pins chart and image loss across the independent reader save', () => {
+  const entry = manifest.fixtures.find((item: { id: string }) => item.id === 'chart-and-image');
+  const report = JSON.parse(
+    readFileSync(new URL(entry.evidence, new URL('./fixtures/interop/', import.meta.url)), 'utf8'),
+  );
+  for (const phase of ['before', 'after']) {
+    expect(report[phase].values).toEqual([
+      ['Sales', 5],
+      ['Costs', 3],
+    ]);
+    expect(report[phase]).toMatchObject({ charts: 1, images: 1 });
+  }
+  for (const artifact of Object.values(report.artifacts) as { file: string; sha256: string }[]) {
+    const bytes = readFileSync(new URL(artifact.file, root));
+    expect(createHash('sha256').update(bytes).digest('hex')).toBe(artifact.sha256);
+    const workbook = XLSX.read(bytes, { type: 'buffer', bookFiles: true, sheetStubs: true });
+    const result = fromSheetJS(workbook);
+    for (const issue of entry.expectedImportIssues)
+      expect(result.report.issues).toContainEqual(expect.objectContaining(issue));
+    expect(() => fromSheetJS(workbook, { unsupported: 'strict' })).toThrow(
+      'Strict compatibility check failed',
+    );
+    const reader = new FileReader(result.file);
+    try {
+      const sheet = result.file.sheets[0];
+      expect(reader.getCell(sheet.id, 0, 1)?.input).toEqual({ type: 'number', value: 5 });
+      expect(reader.getCell(sheet.id, 1, 1)?.input).toEqual({ type: 'number', value: 3 });
+    } finally {
+      reader.dispose();
+    }
+    const uninspected = fromSheetJS({ ...workbook, files: undefined }).report;
+    expect(
+      uninspected.issues.some((issue) =>
+        entry.expectedImportIssues.some(
+          (expected: { code: string }) => expected.code === issue.code,
+        ),
+      ),
+    ).toBe(false);
+  }
+});

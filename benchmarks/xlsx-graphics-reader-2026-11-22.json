@@ -1,0 +1,57 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "inspector": "openpyxl 3.1.5",
+  "scope": "One synthetic chart and image; headless LibreOffice save inspected by openpyxl and ZIP paths. No visual rendering, Excel or stable LibreOffice coverage.",
+  "artifacts": {
+    "source": {
+      "file": "xlsx-graphics.openpyxl.xlsx",
+      "sha256": "f1742fb3c824aab1b721dbff56e03e952d4265df819612ac0675761cf7a88bcf"
+    },
+    "saved": {
+      "file": "xlsx-graphics.libreoffice.xlsx",
+      "sha256": "ab3b6af49b5adf338f31727c522c1650faf43cd2d8df2dec95ccc8a351c2f61e"
+    }
+  },
+  "before": {
+    "values": [
+      [
+        "Sales",
+        5
+      ],
+      [
+        "Costs",
+        3
+      ]
+    ],
+    "charts": 1,
+    "images": 1,
+    "chartParts": [
+      "xl/charts/chart1.xml"
+    ],
+    "mediaParts": [
+      "xl/media/image1.png"
+    ]
+  },
+  "after": {
+    "values": [
+      [
+        "Sales",
+        5
+      ],
+      [
+        "Costs",
+        3
+      ]
+    ],
+    "charts": 1,
+    "images": 1,
+    "chartParts": [
+      "xl/charts/chart1.xml",
+      "xl/charts/colors1.xml",
+      "xl/charts/style1.xml"
+    ],
+    "mediaParts": [
+      "xl/media/image1.png"
+    ]
+  }
+}

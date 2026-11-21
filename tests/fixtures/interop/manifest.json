@@ -362,6 +362,35 @@
       "independentProcedure": "Run python3 scripts/xlsx-date-system-fixture.py NEW_DIRECTORY with openpyxl 3.1.5. The script reads back dates, formats, formula and epoch, and records raw worksheet serials and hashes. ZIP timestamps can change regenerated hashes.",
       "evidence": "../../../benchmarks/date-system-openpyxl-2026-11-22/dates-1904.xlsx.json",
       "limitations": "One openpyxl writer/version, three dates and one formula; no Excel or independent spreadsheet formula recalculation. The 1900 fictitious leap day and zero serial are excluded."
+    },
+    {
+      "id": "chart-and-image",
+      "source": "../../../benchmarks/xlsx-graphics.openpyxl.xlsx",
+      "sha256": "f1742fb3c824aab1b721dbff56e03e952d4265df819612ac0675761cf7a88bcf",
+      "provenance": "Synthetic CC0 workbook generated and independently read back with openpyxl 3.1.5 by scripts/xlsx-graphics-fixture.py; no customer data.",
+      "features": ["chart", "embedded-image"],
+      "expectedValues": {
+        "Graphics data!A1": "Sales",
+        "Graphics data!B1": 5,
+        "Graphics data!A2": "Costs",
+        "Graphics data!B2": 3
+      },
+      "expectedImportIssues": [
+        {
+          "code": "CHART_PARTS_DROPPED",
+          "action": "dropped",
+          "count": 1
+        },
+        {
+          "code": "MEDIA_PARTS_DROPPED",
+          "action": "dropped",
+          "count": 1
+        }
+      ],
+      "expectedLoss": "One chart part and one embedded image part are dropped; strict import rejects. Scalar values remain available.",
+      "independentProcedure": "Run python3 scripts/xlsx-graphics-fixture.py and python3 scripts/xlsx-graphics-reader.py; inspect the retained source and LibreOfficeDev headless save with openpyxl, then run pnpm exec vitest run tests/independent-interop.test.ts and pnpm exec playwright test tests/e2e/xlsx-graphics.spec.ts.",
+      "evidence": "../../../benchmarks/xlsx-graphics-reader-2026-11-22.json",
+      "limitations": "One chart and image, one openpyxl version and LibreOfficeDev alpha headless save; no Excel, stable LibreOffice or visual assessment. Raw parts are required for loss detection; counts include orphans and unsupported types may be missed."
     }
   ]
 }
