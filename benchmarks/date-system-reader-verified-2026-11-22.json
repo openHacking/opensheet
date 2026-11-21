@@ -1,0 +1,838 @@
+{
+  "startedAt": "2026-11-21T20:47:29.241Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 402,
+    "sha256": "d545b23af6451a8eb811695ca04aeea2fa959558393e88217b2bed277531c558"
+  },
+  "node": "v22.19.0",
+  "scope": "Two synthetic openpyxl workbooks; OpenSheet adapter export; independent LibreOfficeDev headless save/recalculation and openpyxl inspection. No Excel, stable LibreOffice, visual review or full date compatibility.",
+  "systems": [
+    {
+      "system": "1900",
+      "command": "convert /Volumes/github/private/opensheet/benchmarks/date-system-openpyxl-2026-11-22/dates-1900.xlsx as a Calc document -> /Volumes/github/private/opensheet/benchmarks/date-system-reader-verified-2026-11-22/reader/dates-1900.xlsx using filter : Calc Office Open XML\nconvert /Volumes/github/private/opensheet/benchmarks/date-system-reader-verified-2026-11-22/opensheet-1900.xlsx as a Calc document -> /Volumes/github/private/opensheet/benchmarks/date-system-reader-verified-2026-11-22/reader/opensheet-1900.xlsx using filter : Calc Office Open XML\n",
+      "inputSha256": "89934c9456486c61e6c26baf6217a5f92567d1db0147e65b0209dbccd2e1b5ed",
+      "files": [
+        {
+          "path": "benchmarks/date-system-openpyxl-2026-11-22/dates-1900.xlsx",
+          "sha256": "89934c9456486c61e6c26baf6217a5f92567d1db0147e65b0209dbccd2e1b5ed"
+        },
+        {
+          "path": "benchmarks/date-system-reader-verified-2026-11-22/opensheet-1900.xlsx",
+          "sha256": "a526feb486af89cadf53d33fa5492d9d535385fdb6a5370c9715be8095863815"
+        },
+        {
+          "path": "benchmarks/date-system-reader-verified-2026-11-22/reader/dates-1900.xlsx",
+          "sha256": "0d170151cdc645b9aa91afbf8225e70313e26e7065addcc4c2e8a8f66701bf3f"
+        },
+        {
+          "path": "benchmarks/date-system-reader-verified-2026-11-22/reader/opensheet-1900.xlsx",
+          "sha256": "b90e97b98dcc8940edff8748de9c3ce8fba4e74548d98bf058e64847fdde652d"
+        }
+      ],
+      "independent": {
+        "reader": "openpyxl 3.1.5",
+        "files": [
+          {
+            "system": "1900",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy-mm-dd",
+              "yyyy-mm-dd hh:mm",
+              "yyyy-mm-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": null,
+            "rawSerials": [
+              "1463",
+              "45351.52083333334",
+              "73110"
+            ],
+            "rawFormulaCache": null
+          },
+          {
+            "system": "1900",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy-mm-dd",
+              "yyyy-mm-dd hh:mm",
+              "yyyy-mm-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": null,
+            "rawSerials": [
+              "1463",
+              "45351.52083333334",
+              "73110"
+            ],
+            "rawFormulaCache": null
+          },
+          {
+            "system": "1900",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy\\-mm\\-dd",
+              "yyyy\\-mm\\-dd\\ hh:mm",
+              "yyyy\\-mm\\-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": 43888.5208333333,
+            "rawSerials": [
+              "1463",
+              "45351.5208333333",
+              "73110"
+            ],
+            "rawFormulaCache": "43888.5208333333"
+          },
+          {
+            "system": "1900",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy\\-mm\\-dd",
+              "yyyy\\-mm\\-dd\\ hh:mm",
+              "yyyy\\-mm\\-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": 43888.5208333333,
+            "rawSerials": [
+              "1463",
+              "45351.5208333333",
+              "73110"
+            ],
+            "rawFormulaCache": "43888.5208333333"
+          }
+        ]
+      },
+      "openSheet": [
+        {
+          "system": "1900",
+          "values": [
+            [
+              1463
+            ],
+            [
+              45351.52083333334
+            ],
+            [
+              73110
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.52083333334,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 1,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "UNSUPPORTED_METADATA",
+                "feature": "!margins",
+                "message": "Worksheet metadata !margins is not preserved",
+                "action": "dropped",
+                "severity": "warning",
+                "sheetId": "sheet_5bab6fd1290e435ab26bd4b59005f11b",
+                "count": 1
+              },
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        },
+        {
+          "system": "1900",
+          "values": [
+            [
+              1463
+            ],
+            [
+              45351.52083333334
+            ],
+            [
+              73110
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.52083333334,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 0,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        },
+        {
+          "system": "1900",
+          "values": [
+            [
+              1463
+            ],
+            [
+              45351.5208333333
+            ],
+            [
+              73110
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.5208333333,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 3,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "WORKSHEET_SELECTION_DROPPED",
+                "feature": "worksheet-selection",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet selection and active cell are not imported",
+                "count": 1
+              },
+              {
+                "code": "WORKSHEET_ACTIVE_TAB_DROPPED",
+                "feature": "worksheet-view",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet tab selection is not imported",
+                "count": 1
+              },
+              {
+                "code": "UNSUPPORTED_METADATA",
+                "feature": "!margins",
+                "message": "Worksheet metadata !margins is not preserved",
+                "action": "dropped",
+                "severity": "warning",
+                "sheetId": "sheet_3bc3396c52cf46579e42ee52eaeeea95",
+                "count": 1
+              },
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        },
+        {
+          "system": "1900",
+          "values": [
+            [
+              1463
+            ],
+            [
+              45351.5208333333
+            ],
+            [
+              73110
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.5208333333,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 3,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "WORKSHEET_SELECTION_DROPPED",
+                "feature": "worksheet-selection",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet selection and active cell are not imported",
+                "count": 1
+              },
+              {
+                "code": "WORKSHEET_ACTIVE_TAB_DROPPED",
+                "feature": "worksheet-view",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet tab selection is not imported",
+                "count": 1
+              },
+              {
+                "code": "UNSUPPORTED_METADATA",
+                "feature": "!margins",
+                "message": "Worksheet metadata !margins is not preserved",
+                "action": "dropped",
+                "severity": "warning",
+                "sheetId": "sheet_bd791a38c1a34279af28851829b01145",
+                "count": 1
+              },
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        }
+      ],
+      "exportReport": {
+        "adapterVersion": "0.2.0-dev.0",
+        "sourceFormat": "SheetJS",
+        "summary": {
+          "exact": 4,
+          "approximated": 1,
+          "dropped": 1,
+          "blocked": 0
+        },
+        "issues": [
+          {
+            "code": "RECALC_REQUIRED",
+            "feature": "formula",
+            "message": "Formula result requires recalculation in the target application",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_f1bc8530b01c407081f95dc96f48f905",
+            "address": "B1",
+            "count": 1
+          },
+          {
+            "code": "UNSUPPORTED_METADATA",
+            "feature": "!margins",
+            "message": "Worksheet metadata !margins is not preserved",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_f1bc8530b01c407081f95dc96f48f905",
+            "count": 1
+          }
+        ],
+        "omittedIssueOccurrences": 0
+      }
+    },
+    {
+      "system": "1904",
+      "command": "convert /Volumes/github/private/opensheet/benchmarks/date-system-openpyxl-2026-11-22/dates-1904.xlsx as a Calc document -> /Volumes/github/private/opensheet/benchmarks/date-system-reader-verified-2026-11-22/reader/dates-1904.xlsx using filter : Calc Office Open XML\nconvert /Volumes/github/private/opensheet/benchmarks/date-system-reader-verified-2026-11-22/opensheet-1904.xlsx as a Calc document -> /Volumes/github/private/opensheet/benchmarks/date-system-reader-verified-2026-11-22/reader/opensheet-1904.xlsx using filter : Calc Office Open XML\n",
+      "inputSha256": "6c759c252c9464da154e360afb419a54edb9ce6d8fac71bf283c39c2538a639e",
+      "files": [
+        {
+          "path": "benchmarks/date-system-openpyxl-2026-11-22/dates-1904.xlsx",
+          "sha256": "6c759c252c9464da154e360afb419a54edb9ce6d8fac71bf283c39c2538a639e"
+        },
+        {
+          "path": "benchmarks/date-system-reader-verified-2026-11-22/opensheet-1904.xlsx",
+          "sha256": "0f9aa3e54811b49efeaaddba5674739e82d7d0fb8fc2b402e0ba2abe25adeffe"
+        },
+        {
+          "path": "benchmarks/date-system-reader-verified-2026-11-22/reader/dates-1904.xlsx",
+          "sha256": "35edea993e28d39ae642b42137daa3624a3750b57adc29bdf32be05ce8498252"
+        },
+        {
+          "path": "benchmarks/date-system-reader-verified-2026-11-22/reader/opensheet-1904.xlsx",
+          "sha256": "030fddb1c0689ca8a90808ddd6a0bccd5e60c1ae7795c183b4369fe39a9109b2"
+        }
+      ],
+      "independent": {
+        "reader": "openpyxl 3.1.5",
+        "files": [
+          {
+            "system": "1904",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy-mm-dd",
+              "yyyy-mm-dd hh:mm",
+              "yyyy-mm-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": null,
+            "rawSerials": [
+              "1",
+              "43889.52083333334",
+              "71648"
+            ],
+            "rawFormulaCache": null
+          },
+          {
+            "system": "1904",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy-mm-dd",
+              "yyyy-mm-dd hh:mm",
+              "yyyy-mm-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": null,
+            "rawSerials": [
+              "1",
+              "43889.52083333334",
+              "71648"
+            ],
+            "rawFormulaCache": null
+          },
+          {
+            "system": "1904",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy\\-mm\\-dd",
+              "yyyy\\-mm\\-dd\\ hh:mm",
+              "yyyy\\-mm\\-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": 43888.5208333333,
+            "rawSerials": [
+              "1",
+              "43889.5208333333",
+              "71648"
+            ],
+            "rawFormulaCache": "43888.5208333333"
+          },
+          {
+            "system": "1904",
+            "dates": [
+              "1904-01-02T00:00:00",
+              "2024-02-29T12:30:00",
+              "2100-03-01T00:00:00"
+            ],
+            "formats": [
+              "yyyy\\-mm\\-dd",
+              "yyyy\\-mm\\-dd\\ hh:mm",
+              "yyyy\\-mm\\-dd"
+            ],
+            "formula": "=A2-A1",
+            "cached": 43888.5208333333,
+            "rawSerials": [
+              "1",
+              "43889.5208333333",
+              "71648"
+            ],
+            "rawFormulaCache": "43888.5208333333"
+          }
+        ]
+      },
+      "openSheet": [
+        {
+          "system": "1904",
+          "values": [
+            [
+              1
+            ],
+            [
+              43889.52083333334
+            ],
+            [
+              71648
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.52083333334,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 1,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "UNSUPPORTED_METADATA",
+                "feature": "!margins",
+                "message": "Worksheet metadata !margins is not preserved",
+                "action": "dropped",
+                "severity": "warning",
+                "sheetId": "sheet_24b7b7a75c9342abaa967092c9e9ee81",
+                "count": 1
+              },
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        },
+        {
+          "system": "1904",
+          "values": [
+            [
+              1
+            ],
+            [
+              43889.52083333334
+            ],
+            [
+              71648
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.52083333334,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 0,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        },
+        {
+          "system": "1904",
+          "values": [
+            [
+              1
+            ],
+            [
+              43889.5208333333
+            ],
+            [
+              71648
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.5208333333,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 3,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "WORKSHEET_SELECTION_DROPPED",
+                "feature": "worksheet-selection",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet selection and active cell are not imported",
+                "count": 1
+              },
+              {
+                "code": "WORKSHEET_ACTIVE_TAB_DROPPED",
+                "feature": "worksheet-view",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet tab selection is not imported",
+                "count": 1
+              },
+              {
+                "code": "UNSUPPORTED_METADATA",
+                "feature": "!margins",
+                "message": "Worksheet metadata !margins is not preserved",
+                "action": "dropped",
+                "severity": "warning",
+                "sheetId": "sheet_67e87e5df94c43b69953f0ded3a93594",
+                "count": 1
+              },
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        },
+        {
+          "system": "1904",
+          "values": [
+            [
+              1
+            ],
+            [
+              43889.5208333333
+            ],
+            [
+              71648
+            ]
+          ],
+          "display": [
+            [
+              "1904-01-02"
+            ],
+            [
+              "2024-02-29 12:30"
+            ],
+            [
+              "2100-03-01"
+            ]
+          ],
+          "formula": {
+            "type": "formula",
+            "expression": "A2-A1"
+          },
+          "calculated": 43888.5208333333,
+          "report": {
+            "adapterVersion": "0.2.0-dev.0",
+            "sourceFormat": "SheetJS",
+            "summary": {
+              "exact": 5,
+              "approximated": 0,
+              "dropped": 3,
+              "blocked": 0
+            },
+            "issues": [
+              {
+                "code": "WORKSHEET_SELECTION_DROPPED",
+                "feature": "worksheet-selection",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet selection and active cell are not imported",
+                "count": 1
+              },
+              {
+                "code": "WORKSHEET_ACTIVE_TAB_DROPPED",
+                "feature": "worksheet-view",
+                "action": "dropped",
+                "severity": "warning",
+                "message": "Worksheet tab selection is not imported",
+                "count": 1
+              },
+              {
+                "code": "UNSUPPORTED_METADATA",
+                "feature": "!margins",
+                "message": "Worksheet metadata !margins is not preserved",
+                "action": "dropped",
+                "severity": "warning",
+                "sheetId": "sheet_03751146fa39426f9dd51d9e4740c6ad",
+                "count": 1
+              },
+              {
+                "code": "DATA_INTERCHANGE",
+                "feature": "xlsx-container",
+                "message": "Data conversion only: embedded images, charts, macros, and unknown file parts are not preserved",
+                "action": "preserved",
+                "severity": "info",
+                "count": 1
+              }
+            ],
+            "omittedIssueOccurrences": 0
+          }
+        }
+      ],
+      "exportReport": {
+        "adapterVersion": "0.2.0-dev.0",
+        "sourceFormat": "SheetJS",
+        "summary": {
+          "exact": 4,
+          "approximated": 1,
+          "dropped": 1,
+          "blocked": 0
+        },
+        "issues": [
+          {
+            "code": "RECALC_REQUIRED",
+            "feature": "formula",
+            "message": "Formula result requires recalculation in the target application",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_74e2a383a9d2462cb792843409c964be",
+            "address": "B1",
+            "count": 1
+          },
+          {
+            "code": "UNSUPPORTED_METADATA",
+            "feature": "!margins",
+            "message": "Worksheet metadata !margins is not preserved",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_74e2a383a9d2462cb792843409c964be",
+            "count": 1
+          }
+        ],
+        "omittedIssueOccurrences": 0
+      }
+    }
+  ],
+  "build": {
+    "core": "0b6f3b80fd0b5dd5d96310a18678c36bf0224de5e9fa6981ac3bddba38950cc1",
+    "formula": "51401726ada8931bfeb7c2ceaeafe038f9aacd5b95188f6860b8647bbdbf6e1b",
+    "adapter-sheetjs": "7493f3ae16e4374b8c1f94698d9967213e5b2c88e97894be585506090dddec2d"
+  },
+  "inspectorSha256": "60eea22d4b71d557e967e7d93e74e89ce7dddfbada84822e542126a1e112f329",
+  "readerVersion": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "finishedAt": "2026-11-21T20:47:33.153Z"
+}
