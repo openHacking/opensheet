@@ -145,6 +145,10 @@ export function createRouting(
   });
   bindings.on($('reset-demo'), 'click', async () => {
     if (routeBusy) return;
+    if (app.hasDraft) {
+      notice('Finish or cancel editing before resetting the demo');
+      return;
+    }
     if (app.getWorkbook().persistenceState.pending) {
       notice('Wait for saving to finish');
       return;
@@ -170,7 +174,8 @@ export function createRouting(
         if (
           app.getWorkbook() !== previous ||
           previous.revision !== revision ||
-          previous.persistenceState.pending
+          previous.persistenceState.pending ||
+          app.hasDraft
         )
           throw new Error('Workbook changed during reset; try again');
         localStorage.setItem(`opensheet.scene.${scene}`, candidate.id);
