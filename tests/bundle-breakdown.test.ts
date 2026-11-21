@@ -141,3 +141,82 @@ it('records enforced CSP controls and lazy XLSX conversion in three browsers', (
     }
   }
 });
+
+it('records Worker CSP telemetry with an engine-level negative control', () => {
+  const observed = JSON.parse(
+    readFileSync('benchmarks/bundle-breakdown-worker-observed-2026-11-22.json', 'utf8'),
+  );
+  const probe = JSON.parse(
+    readFileSync('benchmarks/bundle-breakdown-worker-probe-2026-11-22.json', 'utf8'),
+  );
+  const regular = JSON.parse(
+    readFileSync('benchmarks/bundle-breakdown-worker-nocsp-2026-11-22.json', 'utf8'),
+  );
+  const source = readFileSync('scripts/bundle-runtime.mjs', 'utf8');
+  const telemetry = source.match(/export const workerTelemetry = `([^`]+)`/)?.[1];
+  expect(telemetry).toBeDefined();
+  const telemetryHash = createHash('sha256').update(telemetry!).digest('hex');
+  expect(observed.engineCspProbe).toBe(false);
+  expect(probe.engineCspProbe).toBe(true);
+  expect(regular.strictCsp).toBe(false);
+  expect(observed.runtime.workerTelemetrySha256).toBe(telemetryHash);
+  expect(probe.runtime.workerTelemetrySha256).toBe(telemetryHash);
+  expect(observed.workerBannerSha256).not.toBe(probe.workerBannerSha256);
+  expect(observed.runtime.workerSha256).not.toBe(probe.runtime.workerSha256);
+  for (const report of [observed, probe, regular]) {
+    expect(report.error).toBeUndefined();
+    expect(report.lock.frozenReinstall).toBe('passed');
+    expect(createHash('sha256').update(readFileSync(report.lock.path)).digest('hex')).toBe(
+      report.lock.sha256,
+    );
+    expect(report.runtime.workerSha256).toBe(
+      report.scenarios.worker['out/worker/engine.worker.js'].sha256,
+    );
+    expect(report.runtime.results.map((result: any) => result.engine)).toEqual([
+      'chromium',
+      'firefox',
+      'webkit',
+    ]);
+    for (const result of report.runtime.results) {
+      expect(result.converted).toMatchObject({
+        values: [[6, 7, 13]],
+        reopened: [[6, 7, 13]],
+        readOnly: false,
+      });
+      expect(result.errors).toEqual([]);
+      expect(result.failures).toEqual([]);
+      if (report.strictCsp)
+        expect(result.cspControls).toEqual({ pageBlocked: true, workerBlocked: true });
+    }
+  }
+  for (const report of [observed, probe]) {
+    for (const result of report.runtime.results) {
+      const negative = result.workerCspEvents.filter((event: any) =>
+        event.path.endsWith('/probe.worker.js'),
+      );
+      if (result.engine === 'webkit') expect(negative).toEqual([]);
+      else
+        expect(negative).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({ blocked: 'eval', directive: 'script-src' }),
+          ]),
+        );
+    }
+  }
+  for (const result of observed.runtime.results)
+    expect(
+      result.workerCspEvents.filter((event: any) => event.path.endsWith('/engine.worker.js')),
+    ).toEqual([]);
+  for (const result of probe.runtime.results) {
+    const engineEvents = result.workerCspEvents.filter((event: any) =>
+      event.path.endsWith('/engine.worker.js'),
+    );
+    if (result.engine === 'webkit') expect(engineEvents).toEqual([]);
+    else
+      expect(engineEvents).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ blocked: 'eval', directive: 'script-src' }),
+        ]),
+      );
+  }
+});

@@ -5,8 +5,15 @@ import { readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { chromium, firefox, webkit } from '@playwright/test';
 
+export const workerTelemetry = `self.addEventListener('securitypolicyviolation', e => self.postMessage({__opensheetCsp:{directive:e.effectiveDirective,blocked:e.blockedURI}}));`;
+
 // Execute the exact lazy outputs measured by bundle-breakdown.mjs on a localhost subpath.
-export async function runLazyRuntime(temp, outputs, xlsxOutputs, { strictCsp = false } = {}) {
+export async function runLazyRuntime(
+  temp,
+  outputs,
+  xlsxOutputs,
+  { strictCsp = false, engineCspProbe = false } = {},
+) {
   const html = `<!doctype html><html><head><link rel="stylesheet" href="./lazy.css"></head><body><main id="root" class="os-framework-host"></main><button id="convert">Convert XLSX</button>${strictCsp ? '<script src="./probe.js"></script>' : ''}<script type="module" src="./runtime.js"></script></body></html>`;
   const runtime = `
 import './lazy.js';
@@ -52,7 +59,8 @@ try {
     [
       'probe.worker.js',
       Buffer.from(
-        "self.onmessage = () => { try { new Function('return 1')(); self.postMessage(false); } catch { self.postMessage(true); } };",
+        workerTelemetry +
+          "self.onmessage = () => { try { new Function('return 1')(); self.postMessage(false); } catch { self.postMessage(true); } };",
       ),
     ],
     ['engine.worker.js', readFileSync(join(temp, 'out/worker/engine.worker.js'))],
@@ -107,6 +115,18 @@ try {
         if (strictCsp)
           await page.addInitScript(() => {
             window.cspEvents = [];
+            window.workerCspEvents = [];
+            const NativeWorker = window.Worker;
+            window.Worker = class extends NativeWorker {
+              constructor(url, options) {
+                super(url, options);
+                const path = new URL(url, location.href).pathname;
+                this.addEventListener('message', (event) => {
+                  if (event.data?.__opensheetCsp)
+                    window.workerCspEvents.push({ path, ...event.data.__opensheetCsp });
+                });
+              }
+            };
             document.addEventListener('securitypolicyviolation', (event) =>
               window.cspEvents.push({
                 directive: event.effectiveDirective,
@@ -138,9 +158,12 @@ try {
                 reject(new Error('CSP Worker probe timed out'));
               }, 5000);
               worker.onmessage = (event) => {
+                if (typeof event.data !== 'boolean') return;
                 clearTimeout(timer);
-                worker.terminate();
-                resolve(event.data);
+                setTimeout(() => {
+                  worker.terminate();
+                  resolve(event.data);
+                }, 1000);
               };
               worker.onerror = (event) => {
                 clearTimeout(timer);
@@ -188,12 +211,21 @@ try {
             event.blocked === 'eval' && event.source.endsWith('/probe.js'),
             `Unexpected CSP violation: ${JSON.stringify(event)}`,
           );
+        const workerCspEvents = strictCsp ? await page.evaluate(() => window.workerCspEvents) : [];
+        for (const event of workerCspEvents)
+          assert.ok(
+            (event.path.endsWith('/probe.worker.js') ||
+              (engineCspProbe && event.path.endsWith('/engine.worker.js'))) &&
+              event.blocked === 'eval',
+            `Unexpected Worker CSP violation: ${JSON.stringify(event)}`,
+          );
         results.push({
           engine,
           browser: browser.version(),
           before,
           cspControls,
           cspEvents,
+          workerCspEvents,
           beforeRequests,
           afterRequests: requests,
           converted: await page.evaluate(() => window.demo.result),
@@ -209,6 +241,7 @@ try {
       csp,
       htmlSha256: digest(html),
       runtimeSha256: digest(runtime),
+      workerTelemetrySha256: strictCsp ? digest(workerTelemetry) : null,
       pageProbeSha256: digest(assets.get('probe.js')),
       workerProbeSha256: digest(assets.get('probe.worker.js')),
       workerSha256: digest(assets.get('engine.worker.js')),

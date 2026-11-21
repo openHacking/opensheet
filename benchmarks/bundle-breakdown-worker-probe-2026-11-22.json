@@ -1,0 +1,513 @@
+{
+  "startedAt": "2026-11-21T19:18:03.613Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 399,
+    "sha256": "8829213db8144a42682f6b76b51cbe4208e6cdfb0589dcf8a9a6bd7a4a398991"
+  },
+  "node": "v22.19.0",
+  "esbuild": "0.25.12",
+  "scope": "Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Localhost runtime checks use these lazy outputs; not a Vite, real-network transfer, runtime-memory, execution-time or complete consumer bundle measurement.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "adc55a25384b1795c35b4bbad0eeb534e18c3d461cc1235f0ded6f3460e34ce7"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "12cc6bab28f6fa4b36856dac83b078830f019cd9d2d0b77370eb01274f1e9990"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "3630bdc6be9cf604abf8d88c7c2dc938f6defc6ce2ab173c80c2736605f412de"
+    },
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "41c9d947753a04d4027bf4fc1236960d904f55255c6cc5a99759078064edaf21"
+    }
+  ],
+  "scenarios": {
+    "core": {
+      "out/core/core.js": {
+        "bytes": 543330,
+        "gzipBytes": 120336,
+        "sha256": "c27350de71a6bf3c1fecccca6d1fd6a85f22a6358fde8d582dc2f653a9bca54a",
+        "entryPoint": "core.js",
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 8942,
+          "zod": 453842,
+          "entry-or-other": 70,
+          "immer": 9516,
+          "@opensheetjs/core": 70866
+        }
+      }
+    },
+    "editor": {
+      "out/editor/editor.js": {
+        "bytes": 686235,
+        "gzipBytes": 160827,
+        "sha256": "bde719bc5ef0673597659e2d094ded36cc8cc38d27faa58b8d86871a3f686720",
+        "entryPoint": "editor.js",
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 12386,
+          "zod": 454062,
+          "entry-or-other": 55,
+          "immer": 9516,
+          "@opensheetjs/core": 70824,
+          "opensheet": 68564,
+          "@opensheetjs/plugin-sdk": 3896,
+          "@opensheetjs/renderer": 63377,
+          "lucide": 2448
+        }
+      },
+      "out/editor/editor.css": {
+        "bytes": 9941,
+        "gzipBytes": 2663,
+        "sha256": "e1a582051a69ee0d4e9fe18a221d4acf9adb99cbc2e10004bc0d8890b5696825",
+        "entryPoint": null,
+        "imports": [],
+        "contributions": {
+          "opensheet": 9940
+        }
+      }
+    },
+    "adapter": {
+      "out/adapter/adapter.js": {
+        "bytes": 1051407,
+        "gzipBytes": 287199,
+        "sha256": "2e0429c581ce8ef69f5dc2a7cff1cb23e3be04af210f2c51a97ddb976b9c0794",
+        "entryPoint": "adapter.js",
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 24497,
+          "zod": 454707,
+          "entry-or-other": 72,
+          "@opensheetjs/core": 28047,
+          "@opensheetjs/adapter-sheetjs": 40680,
+          "xlsx": 503114
+        }
+      }
+    },
+    "worker": {
+      "out/worker/engine.worker.js": {
+        "bytes": 640638,
+        "gzipBytes": 150748,
+        "sha256": "c0cbad8a69bea16248387749bac8c26ea59ae0062965e38860d5ae428b412c35",
+        "entryPoint": "node_modules/.pnpm/@opensheetjs+core@file+archives+core.tgz/node_modules/@opensheetjs/core/dist/engine.worker.js",
+        "imports": [],
+        "contributions": {
+          "zod": 454032,
+          "entry-or-other": 23,
+          "@opensheetjs/formula": 24061,
+          "@opensheetjs/core": 162239
+        }
+      }
+    },
+    "lazy": {
+      "out/lazy/lazy.js": {
+        "bytes": 139378,
+        "gzipBytes": 39961,
+        "sha256": "64bb31047ee42a8ca4b6ace07ea3e7623c25723e8c2fee926775fc69c54e3496",
+        "entryPoint": "lazy.js",
+        "imports": [
+          {
+            "path": "out/lazy/chunk-FFPG5MLH.js",
+            "kind": "import-statement"
+          },
+          {
+            "path": "out/lazy/xlsx-optional-DTSDNAAU.js",
+            "kind": "dynamic-import"
+          }
+        ],
+        "contributions": {
+          "opensheet": 68461,
+          "@opensheetjs/plugin-sdk": 3896,
+          "@opensheetjs/renderer": 63257,
+          "lucide": 2448,
+          "entry-or-other": 83
+        }
+      },
+      "out/lazy/xlsx-optional-DTSDNAAU.js": {
+        "bytes": 543834,
+        "gzipBytes": 177202,
+        "sha256": "08cfba618a8c0876515d1b71ef54aecc99357ec0daeb04ce8bcd5840dfacbc69",
+        "entryPoint": "xlsx-optional.js",
+        "imports": [
+          {
+            "path": "out/lazy/chunk-FFPG5MLH.js",
+            "kind": "import-statement"
+          }
+        ],
+        "contributions": {
+          "@opensheetjs/adapter-sheetjs": 40659,
+          "xlsx": 502780,
+          "entry-or-other": 0
+        }
+      },
+      "out/lazy/chunk-FFPG5MLH.js": {
+        "bytes": 570588,
+        "gzipBytes": 129619,
+        "sha256": "5ac93d679f417d1c3e464d096f845b2c3d4e8d4805c75ee46f8181cf2bee2a64",
+        "entryPoint": null,
+        "imports": [],
+        "contributions": {
+          "@opensheetjs/formula": 27720,
+          "zod": 453869,
+          "entry-or-other": 23,
+          "immer": 9516,
+          "@opensheetjs/core": 79112
+        }
+      },
+      "out/lazy/lazy.css": {
+        "bytes": 9941,
+        "gzipBytes": 2663,
+        "sha256": "e1a582051a69ee0d4e9fe18a221d4acf9adb99cbc2e10004bc0d8890b5696825",
+        "entryPoint": null,
+        "imports": [],
+        "contributions": {
+          "opensheet": 9940
+        }
+      }
+    }
+  },
+  "xlsxIntegrity": {
+    "source": "pnpm-lock.yaml",
+    "integrity": "sha512-oLDq3jw7AcLqKWH2AhCpVTZl8mf6X2YReP+Neh0SJUzV/BdZYjth94tG5toiMB1PPrYtxOCfaoUCkvtuH+3AJA=="
+  },
+  "lock": {
+    "path": "benchmarks/bundle-breakdown-worker-probe-2026-11-22.consumer-lock.yaml",
+    "sha256": "f6eecb6a3c5731fe1a8becf87c9b2a1fccf88f35a4d1c9f54ad793521b4530cd",
+    "frozenReinstall": "passed"
+  },
+  "cspShimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6",
+  "strictCsp": true,
+  "engineCspProbe": true,
+  "entryHashes": {
+    "core.js": "2777bb09c1be0654c145b43ea36a0800c0440892de3b0fa708ce05cceb1a6506",
+    "editor.js": "d854eac02cc10b49f0e7b7e2dbb8af56d42f939857998f1220b87380207c7958",
+    "adapter.js": "8cd3b5e82eb9f8e107cad9e8e9c4498a21133bfd7f1822b0a0ef87db0719769a",
+    "lazy.js": "671f6ed122214649befcc0f6bbf2f683e939708a2d4fbddfa38c37ef2b7009cb",
+    "xlsx-optional.js": "a3ba17f96b63ebb7c5616342956f76baffa8ca4e0be1833438b341661b3f7a65"
+  },
+  "workerBannerSha256": "2d699e753a91aa5ad5d367d19b9fbe875f89b59d368e87c7ae97d4cd68cd83f2",
+  "lazyIsolation": {
+    "initial": [
+      "out/lazy/lazy.js",
+      "out/lazy/chunk-FFPG5MLH.js",
+      "out/lazy/lazy.css"
+    ],
+    "xlsxOutputs": [
+      "out/lazy/xlsx-optional-DTSDNAAU.js"
+    ],
+    "status": "passed"
+  },
+  "runtime": {
+    "prefix": "/embedded/sheets/",
+    "csp": "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'",
+    "htmlSha256": "ce8d1fbc8664e8bcbb3eadc9d846416f74e63a8193f44e79100099d2a1afeebc",
+    "runtimeSha256": "95f09538aec9f35be05f10416d2deddf248280777e2841f944640a7e5db3c8e9",
+    "workerTelemetrySha256": "9f765f9f00599e477b2d8410578c5b7841bdf7a9595cb43e372233c6e6dec560",
+    "pageProbeSha256": "dd583c9f442fff5ade2d6be4c655b3329075cede19adfb42926dea6adb64f3f7",
+    "workerProbeSha256": "6a3c8ea9ddc32e2a55dd5e063f5b07261735a48b18eecf6626aa8507671f8c6e",
+    "workerSha256": "c0cbad8a69bea16248387749bac8c26ea59ae0062965e38860d5ae428b412c35",
+    "results": [
+      {
+        "engine": "chromium",
+        "browser": "153.0.8010.12",
+        "before": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "height": 500,
+          "stylesheets": 1
+        },
+        "cspControls": {
+          "pageBlocked": true,
+          "workerBlocked": true
+        },
+        "cspEvents": [
+          {
+            "directive": "script-src",
+            "blocked": "eval",
+            "source": "http://127.0.0.1:57701/embedded/sheets/probe.js"
+          }
+        ],
+        "workerCspEvents": [
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/probe.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ],
+        "beforeRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/probe.js",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-FFPG5MLH.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/probe.worker.js"
+        ],
+        "afterRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/probe.js",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-FFPG5MLH.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/probe.worker.js",
+          "/embedded/sheets/xlsx-optional-DTSDNAAU.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "converted": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "reopened": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "bytes": 15888,
+          "readOnly": false
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "engine": "firefox",
+        "browser": "155.0",
+        "before": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "height": 500,
+          "stylesheets": 1
+        },
+        "cspControls": {
+          "pageBlocked": true,
+          "workerBlocked": true
+        },
+        "cspEvents": [
+          {
+            "directive": "script-src",
+            "blocked": "eval",
+            "source": "http://127.0.0.1:57701/embedded/sheets/probe.js"
+          }
+        ],
+        "workerCspEvents": [
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/probe.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          },
+          {
+            "path": "/embedded/sheets/engine.worker.js",
+            "directive": "script-src",
+            "blocked": "eval"
+          }
+        ],
+        "beforeRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/probe.js",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-FFPG5MLH.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/probe.worker.js"
+        ],
+        "afterRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/probe.js",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-FFPG5MLH.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/probe.worker.js",
+          "/embedded/sheets/xlsx-optional-DTSDNAAU.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "converted": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "reopened": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "bytes": 15888,
+          "readOnly": false
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "engine": "webkit",
+        "browser": "26.6",
+        "before": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "height": 500,
+          "stylesheets": 1
+        },
+        "cspControls": {
+          "pageBlocked": true,
+          "workerBlocked": true
+        },
+        "cspEvents": [
+          {
+            "directive": "script-src",
+            "blocked": "eval",
+            "source": "http://127.0.0.1:57701/embedded/sheets/probe.js"
+          }
+        ],
+        "workerCspEvents": [],
+        "beforeRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/probe.js",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-FFPG5MLH.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/probe.worker.js"
+        ],
+        "afterRequests": [
+          "/embedded/sheets/",
+          "/embedded/sheets/lazy.css",
+          "/embedded/sheets/probe.js",
+          "/embedded/sheets/runtime.js",
+          "/embedded/sheets/lazy.js",
+          "/embedded/sheets/chunk-FFPG5MLH.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/probe.worker.js",
+          "/embedded/sheets/xlsx-optional-DTSDNAAU.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js",
+          "/embedded/sheets/engine.worker.js"
+        ],
+        "converted": {
+          "values": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "reopened": [
+            [
+              6,
+              7,
+              13
+            ]
+          ],
+          "bytes": 15888,
+          "readOnly": false
+        },
+        "errors": [],
+        "failures": []
+      }
+    ]
+  },
+  "finishedAt": "2026-11-21T19:18:16.975Z"
+}

@@ -7,17 +7,18 @@ import { join, resolve } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { build, version as esbuildVersion } from 'esbuild';
 import { sourceFingerprint } from './benchmark-fingerprint.mjs';
-import { runLazyRuntime } from './bundle-runtime.mjs';
+import { runLazyRuntime, workerTelemetry } from './bundle-runtime.mjs';
 
 const output = process.argv[2];
-const strictCsp = process.argv[3] === '--csp';
+const engineCspProbe = process.argv[3] === '--csp-probe';
+const strictCsp = process.argv[3] === '--csp' || engineCspProbe;
 if (
   !output ||
   !output.endsWith('.json') ||
   (process.argv[3] && !strictCsp) ||
   process.argv.length > 4
 )
-  throw new Error('Usage: node scripts/bundle-breakdown.mjs NEW_REPORT.json [--csp]');
+  throw new Error('Usage: node scripts/bundle-breakdown.mjs NEW_REPORT.json [--csp|--csp-probe]');
 const root = process.cwd(),
   temp = mkdtempSync(join(tmpdir(), 'opensheet-bundles-'));
 const hash = (data) => createHash('sha256').update(data).digest('hex');
@@ -122,6 +123,7 @@ try {
     });
   }
   report.strictCsp = strictCsp;
+  report.engineCspProbe = engineCspProbe;
   const entries = {
     'core.js':
       "import { createWorkbook, openWorkbook } from '@opensheetjs/core'; window.api = { createWorkbook, openWorkbook };",
@@ -179,6 +181,10 @@ try {
     });
     report.scenarios[entry] = summarize(result.metafile);
   }
+  const workerBanner = strictCsp
+    ? workerTelemetry + (engineCspProbe ? "try { new Function('return 1')(); } catch {}" : '')
+    : '';
+  if (strictCsp) report.workerBannerSha256 = hash(workerBanner);
   const worker = await build({
     absWorkingDir: temp,
     entryPoints: ['node_modules/@opensheetjs/core/dist/engine.worker.js'],
@@ -189,6 +195,7 @@ try {
     target: 'es2022',
     outdir: 'out/worker',
     metafile: true,
+    ...(strictCsp ? { banner: { js: workerBanner } } : {}),
     plugins,
     logLevel: 'silent',
   });
@@ -229,7 +236,10 @@ try {
     'XLSX code was included in the initial load',
   );
   report.lazyIsolation = { initial: [...initial], xlsxOutputs, status: 'passed' };
-  report.runtime = await runLazyRuntime(temp, report.scenarios.lazy, xlsxOutputs, { strictCsp });
+  report.runtime = await runLazyRuntime(temp, report.scenarios.lazy, xlsxOutputs, {
+    strictCsp,
+    engineCspProbe,
+  });
   report.finishedAt = new Date().toISOString();
   save();
 } catch (error) {
