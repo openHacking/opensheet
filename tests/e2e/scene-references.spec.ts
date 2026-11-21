@@ -117,6 +117,167 @@ test('aborted scene reference writes preserve the previous record', async ({ pag
   expect(result).toEqual({ reached: true, rejected: true, after: { value: 'old', revision: 0 } });
 });
 
+test('cancellation aborts a pending reference write but not an already committed write', async ({
+  page,
+}) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  const result = await page.evaluate(async () => {
+    const path = '/src/scene-references.ts';
+    const api = await import(/* @vite-ignore */ path);
+    const key = `cancel-${Date.now()}`;
+    const initial = await api.initializeSceneReference(key, 'old');
+    const already = new AbortController();
+    already.abort(new Error('cancel before open'));
+    let early = '';
+    try {
+      await api.compareSceneReference(key, initial, 'ignored', { signal: already.signal });
+    } catch (error) {
+      early = (error as Error).message;
+    }
+    const newKey = `${key}-new`;
+    let initialization = '';
+    try {
+      await api.initializeSceneReference(newKey, 'legacy', { signal: already.signal });
+    } catch (error) {
+      initialization = (error as Error).message;
+    }
+    const uninitialized = await api.readSceneReference(newKey);
+    const controller = new AbortController();
+    const put = IDBObjectStore.prototype.put;
+    let reached = false;
+    IDBObjectStore.prototype.put = function (...args) {
+      const request = put.apply(this, args);
+      if (this.name === 'references')
+        request.addEventListener(
+          'success',
+          () => {
+            reached = true;
+            controller.abort(new Error('cancel pending write'));
+          },
+          { once: true },
+        );
+      return request;
+    };
+    let cancelled = '';
+    try {
+      await api.compareSceneReference(key, initial, 'cancelled', { signal: controller.signal });
+    } catch (error) {
+      cancelled = (error as Error).message;
+    } finally {
+      IDBObjectStore.prototype.put = put;
+    }
+    const afterAbort = await api.readSceneReference(key);
+    const lateController = new AbortController();
+    const get = IDBObjectStore.prototype.get;
+    let lateReached = false;
+    IDBObjectStore.prototype.get = function (...args) {
+      if (this.name === 'references')
+        this.transaction.addEventListener(
+          'complete',
+          () => {
+            lateReached = true;
+            lateController.abort(new Error('late abort'));
+          },
+          { once: true },
+        );
+      return get.apply(this, args);
+    };
+    let committed;
+    try {
+      committed = await api.compareSceneReference(key, initial, 'saved', {
+        signal: lateController.signal,
+      });
+    } finally {
+      IDBObjectStore.prototype.get = get;
+    }
+    const afterCommit = await api.readSceneReference(key);
+    return {
+      early,
+      initialization,
+      uninitialized,
+      reached,
+      cancelled,
+      afterAbort,
+      lateReached,
+      committed,
+      afterCommit,
+    };
+  });
+  expect(result).toEqual({
+    early: 'cancel before open',
+    initialization: 'cancel before open',
+    uninitialized: null,
+    reached: true,
+    cancelled: 'cancel pending write',
+    afterAbort: { value: 'old', revision: 0 },
+    lateReached: true,
+    committed: { updated: true, current: { value: 'saved', revision: 1 } },
+    afterCommit: { value: 'saved', revision: 1 },
+  });
+});
+
+test('cancelling a queued reference transaction does not publish after the blocker releases', async ({
+  page,
+}) => {
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  const result = await page.evaluate(async () => {
+    const path = '/src/scene-references.ts';
+    const api = await import(/* @vite-ignore */ path);
+    const key = `queued-${Date.now()}`;
+    const initial = await api.initializeSceneReference(key, 'old');
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const open = indexedDB.open('opensheet-playground-references', 1);
+      open.onsuccess = () => resolve(open.result);
+      open.onerror = () => reject(open.error);
+    });
+    const tx = db.transaction('references', 'readwrite');
+    const store = tx.objectStore('references');
+    let release = false;
+    let held!: () => void;
+    const started = new Promise<void>((resolve) => (held = resolve));
+    const keepAlive = () => {
+      const request = store.get(key);
+      request.onsuccess = () => {
+        held();
+        if (!release) keepAlive();
+      };
+    };
+    const completed = new Promise<void>((resolve, reject) => {
+      tx.oncomplete = () => resolve();
+      tx.onabort = () => reject(tx.error);
+    });
+    keepAlive();
+    await started;
+    const controller = new AbortController();
+    const transaction = IDBDatabase.prototype.transaction;
+    let queued!: () => void;
+    const queuedPromise = new Promise<void>((resolve) => (queued = resolve));
+    IDBDatabase.prototype.transaction = function (...args) {
+      const next = transaction.apply(this, args);
+      if (this.name === 'opensheet-playground-references' && args[1] === 'readwrite') queued();
+      return next;
+    };
+    const pending = api.compareSceneReference(key, initial, 'new', { signal: controller.signal });
+    await queuedPromise;
+    IDBDatabase.prototype.transaction = transaction;
+    controller.abort(new Error('cancel queued write'));
+    release = true;
+    const outcome = await pending.then(
+      () => 'unexpected success',
+      (error: Error) => error.message,
+    );
+    await completed;
+    db.close();
+    return { outcome, reference: await api.readSceneReference(key) };
+  });
+  expect(result).toEqual({
+    outcome: 'cancel queued write',
+    reference: { value: 'old', revision: 0 },
+  });
+});
+
 test('corrupt or exhausted scene reference records are rejected without rewriting them', async ({
   page,
 }) => {

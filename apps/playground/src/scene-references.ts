@@ -98,10 +98,15 @@ export async function readSceneReference(key: string): Promise<SceneReference | 
 export async function initializeSceneReference(
   key: string,
   legacy: string | null,
+  options: { signal?: AbortSignal } = {},
 ): Promise<SceneReference> {
   checkKey(key);
   if (!validValue(legacy)) throw new Error('Invalid legacy scene reference');
-  const result = await update(key, (current) => current ?? { value: legacy, revision: 0 });
+  const result = await update(
+    key,
+    (current) => current ?? { value: legacy, revision: 0 },
+    options.signal,
+  );
   if (!result) throw new Error('Scene reference initialization failed');
   return result;
 }
@@ -111,33 +116,60 @@ export async function compareSceneReference(
   key: string,
   expected: SceneReference,
   next: string | null,
+  options: { signal?: AbortSignal } = {},
 ): Promise<{ updated: boolean; current: SceneReference | null }> {
   checkKey(key);
   const snapshot = checkedReference(expected);
   if (!validValue(next)) throw new Error('Invalid scene reference value');
   let updated = false;
-  const current = await update(key, (existing) => {
-    if (!existing || existing.revision !== snapshot.revision || existing.value !== snapshot.value)
-      return existing;
-    if (existing.revision === Number.MAX_SAFE_INTEGER)
-      throw new Error('Scene reference revision exhausted');
-    updated = true;
-    return { value: next, revision: existing.revision + 1 };
-  });
+  const current = await update(
+    key,
+    (existing) => {
+      if (!existing || existing.revision !== snapshot.revision || existing.value !== snapshot.value)
+        return existing;
+      if (existing.revision === Number.MAX_SAFE_INTEGER)
+        throw new Error('Scene reference revision exhausted');
+      updated = true;
+      return { value: next, revision: existing.revision + 1 };
+    },
+    options.signal,
+  );
   return { updated, current };
 }
 
 async function update(
   key: string,
   transform: (current: SceneReference | null) => SceneReference | null,
+  signal?: AbortSignal,
 ): Promise<SceneReference | null> {
+  signal?.throwIfAborted();
   const db = await openReferences();
+  if (signal?.aborted) {
+    db.close();
+    signal.throwIfAborted();
+  }
   return new Promise((resolve, reject) => {
     let result: SceneReference | null = null;
     let failure: unknown;
     let tx: IDBTransaction;
+    let cancelled = false;
+    let cancellationReason: unknown;
+    const abort = () => {
+      try {
+        tx.abort();
+        cancelled = true;
+        cancellationReason = signal?.reason;
+      } catch {
+        // A transaction that has already committed cannot be cancelled.
+      }
+    };
+    const cleanup = () => {
+      signal?.removeEventListener('abort', abort);
+      db.close();
+    };
     try {
       tx = db.transaction(storeName, 'readwrite');
+      signal?.addEventListener('abort', abort, { once: true });
       const store = tx.objectStore(storeName);
       const request = store.get(key);
       request.onsuccess = () => {
@@ -155,18 +187,23 @@ async function update(
         }
       };
       tx.oncomplete = () => {
-        db.close();
+        cleanup();
         resolve(result);
       };
       tx.onabort = () => {
-        db.close();
-        reject(failure ?? tx.error ?? new Error('Scene reference transaction aborted'));
+        cleanup();
+        reject(
+          cancelled
+            ? cancellationReason
+            : (failure ?? tx.error ?? new Error('Scene reference transaction aborted')),
+        );
       };
       tx.onerror = () => {
         /* onabort reports the failure */
       };
+      if (signal?.aborted) abort();
     } catch (error) {
-      db.close();
+      cleanup();
       reject(error);
     }
   });
