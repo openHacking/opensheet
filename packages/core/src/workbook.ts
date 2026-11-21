@@ -1631,7 +1631,16 @@ export class Workbook {
       } catch {
         // Deletion is already committed even if this notification cannot be delivered.
       }
-      this.dispose();
+      try {
+        this.dispose();
+      } catch (error) {
+        // Deletion has committed; a local cleanup failure cannot undo it.
+        try {
+          console.error(error);
+        } catch {
+          /* Keep the committed result. */
+        }
+      }
     } finally {
       this.deleting = false;
     }
@@ -1652,37 +1661,64 @@ export class Workbook {
     assert(!this.expired, 'DISPOSED', 'Transaction scope is disposed');
     assert(!this.batch && !this.transactionRunning, 'BUSY', 'Cannot close during a transaction');
     if (!this.disposed) {
+      let failure: unknown;
+      let failed = false;
       try {
         if (!this.failure) await this.rpc('close');
-      } finally {
-        this.dispose();
+      } catch (error) {
+        failure = error;
+        failed = true;
       }
+      try {
+        this.dispose();
+      } catch (error) {
+        if (!failed) throw error;
+        try {
+          console.error(error);
+        } catch {
+          /* Preserve the close failure. */
+        }
+      }
+      if (failed) throw failure;
     }
   }
   dispose() {
     if (this.disposed) return;
     this.disposed = true;
-    for (const fn of this.disposeListeners) {
+    let failure: unknown;
+    let failed = false;
+    const cleanup = (action: () => void) => {
       try {
-        notifyObserver(fn);
+        action();
       } catch (error) {
-        console.error(error);
+        if (!failed) failure = error;
+        else {
+          try {
+            console.error(error);
+          } catch {
+            /* Preserve the first failure. */
+          }
+        }
+        failed = true;
       }
-    }
+    };
+    for (const fn of this.disposeListeners) cleanup(() => notifyObserver(fn));
     this.disposeListeners.clear();
-    if (typeof window !== 'undefined') window.removeEventListener('focus', this.refreshOnVisible);
+    if (typeof window !== 'undefined')
+      cleanup(() => window.removeEventListener('focus', this.refreshOnVisible));
     if (typeof document !== 'undefined')
-      document.removeEventListener('visibilitychange', this.refreshOnVisible);
-    if (this.remoteRefreshTimer) clearTimeout(this.remoteRefreshTimer);
-    this.channel?.close();
-    this.worker.terminate();
-    this.fail(new OpenSheetError('DISPOSED', 'Workbook closed'));
-    this.cache.clear();
-    this.seen.clear();
-    this.listeners.clear();
-    this.progressListeners.clear();
-    this.dataListeners.clear();
-    this.persistenceListeners.clear();
+      cleanup(() => document.removeEventListener('visibilitychange', this.refreshOnVisible));
+    if (this.remoteRefreshTimer) cleanup(() => clearTimeout(this.remoteRefreshTimer));
+    cleanup(() => this.channel?.close());
+    cleanup(() => this.worker.terminate());
+    cleanup(() => this.fail(new OpenSheetError('DISPOSED', 'Workbook closed')));
+    cleanup(() => this.cache.clear());
+    cleanup(() => this.seen.clear());
+    cleanup(() => this.listeners.clear());
+    cleanup(() => this.progressListeners.clear());
+    cleanup(() => this.dataListeners.clear());
+    cleanup(() => this.persistenceListeners.clear());
+    if (failed) throw failure;
   }
 }
 export async function createWorkbook(
