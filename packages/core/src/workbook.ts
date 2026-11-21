@@ -293,7 +293,10 @@ export class Workbook {
     };
     this.worker.onerror = (event) => {
       this.worker.terminate();
-      this.fail(new OpenSheetError('WORKER_FAILED', event.message || 'Storage worker failed'));
+      const message = this.view
+        ? event.message || 'Storage worker failed'
+        : `Storage worker failed to start; check the Worker asset path and site security policy, then reopen the workbook${event.message ? `: ${event.message}` : ''}`;
+      this.fail(new OpenSheetError('WORKER_FAILED', message));
     };
     this.worker.onmessageerror = () => {
       this.worker.terminate();
