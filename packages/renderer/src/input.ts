@@ -285,7 +285,7 @@ export class GridInput {
           'end',
         );
         this.editor.element.dispatchEvent(new Event('input', { bubbles: true }));
-      } else if ((e.key === 'Enter' && !e.altKey) || e.key === 'Tab') {
+      } else if (!e.altKey && !e.ctrlKey && !e.metaKey && (e.key === 'Enter' || e.key === 'Tab')) {
         e.preventDefault();
         const origin = this.editor.getOrigin();
         if (this.editor.finish()) {

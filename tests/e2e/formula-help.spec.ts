@@ -310,6 +310,21 @@ test('keyboard reference picker changes sheets, extends a range and does not com
   for (let i = 0; i < setup.sheetSteps; i++) await input.press('PageDown');
   await input.press('Shift+ArrowDown');
   await expect(input).toHaveValue("=SUM('O''Brien Q2'!A1:A2");
+  const prevented = await input.evaluate((element: HTMLInputElement) => {
+    const event = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    element.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+  expect(prevented).toBe(false);
+  await expect(page.locator('.os-formula-bar .os-formula-assist [role="status"]')).toContainText(
+    'Arrows move',
+  );
+  expect(await page.evaluate(() => window.opensheet.getWorkbook().revision)).toBe(setup.revision);
   await input.press('Enter');
   await expect(input).toBeFocused();
   expect(await page.evaluate(() => window.opensheet.getWorkbook().revision)).toBe(setup.revision);

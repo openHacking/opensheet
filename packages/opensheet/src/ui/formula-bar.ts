@@ -234,6 +234,7 @@ export class FormulaBar {
       'keydown',
       (e) => {
         if (e.isComposing || e.keyCode === 229) return;
+        if (e.key === 'Enter' && (e.altKey || e.ctrlKey || e.metaKey)) return;
         if (e.key === 'Escape') {
           e.preventDefault();
           const selection = this.actions.selection();
@@ -287,6 +288,7 @@ export class FormulaBar {
           this.formula.readOnly
         )
           return;
+        if (e.key === 'Enter' && (e.altKey || e.ctrlKey || e.metaKey)) return;
         if (this.keyboardPick) {
           if (this.handleKeyboardReference(e)) return;
           this.endReference();
