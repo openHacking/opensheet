@@ -384,3 +384,114 @@ it('accepts the relationship namespace on the hyperlinks container', () => {
     expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED', count: 3 }),
   );
 });
+
+it('accepts a correctly decoded Unicode fragment on a verified ASCII relationship in strict mode', () => {
+  const workbook = XLSX.utils.book_new();
+  const sheet = XLSX.utils.aoa_to_sheet([['linked']]);
+  sheet.A1.l = { Target: 'https://example.com/path#片段' };
+  XLSX.utils.book_append_sheet(workbook, sheet, 'Data');
+  const parsed = XLSX.read(XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' }), {
+    type: 'buffer',
+    bookFiles: true,
+    cellHTML: false,
+  }) as RawWorkbook;
+  const result = fromSheetJS(parsed, { unsupported: 'strict' });
+  const reader = new FileReader(result.file);
+  try {
+    expect(reader.getCell(result.file.sheets[0].id, 0, 0)?.link?.target).toBe(
+      'https://example.com/path#片段',
+    );
+  } finally {
+    reader.dispose();
+  }
+  expect(result.report.issues).not.toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN' }),
+  );
+  delete parsed.files;
+  expect(fromSheetJS(parsed).report.issues).toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN' }),
+  );
+  expect(() => fromSheetJS(parsed, { unsupported: 'strict' })).toThrow(
+    'Strict compatibility check failed',
+  );
+});
+
+it.each([
+  [
+    'forged fragment',
+    (book: RawWorkbook) =>
+      rewrite(book, sheetPath, (xml) => xml.replace('location="片段"', 'location="伪造"')),
+  ],
+  [
+    'forged ASCII relationship',
+    (book: RawWorkbook) =>
+      rewrite(book, relPath, (xml) =>
+        xml.replace('https://example.com/path', 'https://example.com/forged'),
+      ),
+  ],
+  [
+    'duplicate hyperlink reference',
+    (book: RawWorkbook) =>
+      rewrite(book, sheetPath, (xml) =>
+        xml.replace(
+          '</hyperlinks>',
+          '<hyperlink ref="A1" r:id="rId1" location="片段"/></hyperlinks>',
+        ),
+      ),
+  ],
+  [
+    'mismatched parsed relationship ID',
+    (book: RawWorkbook) => {
+      book.Sheets.Data.A1.l.Rel.Id = 'rId999';
+    },
+  ],
+])('keeps the Unicode fragment warning for %s', (_name, mutate) => {
+  const source = XLSX.utils.book_new();
+  const sheet = XLSX.utils.aoa_to_sheet([['linked']]);
+  sheet.A1.l = { Target: 'https://example.com/path#片段' };
+  XLSX.utils.book_append_sheet(source, sheet, 'Data');
+  const book = XLSX.read(XLSX.write(source, { type: 'buffer', bookType: 'xlsx' }), {
+    type: 'buffer',
+    bookFiles: true,
+    cellHTML: false,
+  }) as RawWorkbook;
+  mutate(book);
+  expect(fromSheetJS(book).report.issues).toContainEqual(
+    expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN', address: 'A1' }),
+  );
+  expect(() => fromSheetJS(book, { unsupported: 'strict' })).toThrow(
+    'Strict compatibility check failed',
+  );
+});
+
+it.each([false, true])(
+  'handles both Unicode target and Unicode fragment in either order (%s)',
+  (reverse) => {
+    const source = XLSX.utils.book_new();
+    const sheet = XLSX.utils.aoa_to_sheet([['first'], ['second']]);
+    const targets = ['https://example.com/路径', 'https://example.com/path#片段'];
+    if (reverse) targets.reverse();
+    sheet.A1.l = { Target: targets[0] };
+    sheet.A2.l = { Target: targets[1] };
+    XLSX.utils.book_append_sheet(source, sheet, 'Mixed');
+    const parsed = XLSX.read(XLSX.write(source, { type: 'buffer', bookType: 'xlsx' }), {
+      type: 'buffer',
+      bookFiles: true,
+      cellHTML: false,
+    });
+    const result = fromSheetJS(parsed, { unsupported: 'strict' });
+    const reader = new FileReader(result.file);
+    try {
+      for (let row = 0; row < 2; row++)
+        expect(reader.getCell(result.file.sheets[0].id, row, 0)?.link?.target).toBe(targets[row]);
+    } finally {
+      reader.dispose();
+    }
+    expect(result.report.issues).not.toContainEqual(
+      expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN' }),
+    );
+    expect(result.report.issues).toContainEqual(
+      expect.objectContaining({ code: 'XLSX_LINK_URL_UTF8_RESTORED', count: 1 }),
+    );
+  },
+);

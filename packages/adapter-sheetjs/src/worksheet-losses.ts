@@ -385,6 +385,7 @@ export function rawHyperlinkTargets(
   files: SheetJSWorkbook['files'],
   names: string[],
   sheets: unknown,
+  includeAscii = false,
 ): Map<
   string,
   {
@@ -465,7 +466,7 @@ export function rawHyperlinkTargets(
         if (
           target &&
           target.length <= 4096 &&
-          /[^\x00-\x7f]/.test(target) &&
+          (includeAscii || /[^\x00-\x7f]/.test(target)) &&
           !/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(target) &&
           fields.get('Type') === `${relationshipNamespace}/hyperlink` &&
           fields.get('TargetMode') === 'External'

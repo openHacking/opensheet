@@ -101,6 +101,7 @@ export function fromSheetJS(
   const normalize = createPrecedenceNormalizer();
   const freezes = reportWorksheetLosses(input.files, r, input.SheetNames, input.Workbook?.Sheets);
   let rawLinks: ReturnType<typeof rawHyperlinkTargets> | undefined;
+  let rawLinksWithAscii: ReturnType<typeof rawHyperlinkTargets> | undefined;
   for (const [index, name] of input.SheetNames.entries()) {
     const ws =
       input.Sheets && typeof input.Sheets === 'object' && Object.hasOwn(input.Sheets, name)
@@ -191,8 +192,21 @@ export function fromSheetJS(
       if (c === undefined || c === null) return;
       let trustedLinkTarget: string | undefined;
       if (typeof c.l?.Target === 'string' && /[^\x00-\x7f]/.test(c.l.Target)) {
-        rawLinks ??= rawHyperlinkTargets(input.files, input.SheetNames, input.Workbook?.Sheets);
-        trustedLinkTarget = corroboratedLinkTarget(c.l, address(row, col), rawLinks.get(name));
+        const asciiRelationship =
+          typeof c.l.Rel?.Target === 'string' && !/[^\x00-\x7f]/.test(c.l.Rel.Target);
+        const candidates = asciiRelationship
+          ? (rawLinksWithAscii ??= rawHyperlinkTargets(
+              input.files,
+              input.SheetNames,
+              input.Workbook?.Sheets,
+              true,
+            ))
+          : (rawLinks ??= rawHyperlinkTargets(
+              input.files,
+              input.SheetNames,
+              input.Workbook?.Sheets,
+            ));
+        trustedLinkTarget = corroboratedLinkTarget(c.l, address(row, col), candidates.get(name));
         if (trustedLinkTarget !== undefined && trustedLinkTarget !== c.l.Target)
           add(r, {
             code: 'XLSX_LINK_URL_UTF8_RESTORED',

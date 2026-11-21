@@ -161,3 +161,36 @@ for (const suffix of ['', '.saved']) {
     });
   });
 }
+
+test('imports a verified Unicode fragment without a false link warning', async ({ page }) => {
+  const source = XLSX.utils.book_new();
+  const sheet = XLSX.utils.aoa_to_sheet([['linked']]);
+  sheet.A1.l = { Target: 'https://example.com/path#片段' };
+  XLSX.utils.book_append_sheet(source, sheet, 'Fragment');
+  const buffer = XLSX.write(source, { type: 'buffer', bookType: 'xlsx' });
+  await page.goto('/#budget');
+  await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
+  await page.locator('#file').setInputFiles({
+    name: 'fragment.xlsx',
+    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    buffer,
+  });
+  const dialog = page.getByRole('dialog', { name: 'Compatibility report' });
+  await expect(dialog).not.toContainText(
+    'A non-ASCII hyperlink target may have been decoded incorrectly',
+  );
+  await dialog.getByRole('button', { name: 'Import converted workbook' }).click();
+  await expect(page.getByRole('tab', { name: 'Fragment', exact: true })).toBeVisible();
+  const result = await page.evaluate(async () => {
+    const app = window.opensheet;
+    let book = app.getWorkbook();
+    const before = (await book.getSheets()[0].range('A1').getLinks())[0][0]?.target;
+    await app.open(book.id);
+    book = app.getWorkbook();
+    return { before, after: (await book.getSheets()[0].range('A1').getLinks())[0][0]?.target };
+  });
+  expect(result).toEqual({
+    before: 'https://example.com/path#片段',
+    after: 'https://example.com/path#片段',
+  });
+});
