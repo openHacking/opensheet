@@ -235,10 +235,13 @@ export class Engine {
   }
   async lock() {
     try {
-      if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      const locks = typeof navigator !== 'undefined' ? navigator.locks : undefined;
+      const request = locks?.request;
+      if (typeof request === 'function') {
         await new Promise<void>((resolve, reject) => {
-          void navigator.locks
-            .request(
+          void request
+            .call(
+              locks,
               `opensheet:${this.db.db.name}:${this.id}`,
               { ifAvailable: true },
               async (lock) => {
@@ -259,7 +262,8 @@ export class Engine {
           'Web Locks is required for safe multi-tab editing; open this app over HTTPS or localhost in a supported browser',
         );
     } catch (error) {
-      if ((error as { name?: unknown })?.name === 'SecurityError')
+      const name = (error as { name?: unknown })?.name;
+      if (name === 'SecurityError' || name === 'NotAllowedError')
         throw new OpenSheetError(
           'WEB_LOCKS_UNAVAILABLE',
           'Web Locks access was denied; open this app over HTTPS or localhost in a supported browser',

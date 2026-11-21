@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createWorkbook, Workbook } from '@opensheetjs/core';
 import { Database } from '../packages/core/src/storage.js';
+import { Engine } from '../packages/core/src/engine.js';
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -318,4 +319,53 @@ it('preserves unexpected Worker-side IndexedDB open getter failures', async () =
     },
   });
   await expect(Database.open()).rejects.toBe(failure);
+});
+
+it.each([null, 'not callable', {}, 1])(
+  'rejects unusable Worker Web Locks request %j',
+  async (request) => {
+    vi.stubGlobal('navigator', { locks: { request } });
+    vi.stubGlobal('self', {});
+    const engine = new Engine({ db: { name: 'locks' } } as never, 'book');
+    await expect(engine.lock()).rejects.toEqual(
+      expect.objectContaining({ code: 'WEB_LOCKS_UNAVAILABLE' }),
+    );
+  },
+);
+
+it.each(['SecurityError', 'NotAllowedError'])(
+  'maps Worker lock %s and preserves unrelated errors',
+  async (name) => {
+    const engine = new Engine({ db: { name: 'locks' } } as never, 'book');
+    const failure = new DOMException('Denied', name);
+    vi.stubGlobal('navigator', { locks: { request: () => Promise.reject(failure) } });
+    await expect(engine.lock()).rejects.toEqual(
+      expect.objectContaining({ code: 'WEB_LOCKS_UNAVAILABLE' }),
+    );
+    const other = new Error('unexpected lock failure');
+    vi.stubGlobal('navigator', { locks: { request: () => Promise.reject(other) } });
+    await expect(engine.lock()).rejects.toBe(other);
+  },
+);
+
+it('captures the Web Locks method once and preserves its receiver', async () => {
+  let accesses = 0;
+  const request = vi.fn(function (this: unknown, _name, _options, callback) {
+    expect(this).toBe(locks);
+    void callback(null);
+    return Promise.resolve();
+  });
+  const locks = {
+    get request() {
+      accesses++;
+      if (accesses > 1) throw new Error('read twice');
+      return request;
+    },
+  };
+  vi.stubGlobal('navigator', { locks });
+  vi.stubGlobal('self', {});
+  const engine = new Engine({ db: { name: 'locks' } } as never, 'book');
+  await expect(engine.lock()).resolves.toBeUndefined();
+  expect(accesses).toBe(1);
+  expect(request).toHaveBeenCalledOnce();
 });
