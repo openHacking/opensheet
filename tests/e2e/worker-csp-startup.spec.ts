@@ -14,6 +14,18 @@ for (const failure of ['policy', 'missing-asset'] as const) {
     });
     await page.addInitScript(() => {
       (window as any).workerPolicyViolations = [];
+      (window as any).channelCounts = { created: 0, closed: 0 };
+      const Channel = globalThis.BroadcastChannel;
+      globalThis.BroadcastChannel = class extends Channel {
+        constructor(name: string) {
+          super(name);
+          (window as any).channelCounts.created++;
+        }
+        close() {
+          (window as any).channelCounts.closed++;
+          super.close();
+        }
+      };
       document.addEventListener('securitypolicyviolation', (event) => {
         if (event.effectiveDirective === 'worker-src')
           (window as any).workerPolicyViolations.push(event.effectiveDirective);
@@ -34,6 +46,7 @@ for (const failure of ['policy', 'missing-asset'] as const) {
     await expect(page.getByRole('heading', { name: 'Unable to open workbook' })).toBeVisible();
     const message = await page.locator('#startup-recovery-message').textContent();
     const violations = await page.evaluate(() => (window as any).workerPolicyViolations);
+    const channelCounts = await page.evaluate(() => (window as any).channelCounts);
     await page.unroute(failure === 'policy' ? '**/' : '**/engine.worker.js*');
     await page.reload();
     await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
@@ -46,6 +59,7 @@ for (const failure of ['policy', 'missing-asset'] as const) {
         value: await book.getSheets()[0].range('A1').getValues(),
       };
     });
+    expect(channelCounts).toEqual({ created: 1, closed: 1 });
     if (failure === 'policy') expect(violations).toContain('worker-src');
     else expect(violations).toEqual([]);
     expect(message).toContain('security policy');

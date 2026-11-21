@@ -216,26 +216,50 @@ export class Workbook {
     const retryBytes = Math.min(512 * 1024, Math.floor(cacheBudget / 16));
     this.seen = new ByteCache(retryBytes);
     this.cache = new ByteCache(cacheBudget - retryBytes);
-    const injectedWorker = options.workerFactory?.();
-    if (injectedWorker != null) {
-      this.worker = injectedWorker;
-    } else {
-      try {
-        this.worker = new Worker(new URL('./engine.worker.js', import.meta.url), {
-          type: 'module',
-        });
-      } catch (error) {
-        if (
-          error instanceof Error &&
-          (error.name === 'SecurityError' || error.name === 'NotAllowedError')
-        )
-          throw new OpenSheetError(
-            'WORKER_UNAVAILABLE',
-            'Worker creation was denied; check the site security policy and allow module Workers, then reopen the workbook',
-          );
-        throw error;
-      }
+    let channel: BroadcastChannel;
+    try {
+      channel = new Channel(`opensheet:${options.database ?? 'opensheet'}:${id}`);
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        (error.name === 'SecurityError' || error.name === 'NotAllowedError')
+      )
+        throw new OpenSheetError(
+          'BROADCAST_CHANNEL_UNAVAILABLE',
+          'BroadcastChannel access was denied; enable site storage or use a supported browser and reopen the workbook',
+        );
+      throw error;
     }
+    try {
+      const injectedWorker = options.workerFactory?.();
+      if (injectedWorker != null) {
+        this.worker = injectedWorker;
+      } else {
+        try {
+          this.worker = new Worker(new URL('./engine.worker.js', import.meta.url), {
+            type: 'module',
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            (error.name === 'SecurityError' || error.name === 'NotAllowedError')
+          )
+            throw new OpenSheetError(
+              'WORKER_UNAVAILABLE',
+              'Worker creation was denied; check the site security policy and allow module Workers, then reopen the workbook',
+            );
+          throw error;
+        }
+      }
+    } catch (error) {
+      try {
+        channel.close();
+      } catch {
+        // Preserve the startup error even if the host's channel cleanup fails.
+      }
+      throw error;
+    }
+    this.channel = channel;
     this.worker.onmessage = (event) => {
       const message = event.data;
       if (message.storage) {
@@ -318,20 +342,7 @@ export class Workbook {
           throw new OpenSheetError('DISPOSED', 'Workbook closed during initialization');
         this.adopt(view);
         this.writer = writer;
-        try {
-          this.channel = new Channel(`opensheet:${options.database ?? 'opensheet'}:${id}`);
-        } catch (error) {
-          if (
-            error instanceof Error &&
-            (error.name === 'SecurityError' || error.name === 'NotAllowedError')
-          )
-            throw new OpenSheetError(
-              'BROADCAST_CHANNEL_UNAVAILABLE',
-              'BroadcastChannel access was denied; enable site storage or use a supported browser and reopen the workbook',
-            );
-          throw error;
-        }
-        this.channel.onmessage = (event) => {
+        channel.onmessage = (event) => {
           if (event.data?.deleted === true) void this.checkRemoteDeletion();
           else this.refreshRemote();
         };

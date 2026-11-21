@@ -133,6 +133,62 @@ describe('runtime prerequisites', () => {
     expect(worker).not.toHaveBeenCalled();
   });
 
+  it.each(['SecurityError', 'NotAllowedError', 'TypeError'])(
+    'rejects %s from BroadcastChannel construction before creating the Worker',
+    (name) => {
+      const worker = vi.fn();
+      const failure =
+        name === 'TypeError' ? new TypeError('Unexpected') : new DOMException('Blocked', name);
+      vi.stubGlobal('Worker', worker);
+      vi.stubGlobal(
+        'BroadcastChannel',
+        class {
+          constructor() {
+            throw failure;
+          }
+        },
+      );
+      if (name === 'TypeError') expect(() => new Workbook()).toThrow(failure);
+      else
+        expect(() => new Workbook()).toThrow(
+          expect.objectContaining({ code: 'BROADCAST_CHANNEL_UNAVAILABLE' }),
+        );
+      expect(worker).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each(['browser', 'factory'] as const)(
+    'closes the channel if %s Worker construction fails, preserving the startup error',
+    (kind) => {
+      const failure = new Error('Worker failed');
+      const close = vi.fn(() => {
+        throw new Error('Close failed');
+      });
+      vi.stubGlobal(
+        'BroadcastChannel',
+        class {
+          close = close;
+        },
+      );
+      vi.stubGlobal(
+        'Worker',
+        class {
+          constructor() {
+            if (kind === 'browser') throw failure;
+          }
+        },
+      );
+      const factory =
+        kind === 'factory'
+          ? () => {
+              throw failure;
+            }
+          : undefined;
+      expect(() => new Workbook(undefined, { workerFactory: factory })).toThrow(failure);
+      expect(close).toHaveBeenCalledOnce();
+    },
+  );
+
   it('reports denied BroadcastChannel property access before allocating a Worker', () => {
     const original = Object.getOwnPropertyDescriptor(globalThis, 'BroadcastChannel');
     const worker = vi.fn();
