@@ -1176,3 +1176,7 @@ Opening a retained backup prepares a separate workbook before writing the scene 
 ### Backup publication preflight
 
 Backup restore captures the current workbook and scene reference before preparing a candidate, then rechecks the workbook identity and revision, pending writes, draft, requested scene and reference before publishing. Three-browser JSON and binary tests hold the candidate after import and independently change the original revision, scene reference or draft. They verify the unpublished candidate is removed, preserve the original workbook or competing reference, and retry through reopen. The reference comparison uses localStorage and is not atomic; ABA and changes between the check and write remain possible. The staged import pause is injected rather than a physical interruption.
+
+### Scene creation and reset reference preflight
+
+Non-performance scene creation and reset capture the scene reference before preparing a new workbook and compare it again before publication. Two-page tests in Chromium, Firefox and WebKit publish a separate real workbook to the reference while the candidate is paused. The initiating page retains its original workbook, deletes the unpublished candidate and can later open the competing workbook and value. Separate injected final-read failures preserve the original workbook and permit retry. This is not an atomic compare-and-swap: ABA and writes after the check remain possible. Performance-scene reset is not covered by this check.

@@ -72,7 +72,8 @@ export function createRouting(
     state.currentScene = id;
     if (id === 'performance') await startPerformance();
     else {
-      const saved = localStorage.getItem(`opensheet.scene.${id}`);
+      const key = `opensheet.scene.${id}`;
+      const saved = localStorage.getItem(key);
       if (saved) await app.open(saved);
       else {
         if (app.hasDraft) throw new Error('Finish or cancel editing before changing scenes');
@@ -91,7 +92,9 @@ export function createRouting(
             app.hasDraft
           )
             throw new Error('Workbook changed during scene creation; try again');
-          localStorage.setItem(`opensheet.scene.${id}`, candidate.id);
+          if (localStorage.getItem(key) !== saved)
+            throw new Error('Saved scene changed during creation; try again');
+          localStorage.setItem(key, candidate.id);
           published = true;
           await app.attachWorkbook(candidate);
         } catch (error) {
@@ -168,6 +171,8 @@ export function createRouting(
       } else {
         const previous = app.getWorkbook();
         const revision = previous.revision;
+        const key = `opensheet.scene.${scene}`;
+        const reference = localStorage.getItem(key);
         const snapshot = scene === 'budget' ? await sample() : await createScene(scene);
         candidate = new Workbook({ ...snapshot, workbookId: `wb-${crypto.randomUUID()}` });
         await candidate.ready();
@@ -178,7 +183,9 @@ export function createRouting(
           app.hasDraft
         )
           throw new Error('Workbook changed during reset; try again');
-        localStorage.setItem(`opensheet.scene.${scene}`, candidate.id);
+        if (localStorage.getItem(key) !== reference)
+          throw new Error('Saved scene changed during reset; try again');
+        localStorage.setItem(key, candidate.id);
         published = true;
         await app.attachWorkbook(candidate);
         completeScene(scene);
