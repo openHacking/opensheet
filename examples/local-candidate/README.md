@@ -18,4 +18,4 @@ Open the `/embedded/sheets/` path shown by Vite. `package.json` is a standalone 
 
 This example does not configure strict CSP or server rendering. See the [API guide](../../docs/api.md) and [candidate packaging notes](../../docs/candidate-packaging.md) for those boundaries and the candidate's verification status.
 
-For the edit, reopen and backup workflow, see [Getting started](../../docs/getting-started.md). The example creates a new workbook on each page load; a host must persist and reopen its workbook ID.
+For the edit, reopen and backup workflow, see [Getting started](../../docs/getting-started.md). The example stores its workbook ID in localStorage and reopens it on reload. If opening fails, it reports the error and keeps the ID for recovery.

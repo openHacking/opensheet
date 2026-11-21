@@ -151,6 +151,22 @@ try {
         null,
         { timeout: 30000 },
       );
+      const originalId = await page.evaluate(() => window.candidateExample.book.id);
+      await page.reload();
+      await page.waitForFunction(
+        () => window.candidateExample || document.body.dataset.error,
+        null,
+        { timeout: 30000 },
+      );
+      const refreshed = await page.evaluate(async () => {
+        if (document.body.dataset.error) throw Error(document.body.dataset.error);
+        const book = window.candidateExample.book;
+        return {
+          id: book.id,
+          values: await book.getSheets()[0].range('A1:C2').getValues(),
+          readOnly: book.isReadOnly,
+        };
+      });
       const attachmentRace = await page.evaluate(async () => {
         const { app, book, backupWorkbook } = window.candidateExample;
         const snapshot = JSON.parse(await backupWorkbook(book));
@@ -207,10 +223,48 @@ try {
           await reopened.close();
         }
       });
+      const missingId = `missing_${Date.now()}`;
+      await page.evaluate(
+        (id) => localStorage.setItem('opensheet-local-candidate-workbook-id', id),
+        missingId,
+      );
+      await page.reload();
+      await page.waitForFunction(
+        () => window.candidateExample || document.body.dataset.error,
+        null,
+        { timeout: 30000 },
+      );
+      const failure = await page.evaluate(() => ({
+        retainedId: localStorage.getItem('opensheet-local-candidate-workbook-id'),
+        status: document.querySelector('#status').textContent,
+        opened: !!window.candidateExample,
+      }));
+      await page.evaluate(
+        (id) => localStorage.setItem('opensheet-local-candidate-workbook-id', id),
+        originalId,
+      );
+      await page.reload();
+      await page.waitForFunction(
+        () => window.candidateExample || document.body.dataset.error,
+        null,
+        { timeout: 30000 },
+      );
+      const recovered = await page.evaluate(async () => {
+        if (document.body.dataset.error) throw Error(document.body.dataset.error);
+        const book = window.candidateExample.book;
+        return {
+          id: book.id,
+          values: await book.getSheets()[0].range('A1:C2').getValues(),
+          readOnly: book.isReadOnly,
+        };
+      });
       const result = {
         engine,
         browser: browser.version(),
         initial,
+        refreshed,
+        failure,
+        recovered,
         attachmentRace,
         edited,
         workerUrls,
@@ -221,6 +275,19 @@ try {
       assert.deepEqual(initial.values, [[7, 5, 12]]);
       assert.equal(initial.height, 500);
       assert.equal(initial.stylesheets, 1);
+      const expectedReload = {
+        id: originalId,
+        values: [
+          [7, 5, 12],
+          [42, null, null],
+        ],
+        readOnly: false,
+      };
+      assert.deepEqual(refreshed, expectedReload);
+      assert.equal(failure.retainedId, missingId);
+      assert.equal(failure.opened, false);
+      assert.match(failure.status, /^Could not open workbook:/);
+      assert.deepEqual(recovered, expectedReload);
       assert.deepEqual(attachmentRace, {
         code: 'DISPOSED',
         backupValues: [

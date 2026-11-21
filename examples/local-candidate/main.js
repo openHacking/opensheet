@@ -11,12 +11,22 @@ async function restoreBackup(app, json) {
   return app.getWorkbook();
 }
 
+const storageKey = 'opensheet-local-candidate-workbook-id';
+let app;
 try {
-  const app = createOpenSheet({ container: '#sheet' });
-  const book = await app.createWorkbook({ sheets: [{ name: 'Example', rows: 10, columns: 4 }] });
-  const sheet = book.getSheets()[0];
-  await sheet.range('A1:B1').setValues([[7, 5]]);
-  await sheet.range('C1').setFormulas([['A1+B1']]);
+  const savedId = localStorage.getItem(storageKey);
+  app = createOpenSheet({ container: '#sheet' });
+  let book;
+  if (savedId) {
+    await app.open(savedId);
+    book = app.getWorkbook();
+  } else {
+    book = await app.createWorkbook({ sheets: [{ name: 'Example', rows: 10, columns: 4 }] });
+    const sheet = book.getSheets()[0];
+    await sheet.range('A1:B1').setValues([[7, 5]]);
+    await sheet.range('C1').setFormulas([['A1+B1']]);
+    localStorage.setItem(storageKey, book.id);
+  }
   await app.ready();
   window.candidateExample = {
     app,
@@ -27,5 +37,12 @@ try {
     createOpenSheet,
   };
 } catch (error) {
+  try {
+    app?.dispose();
+  } catch {
+    // Preserve the startup error.
+  }
+  document.querySelector('#status').textContent =
+    `Could not open workbook: ${error?.message ?? error}`;
   document.body.dataset.error = String(error?.stack ?? error);
 }
