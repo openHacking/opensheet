@@ -78,7 +78,7 @@ For browser workbooks without a UI, import `createWorkbook` from `@opensheetjs/c
 
 - [Roadmap](ROADMAP.md), [execution backlog](TODO.md) and [competitive research](docs/competitive-research.md)
 - [Getting started](docs/getting-started.md), [API guide](docs/api.md), [Node and headless use](docs/node-usage.md), and [plugin guide](docs/plugins.md)
-- [Implementation status and limitations](docs/implementation-status.md)
+- [Implementation status and limitations](docs/implementation-status.md), [candidate bundle breakdown](docs/bundle-breakdown.md)
 - [Architecture](docs/01-architecture.md) and [data model](docs/02-data-and-commands.md)
 - [Verification](docs/verification.md), [changelog](CHANGELOG.md) and [Agent navigation](llms.txt)
 - [Workbook schema](schemas/workbook.schema.json) and [command schema](schemas/commands.schema.json)

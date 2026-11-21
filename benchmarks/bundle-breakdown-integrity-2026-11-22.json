@@ -1,0 +1,51 @@
+{
+  "startedAt": "2026-11-21T17:58:52.151Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 398,
+    "sha256": "629ed15c24c28988a48d1bb30975a739d29f780c05425d7932b25e96832dd0fd"
+  },
+  "node": "v22.19.0",
+  "esbuild": "0.25.12",
+  "scope": "Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Not a Vite/real network transfer, runtime memory, execution-time or complete consumer bundle measurement.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "adc55a25384b1795c35b4bbad0eeb534e18c3d461cc1235f0ded6f3460e34ce7"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "12cc6bab28f6fa4b36856dac83b078830f019cd9d2d0b77370eb01274f1e9990"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "7ad9d3eb302f9ead35d15fa58e4672a907eaec842f4dbc69e47274df8d6b7573"
+    },
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "41c9d947753a04d4027bf4fc1236960d904f55255c6cc5a99759078064edaf21"
+    }
+  ],
+  "scenarios": {},
+  "xlsxIntegrity": {
+    "source": "pnpm-lock.yaml",
+    "integrity": "sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}\n\n  source-map-js@1.2.2:\n    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}\n    engines: {node: '>=0.10.0'}\n\n  stackback@0.0.2:\n    resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}\n\n  std-env@4.3.0:\n    resolution: {integrity: sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag==}\n\n  tinybench@2.9.0:\n    resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}\n\n  tinyexec@1.3.1:\n    resolution: {integrity: sha512-GCvB3aoys96IuDFBMcTB46JOR6mdMtAToqwiW8JlWhsoh1mhHi/xn9ss/Dg7N555GiJyEt2qzoG/NHCwM6h1EA==}\n    engines: {node: '>=18'}\n\n  tinyglobby@0.2.17:\n    resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}\n    engines: {node: '>=12.0.0'}\n\n  tinyrainbow@3.2.0:\n    resolution: {integrity: sha512-LgO3D9yZJjApUiuUfl9iFAwrtaX4+lok3wJIqttGoKCHlWUqHqbQpnxCf82L8FjgKsh4iGo78hqJwgL8F6To2A==}\n    engines: {node: '>=14.0.0'}\n\n  typescript@5.9.3:\n    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}\n    engines: {node: '>=14.17'}\n    hasBin: true\n\n  undici-types@6.21.0:\n    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}\n\n  vite@7.3.7:\n    resolution: {integrity: sha512-AHEzTORMbi7/7aXp7w7KZ5+DCUdSeLsJz0grY8xHpc9DHdYb0vQu6DqJfm2tOw3gDExNgPgnJTXxM6syYFHaCA==}\n    engines: {node: ^20.19.0 || >=22.12.0}\n    hasBin: true\n    peerDependencies:\n      '@types/node': ^20.19.0 || >=22.12.0\n      jiti: '>=1.21.0'\n      less: ^4.0.0\n      lightningcss: ^1.21.0\n      sass: ^1.70.0\n      sass-embedded: ^1.70.0\n      stylus: '>=0.54.8'\n      sugarss: ^5.0.0\n      terser: ^5.16.0\n      tsx: ^4.8.1\n      yaml: ^2.4.2\n    peerDependenciesMeta:\n      '@types/node':\n        optional: true\n      jiti:\n        optional: true\n      less:\n        optional: true\n      lightningcss:\n        optional: true\n      sass:\n        optional: true\n      sass-embedded:\n        optional: true\n      stylus:\n        optional: true\n      sugarss:\n        optional: true\n      terser:\n        optional: true\n      tsx:\n        optional: true\n      yaml:\n        optional: true\n\n  vitest@4.1.12:\n    resolution: {integrity: sha512-5eWdz2yb3ajxWF3C8C4TjkXl7FGm3n2E/VlazALrQHzK7nYMSGFnCZto0bbPNl77AwkOZVLk0YnBAejUu0NiWA==}\n    engines: {node: ^20.0.0 || ^22.0.0 || >=24.0.0}\n    hasBin: true\n    peerDependencies:\n      '@edge-runtime/vm': '*'\n      '@opentelemetry/api': ^1.9.0\n      '@types/node': ^20.0.0 || ^22.0.0 || >=24.0.0\n      '@vitest/browser-playwright': 4.1.12\n      '@vitest/browser-preview': 4.1.12\n      '@vitest/browser-webdriverio': ^4.1.11\n      '@vitest/coverage-istanbul': 4.1.12\n      '@vitest/coverage-v8': 4.1.12\n      '@vitest/ui': 4.1.12\n      happy-dom: '*'\n      jsdom: '*'\n      vite: ^6.0.0 || ^7.0.0 || ^8.0.0\n    peerDependenciesMeta:\n      '@edge-runtime/vm':\n        optional: true\n      '@opentelemetry/api':\n        optional: true\n      '@types/node':\n        optional: true\n      '@vitest/browser-playwright':\n        optional: true\n      '@vitest/browser-preview':\n        optional: true\n      '@vitest/browser-webdriverio':\n        optional: true\n      '@vitest/coverage-istanbul':\n        optional: true\n      '@vitest/coverage-v8':\n        optional: true\n      '@vitest/ui':\n        optional: true\n      happy-dom:\n        optional: true\n      jsdom:\n        optional: true\n\n  vue@3.5.42:\n    resolution: {integrity: sha512-4RyHQTbQvOPs3MfvUO1Sg0YRrKNnA0mAVtvpd12Tg1fKDN7OHBUl1IqSn8zGJjK9nI3NkNp8cgTpVrSZC5TTcA==}\n    peerDependencies:\n      typescript: '*'\n    peerDependenciesMeta:\n      typescript:\n        optional: true\n\n  why-is-node-running@2.3.0:\n    resolution: {integrity: sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==}\n    engines: {node: '>=8'}\n    hasBin: true\n\n  xlsx@https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz:\n    resolution: {integrity: sha512-oLDq3jw7AcLqKWH2AhCpVTZl8mf6X2YReP+Neh0SJUzV/BdZYjth94tG5toiMB1PPrYtxOCfaoUCkvtuH+3AJA=="
+  },
+  "error": "Error: Command failed: pnpm install --frozen-lockfile --prefer-offline --ignore-scripts --strict-peer-dependencies",
+  "stdout": " ERR_PNPM_BROKEN_LOCKFILE  The lockfile at \"/private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-bundles-p4e3aa/pnpm-lock.yaml\" is broken: duplicated mapping key (203:3)\n\n 200 |     engines: {node: '>=8'}\n 201 |     hasBin: true\n 202 | \n 203 |   xlsx@https://cdn.sheetjs.com/xl ...\n---------^\n 204 |     resolution: {integrity: sha51 ...\n 205 |     version: 0.20.3\n",
+  "stderr": ""
+}

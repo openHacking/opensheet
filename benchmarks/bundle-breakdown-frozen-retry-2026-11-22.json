@@ -1,0 +1,47 @@
+{
+  "startedAt": "2026-11-21T17:55:01.368Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 398,
+    "sha256": "d36156baa3c5d41ccbb76d6106b0c1ea41b3be7f19621c03500cf3fa4997a19a"
+  },
+  "node": "v22.19.0",
+  "esbuild": "0.25.12",
+  "scope": "Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Not a Vite/real network transfer, runtime memory, execution-time or complete consumer bundle measurement.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "adc55a25384b1795c35b4bbad0eeb534e18c3d461cc1235f0ded6f3460e34ce7"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "12cc6bab28f6fa4b36856dac83b078830f019cd9d2d0b77370eb01274f1e9990"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "7ad9d3eb302f9ead35d15fa58e4672a907eaec842f4dbc69e47274df8d6b7573"
+    },
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "41c9d947753a04d4027bf4fc1236960d904f55255c6cc5a99759078064edaf21"
+    }
+  ],
+  "scenarios": {},
+  "error": "Error: Command failed: pnpm install --frozen-lockfile --prefer-offline --ignore-scripts --strict-peer-dependencies",
+  "stdout": "Lockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\n ERR_PNPM_MISSING_TARBALL_INTEGRITY  Cannot install package \"xlsx@https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz\": its lockfile entry has no \"integrity\" field, so pnpm cannot verify the downloaded tarball.\n\nThe lockfile may be corrupted or have been tampered with. Restore it from a trusted source, or delete it and re-run installation without --frozen-lockfile to regenerate.\n",
+  "stderr": ""
+}
