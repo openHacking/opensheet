@@ -1,0 +1,48 @@
+diff --git a/packages/core/src/engine.ts b/packages/core/src/engine.ts
+index d61007b..209d46b 100644
+--- a/packages/core/src/engine.ts
++++ b/packages/core/src/engine.ts
+@@ -938,10 +938,14 @@ export class Engine {
+     const { blocks, ...rest } = head;
+     return { ...rest, directory: head.directory ?? {} };
+   }
+-  private checkDirectorySheets(head = this.head, metadata = this.metadata) {
++  private checkDirectorySheets(
++    head = this.head,
++    metadata = this.metadata,
++    addresses?: Iterable<string>,
++  ) {
+     const sheetIds = new Set(metadata.snapshot.sheets.map((sheet) => sheet.id));
+-    for (const address in head.blocks) {
+-      if (!Object.hasOwn(head.blocks, address)) continue;
++    const check = (address: string) => {
++      if (!Object.hasOwn(head.blocks, address)) return;
+       const pointer = head.blocks[address];
+       assert(
+         sheetIds.has(address.slice(0, address.indexOf('/'))),
+@@ -954,7 +958,9 @@ export class Engine {
+         'CORRUPT_STORAGE',
+         'Block directory references an unknown style',
+       );
+-    }
++    };
++    if (addresses) for (const address of addresses) check(address);
++    else for (const address in head.blocks) check(address);
+   }
+   private async restoreHead(head: Head) {
+     assert(
+@@ -3484,7 +3490,13 @@ export class Engine {
+       ...(next.meta === this.head.meta ? this.metadata : await this.readMetadata(next.meta)),
+     };
+     // Historical pages and metadata must agree before the new head is published.
+-    this.checkDirectorySheets(next, metadata);
++    // The current directory is already valid for this metadata. If metadata is
++    // unchanged, only restored pages can introduce a new reference.
++    this.checkDirectorySheets(
++      next,
++      metadata,
++      next.meta === this.head.meta ? this.changed : undefined,
++    );
+     await this.filters(next, metadata);
+     await this.publish(next, metadata, next.meta === this.head.meta ? h.ranges : undefined);
+     return {

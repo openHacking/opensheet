@@ -8,11 +8,12 @@ import { resolve } from 'node:path';
 import { sourceFingerprint, localBuildFingerprint } from './benchmark-fingerprint.mjs';
 
 const output = process.argv[2];
-if (!output) throw new Error('Usage: node scripts/history-large-paired.mjs NEW_REPORT.json');
-const baselineCommit = 'da9ade8';
+if (!output)
+  throw new Error('Usage: node scripts/history-large-paired.mjs NEW_REPORT.json [BASELINE_COMMIT]');
+const baselineCommit = process.argv[3] ?? 'da9ade8';
 const changed = execFileSync(
   'rtk',
-  ['proxy', 'git', 'diff', '--name-only', baselineCommit, 'HEAD', '--', 'packages'],
+  ['proxy', 'git', 'diff', '--name-only', baselineCommit, '--', 'packages'],
   { encoding: 'utf8' },
 ).trim();
 if (changed !== 'packages/core/src/engine.ts')
