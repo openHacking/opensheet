@@ -291,7 +291,7 @@ export class Workbook {
             task.reject(
               new OpenSheetError('WORKER_TIMEOUT', 'Worker stopped reporting import progress'),
             );
-            this.worker.terminate();
+            this.terminateFailedWorker();
             this.fail(
               new OpenSheetError(
                 'WORKER_FAILED',
@@ -323,20 +323,20 @@ export class Workbook {
         const error = new OpenSheetError(message.error.code, message.error.message);
         task.reject(error);
         if (error.code === 'WORKER_FAILED') {
-          this.worker.terminate();
+          this.terminateFailedWorker();
           this.fail(error);
         }
       } else task.resolve(message.result);
     };
     this.worker.onerror = (event) => {
-      this.worker.terminate();
+      this.terminateFailedWorker();
       const message = this.view
         ? event.message || 'Storage worker failed'
         : `Storage worker failed to start; check the Worker asset path and site security policy, then reopen the workbook${event.message ? `: ${event.message}` : ''}`;
       this.fail(new OpenSheetError('WORKER_FAILED', message));
     };
     this.worker.onmessageerror = () => {
-      this.worker.terminate();
+      this.terminateFailedWorker();
       this.fail(new OpenSheetError('WORKER_FAILED', 'Invalid worker response'));
     };
     this.initial = this.rpc('open', [
@@ -370,7 +370,15 @@ export class Workbook {
         return this;
       })
       .catch((error) => {
-        this.dispose();
+        try {
+          this.dispose();
+        } catch (cleanupError) {
+          try {
+            console.error(cleanupError);
+          } catch {
+            // Preserve the initialization failure.
+          }
+        }
         throw error;
       });
   }
@@ -440,6 +448,17 @@ export class Workbook {
         }
       });
   }
+  private terminateFailedWorker() {
+    try {
+      this.worker.terminate();
+    } catch (error) {
+      try {
+        console.error(error);
+      } catch {
+        // Termination and logging must not mask the worker failure or a committed result.
+      }
+    }
+  }
   private failure?: unknown;
   private fail(error: unknown) {
     this.failure = error;
@@ -475,7 +494,7 @@ export class Workbook {
         reject(
           new OpenSheetError('WORKER_TIMEOUT', `Worker request ${method} exceeded its time budget`),
         );
-        this.worker.terminate();
+        this.terminateFailedWorker();
         this.fail(
           new OpenSheetError(
             'WORKER_FAILED',
@@ -578,7 +597,7 @@ export class Workbook {
     try {
       this.adopt(result.view);
     } catch (error) {
-      this.worker.terminate();
+      this.terminateFailedWorker();
       this.fail(
         new OpenSheetError('WORKER_FAILED', 'Could not adopt the recovered workbook; reopen it'),
       );
@@ -966,7 +985,7 @@ export class Workbook {
     } catch {
       // The head has already committed. Preserve its acknowledgement, but stop
       // further work because other tabs may not learn about this revision.
-      this.worker.terminate();
+      this.terminateFailedWorker();
       this.fail(
         new OpenSheetError(
           'SYNC_UNAVAILABLE',
