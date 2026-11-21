@@ -1,0 +1,343 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "openpyxl": "3.1.5",
+  "scope": "Synthetic independently authored EDATE formulas on numeric serials, anchored to the original date, recalculated by one LibreOfficeDev build. This checks formula-derived dates, not native fill gestures, Excel, visual rendering or the 1900 fictitious leap day.",
+  "cases": [
+    {
+      "system": "1900",
+      "case": "month_end",
+      "date": "2020-01-31",
+      "start": 43861.0,
+      "step": 1,
+      "unit": "month",
+      "values": [
+        43861,
+        43890,
+        43921,
+        43951,
+        43982,
+        44012
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,1)",
+        "=EDATE($B$1,2)",
+        "=EDATE($B$1,3)",
+        "=EDATE($B$1,4)",
+        "=EDATE($B$1,5)"
+      ]
+    },
+    {
+      "system": "1900",
+      "case": "reverse_month_end",
+      "date": "2021-03-31",
+      "start": 44286.0,
+      "step": -1,
+      "unit": "month",
+      "values": [
+        44286,
+        44255,
+        44227,
+        44196,
+        44165,
+        44135
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,-1)",
+        "=EDATE($B$1,-2)",
+        "=EDATE($B$1,-3)",
+        "=EDATE($B$1,-4)",
+        "=EDATE($B$1,-5)"
+      ]
+    },
+    {
+      "system": "1900",
+      "case": "two_months",
+      "date": "2020-12-31",
+      "start": 44196.0,
+      "step": 2,
+      "unit": "month",
+      "values": [
+        44196,
+        44255,
+        44316,
+        44377,
+        44439
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,2)",
+        "=EDATE($B$1,4)",
+        "=EDATE($B$1,6)",
+        "=EDATE($B$1,8)"
+      ]
+    },
+    {
+      "system": "1900",
+      "case": "leap_year",
+      "date": "2020-02-29",
+      "start": 43890.0,
+      "step": 1,
+      "unit": "year",
+      "values": [
+        43890,
+        44255,
+        44620,
+        44985,
+        45351
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,12)",
+        "=EDATE($B$1,24)",
+        "=EDATE($B$1,36)",
+        "=EDATE($B$1,48)"
+      ]
+    },
+    {
+      "system": "1900",
+      "case": "reverse_year",
+      "date": "2024-02-29",
+      "start": 45351.0,
+      "step": -1,
+      "unit": "year",
+      "values": [
+        45351,
+        44985,
+        44620,
+        44255,
+        43890
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,-12)",
+        "=EDATE($B$1,-24)",
+        "=EDATE($B$1,-36)",
+        "=EDATE($B$1,-48)"
+      ]
+    },
+    {
+      "system": "1900",
+      "case": "century",
+      "date": "2096-02-29",
+      "start": 71649.0,
+      "step": 1,
+      "unit": "year",
+      "values": [
+        71649,
+        72014,
+        72379,
+        72744,
+        73109,
+        73474
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,12)",
+        "=EDATE($B$1,24)",
+        "=EDATE($B$1,36)",
+        "=EDATE($B$1,48)",
+        "=EDATE($B$1,60)"
+      ]
+    },
+    {
+      "system": "1900",
+      "case": "stationary",
+      "date": "2000-05-31",
+      "start": 36677.0,
+      "step": 0,
+      "unit": "month",
+      "values": [
+        36677,
+        36677,
+        36677,
+        36677
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,0)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "month_end",
+      "date": "2020-01-31",
+      "start": 42399.0,
+      "step": 1,
+      "unit": "month",
+      "values": [
+        42399,
+        42428,
+        42459,
+        42489,
+        42520,
+        42550
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,1)",
+        "=EDATE($B$1,2)",
+        "=EDATE($B$1,3)",
+        "=EDATE($B$1,4)",
+        "=EDATE($B$1,5)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "reverse_month_end",
+      "date": "2021-03-31",
+      "start": 42824.0,
+      "step": -1,
+      "unit": "month",
+      "values": [
+        42824,
+        42793,
+        42765,
+        42734,
+        42703,
+        42673
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,-1)",
+        "=EDATE($B$1,-2)",
+        "=EDATE($B$1,-3)",
+        "=EDATE($B$1,-4)",
+        "=EDATE($B$1,-5)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "two_months",
+      "date": "2020-12-31",
+      "start": 42734.0,
+      "step": 2,
+      "unit": "month",
+      "values": [
+        42734,
+        42793,
+        42854,
+        42915,
+        42977
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,2)",
+        "=EDATE($B$1,4)",
+        "=EDATE($B$1,6)",
+        "=EDATE($B$1,8)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "leap_year",
+      "date": "2020-02-29",
+      "start": 42428.0,
+      "step": 1,
+      "unit": "year",
+      "values": [
+        42428,
+        42793,
+        43158,
+        43523,
+        43889
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,12)",
+        "=EDATE($B$1,24)",
+        "=EDATE($B$1,36)",
+        "=EDATE($B$1,48)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "reverse_year",
+      "date": "2024-02-29",
+      "start": 43889.0,
+      "step": -1,
+      "unit": "year",
+      "values": [
+        43889,
+        43523,
+        43158,
+        42793,
+        42428
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,-12)",
+        "=EDATE($B$1,-24)",
+        "=EDATE($B$1,-36)",
+        "=EDATE($B$1,-48)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "century",
+      "date": "2096-02-29",
+      "start": 70187.0,
+      "step": 1,
+      "unit": "year",
+      "values": [
+        70187,
+        70552,
+        70917,
+        71282,
+        71647,
+        72012
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,12)",
+        "=EDATE($B$1,24)",
+        "=EDATE($B$1,36)",
+        "=EDATE($B$1,48)",
+        "=EDATE($B$1,60)"
+      ]
+    },
+    {
+      "system": "1904",
+      "case": "stationary",
+      "date": "2000-05-31",
+      "start": 35215.0,
+      "step": 0,
+      "unit": "month",
+      "values": [
+        35215,
+        35215,
+        35215,
+        35215
+      ],
+      "readerFormulas": [
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,0)",
+        "=EDATE($B$1,0)"
+      ]
+    }
+  ],
+  "artifacts": {
+    "1900_source": {
+      "file": "calendar-series-reader-2026-11-21.1900.source.xlsx",
+      "sha256": "2c1d53f9093e6637e6c0b5da3a11ae2729accddd60a7716abb2cf829d0117eaa"
+    },
+    "1900_saved": {
+      "file": "calendar-series-reader-2026-11-21.1900.saved.xlsx",
+      "sha256": "160a79dfd860222e3ac8df906c6191d69e2cefc74af8dc1b2c012c772d63d849"
+    },
+    "1904_source": {
+      "file": "calendar-series-reader-2026-11-21.1904.source.xlsx",
+      "sha256": "185ef86d683a7690d571ce6622073843bf0163abb98e47743cc707ad5850e62c"
+    },
+    "1904_saved": {
+      "file": "calendar-series-reader-2026-11-21.1904.saved.xlsx",
+      "sha256": "1038e24780bf4556fc93adfaeb27c62965fe2ccc4175849c354fc7c31242b40c"
+    }
+  },
+  "scriptSha256": "4b73b7ad1282b54bfc33096a5f8fbf0a6a4a5b471e859e82205e2197582b40ad",
+  "conversionLog": "convert /Volumes/github/private/opensheet/benchmarks/calendar-series-reader-2026-11-21.1904.source.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-calendar-reader-k0pj68k2/calendar-series-reader-2026-11-21.1904.source.xlsx using filter : Calc Office Open XML"
+}
