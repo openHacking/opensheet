@@ -23,6 +23,7 @@ export function createRouting(
   showPanel: (panel: 'code' | 'insights') => void,
   startPerformance: () => Promise<void>,
   resetPerformance: () => Promise<void>,
+  performanceBusy: () => boolean,
   leavePerformance: () => Promise<void>,
   notice: (message: string) => void,
 ) {
@@ -249,7 +250,10 @@ export function createRouting(
         showPage('spreadsheet', true);
         return;
       }
-      if (app.getWorkbook().persistenceState.pending) {
+      if (
+        app.getWorkbook().persistenceState.pending &&
+        !(state.currentScene === 'performance' && performanceBusy())
+      ) {
         history.replaceState(null, '', `#${state.currentScene}`);
         $<HTMLSelectElement>('scene-select').value = state.currentScene;
         notice('Wait for saving to finish');

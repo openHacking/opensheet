@@ -32,6 +32,7 @@ export function createPerformance(
   let task: Promise<void> | undefined;
   let mode: 'single' | 'capacity' = 'single';
   let running = false,
+    preparing = false,
     resetting = false,
     stopped = false,
     abort = new AbortController(),
@@ -64,18 +65,30 @@ export function createPerformance(
       update();
     },
   });
-  async function estimate() {
+  async function estimate(signal?: AbortSignal) {
     try {
-      quota = (await navigator.storage?.estimate()) ?? {};
+      const result = (await navigator.storage?.estimate()) ?? {};
+      if (!signal?.aborted) quota = result;
     } catch {
-      quota = {};
+      if (!signal?.aborted) quota = {};
     }
+  }
+  async function estimateUntilStopped(signal: AbortSignal) {
+    await new Promise<void>((resolve) => {
+      const done = () => {
+        signal.removeEventListener('abort', done);
+        resolve();
+      };
+      signal.addEventListener('abort', done, { once: true });
+      void estimate(signal).then(done);
+      if (signal.aborted) done();
+    });
   }
   const shell = () =>
     `<div class="performance-controls"><label>Cells<input id="perf-cells" type="number" min="10000" max="${LIMIT}" step="10000" value="${target}"></label><label>Budget (MiB)<input id="perf-budget" type="number" min="1" max="8192" value="${budgetMiB}"></label><div class="performance-buttons"><button class="button primary" id="perf-run">Test size</button><button class="button secondary" id="perf-probe">Find capacity</button><button class="button secondary" id="perf-stop">Stop</button><button class="button secondary" id="perf-restore">Restore</button><button class="button secondary" id="perf-clear">Clear test data</button><button class="button secondary" id="perf-download">Download results</button></div></div><p>100 columns · 60% numbers / 30% 32-byte text / 10% booleans · fixed seed. Each size: 3 rounds, 100 edits, 300 scrolling frames.</p><p>Pass: edit P95 ≤100 ms · complete scroll frame P95 ≤33 ms · reopen to editable viewport ≤10 s. Formula and XLSX performance are separate workloads.</p><p id="perf-progress" role="status" aria-live="polite"></p><div id="perf-summary"></div><div class="performance-results"><table><thead><tr><th>Cells</th><th>Result</th><th>Edit P95</th><th>Scroll P95</th><th>Restore</th><th>Verify</th><th>Elapsed</th><th>MiB</th><th>Bytes/cell</th><th>Worker cache</th><th>Viewport cache</th><th>Main heap</th></tr></thead><tbody id="perf-results"></tbody></table></div>`;
   function update() {
     if (state.currentScene !== 'performance' || !$('perf-progress')) return;
-    app.element.inert = running || resetting;
+    app.element.inert = running || preparing || resetting;
     $('perf-progress').textContent = progress;
     $('perf-summary').textContent =
       `Largest passed: ${largest.toLocaleString()} · Smallest failed: ${smallest?.toLocaleString() ?? '—'} · Origin usage: ${quota.usage === undefined ? 'unknown' : mib(quota.usage) + ' MiB'} · Estimated origin quota: ${quota.quota === undefined ? 'unknown' : mib(quota.quota) + ' MiB'} (includes other same-origin storage). Application bytes count encoded records, staging and history; browser disk usage is a separate estimate.`;
@@ -109,43 +122,23 @@ export function createPerformance(
       'perf-cells',
       'perf-budget',
     ])
-      $<HTMLButtonElement>(id).disabled = running || resetting;
-    $<HTMLButtonElement>('perf-stop').disabled = !running;
-    $<HTMLSelectElement>('scene-select').disabled = running || resetting;
+      $<HTMLButtonElement>(id).disabled = running || preparing || resetting;
+    $<HTMLButtonElement>('perf-stop').disabled = !(running || preparing);
+    $<HTMLSelectElement>('scene-select').disabled = running || preparing || resetting;
     for (const el of document.querySelectorAll<
       HTMLButtonElement | HTMLInputElement | HTMLSelectElement
     >(
       '.document-actions button, .utility-bar input, .utility-bar button, .utility-bar select, #reset-demo',
     ))
-      el.disabled = running || resetting;
+      el.disabled = running || preparing || resetting;
   }
   async function empty() {
-    app.getGrid()?.dispose();
-    if (lastBook) {
-      try {
-        await lastBook.deleteStorage();
-        await lastBook.close();
-      } catch {
-        lastBook.dispose();
-        // A failed/closed Worker cannot delete its database. Reopen the durable head first.
-        try {
-          const stale = await app.open(ID, options());
-          await stale.deleteStorage();
-          await stale.close();
-        } catch (error) {
-          if ((error as { code?: string }).code !== 'INVALID_ARGUMENT') throw error;
-        }
-      }
-    } else {
-      try {
-        const book = await app.open(ID, options());
-        await book.deleteStorage();
-        await book.close();
-      } catch {
-        /* Database may not exist yet. */
-      }
-    }
-    return createEmpty();
+    const snapshot = createWorkbookFile({
+      sheets: [{ name: 'Performance', rows: 100, columns: 100 }],
+    });
+    await app.loadJSON(snapshot);
+    lastBook = app.getWorkbook();
+    return lastBook;
   }
   async function createEmpty() {
     const snapshot = createWorkbookFile({
@@ -469,7 +462,7 @@ export function createPerformance(
     return result;
   }
   async function run(probe: boolean) {
-    if (running) return;
+    if (running || preparing || resetting) return;
     target = Number($<HTMLInputElement>('perf-cells').value);
     budgetMiB = Number($<HTMLInputElement>('perf-budget').value);
     if (
@@ -485,15 +478,47 @@ export function createPerformance(
       update();
       return;
     }
-    await estimate();
-    if (
-      quota.quota !== undefined &&
-      quota.usage !== undefined &&
-      budgetMiB * 1048576 > Math.max(0, quota.quota - quota.usage) * 0.8
-    ) {
-      progress = 'Budget exceeds 80% of estimated remaining origin quota. Choose a smaller budget.';
+    const previous = app.getWorkbook();
+    const revision = previous.revision;
+    if (app.hasDraft || previous.persistenceState.pending || previous.isReadOnly) {
+      progress = previous.isReadOnly
+        ? 'Workbook is read only.'
+        : 'Finish pending changes before testing capacity.';
       update();
       return;
+    }
+    stopped = false;
+    abort = new AbortController();
+    preparing = true;
+    update();
+    try {
+      await estimateUntilStopped(abort.signal);
+      if (
+        stopped ||
+        state.currentScene !== 'performance' ||
+        app.getWorkbook() !== previous ||
+        previous.revision !== revision ||
+        previous.persistenceState.pending ||
+        previous.isReadOnly ||
+        app.hasDraft
+      ) {
+        progress = stopped
+          ? 'Stopped — incomplete tests do not count as passed.'
+          : 'Workbook changed during test preparation; try again.';
+        return;
+      }
+      if (
+        quota.quota !== undefined &&
+        quota.usage !== undefined &&
+        budgetMiB * 1048576 > Math.max(0, quota.quota - quota.usage) * 0.8
+      ) {
+        progress =
+          'Budget exceeds 80% of estimated remaining origin quota. Choose a smaller budget.';
+        return;
+      }
+    } finally {
+      preparing = false;
+      update();
     }
     mode = probe ? 'capacity' : 'single';
     running = true;
@@ -511,7 +536,7 @@ export function createPerformance(
       progress = stopped
         ? 'Stopped — incomplete tests do not count as passed.'
         : 'Finished — largest passed is an observed result, not a universal limit.';
-      app.getGrid()?.setReadOnly(false);
+      app.getGrid()?.setReadOnly(app.getWorkbook().isReadOnly);
       state.dirty = false;
       update();
     }
@@ -532,7 +557,7 @@ export function createPerformance(
     $('perf-stop').onclick = () => {
       stopped = true;
       abort.abort();
-      lastBook?.cancel();
+      if (!preparing) lastBook?.cancel();
     };
     $('perf-restore').onclick = () => {
       void app
@@ -548,13 +573,29 @@ export function createPerformance(
         });
     };
     $('perf-clear').onclick = () => {
-      void empty()
+      if (running || preparing || resetting) return;
+      const book = app.getWorkbook();
+      if (app.hasDraft || book.persistenceState.pending || book.isReadOnly) {
+        progress = book.isReadOnly
+          ? 'Workbook is read only.'
+          : 'Wait for pending changes before clearing.';
+        update();
+        return;
+      }
+      resetting = true;
+      update();
+      task = empty()
         .then(() => {
           progress = 'Test data cleared.';
-          update();
         })
         .catch((error) => {
-          progress = String(error);
+          progress =
+            (error as { code?: string })?.code === 'READ_ONLY'
+              ? String(error)
+              : `${String(error)}. Clear may have completed; restore the workbook to check.`;
+        })
+        .finally(() => {
+          resetting = false;
           update();
         });
     };
@@ -622,11 +663,7 @@ export function createPerformance(
       resetting = true;
       update();
       try {
-        const snapshot = createWorkbookFile({
-          sheets: [{ name: 'Performance', rows: 100, columns: 100 }],
-        });
-        await app.loadJSON(snapshot);
-        lastBook = app.getWorkbook();
+        await empty();
         results = [];
         largest = 0;
         smallest = undefined;
@@ -637,16 +674,17 @@ export function createPerformance(
       }
     },
     update,
+    isBusy: () => running || preparing || resetting,
     leave: async () => {
       stopped = true;
       abort.abort();
-      lastBook?.cancel();
+      if (!preparing) lastBook?.cancel();
       await task;
     },
     stop: () => {
       stopped = true;
       abort.abort();
-      lastBook?.cancel();
+      if (!preparing) lastBook?.cancel();
     },
     dispose: () => {
       stopped = true;

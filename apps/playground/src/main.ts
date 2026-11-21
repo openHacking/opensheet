@@ -57,6 +57,7 @@ const routing = createRouting(
   workbench.showPanel,
   performanceLab.start,
   performanceLab.reset,
+  performanceLab.isBusy,
   performanceLab.leave,
   feedback.notice,
 );
