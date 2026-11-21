@@ -697,6 +697,33 @@ export function reportWorksheetLosses(
     if (parts.has(path)) throw new OpenSheetError('INVALID_ARGUMENT', 'Ambiguous XLSX part names');
     parts.set(path, part);
   }
+  // These conventional package paths identify parts, not necessarily displayed
+  // objects: orphaned parts are also discarded. Other paths remain unaudited.
+  let charts = 0;
+  let media = 0;
+  for (const [name, part] of parts) {
+    if (!(part?.content instanceof Uint8Array)) continue;
+    if (/^xl\/charts\/chart[0-9]+\.xml$/.test(name)) charts++;
+    if (/^xl\/media\/[^/]+$/.test(name)) media++;
+  }
+  if (charts)
+    add(report, {
+      code: 'CHART_PARTS_DROPPED',
+      feature: 'chart-parts',
+      message: 'Chart parts in the XLSX package are not imported',
+      action: 'dropped',
+      severity: 'warning',
+      count: charts,
+    });
+  if (media)
+    add(report, {
+      code: 'MEDIA_PARTS_DROPPED',
+      feature: 'media-parts',
+      message: 'Embedded media files in the XLSX package are not imported',
+      action: 'dropped',
+      severity: 'warning',
+      count: media,
+    });
   const manifest = parts.get('[content_types].xml')?.content;
   if (manifest instanceof Uint8Array && manifest.byteLength > 4 * 1024 * 1024)
     throw new OpenSheetError(
