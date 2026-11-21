@@ -100,8 +100,9 @@ export async function unpackPage(
     // releaseLock() even after decompression has finished; there is no caller
     // that needs the lock returned. Only cancel an unfinished stream.
     if (!finished) {
-      const cancellation = reader.cancel().catch(() => {});
-      if (!signal?.aborted) await cancellation;
+      // A private decompressor may never settle cancellation. Request cleanup,
+      // but preserve the original error or abort instead of hanging the caller.
+      void reader.cancel().catch(() => {});
     }
   }
   return result;

@@ -40,6 +40,46 @@ it('does not release or cancel an internally owned completed decompression strea
   }
 });
 
+it('reports a compressed page overflow without waiting for stalled stream cancellation', async () => {
+  let cancelled = 0;
+  class OverflowDecompression {
+    private stream = new TransformStream<Uint8Array, Uint8Array>({
+      transform(chunk, controller) {
+        controller.enqueue(chunk);
+      },
+    });
+    readable = this.stream.readable;
+    writable = this.stream.writable;
+    constructor() {
+      const getReader = this.readable.getReader.bind(this.readable);
+      this.readable.getReader = (() => {
+        const reader = getReader();
+        reader.cancel = () => {
+          cancelled++;
+          return new Promise<void>(() => {});
+        };
+        return reader;
+      }) as typeof this.readable.getReader;
+    }
+  }
+  vi.stubGlobal('DecompressionStream', OverflowDecompression);
+  try {
+    const outcome = await Promise.race([
+      unpackPage(new Uint8Array([1, 2]), 1, 1).then(
+        () => ({ code: 'unexpected-success' }),
+        (error: { code?: string }) => ({ code: error.code }),
+      ),
+      new Promise<{ code: string }>((resolve) =>
+        setTimeout(() => resolve({ code: 'timeout' }), 1000),
+      ),
+    ]);
+    expect(outcome).toEqual({ code: 'LIMIT_EXCEEDED' });
+    expect(cancelled).toBe(1);
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});
+
 for (const verify of [verifyJSON, verifyBinary]) {
   it('cancels verification while input and stream cleanup are stalled', async () => {
     let cancelled = false;
