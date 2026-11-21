@@ -292,12 +292,27 @@ export function importCell(
       );
   } else if (c.t === 'd') record.numberFormat = 'yyyy-mm-dd';
   if (c.l?.Target) {
-    if (isSafeLinkTarget(c.l.Target))
+    if (isSafeLinkTarget(c.l.Target)) {
       record.link = {
         target: c.l.Target,
         ...(c.l.Tooltip !== undefined ? { tooltip: String(c.l.Tooltip) } : {}),
       };
-    else issue('UNSAFE_LINK', 'link', 'Unsafe or malformed hyperlink omitted');
+      if (/[^\x00-\x7f]/.test(c.l.Target))
+        issue(
+          'XLSX_LINK_URL_IMPORT_UNCERTAIN',
+          'link',
+          'A non-ASCII hyperlink target may have been decoded incorrectly; verify its destination',
+          'approximated',
+          address(row, col),
+        );
+    } else
+      issue(
+        'UNSAFE_LINK',
+        'link',
+        'Unsafe or malformed hyperlink omitted',
+        'dropped',
+        address(row, col),
+      );
   }
   if (Array.isArray(c.c)) record.note = c.c.map((x: any) => String(x.t ?? '')).join('\n');
   // SheetJS exposes the default no-fill style even on unstyled XLSX cells.
@@ -408,7 +423,37 @@ export function exportCell(
   }
   if (c.numberFormat) x.z = c.numberFormat;
   if (c.link && isSafeLinkTarget(c.link.target)) {
-    x.l = { Target: c.link.target, Tooltip: c.link.tooltip };
+    let target = c.link.target;
+    if (/[^\x00-\x7f]/.test(target)) {
+      // The pinned SheetJS reader decodes non-ASCII relationship targets as
+      // bytes. URL canonicalization yields the same browser destination in ASCII.
+      const normalized = new URL(target).href;
+      if (normalized.length <= 4096) {
+        target = normalized;
+        add(r, {
+          code: 'XLSX_LINK_URL_NORMALIZED',
+          feature: 'link',
+          message:
+            'Unicode link targets are normalized to URL-encoded ASCII for XLSX; their text form changes',
+          action: 'approximated',
+          severity: 'warning',
+          sheetId: id,
+          address: address(row, col),
+        });
+      } else {
+        add(r, {
+          code: 'XLSX_LINK_URL_UNSAFE_LENGTH',
+          feature: 'link',
+          message:
+            'Unicode link target cannot be normalized within the supported length and may be corrupted on import',
+          action: 'approximated',
+          severity: 'warning',
+          sheetId: id,
+          address: address(row, col),
+        });
+      }
+    }
+    x.l = { Target: target, Tooltip: c.link.tooltip };
     // SheetJS otherwise omits a blank cell before collecting its hyperlink.
     // Explicit General emits a blank cell without converting it to empty text.
     if (v.type === 'blank') {

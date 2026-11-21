@@ -1,0 +1,115 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "scope": "Synthetic OpenSheet XLSX; baseline reconstructs prior raw link writing from the current SheetJS workbook. SheetJS reads both source files; openpyxl inspects candidate before and after LibreOfficeDev save. This does not establish Excel, stable LibreOffice, actual network navigation or all URI semantics.",
+  "inputs": [
+    "https://例子.测试/é/🙂?x=1&y=2#片段",
+    "mailto:用户@example.com?subject=你好",
+    "https://example.com/a%20b?x=1&y=2#frag",
+    "http://EXAMPLE.com:80/a/../b"
+  ],
+  "adapterReport": {
+    "adapterVersion": "0.2.0-dev.0",
+    "sourceFormat": "SheetJS",
+    "summary": {
+      "exact": 4,
+      "approximated": 2,
+      "dropped": 0,
+      "blocked": 0
+    },
+    "issues": [
+      {
+        "code": "XLSX_LINK_URL_NORMALIZED",
+        "feature": "link",
+        "message": "Unicode link targets are normalized to URL-encoded ASCII for XLSX; their text form changes",
+        "action": "approximated",
+        "severity": "warning",
+        "sheetId": "sheet_5b9f9900afe1453b8281f4de9ad66561",
+        "address": "A1",
+        "count": 2
+      }
+    ],
+    "omittedIssueOccurrences": 0
+  },
+  "sheetjs": {
+    "baseline": [
+      "https://ä¾å­.æµè¯/Ã©/ð?x=1&y=2#片段",
+      "mailto:ç¨æ·@example.com?subject=ä½ å¥½",
+      "https://example.com/a%20b?x=1&y=2#frag",
+      "http://EXAMPLE.com:80/a/../b"
+    ],
+    "candidate": [
+      "https://xn--fsqu00a.xn--0zwm56d/%C3%A9/%F0%9F%99%82?x=1&y=2#%E7%89%87%E6%AE%B5",
+      "mailto:%E7%94%A8%E6%88%B7@example.com?subject=%E4%BD%A0%E5%A5%BD",
+      "https://example.com/a%20b?x=1&y=2#frag",
+      "http://EXAMPLE.com:80/a/../b"
+    ]
+  },
+  "sourceInspection": {
+    "version": "3.1.5",
+    "links": [
+      {
+        "target": "https://xn--fsqu00a.xn--0zwm56d/%C3%A9/%F0%9F%99%82?x=1&y=2",
+        "location": "%E7%89%87%E6%AE%B5"
+      },
+      {
+        "target": "mailto:%E7%94%A8%E6%88%B7@example.com?subject=%E4%BD%A0%E5%A5%BD",
+        "location": null
+      },
+      {
+        "target": "https://example.com/a%20b?x=1&y=2",
+        "location": "frag"
+      },
+      {
+        "target": "http://EXAMPLE.com:80/a/../b",
+        "location": null
+      }
+    ]
+  },
+  "savedInspection": {
+    "version": "3.1.5",
+    "links": [
+      {
+        "target": "https://xn--fsqu00a.xn--0zwm56d/é/🙂?x=1&y=2",
+        "location": "片段"
+      },
+      {
+        "target": "mailto:用户@example.com?subject=你好",
+        "location": null
+      },
+      {
+        "target": "https://example.com/a%20b?x=1&y=2",
+        "location": "frag"
+      },
+      {
+        "target": "http://EXAMPLE.com:80/b",
+        "location": null
+      }
+    ]
+  },
+  "artifacts": {
+    "baseline": {
+      "file": "xlsx-link-reader-2026-11-21.baseline.xlsx",
+      "sha256": "9eca314d170998689c07092595c589c3e21f4fc0c261dd361412bb27b5625f49"
+    },
+    "candidate": {
+      "file": "xlsx-link-reader-2026-11-21.xlsx",
+      "sha256": "8c56f1d787012ffa2cf22f17107e04744ac1c15934f5a0069a399b2d5d81896f"
+    },
+    "saved": {
+      "file": "xlsx-link-reader-2026-11-21.saved.xlsx",
+      "sha256": "17fd715fe2245671971f397861aae8c5ecaff40d4fa4895faa3707782eb5166f"
+    }
+  },
+  "versions": {
+    "node": "v22.19.0",
+    "openpyxl": "3.1.5"
+  },
+  "source": {
+    "commit": "a3705160203856b8374b60c168ae7ba8798627f9",
+    "adapterBundleSha256": "f57aa765c39673fa82d8694e682dc9ddef7eaf83e8ef33b7481a091a7668f375",
+    "adapterCellsSourceSha256": "7de7af0584b7102c1972d91421dbc15e99599153a2723b891d8f3b354098b8e1",
+    "scriptSha256": "e25e947842360ea29498ccebc3de67f9369e18f3b3fb7afcefc7f61733bf892c",
+    "lockfileSha256": "a418e48a549f230419aa6ad67785ae240fabf67f3723a61b0c7113a92d650cfa"
+  },
+  "conversionLog": "convert /Volumes/github/private/opensheet/benchmarks/xlsx-link-reader-2026-11-21.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-xlsx-link-rLHrEB/xlsx-link-reader-2026-11-21.xlsx using filter : Calc Office Open XML"
+}

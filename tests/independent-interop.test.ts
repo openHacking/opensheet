@@ -33,6 +33,47 @@ it('pins independent Unicode and link-tooltip XLSX observations', () => {
   );
 });
 
+it('pins Unicode link observations before and after an independent save', () => {
+  const report = JSON.parse(
+    readFileSync(new URL('xlsx-link-reader-2026-11-21.json', root), 'utf8'),
+  );
+  for (const artifact of Object.values(report.artifacts) as { file: string; sha256: string }[])
+    expect(
+      createHash('sha256')
+        .update(readFileSync(new URL(artifact.file, root)))
+        .digest('hex'),
+    ).toBe(artifact.sha256);
+  expect(report.sheetjs.baseline[0]).not.toBe(report.inputs[0]);
+  expect(report.sheetjs.baseline[1]).not.toBe(report.inputs[1]);
+  expect(report.sheetjs.candidate.slice(0, 2)).toEqual(
+    report.inputs.slice(0, 2).map((value: string) => new URL(value).href),
+  );
+  expect(report.sheetjs.candidate.slice(2)).toEqual(report.inputs.slice(2));
+  expect(report.sourceInspection.links[0].target).toContain('%C3%A9');
+  expect(report.savedInspection.links[0].target).toContain('é');
+  expect(report.savedInspection.links[1].target).toContain('用户');
+  for (const inspection of [report.sourceInspection, report.savedInspection]) {
+    for (let i = 0; i < report.inputs.length; i++) {
+      const link = inspection.links[i];
+      const target = link.target + (link.location === null ? '' : `#${link.location}`);
+      expect(new URL(target).href).toBe(new URL(report.inputs[i]).href);
+    }
+  }
+  const saved = XLSX.read(readFileSync(new URL(report.artifacts.saved.file, root)), {
+    type: 'buffer',
+    bookFiles: true,
+  });
+  const imported = fromSheetJS(saved);
+  expect(imported.report.issues).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN', count: 2, address: 'A1' }),
+    ]),
+  );
+  expect(() => fromSheetJS(saved, { unsupported: 'strict' })).toThrow(
+    'Strict compatibility check failed',
+  );
+});
+
 it('pins independent frozen-pane export and LibreOffice round-trip evidence', () => {
   for (const name of [
     'xlsx-freeze-export-reader-2026-11-12.json',

@@ -8,7 +8,7 @@ import {
   writeXlsx,
   unsupportedXlsxSheetName,
 } from '@opensheetjs/adapter-sheetjs';
-import { createWorkbook, Workbook } from '@opensheetjs/core';
+import { createWorkbook, FileReader, Workbook } from '@opensheetjs/core';
 import { exportRange, parseDelimited, stringifyDelimited } from '@opensheetjs/formats';
 import { FormulaCalculation } from '../packages/core/src/calculation.js';
 import { mayDifferInPowerPrecedence } from '../packages/adapter-sheetjs/src/formula.js';
@@ -1243,6 +1243,54 @@ it('preserves empty notes and reports XLSX loss of empty link tooltips', async (
   } finally {
     await book.deleteStorage();
     await book.close();
+  }
+});
+
+it('exports Unicode link targets as reported, equivalent ASCII URLs', async () => {
+  const book = await createWorkbook({ sheets: [{ name: 'Links', rows: 4, columns: 1 }] });
+  try {
+    const sheet = book.getSheets()[0];
+    await sheet.range('A1:A4').setValues([['one'], ['two'], ['ascii'], ['long']]);
+    const targets = [
+      'https://例子.测试/é/🙂?x=1&y=2#片段',
+      'mailto:用户@example.com?subject=你好',
+      'https://example.com/a%20b?x=1&y=2#frag',
+      'https://example.com/' + 'é'.repeat(1000),
+    ];
+    for (let i = 0; i < targets.length; i++)
+      await sheet.range(`A${i + 1}`).setLink({ target: targets[i] });
+    const file = await book.toJSON();
+    const result = writeXlsx(file, XLSX);
+    expect(result.report.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: 'XLSX_LINK_URL_NORMALIZED', count: 2, address: 'A1' }),
+        expect.objectContaining({ code: 'XLSX_LINK_URL_UNSAFE_LENGTH', count: 1, address: 'A4' }),
+      ]),
+    );
+    const sheetjs = XLSX.read(result.bytes, { type: 'array' }).Sheets.Links;
+    expect(sheetjs.A1.l.Target).toBe(new URL(targets[0]).href);
+    expect(sheetjs.A2.l.Target).toBe(new URL(targets[1]).href);
+    expect(sheetjs.A3.l.Target).toBe(targets[2]);
+    expect(sheetjs.A4.l.Target).not.toBe(targets[3]);
+    const imported = fromSheetJS(XLSX.read(result.bytes, { type: 'array' }));
+    expect(imported.report.issues).toContainEqual(
+      expect.objectContaining({ code: 'XLSX_LINK_URL_IMPORT_UNCERTAIN', count: 1, address: 'A4' }),
+    );
+    const restored = new FileReader(imported.file);
+    try {
+      const sheetId = imported.file.sheets[0].id;
+      expect(restored.getCell(sheetId, 0, 0)?.link?.target).toBe(new URL(targets[0]).href);
+      expect(restored.getCell(sheetId, 1, 0)?.link?.target).toBe(new URL(targets[1]).href);
+      expect(restored.getCell(sheetId, 2, 0)?.link?.target).toBe(targets[2]);
+    } finally {
+      restored.dispose();
+    }
+    expect(() => writeXlsx(file, XLSX, { unsupported: 'strict' })).toThrow(
+      'Strict compatibility check failed',
+    );
+    expect((await sheet.range('A1').getLinks())[0][0]?.target).toBe(targets[0]);
+  } finally {
+    await book.deleteStorage();
   }
 });
 
