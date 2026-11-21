@@ -696,10 +696,10 @@ export class Workbook {
     return id ? { ...this.metadata.styles[id] } : {};
   }
   usedRange(id: string) {
-    return this.view.used[id];
+    return Object.hasOwn(this.view.used, id) ? this.view.used[id] : undefined;
   }
   filteredRows(id: string) {
-    return this.view.filtered[id] ?? [];
+    return Object.hasOwn(this.view.filtered, id) ? this.view.filtered[id] : [];
   }
   isLoaded(sheet: string, row: number, column: number) {
     return !!this.cache.get(blockAddress(sheet, row, column));
@@ -1158,9 +1158,12 @@ export class Workbook {
       calculate: async () => {
         // Calculation reads the committed revision; newly staged sheets do not
         // exist in that revision and must not be included in this scan.
-        for (const sh of this.getSheets())
-          for await (const _data of scoped.streamRange(sh.id, scoped.usedRange(sh.id))) {
+        for (const sh of this.getSheets()) {
+          const used = scoped.usedRange(sh.id);
+          assert(used, 'CORRUPT_STORAGE', 'Missing committed used range');
+          for await (const _data of scoped.streamRange(sh.id, used)) {
           }
+        }
         assert(!scoped.expired, 'DISPOSED', 'Transaction scope is disposed');
         return { revision: scoped.revision };
       },
@@ -1611,9 +1614,12 @@ export class Workbook {
   }
   calculation = {
     calculate: async () => {
-      for (const sh of this.getSheets())
-        for await (const _data of this.streamRange(sh.id, this.usedRange(sh.id))) {
+      for (const sh of this.getSheets()) {
+        const used = this.usedRange(sh.id);
+        assert(used, 'CORRUPT_STORAGE', 'Missing committed used range');
+        for await (const _data of this.streamRange(sh.id, used)) {
         }
+      }
       return { revision: this.revision };
     },
     getState: () => ({ revision: this.revision, state: 'ready' as const }),

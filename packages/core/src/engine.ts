@@ -1047,7 +1047,7 @@ export class Engine {
   view(): EngineView {
     const used = this.used;
     for (const s of this.metadata.snapshot.sheets) {
-      if (used[s.id]) continue;
+      if (Object.hasOwn(used, s.id)) continue;
       let endRow = 1,
         endColumn = 1;
       const rows = this.axis(s.rowOrder),
@@ -1356,7 +1356,11 @@ export class Engine {
       start = vertical ? row : column;
     const order = vertical ? sh.rowOrder : sh.columnOrder;
     const axisMeta = vertical ? sh.rows : sh.columns;
-    const filtered = vertical ? new Set(this.metadata.filtered[sheetId] ?? []) : undefined;
+    const filtered = vertical
+      ? new Set(
+          Object.hasOwn(this.metadata.filtered, sheetId) ? this.metadata.filtered[sheetId] : [],
+        )
+      : undefined;
     const intervals = sh.merges
       .filter((m) =>
         vertical

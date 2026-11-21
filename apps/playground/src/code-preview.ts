@@ -31,7 +31,8 @@ export function createCodePreview(
         const used = app.getWorkbook().usedRange(s.sheetId);
         const range = $<HTMLInputElement>('export-selection').checked
           ? s
-          : { sheetId: s.sheetId, ...used };
+          : used && { sheetId: s.sheetId, ...used };
+        if (!range) throw new Error('The selected sheet has no committed used range');
         const previewRange = {
           ...range,
           endRow: Math.min(range.endRow, range.startRow + 200),
