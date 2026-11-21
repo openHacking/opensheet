@@ -889,6 +889,11 @@ export class Workbook {
       snapshot.styles = Object.fromEntries(
         wire.styleIds.map((id, i) => [id, wire.file!.styles[i]]),
       );
+    // These objects are returned directly by synchronous metadata accessors.
+    // Protect them once per adopted view rather than copying large row lists on
+    // every renderer layout.
+    for (const bounds of Object.values(view.used)) Object.freeze(bounds);
+    for (const rows of Object.values(view.filtered)) Object.freeze(rows);
     this.view = { ...view, snapshot: freeze({ ...snapshot, revision: view.revision }, true) };
     this.cache.clear();
     this.loading.clear();
@@ -957,7 +962,12 @@ export class Workbook {
     ) {
       // A no-op at the already adopted revision cannot change workbook data.
       // Refresh accounting without discarding loaded or in-flight viewport pages.
-      this.view = { ...result.view, snapshot: this.view.snapshot };
+      this.view = {
+        ...result.view,
+        snapshot: this.view.snapshot,
+        used: this.view.used,
+        filtered: this.view.filtered,
+      };
       return;
     }
     // A successful acknowledgement may also arrive after a newer response.

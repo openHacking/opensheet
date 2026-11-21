@@ -90,7 +90,7 @@ Storage options: `database`, `budgetBytes` (256 MiB default), `cacheBytes` (64 M
 
 ## Reads and writes
 
-Metadata methods (`getSheets`, `getSheetById`, `sheetData`, `getStyle`, `usedRange`) are synchronous and expose immutable metadata. They do not enumerate stored cells. `getUsedRange()` uses persisted block extents.
+Metadata methods (`getSheets`, `getSheetById`, `sheetData`, `getStyle`, `usedRange`) are synchronous and do not enumerate stored cells. Shared sheet metadata, used-range bounds and filtered-row lists are frozen; `getStyle` returns a detached object. An empty filtered-row list may be a detached empty array. `getUsedRange()` uses persisted block extents.
 
 ```ts
 const sheet = book.getSheets()[0];
