@@ -10,8 +10,14 @@ import { sourceFingerprint } from './benchmark-fingerprint.mjs';
 import { runLazyRuntime } from './bundle-runtime.mjs';
 
 const output = process.argv[2];
-if (!output || !output.endsWith('.json'))
-  throw new Error('Usage: node scripts/bundle-breakdown.mjs NEW_REPORT.json');
+const strictCsp = process.argv[3] === '--csp';
+if (
+  !output ||
+  !output.endsWith('.json') ||
+  (process.argv[3] && !strictCsp) ||
+  process.argv.length > 4
+)
+  throw new Error('Usage: node scripts/bundle-breakdown.mjs NEW_REPORT.json [--csp]');
 const root = process.cwd(),
   temp = mkdtempSync(join(tmpdir(), 'opensheet-bundles-'));
 const hash = (data) => createHash('sha256').update(data).digest('hex');
@@ -31,6 +37,10 @@ try {
   mkdirSync(join(temp, 'archives'));
   const dependencies = { xlsx: 'https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz' },
     overrides = {};
+  if (strictCsp)
+    dependencies.zod = JSON.parse(
+      readFileSync(join(root, 'packages/core/package.json'), 'utf8'),
+    ).dependencies.zod;
   for (const name of [
     'formula',
     'core',
@@ -98,6 +108,20 @@ try {
   const lockPath = output.replace(/\.json$/, '') + '.consumer-lock.yaml';
   writeFileSync(lockPath, lock, { flag: 'wx' });
   report.lock = { path: lockPath, sha256: hash(lock), frozenReinstall: 'passed' };
+  const plugins = [];
+  if (strictCsp) {
+    const shim = join(temp, 'csp-zod.js');
+    const shimBytes = readFileSync(join(root, 'examples/framework-host/csp-zod.js'));
+    writeFileSync(shim, shimBytes);
+    report.cspShimSha256 = hash(shimBytes);
+    plugins.push({
+      name: 'zod-jitless',
+      setup(builder) {
+        builder.onResolve({ filter: /^zod$/ }, () => ({ path: shim }));
+      },
+    });
+  }
+  report.strictCsp = strictCsp;
   const entries = {
     'core.js':
       "import { createWorkbook, openWorkbook } from '@opensheetjs/core'; window.api = { createWorkbook, openWorkbook };",
@@ -150,6 +174,7 @@ try {
       target: 'es2022',
       outdir: `out/${entry}`,
       metafile: true,
+      plugins,
       logLevel: 'silent',
     });
     report.scenarios[entry] = summarize(result.metafile);
@@ -164,6 +189,7 @@ try {
     target: 'es2022',
     outdir: 'out/worker',
     metafile: true,
+    plugins,
     logLevel: 'silent',
   });
   report.scenarios.worker = summarize(worker.metafile);
@@ -178,6 +204,7 @@ try {
     target: 'es2022',
     outdir: 'out/lazy',
     metafile: true,
+    plugins,
     logLevel: 'silent',
   });
   report.scenarios.lazy = summarize(lazy.metafile);
@@ -202,7 +229,7 @@ try {
     'XLSX code was included in the initial load',
   );
   report.lazyIsolation = { initial: [...initial], xlsxOutputs, status: 'passed' };
-  report.runtime = await runLazyRuntime(temp, report.scenarios.lazy, xlsxOutputs);
+  report.runtime = await runLazyRuntime(temp, report.scenarios.lazy, xlsxOutputs, { strictCsp });
   report.finishedAt = new Date().toISOString();
   save();
 } catch (error) {

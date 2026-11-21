@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-11-21T18:50:27.906Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 399,
+    "sha256": "f37fb1a44fdac76fe521e25a3ceea94bada3277eb8ec8a8b145d2f0bfcfae0ca"
+  },
+  "node": "v22.19.0",
+  "esbuild": "0.25.12",
+  "scope": "Isolated pnpm-installed current workspace archives, esbuild browser minification and gzip; separate Worker, synthetic selected entry points and optional XLSX dynamic import. Localhost runtime checks use these lazy outputs; not a Vite, real-network transfer, runtime-memory, execution-time or complete consumer bundle measurement.",
+  "packages": [
+    {
+      "name": "@opensheetjs/formula",
+      "version": "0.2.0-dev.0",
+      "sha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+    },
+    {
+      "name": "@opensheetjs/core",
+      "version": "0.2.0-dev.0",
+      "sha256": "adc55a25384b1795c35b4bbad0eeb534e18c3d461cc1235f0ded6f3460e34ce7"
+    },
+    {
+      "name": "@opensheetjs/renderer",
+      "version": "0.2.0-dev.0",
+      "sha256": "12cc6bab28f6fa4b36856dac83b078830f019cd9d2d0b77370eb01274f1e9990"
+    },
+    {
+      "name": "@opensheetjs/plugin-sdk",
+      "version": "0.2.0-dev.0",
+      "sha256": "0d5611cadc69684dfb9d86b7596f4758252c4596a5308df7853335d4fa6a31ce"
+    },
+    {
+      "name": "opensheet",
+      "version": "0.2.0-dev.0",
+      "sha256": "d29d6dbb7e031f706bebf692d64586f7acea0658ffe9dcd9f8a51b09e9c9364a"
+    },
+    {
+      "name": "@opensheetjs/adapter-sheetjs",
+      "version": "0.2.0-dev.0",
+      "sha256": "41c9d947753a04d4027bf4fc1236960d904f55255c6cc5a99759078064edaf21"
+    }
+  ],
+  "scenarios": {},
+  "xlsxIntegrity": {
+    "source": "pnpm-lock.yaml",
+    "integrity": "sha512-oLDq3jw7AcLqKWH2AhCpVTZl8mf6X2YReP+Neh0SJUzV/BdZYjth94tG5toiMB1PPrYtxOCfaoUCkvtuH+3AJA=="
+  },
+  "lock": {
+    "path": "benchmarks/bundle-breakdown-csp-2026-11-22.consumer-lock.yaml",
+    "sha256": "8ff555ce988fb305a3702053fa1ac3a78ee279351b64f97de49b880ec007d891",
+    "frozenReinstall": "passed"
+  },
+  "cspShimSha256": "7693d472308248bf6811f06e7f4820cf66fcb869da790d0ab1c74790605b1eb6",
+  "strictCsp": true,
+  "entryHashes": {
+    "core.js": "2777bb09c1be0654c145b43ea36a0800c0440892de3b0fa708ce05cceb1a6506",
+    "editor.js": "d854eac02cc10b49f0e7b7e2dbb8af56d42f939857998f1220b87380207c7958",
+    "adapter.js": "8cd3b5e82eb9f8e107cad9e8e9c4498a21133bfd7f1822b0a0ef87db0719769a",
+    "lazy.js": "671f6ed122214649befcc0f6bbf2f683e939708a2d4fbddfa38c37ef2b7009cb",
+    "xlsx-optional.js": "a3ba17f96b63ebb7c5616342956f76baffa8ca4e0be1833438b341661b3f7a65"
+  },
+  "error": "Error: Build failed with 1 error:\n../../../../../../../var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-bundles-vcnxmE/csp-zod.js:2:18: ERROR: Could not resolve \"zod/v4\""
+}

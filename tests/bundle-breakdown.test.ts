@@ -10,6 +10,7 @@ it('retains reproducible bundle measurements and the lazy XLSX boundary', () => 
   for (const report of reports) {
     expect(report.error).toBeUndefined();
     expect(report.lock.frozenReinstall).toBe('passed');
+    expect(report.lazyIsolation.xlsxOutputs.length).toBeGreaterThan(0);
     expect(createHash('sha256').update(readFileSync(report.lock.path)).digest('hex')).toBe(
       report.lock.sha256,
     );
@@ -82,5 +83,61 @@ it('retains reproducible bundle measurements and the lazy XLSX boundary', () => 
     expect(result.converted.bytes).toBeGreaterThan(0);
     expect(result.errors).toEqual([]);
     expect(result.failures).toEqual([]);
+  }
+});
+
+it('records enforced CSP controls and lazy XLSX conversion in three browsers', () => {
+  const strict = JSON.parse(
+    readFileSync('benchmarks/bundle-breakdown-csp-verified-2026-11-22.json', 'utf8'),
+  );
+  const regular = JSON.parse(
+    readFileSync('benchmarks/bundle-breakdown-nocsp-verified-2026-11-22.json', 'utf8'),
+  );
+  expect(strict.strictCsp).toBe(true);
+  expect(regular.strictCsp).toBe(false);
+  expect(strict.cspShimSha256).toBe(
+    createHash('sha256').update(readFileSync('examples/framework-host/csp-zod.js')).digest('hex'),
+  );
+  expect(strict.runtime.csp).toContain("script-src 'self'");
+  expect(strict.runtime.csp).toContain("worker-src 'self'");
+  expect(strict.runtime.csp).not.toContain('unsafe-eval');
+  expect(strict.runtime.csp).not.toContain('unsafe-inline');
+  expect(regular.runtime.csp).toBeNull();
+  for (const report of [strict, regular]) {
+    expect(report.lock.frozenReinstall).toBe('passed');
+    expect(report.lazyIsolation.xlsxOutputs.length).toBeGreaterThan(0);
+    expect(createHash('sha256').update(readFileSync(report.lock.path)).digest('hex')).toBe(
+      report.lock.sha256,
+    );
+    expect(report.runtime.workerSha256).toBe(
+      report.scenarios.worker['out/worker/engine.worker.js'].sha256,
+    );
+    expect(report.runtime.results.map((result: any) => result.engine)).toEqual([
+      'chromium',
+      'firefox',
+      'webkit',
+    ]);
+    for (const result of report.runtime.results) {
+      expect(result.converted).toMatchObject({
+        values: [[6, 7, 13]],
+        reopened: [[6, 7, 13]],
+        readOnly: false,
+      });
+      expect(result.before.stylesheets).toBe(1);
+      expect(result.errors).toEqual([]);
+      expect(result.failures).toEqual([]);
+      for (const file of report.lazyIsolation.xlsxOutputs) {
+        const path = report.runtime.prefix + file.split('/').at(-1);
+        expect(result.beforeRequests).not.toContain(path);
+        expect(result.afterRequests.filter((request: string) => request === path)).toHaveLength(1);
+      }
+      if (report.strictCsp) {
+        expect(result.cspControls).toEqual({ pageBlocked: true, workerBlocked: true });
+        for (const event of result.cspEvents) {
+          expect(event.blocked).toBe('eval');
+          expect(event.source).toContain('/probe.js');
+        }
+      } else expect(result.cspControls).toBeNull();
+    }
   }
 });

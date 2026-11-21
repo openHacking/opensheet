@@ -6,8 +6,8 @@ import { basename, join } from 'node:path';
 import { chromium, firefox, webkit } from '@playwright/test';
 
 // Execute the exact lazy outputs measured by bundle-breakdown.mjs on a localhost subpath.
-export async function runLazyRuntime(temp, outputs, xlsxOutputs) {
-  const html = `<!doctype html><html><head><link rel="stylesheet" href="./lazy.css"></head><body><main id="root" class="os-framework-host"></main><button id="convert">Convert XLSX</button><script type="module" src="./runtime.js"></script></body></html>`;
+export async function runLazyRuntime(temp, outputs, xlsxOutputs, { strictCsp = false } = {}) {
+  const html = `<!doctype html><html><head><link rel="stylesheet" href="./lazy.css"></head><body><main id="root" class="os-framework-host"></main><button id="convert">Convert XLSX</button>${strictCsp ? '<script src="./probe.js"></script>' : ''}<script type="module" src="./runtime.js"></script></body></html>`;
   const runtime = `
 import './lazy.js';
 try {
@@ -43,6 +43,18 @@ try {
   const assets = new Map([
     ['index.html', Buffer.from(html)],
     ['runtime.js', Buffer.from(runtime)],
+    [
+      'probe.js',
+      Buffer.from(
+        "try { new Function('return 1')(); document.body.dataset.cspBlocked = 'false'; } catch { document.body.dataset.cspBlocked = 'true'; }",
+      ),
+    ],
+    [
+      'probe.worker.js',
+      Buffer.from(
+        "self.onmessage = () => { try { new Function('return 1')(); self.postMessage(false); } catch { self.postMessage(true); } };",
+      ),
+    ],
     ['engine.worker.js', readFileSync(join(temp, 'out/worker/engine.worker.js'))],
   ]);
   for (const [file, output] of Object.entries(outputs)) {
@@ -53,6 +65,9 @@ try {
     assets.set(name, bytes);
   }
   const prefix = '/embedded/sheets/';
+  const csp = strictCsp
+    ? "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; object-src 'none'"
+    : null;
   const server = createServer((req, res) => {
     const path = new URL(req.url, 'http://localhost').pathname;
     const file =
@@ -70,6 +85,7 @@ try {
           ? 'text/html'
           : 'text/javascript',
       'Cache-Control': 'no-store',
+      ...(csp ? { 'Content-Security-Policy': csp } : {}),
     });
     res.end(bytes);
   });
@@ -88,6 +104,17 @@ try {
         page.on('response', (response) => {
           if (response.status() >= 400) failures.push(`${response.status()} ${response.url()}`);
         });
+        if (strictCsp)
+          await page.addInitScript(() => {
+            window.cspEvents = [];
+            document.addEventListener('securitypolicyviolation', (event) =>
+              window.cspEvents.push({
+                directive: event.effectiveDirective,
+                blocked: event.blockedURI,
+                source: event.sourceFile,
+              }),
+            );
+          });
         await page.goto(`http://127.0.0.1:${server.address().port}${prefix}`);
         await page.waitForFunction(() => window.demo || document.body.dataset.error, null, {
           timeout: 30000,
@@ -100,6 +127,31 @@ try {
             stylesheets: document.querySelectorAll('link[rel=stylesheet]').length,
           };
         });
+        let cspControls = null;
+        if (strictCsp) {
+          cspControls = await page.evaluate(async () => ({
+            pageBlocked: document.body.dataset.cspBlocked === 'true',
+            workerBlocked: await new Promise((resolve, reject) => {
+              const worker = new Worker('./probe.worker.js', { type: 'module' });
+              const timer = setTimeout(() => {
+                worker.terminate();
+                reject(new Error('CSP Worker probe timed out'));
+              }, 5000);
+              worker.onmessage = (event) => {
+                clearTimeout(timer);
+                worker.terminate();
+                resolve(event.data);
+              };
+              worker.onerror = (event) => {
+                clearTimeout(timer);
+                worker.terminate();
+                reject(new Error(event.message));
+              };
+              worker.postMessage(null);
+            }),
+          }));
+          assert.deepEqual(cspControls, { pageBlocked: true, workerBlocked: true });
+        }
         const beforeRequests = [...requests];
         const xlsxPaths = xlsxOutputs.map((file) => prefix + basename(file));
         assert.deepEqual(before.values, [[6, 7, 13]]);
@@ -130,10 +182,18 @@ try {
           assert.equal(requests.filter((request) => request === path).length, 1);
         assert.deepEqual(errors, []);
         assert.deepEqual(failures, []);
+        const cspEvents = strictCsp ? await page.evaluate(() => window.cspEvents) : [];
+        for (const event of cspEvents)
+          assert.ok(
+            event.blocked === 'eval' && event.source.endsWith('/probe.js'),
+            `Unexpected CSP violation: ${JSON.stringify(event)}`,
+          );
         results.push({
           engine,
           browser: browser.version(),
           before,
+          cspControls,
+          cspEvents,
           beforeRequests,
           afterRequests: requests,
           converted: await page.evaluate(() => window.demo.result),
@@ -146,8 +206,11 @@ try {
     }
     return {
       prefix,
+      csp,
       htmlSha256: digest(html),
       runtimeSha256: digest(runtime),
+      pageProbeSha256: digest(assets.get('probe.js')),
+      workerProbeSha256: digest(assets.get('probe.worker.js')),
       workerSha256: digest(assets.get('engine.worker.js')),
       results,
     };
