@@ -560,6 +560,63 @@ export class Engine {
       'CORRUPT_STORAGE',
       'Workbook history accounting differs; restore a backup',
     );
+    await this.checkHistoricalDirectories();
+  }
+
+  private async checkHistoricalDirectories() {
+    // Reconstruct both branches from the current directory. Counts avoid scanning
+    // every page for every revision while still checking unchanged pages when
+    // a history entry changes the metadata.
+    for (const redo of [false, true]) {
+      const historyIds = redo ? this.head.future : this.head.past;
+      if (!historyIds.length) continue;
+      const blocks = { ...this.head.blocks };
+      const sheets = new Map<string, number>();
+      const styles = new Map<string, number>();
+      const adjust = (counts: Map<string, number>, key: string, delta: number) => {
+        const count = (counts.get(key) ?? 0) + delta;
+        if (count) counts.set(key, count);
+        else counts.delete(key);
+      };
+      const account = (address: string, pointer: Pointer, delta: number) => {
+        adjust(sheets, address.slice(0, address.indexOf('/')), delta);
+        for (const style of pointer.styles ?? []) adjust(styles, style, delta);
+      };
+      for (const [address, pointer] of Object.entries(blocks)) account(address, pointer, 1);
+      let metadataId = this.head.meta;
+      let validSheets = new Set(this.metadata.snapshot.sheets.map((sheet) => sheet.id));
+      let validStyles = new Set(Object.keys(this.metadata.snapshot.styles));
+      for (let i = historyIds.length - 1; i >= 0; i--) {
+        const history = this.histories.get(historyIds[i])!;
+        for (const [address, before, after] of history.changes) {
+          if (Object.hasOwn(blocks, address)) account(address, blocks[address], -1);
+          const pointer = redo ? after : before;
+          if (pointer) {
+            blocks[address] = pointer;
+            account(address, pointer, 1);
+          } else delete blocks[address];
+        }
+        const targetId = redo ? history.after : history.before;
+        if (targetId !== metadataId) {
+          const stored = await this.readMetadataEnvelope(targetId);
+          validSheets = new Set(stored.snapshot.sheets.map((sheet) => sheet.id));
+          validStyles = new Set(stored.styleIds);
+          metadataId = targetId;
+        }
+        for (const id of sheets.keys())
+          assert(
+            validSheets.has(id),
+            'CORRUPT_STORAGE',
+            'Block directory references an unknown sheet',
+          );
+        for (const id of styles.keys())
+          assert(
+            validStyles.has(id),
+            'CORRUPT_STORAGE',
+            'Block directory references an unknown style',
+          );
+      }
+    }
   }
   private async recover() {
     await this.initializeReferences();

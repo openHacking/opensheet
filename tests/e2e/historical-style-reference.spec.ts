@@ -1,9 +1,10 @@
 import { expect, test } from '@playwright/test';
 
 for (const direction of ['undo', 'redo'] as const) {
-  for (const corruption of ['style', 'sheet'] as const) {
-    test(`rejects ${direction} before publishing a bad historical ${corruption} reference`, async ({
+  for (const corruption of ['style', 'sheet', 'unchanged-style'] as const) {
+    test(`rejects a bad ${direction} historical ${corruption} reference before recovery`, async ({
       page,
+      context,
     }) => {
       await page.goto('/#budget');
       await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
@@ -14,6 +15,11 @@ for (const direction of ['undo', 'redo'] as const) {
           await sheet.range('A1').setValues([[372]]);
           await sheet.range('A1').setStyle({ bold: true });
           await sheet.range('A1').setStyle({ italic: true });
+          if (corruption === 'unchanged-style') {
+            await sheet.range('A70').setValues([[17]]);
+            await sheet.range('A70').setStyle({ underline: true });
+            await book.renameSheet(sheet.id, 'Renamed');
+          }
           if (direction === 'redo') await book.undo();
           const id = book.id;
           await book.close();
@@ -40,13 +46,38 @@ for (const direction of ['undo', 'redo'] as const) {
           const change = history.changes.find(
             (entry: any[]) => (direction === 'undo' ? entry[1] : entry[2])?.styles?.length,
           );
-          if (!change) throw new Error('Fixture has no indexed historical style');
-          const pointer = direction === 'undo' ? change[1] : change[2];
-          const recordId = corruption === 'style' ? metadataId : historyId;
-          const raw = corruption === 'style' ? await get('records', recordId) : historyRaw;
+          if (corruption !== 'unchanged-style' && !change)
+            throw new Error('Fixture has no indexed historical style');
+          const prior =
+            corruption === 'unchanged-style'
+              ? decode(await get('records', head.past.at(direction === 'undo' ? -2 : -1)))[1]
+              : undefined;
+          const pointer =
+            corruption === 'unchanged-style'
+              ? prior.changes.find((entry: any[]) => entry[2]?.styles?.length)?.[2]
+              : direction === 'undo'
+                ? change[1]
+                : change[2];
+          if (
+            !pointer ||
+            (corruption === 'unchanged-style' &&
+              history.changes.some(
+                (entry: any[]) => entry[1]?.id === pointer.id || entry[2]?.id === pointer.id,
+              ))
+          )
+            throw new Error('Fixture must retain an unchanged indexed page');
+          if (
+            corruption === 'unchanged-style' &&
+            history.changes.some((entry: any[]) =>
+              entry.slice(1).some((changed: any) => changed?.styles?.includes(pointer.styles[0])),
+            )
+          )
+            throw new Error('Fixture style must occur only on unchanged pages');
+          const recordId = corruption !== 'sheet' ? metadataId : historyId;
+          const raw = corruption !== 'sheet' ? await get('records', recordId) : historyRaw;
           const ledger = await get('sizes', recordId);
-          const wrapper = corruption === 'style' ? decode(raw) : historyWrapper;
-          if (corruption === 'style') {
+          const wrapper = corruption !== 'sheet' ? decode(raw) : historyWrapper;
+          if (corruption !== 'sheet') {
             const index = wrapper[1].styleIds.indexOf(pointer.styles[0]);
             if (index < 0 || wrapper[1].styleIds.includes('missing_history_style'))
               throw new Error('Fixture style mismatch');
@@ -57,21 +88,23 @@ for (const direction of ['undo', 'redo'] as const) {
             0,
             ...new TextEncoder().encode(JSON.stringify([recordId, changed.length])),
           ]);
-          const tx = db.transaction(['records', 'sizes'], 'readwrite');
+          const tx = db.transaction(['records', 'sizes', 'scratch'], 'readwrite');
           const done = new Promise<void>((resolve, reject) => {
             tx.oncomplete = () => resolve();
             tx.onabort = () => reject(tx.error);
           });
           tx.objectStore('records').put(changed, recordId);
           tx.objectStore('sizes').put(size, recordId);
+          tx.objectStore('scratch').put(
+            new Uint8Array([0, 42]),
+            `${id}/history-reference-sentinel`,
+          );
           await done;
           db.close();
           return { id, recordId, raw: Array.from(raw), ledger: Array.from(ledger) };
         },
         { direction, corruption },
       );
-      await page.reload();
-      await expect(page.locator('#scene-title')).toHaveText('Budget Simulator');
       const capture = async () =>
         page.evaluate(async () => {
           const open = indexedDB.open('opensheet');
@@ -103,31 +136,14 @@ for (const direction of ['undo', 'redo'] as const) {
           return result;
         });
       const before = await capture();
-      const attempt = await page.evaluate(async (direction) => {
-        const book = window.opensheet.getWorkbook(),
-          revision = book.revision;
-        const error = await (direction === 'undo' ? book.undo() : book.redo()).then(
-          () => ({ code: 'success', message: '' }),
-          (reason: { code?: string; message?: string }) => ({
-            code: reason.code,
-            message: reason.message,
-          }),
-        );
-        return {
-          error,
-          revision,
-          after: book.revision,
-          value: await book.getSheets()[0].range('A1').getValues(),
-        };
-      }, direction);
-      expect(attempt).toMatchObject({
-        error: { code: 'CORRUPT_STORAGE' },
-        after: attempt.revision,
-        value: [[372]],
-      });
-      expect(attempt.error.message).toContain('Block directory references an unknown');
-      if (corruption === 'style')
-        expect(attempt.error.message).toBe('Block directory references an unknown style');
+      const recovery = await context.newPage();
+      await recovery.goto('/#budget');
+      await expect(
+        recovery.getByRole('heading', { name: 'Unable to open workbook' }),
+      ).toBeVisible();
+      await expect(recovery.locator('#startup-recovery-message')).toContainText(
+        `Block directory references an unknown ${corruption === 'sheet' ? 'sheet' : 'style'}`,
+      );
       expect(await capture()).toEqual(before);
       await page.evaluate(async (fixture) => {
         const open = indexedDB.open('opensheet');
@@ -145,14 +161,12 @@ for (const direction of ['undo', 'redo'] as const) {
         await done;
         db.close();
       }, fixture);
-      const result = await page.evaluate(
-        async ({ direction, corruption }) => {
+      await recovery.getByRole('button', { name: 'Try again' }).click();
+      await expect(recovery.getByRole('heading', { name: 'Unable to open workbook' })).toBeHidden();
+      const result = await recovery.evaluate(
+        async ({ direction }) => {
           const app = window.opensheet;
           let book = app.getWorkbook();
-          if (corruption === 'sheet') {
-            await app.open(book.id);
-            book = app.getWorkbook();
-          }
           const applied = direction === 'undo' ? await book.undo() : await book.redo();
           const reversed = direction === 'undo' ? await book.redo() : await book.undo();
           await app.open(book.id);
@@ -165,13 +179,15 @@ for (const direction of ['undo', 'redo'] as const) {
             style: book.getStyle((await book.getCell(sheet.id, 0, 0))?.styleId),
           };
         },
-        { direction, corruption },
+        { direction },
       );
       expect(result.applied).toBe(true);
       expect(result.reversed).toBe(true);
       expect(result.value).toEqual([[372]]);
       expect(result.style.bold).toBe(true);
-      expect(result.style.italic).toBe(direction === 'undo' ? true : undefined);
+      expect(result.style.italic).toBe(
+        corruption === 'unchanged-style' || direction === 'undo' ? true : undefined,
+      );
     });
   }
 }

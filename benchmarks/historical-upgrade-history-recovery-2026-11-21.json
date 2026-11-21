@@ -1,0 +1,900 @@
+{
+  "startedAt": "2026-11-21T10:22:58.452Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 396,
+    "sha256": "d33b14a0df05988eec098e4262ff2b1a69f1c03317058cbff8afdce71ed6518e"
+  },
+  "node": "v22.19.0",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "oldMetadata": {
+        "names": [
+          "Data",
+          "Rates"
+        ],
+        "rates": [
+          [
+            3,
+            10
+          ]
+        ],
+        "rateFormula": "Data!A1+3",
+        "mainFormula": "A1+B1",
+        "mergedValue": "merged",
+        "merges": [
+          {
+            "startRow": 1,
+            "startColumn": 1,
+            "endRow": 2,
+            "endColumn": 3
+          }
+        ],
+        "freeze": {
+          "rows": 1,
+          "columns": 1
+        },
+        "rowSize": 37,
+        "rowHidden": true,
+        "columnSize": 143
+      },
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "redoneRates": [
+          [
+            3,
+            11
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      }
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "oldMetadata": {
+        "names": [
+          "Data",
+          "Rates"
+        ],
+        "rates": [
+          [
+            3,
+            10
+          ]
+        ],
+        "rateFormula": "Data!A1+3",
+        "mainFormula": "A1+B1",
+        "mergedValue": "merged",
+        "merges": [
+          {
+            "startRow": 1,
+            "startColumn": 1,
+            "endRow": 2,
+            "endColumn": 3
+          }
+        ],
+        "freeze": {
+          "rows": 1,
+          "columns": 1
+        },
+        "rowSize": 37,
+        "rowHidden": true,
+        "columnSize": 143
+      },
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "redoneRates": [
+          [
+            3,
+            11
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "oldMetadata": {
+        "names": [
+          "Data",
+          "Rates"
+        ],
+        "rates": [
+          [
+            3,
+            10
+          ]
+        ],
+        "rateFormula": "Data!A1+3",
+        "mainFormula": "A1+B1",
+        "mergedValue": "merged",
+        "merges": [
+          {
+            "startRow": 1,
+            "startColumn": 1,
+            "endRow": 2,
+            "endColumn": 3
+          }
+        ],
+        "freeze": {
+          "rows": 1,
+          "columns": 1
+        },
+        "rowSize": 37,
+        "rowHidden": true,
+        "columnSize": 143
+      },
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "redoneRates": [
+          [
+            3,
+            11
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      }
+    }
+  ],
+  "injectHeadAbort": false,
+  "artifactDirectory": "/tmp/opensheet-history-recovery.unJ8Zr",
+  "scope": "Published npm core 0.1.1 and locally packed 0.2.0-dev.0, separately installed and esbuild-bundled in one localhost origin. Optional head-transaction abort is injected into the served candidate Worker. Synthetic workbook, one sample per browser; not complete historical compatibility, physical crash testing, independent toolchain, physical devices or safe downgrade certification.",
+  "historical": {
+    "name": "@opensheetjs/core",
+    "version": "0.1.1",
+    "integrity": "sha512-7Sin0Eh6nJMDyoLU7oEjifEIOXZHgZujuEvVheUChWCqbXPOMtJ3zIptiBehiJfUDNxsOuKBLuSJxcFmW4nyFw==",
+    "sha256": "335770053ca5be85497d7fa1373d7e2e0e195009a9aa9aeba2dfc5f070e8bf3a"
+  },
+  "candidate": {
+    "coreSha256": "e4a52ce3d4147f465b74d99783c722c3e47b41970b63ac0d0f0223813cd4fda4",
+    "formulaSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+  },
+  "oldAssets": {
+    "main": "28e2f87d1fd56d3618fa80fbf14a7df59c6a2a1f7a54880ccaf87abad8bf515a",
+    "worker": "9ebdf62b59add8fc1395e30813397023155e116e5d9287df853fcd71dbdd9dfb",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-history-recovery-2026-11-21.old-consumer-lock.yaml",
+      "sha256": "ce785d9bb9726a7e272ec12536565455fc0ab9b7962c95687402258536164f54"
+    }
+  },
+  "newAssets": {
+    "main": "bb2817c9af02421706eb856f139e8c6a45257217eb716414a0580cf56e9cd9a1",
+    "worker": "6c8eaaec356ee450cfa7eb0d0ffc6965aa77aa50d865346bf41a8a355043b7f7",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-history-recovery-2026-11-21.new-consumer-lock.yaml",
+      "sha256": "f1c9960c8fb38001e7460d510cb6b0fe24dae3cc3610ee09ef02ea4531225e2d"
+    },
+    "servedWorker": "6c8eaaec356ee450cfa7eb0d0ffc6965aa77aa50d865346bf41a8a355043b7f7"
+  },
+  "finishedAt": "2026-11-21T10:23:03.978Z"
+}
