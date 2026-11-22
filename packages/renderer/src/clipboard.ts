@@ -11,7 +11,8 @@ import {
   type Workbook,
 } from '@opensheetjs/core';
 import { parseClipboardHTML } from './html-clipboard.js';
-import { encodeClipboardText } from './clipboard-text.js';
+import { clipboardTextCellLength, encodeClipboardText } from './clipboard-text.js';
+import { clipboardBatches } from './clipboard-batches.js';
 
 export type PasteOptions = {
   mode?: 'all' | 'values' | 'formulas' | 'formats';
@@ -197,21 +198,34 @@ export async function copyText(range: Range) {
   const { workbook, id } = range.sheet;
   const bounds = { ...range.bounds };
   const revision = workbook.revision;
-  const data = await workbook.readRange(id, bounds);
-  if (data.revision !== revision || workbook.revision !== revision)
-    throw new OpenSheetError('REVISION_CONFLICT', 'Workbook changed during copy');
   const sheet = workbook.sheetData(id);
   const rows: string[][] = [];
-  for (let row = bounds.startRow; row < bounds.endRow; row++) {
-    const values: string[] = [];
-    for (let column = bounds.startColumn; column < bounds.endColumn; column++) {
-      const cellKey = key(sheet.rowOrder[row], sheet.columnOrder[column]);
-      const value = data.calculated[cellKey];
-      if (value && typeof value === 'object' && value.error === '#LIMIT!')
-        throw new OpenSheetError('LIMIT_EXCEEDED', 'Cannot copy an incomplete calculation');
-      values.push(data.display[cellKey] ?? '');
+  let units = 0;
+  for (const batch of clipboardBatches(workbook, id, bounds)) {
+    const data = await workbook.readRange(id, batch);
+    if (data.revision !== revision || workbook.revision !== revision)
+      throw new OpenSheetError('REVISION_CONFLICT', 'Workbook changed during copy');
+    for (let row = batch.startRow; row < batch.endRow; row++) {
+      if (batch.startColumn === bounds.startColumn) rows.push([]);
+      for (let column = batch.startColumn; column < batch.endColumn; column++) {
+        const cellKey = key(sheet.rowOrder[row], sheet.columnOrder[column]);
+        const value = data.calculated[cellKey];
+        if (value && typeof value === 'object' && value.error === '#LIMIT!')
+          throw new OpenSheetError('LIMIT_EXCEEDED', 'Cannot copy an incomplete calculation');
+        const display = data.display[cellKey] ?? '';
+        const quoteEmpty =
+          bounds.endRow - bounds.startRow > 1 &&
+          row === bounds.endRow - 1 &&
+          bounds.endColumn - bounds.startColumn === 1 &&
+          display === '';
+        units +=
+          clipboardTextCellLength(display, quoteEmpty) +
+          (column > bounds.startColumn ? 1 : row > bounds.startRow ? 1 : 0);
+        if (units > 32 * 1024 * 1024)
+          throw new OpenSheetError('LIMIT_EXCEEDED', 'Copied text is too large');
+        rows[rows.length - 1].push(display);
+      }
     }
-    rows.push(values);
   }
   return encodeClipboardText(rows);
 }

@@ -1,0 +1,58 @@
+{
+  "browser": "153.0.8010.12",
+  "platform": "darwin",
+  "arch": "arm64",
+  "osRelease": "25.5.0",
+  "cpu": "Apple M4",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 407,
+    "sha256": "a2c8e57e4ae7643a6764a34b73a6f7108c9c764c26271feac9a80c6e047339d1"
+  },
+  "fixture": "10,000 numeric cells, one 1,000 x 10 range",
+  "scope": "Alternating reconstructed prior and current copyText against the same real Worker in a Vite development server. Includes Worker reads and TSV construction; no system clipboard, process memory, production build or other hardware.",
+  "samples": [
+    {
+      "pair": 0,
+      "variant": "baseline",
+      "elapsedMs": 35.5,
+      "cells": 10000,
+      "outputLength": 48889
+    },
+    {
+      "pair": 0,
+      "variant": "batched",
+      "elapsedMs": 25,
+      "cells": 10000,
+      "outputLength": 48889
+    },
+    {
+      "pair": 1,
+      "variant": "batched",
+      "elapsedMs": 12.599999904632568,
+      "cells": 10000,
+      "outputLength": 48889
+    },
+    {
+      "pair": 1,
+      "variant": "baseline",
+      "elapsedMs": 28.199999809265137,
+      "cells": 10000,
+      "outputLength": 48889
+    },
+    {
+      "pair": 2,
+      "variant": "baseline",
+      "elapsedMs": 29,
+      "cells": 10000,
+      "outputLength": 48889
+    },
+    {
+      "pair": 2,
+      "variant": "batched",
+      "elapsedMs": 13.600000381469727,
+      "cells": 10000,
+      "outputLength": 48889
+    }
+  ]
+}

@@ -13,3 +13,16 @@ export function encodeClipboardText(rows: readonly (readonly string[])[]): strin
     )
     .join('\n');
 }
+
+/** Exact encoded size for a field, excluding row and column separators. */
+export function clipboardTextCellLength(value: string, quoteEmpty: boolean): number {
+  if (!quoteEmpty && !/[\t\r\n"]/.test(value)) return value.length;
+  let quotes = 0;
+  for (
+    let position = value.indexOf('"');
+    position >= 0;
+    position = value.indexOf('"', position + 1)
+  )
+    quotes++;
+  return value.length + quotes + 2;
+}
