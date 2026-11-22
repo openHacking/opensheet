@@ -41,6 +41,7 @@ export class AsyncCalculation {
       column: number,
     ) => Promise<AST | null | undefined>,
     private dateSystem: () => '1900' | '1904' = () => '1900',
+    private checkpoint?: () => void,
   ) {
     this.cache = new ByteCache(budget, (id) => this.removeCached(id));
   }
@@ -199,6 +200,7 @@ export class AsyncCalculation {
       this.cache.budget,
       undefined,
       this.dateSystem,
+      this.checkpoint,
     );
     const evaluateFormula = async (
       sheet: string,
@@ -235,7 +237,7 @@ export class AsyncCalculation {
     shared?: EvaluationWork,
     memo?: ScalarMemo,
     depth?: { depth: number },
-    checkpoint?: () => void,
+    checkpoint = this.checkpoint,
     traversal = { references: 0 },
   ) {
     const work = shared ?? { remaining: 10_000_000 };

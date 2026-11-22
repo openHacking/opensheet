@@ -228,6 +228,7 @@ export class Engine {
         ).dependencies[key(sh.rowOrder[row], sh.columnOrder[column])] as AST | null | undefined;
       },
       () => this.metadata.snapshot.dateSystem,
+      () => this.check(),
     );
   }
   get isWriter() {
@@ -1284,6 +1285,7 @@ export class Engine {
       this.calculator.cacheBudget,
       undefined,
       () => metadata.snapshot.dateSystem,
+      () => this.check(),
     );
     const reader = calculator.validationSession(signal).forSheet(sheetId);
     const report = await checkStagedValidation(
@@ -1387,6 +1389,7 @@ export class Engine {
       this.calculator.cacheBudget,
       undefined,
       () => metadata.snapshot.dateSystem,
+      () => this.check(),
     );
     const reader = calculator.validationSession(signal).forSheet(sheetId);
     const cells: Array<{ row: number; column: number; value: CellValue; base: CellStyle }> = [];
@@ -2198,6 +2201,7 @@ export class Engine {
       this.calculator.cacheBudget,
       undefined,
       () => metadata.snapshot.dateSystem,
+      () => this.check(),
     );
     for (const sh of metadata.snapshot.sheets)
       if (sh.filter) {
@@ -2742,6 +2746,7 @@ export class Engine {
             this.calculator.cacheBudget,
             undefined,
             () => metadata.snapshot.dateSystem,
+            () => this.check(),
           ).readSession()
         : undefined;
     const page: StagedReadPage = {};
@@ -3174,6 +3179,7 @@ export class Engine {
       calculationBytes,
       undefined,
       () => metadata.snapshot.dateSystem,
+      () => this.check(),
     );
     try {
       let stageStart = performance.now();
@@ -3569,6 +3575,7 @@ export class Engine {
               .dependencies[key(rowId, columnId)] as AST | null | undefined;
           },
           () => metadata.snapshot.dateSystem,
+          () => this.check(),
         );
     const calculate = this.calculator.cacheBudget
       ? (id: string, row: number, column: number) => calculator.value(id, row, column)
