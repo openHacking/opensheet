@@ -172,8 +172,8 @@ IDBObjectStore.prototype.put = function(...args) {
           const book = await old.createWorkbook(
             {
               sheets: [
-                { name: 'Data', rows: 4, columns: 3 },
-                { name: 'Rates', rows: 4, columns: 3 },
+                { name: 'Data', rows: 16, columns: 3 },
+                { name: 'Rates', rows: 16, columns: 3 },
               ],
             },
             { database },
@@ -185,6 +185,8 @@ IDBObjectStore.prototype.put = function(...args) {
           await sheet.range('B1').setStyle({ bold: true, numberFormat: '0.00' });
           await rates.range('A1').setValues([[3]]);
           await rates.range('B1').setFormulas([['Data!A1+3']]);
+          await sheet.range('A3:A14').setValues(Array.from({ length: 12 }, () => ['重复文本🙂']));
+          await rates.range('A3:A14').setValues(Array.from({ length: 12 }, () => ['repeat-text']));
           await sheet.range('B2').setValues([['merged']]);
           await sheet.range('B2:C2').merge();
           await sheet.setRowHeight(2, 37);
@@ -203,6 +205,8 @@ IDBObjectStore.prototype.put = function(...args) {
               rateFormula: (await sheets[1].range('B1').getFormulas())[0][0],
               mainFormula: (await sheets[0].range('C1').getFormulas())[0][0],
               mergedValue: (await sheets[0].range('B2').getValues())[0][0],
+              unicodeStrings: await sheets[0].range('A3:A14').getValues(),
+              repeatedStrings: await sheets[1].range('A3:A14').getValues(),
               merges: data.merges,
               freeze: data.freeze,
               rowSize: data.rows[data.rowOrder[2]]?.size,
@@ -432,6 +436,8 @@ IDBObjectStore.prototype.put = function(...args) {
         rateFormula: 'Data!A1+3',
         mainFormula: 'A1+B1',
         mergedValue: 'merged',
+        unicodeStrings: Array.from({ length: 12 }, () => ['重复文本🙂']),
+        repeatedStrings: Array.from({ length: 12 }, () => ['repeat-text']),
         merges: [{ startRow: 1, endRow: 2, startColumn: 1, endColumn: 3 }],
         freeze: { rows: 1, columns: 1 },
         rowSize: 37,

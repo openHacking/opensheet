@@ -1,0 +1,2040 @@
+{
+  "startedAt": "2026-11-22T03:35:37.133Z",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 407,
+    "sha256": "02bdf5fed98e993662852f38b6e692de3a5c102a8914aa581b0a8288146bb075"
+  },
+  "node": "v22.19.0",
+  "results": [
+    {
+      "engine": "chromium",
+      "browser": "153.0.8010.12",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "oldMetadata": {
+        "names": [
+          "Data",
+          "Rates"
+        ],
+        "rates": [
+          [
+            3,
+            10
+          ]
+        ],
+        "rateFormula": "Data!A1+3",
+        "mainFormula": "A1+B1",
+        "mergedValue": "merged",
+        "unicodeStrings": [
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ]
+        ],
+        "repeatedStrings": [
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ]
+        ],
+        "merges": [
+          {
+            "startRow": 1,
+            "startColumn": 1,
+            "endRow": 2,
+            "endColumn": 3
+          }
+        ],
+        "freeze": {
+          "rows": 1,
+          "columns": 1
+        },
+        "rowSize": 37,
+        "rowHidden": true,
+        "columnSize": 143
+      },
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "unicodeStrings": [
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ]
+            ],
+            "repeatedStrings": [
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ]
+            ],
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "unicodeStrings": [
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ]
+            ],
+            "repeatedStrings": [
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ]
+            ],
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "redoneRates": [
+          [
+            3,
+            11
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "unicodeStrings": [
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ]
+          ],
+          "repeatedStrings": [
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ]
+          ],
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "unicodeStrings": [
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ]
+          ],
+          "repeatedStrings": [
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ]
+          ],
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      }
+    },
+    {
+      "engine": "firefox",
+      "browser": "155.0",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "oldMetadata": {
+        "names": [
+          "Data",
+          "Rates"
+        ],
+        "rates": [
+          [
+            3,
+            10
+          ]
+        ],
+        "rateFormula": "Data!A1+3",
+        "mainFormula": "A1+B1",
+        "mergedValue": "merged",
+        "unicodeStrings": [
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ]
+        ],
+        "repeatedStrings": [
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ]
+        ],
+        "merges": [
+          {
+            "startRow": 1,
+            "startColumn": 1,
+            "endRow": 2,
+            "endColumn": 3
+          }
+        ],
+        "freeze": {
+          "rows": 1,
+          "columns": 1
+        },
+        "rowSize": 37,
+        "rowHidden": true,
+        "columnSize": 143
+      },
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "unicodeStrings": [
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ]
+            ],
+            "repeatedStrings": [
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ]
+            ],
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "unicodeStrings": [
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ]
+            ],
+            "repeatedStrings": [
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ]
+            ],
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "redoneRates": [
+          [
+            3,
+            11
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "unicodeStrings": [
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ]
+          ],
+          "repeatedStrings": [
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ]
+          ],
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "unicodeStrings": [
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ]
+          ],
+          "repeatedStrings": [
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ]
+          ],
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      }
+    },
+    {
+      "engine": "webkit",
+      "browser": "26.6",
+      "oldValues": [
+        [
+          7,
+          5,
+          12
+        ]
+      ],
+      "oldMetadata": {
+        "names": [
+          "Data",
+          "Rates"
+        ],
+        "rates": [
+          [
+            3,
+            10
+          ]
+        ],
+        "rateFormula": "Data!A1+3",
+        "mainFormula": "A1+B1",
+        "mergedValue": "merged",
+        "unicodeStrings": [
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ],
+          [
+            "重复文本🙂"
+          ]
+        ],
+        "repeatedStrings": [
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ],
+          [
+            "repeat-text"
+          ]
+        ],
+        "merges": [
+          {
+            "startRow": 1,
+            "startColumn": 1,
+            "endRow": 2,
+            "endColumn": 3
+          }
+        ],
+        "freeze": {
+          "rows": 1,
+          "columns": 1
+        },
+        "rowSize": 37,
+        "rowHidden": true,
+        "columnSize": 143
+      },
+      "schemaVersion": 3,
+      "json": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "display": [
+          [
+            "7",
+            "5.00",
+            "12"
+          ]
+        ]
+      },
+      "imports": {
+        "json": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "unicodeStrings": [
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ]
+            ],
+            "repeatedStrings": [
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ]
+            ],
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        },
+        "binary": {
+          "rejected": {
+            "error": "UNSUPPORTED_VERSION",
+            "revisionUnchanged": true,
+            "value": "keep",
+            "reopenedRevisionUnchanged": true,
+            "reopenedValue": "keep",
+            "undo": true,
+            "redo": true,
+            "afterRedo": "keep"
+          },
+          "values": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "display": "5.00",
+          "reopened": [
+            [
+              7,
+              5,
+              12
+            ]
+          ],
+          "metadata": {
+            "names": [
+              "Data",
+              "Rates"
+            ],
+            "rates": [
+              [
+                3,
+                10
+              ]
+            ],
+            "rateFormula": "Data!A1+3",
+            "mainFormula": "A1+B1",
+            "mergedValue": "merged",
+            "unicodeStrings": [
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ],
+              [
+                "重复文本🙂"
+              ]
+            ],
+            "repeatedStrings": [
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ],
+              [
+                "repeat-text"
+              ]
+            ],
+            "merges": [
+              {
+                "startRow": 1,
+                "startColumn": 1,
+                "endRow": 2,
+                "endColumn": 3
+              }
+            ],
+            "freeze": {
+              "rows": 1,
+              "columns": 1
+            },
+            "rowSize": 37,
+            "rowHidden": true,
+            "columnSize": 143
+          }
+        }
+      },
+      "upgrade": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "redo": true,
+        "redone": [
+          [
+            8,
+            5,
+            13
+          ]
+        ],
+        "redoneRates": [
+          [
+            3,
+            11
+          ]
+        ],
+        "undo": true,
+        "restored": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "style": {
+          "bold": true,
+          "numberFormat": "0.00"
+        },
+        "display": "5.00",
+        "reopened": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "unicodeStrings": [
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ]
+          ],
+          "repeatedStrings": [
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ]
+          ],
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      },
+      "oldReopen": {
+        "values": [
+          [
+            7,
+            5,
+            12
+          ]
+        ],
+        "metadata": {
+          "names": [
+            "Data",
+            "Rates"
+          ],
+          "rates": [
+            [
+              3,
+              10
+            ]
+          ],
+          "rateFormula": "Data!A1+3",
+          "mainFormula": "A1+B1",
+          "mergedValue": "merged",
+          "unicodeStrings": [
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ],
+            [
+              "重复文本🙂"
+            ]
+          ],
+          "repeatedStrings": [
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ],
+            [
+              "repeat-text"
+            ]
+          ],
+          "merges": [
+            {
+              "startRow": 1,
+              "startColumn": 1,
+              "endRow": 2,
+              "endColumn": 3
+            }
+          ],
+          "freeze": {
+            "rows": 1,
+            "columns": 1
+          },
+          "rowSize": 37,
+          "rowHidden": true,
+          "columnSize": 143
+        }
+      }
+    }
+  ],
+  "injectHeadAbort": false,
+  "artifactDirectory": "/tmp/opensheet-upgrade-LZPNfP",
+  "scope": "Published npm core 0.1.1 and locally packed 0.2.0-dev.0, separately installed and esbuild-bundled in one localhost origin. Optional head-transaction abort is injected into the served candidate Worker. Synthetic workbook, one sample per browser; not complete historical compatibility, physical crash testing, independent toolchain, physical devices or safe downgrade certification.",
+  "historical": {
+    "name": "@opensheetjs/core",
+    "version": "0.1.1",
+    "integrity": "sha512-7Sin0Eh6nJMDyoLU7oEjifEIOXZHgZujuEvVheUChWCqbXPOMtJ3zIptiBehiJfUDNxsOuKBLuSJxcFmW4nyFw==",
+    "sha256": "335770053ca5be85497d7fa1373d7e2e0e195009a9aa9aeba2dfc5f070e8bf3a"
+  },
+  "candidate": {
+    "coreSha256": "e2c35ae021813f39f53815cf389d97f3903563ade78d4ee226ddcfe91d6089e8",
+    "formulaSha256": "cd5aa94f3bdaaf30b3ae440e1e52a61355ffad180edf69dd8c637910f6bb1d13"
+  },
+  "oldAssets": {
+    "main": "5796199b9132098279786c1d27e26d70cb29aea8acb5f5396508774bec84cc0d",
+    "worker": "17723080ce653e3e6995f5a135937a519ce8d4a75bb2802bdccc0ff3635cb48c",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-string-profile-2026-11-22.old-consumer-lock.yaml",
+      "sha256": "ce785d9bb9726a7e272ec12536565455fc0ab9b7962c95687402258536164f54"
+    }
+  },
+  "newAssets": {
+    "main": "55e3ff8e3a049406dd555c0c0564736850f847440c2eaa5ebbf0846b92e0f4bf",
+    "worker": "67ece583398941cbe7082a54ae4fe29d8e1b5f7f3171a5914aa065f4852da2a6",
+    "lock": {
+      "path": "benchmarks/historical-upgrade-string-profile-2026-11-22.new-consumer-lock.yaml",
+      "sha256": "3c49dc906a2cc2c53544a51c6de850f28a7492f56852640c8921fa54413fef09"
+    },
+    "servedWorker": "67ece583398941cbe7082a54ae4fe29d8e1b5f7f3171a5914aa065f4852da2a6"
+  },
+  "finishedAt": "2026-11-22T03:35:41.617Z"
+}
