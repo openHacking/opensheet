@@ -1,0 +1,289 @@
+{
+  "reader": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+  "node": "v22.19.0",
+  "source": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 408,
+    "sha256": "f4f759ea49c157e29ff65b21feb7c1b1fa2c4a0a0f829a33064c44cbe75a53f1"
+  },
+  "adapterBuild": {
+    "algorithm": "sha256-path-length-content-v1",
+    "files": 13,
+    "sha256": "42f8eb6384e759e6a2ba7ce10fce20548c22996101d3cfc8ce91e6ff58182374"
+  },
+  "fixture": {
+    "file": "apps/playground/src/budget-fixture.ts",
+    "sha256": "ffe1528cd788ae9c55e3e566a8fccf3e034445ce73c0f358851c362b28be52dd"
+  },
+  "observations": [
+    {
+      "quantity": 1,
+      "values": [
+        {
+          "sheet": "Launch budget",
+          "address": "D2",
+          "expected": 1,
+          "sourceFormula": null,
+          "readerFormula": null,
+          "readerValue": 1,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Launch budget",
+          "address": "F2",
+          "expected": 2400,
+          "sourceFormula": "D2*E2",
+          "readerFormula": "D2*E2",
+          "readerValue": 2400,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Launch budget",
+          "address": "F11",
+          "expected": 13097,
+          "sourceFormula": "SUM(F2:F10)",
+          "readerFormula": "SUM(F2:F10)",
+          "readerValue": 13097,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Notes",
+          "address": "D2",
+          "expected": 2400,
+          "sourceFormula": "'Launch budget'!$D2*'Launch budget'!E$2",
+          "readerFormula": "'Launch budget'!$D2*'Launch budget'!E$2",
+          "readerValue": 2400,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Notes",
+          "address": "E2",
+          "expected": 2401,
+          "sourceFormula": "'Launch budget'!$D$2+'Launch budget'!E$2",
+          "readerFormula": "'Launch budget'!$D$2+'Launch budget'!E$2",
+          "readerValue": 2401,
+          "readerType": "n",
+          "agrees": true
+        }
+      ],
+      "report": {
+        "adapterVersion": "0.2.0-dev.0",
+        "sourceFormat": "SheetJS",
+        "summary": {
+          "exact": 89,
+          "approximated": 20,
+          "dropped": 24,
+          "blocked": 0
+        },
+        "issues": [
+          {
+            "code": "STYLE_NOT_EXPORTED",
+            "feature": "style",
+            "message": "SheetJS CE export does not guarantee visual styles; use OpenSheet JSON to preserve styles",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "count": 23
+          },
+          {
+            "code": "RECALC_REQUIRED",
+            "feature": "formula",
+            "message": "Formula result requires recalculation in the target application",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "address": "F2",
+            "count": 10
+          },
+          {
+            "code": "EXPORT_WIDTH_APPROXIMATED",
+            "feature": "column-width",
+            "message": "Pixel column widths are converted to font-dependent spreadsheet widths",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "count": 7
+          },
+          {
+            "code": "VIEW_NOT_EXPORTED",
+            "feature": "view",
+            "message": "Filters and frozen panes are preserved only in OpenSheet JSON",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "count": 1
+          },
+          {
+            "code": "RECALC_REQUIRED",
+            "feature": "formula",
+            "message": "Formula result requires recalculation in the target application",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_1672265584da448aa2e8fec52abe90ce",
+            "address": "D2",
+            "count": 2
+          },
+          {
+            "code": "EXPORT_WIDTH_APPROXIMATED",
+            "feature": "column-width",
+            "message": "Pixel column widths are converted to font-dependent spreadsheet widths",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_1672265584da448aa2e8fec52abe90ce",
+            "count": 1
+          }
+        ],
+        "omittedIssueOccurrences": 0
+      },
+      "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-budget-reader-LvuAzJ/case-0.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-budget-reader-LvuAzJ/out-0/case-0.xlsx using filter : Calc MS Excel 2007 XML\n"
+    },
+    {
+      "quantity": 3,
+      "values": [
+        {
+          "sheet": "Launch budget",
+          "address": "D2",
+          "expected": 3,
+          "sourceFormula": null,
+          "readerFormula": null,
+          "readerValue": 3,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Launch budget",
+          "address": "F2",
+          "expected": 7200,
+          "sourceFormula": "D2*E2",
+          "readerFormula": "D2*E2",
+          "readerValue": 7200,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Launch budget",
+          "address": "F11",
+          "expected": 17897,
+          "sourceFormula": "SUM(F2:F10)",
+          "readerFormula": "SUM(F2:F10)",
+          "readerValue": 17897,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Notes",
+          "address": "D2",
+          "expected": 7200,
+          "sourceFormula": "'Launch budget'!$D2*'Launch budget'!E$2",
+          "readerFormula": "'Launch budget'!$D2*'Launch budget'!E$2",
+          "readerValue": 7200,
+          "readerType": "n",
+          "agrees": true
+        },
+        {
+          "sheet": "Notes",
+          "address": "E2",
+          "expected": 2403,
+          "sourceFormula": "'Launch budget'!$D$2+'Launch budget'!E$2",
+          "readerFormula": "'Launch budget'!$D$2+'Launch budget'!E$2",
+          "readerValue": 2403,
+          "readerType": "n",
+          "agrees": true
+        }
+      ],
+      "report": {
+        "adapterVersion": "0.2.0-dev.0",
+        "sourceFormat": "SheetJS",
+        "summary": {
+          "exact": 89,
+          "approximated": 20,
+          "dropped": 24,
+          "blocked": 0
+        },
+        "issues": [
+          {
+            "code": "STYLE_NOT_EXPORTED",
+            "feature": "style",
+            "message": "SheetJS CE export does not guarantee visual styles; use OpenSheet JSON to preserve styles",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "count": 23
+          },
+          {
+            "code": "RECALC_REQUIRED",
+            "feature": "formula",
+            "message": "Formula result requires recalculation in the target application",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "address": "F2",
+            "count": 10
+          },
+          {
+            "code": "EXPORT_WIDTH_APPROXIMATED",
+            "feature": "column-width",
+            "message": "Pixel column widths are converted to font-dependent spreadsheet widths",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "count": 7
+          },
+          {
+            "code": "VIEW_NOT_EXPORTED",
+            "feature": "view",
+            "message": "Filters and frozen panes are preserved only in OpenSheet JSON",
+            "action": "dropped",
+            "severity": "warning",
+            "sheetId": "sheet_6a40a4a7db444fd7a29adec0486e2d07",
+            "count": 1
+          },
+          {
+            "code": "RECALC_REQUIRED",
+            "feature": "formula",
+            "message": "Formula result requires recalculation in the target application",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_1672265584da448aa2e8fec52abe90ce",
+            "address": "D2",
+            "count": 2
+          },
+          {
+            "code": "EXPORT_WIDTH_APPROXIMATED",
+            "feature": "column-width",
+            "message": "Pixel column widths are converted to font-dependent spreadsheet widths",
+            "action": "approximated",
+            "severity": "warning",
+            "sheetId": "sheet_1672265584da448aa2e8fec52abe90ce",
+            "count": 1
+          }
+        ],
+        "omittedIssueOccurrences": 0
+      },
+      "log": "convert /var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-budget-reader-LvuAzJ/case-1.xlsx as a Calc document -> /private/var/folders/t4/5jpgr2kj5ygcf_9jq59b0ykm0000gn/T/opensheet-budget-reader-LvuAzJ/out-1/case-1.xlsx using filter : Calc MS Excel 2007 XML\n"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "budget-workload-reader-2026-11-22.initial.source.xlsx",
+      "sha256": "51c610289bfd826991063ad52112fc2a9da4a33e2efd87c4cccd8cdfce83fcbe"
+    },
+    {
+      "name": "budget-workload-reader-2026-11-22.initial.saved.xlsx",
+      "sha256": "25f161ba1735576641102efb05f9a7bef80b5f0919125b0616aa20962db6205c"
+    },
+    {
+      "name": "budget-workload-reader-2026-11-22.edited.source.xlsx",
+      "sha256": "06ae138ba9b448c5dfe2d5318a2a7859a8b6d1561ea2bed397568bae791b2f89"
+    },
+    {
+      "name": "budget-workload-reader-2026-11-22.edited.saved.xlsx",
+      "sha256": "25814136603362f202a1446d6fc462b34f903e7b707ffdd911cb05c3c2f40861"
+    }
+  ],
+  "limitations": "Two synthetic variants of the checked-in budget fixture; SheetJS writes and inspects XLSX, while one LibreOfficeDev alpha build recalculates it headlessly. Does not cover native editing, Excel, stable LibreOffice, locales or other formulas."
+}
