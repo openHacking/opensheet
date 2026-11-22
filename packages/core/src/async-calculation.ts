@@ -103,6 +103,7 @@ export class AsyncCalculation {
     memo?: ScalarMemo,
     parent?: { depth: number },
     checkpoint?: () => void,
+    traversal?: { references: number },
   ): Promise<CellValue> {
     work?.signal?.throwIfAborted();
     if (work && --work.remaining < 0) return { error: '#LIMIT!' };
@@ -146,7 +147,16 @@ export class AsyncCalculation {
     try {
       const persisted = await this.persistedAST?.(sheet, row, column);
       ast = persisted ?? parseFormula(cell.input.expression);
-      result = await this.evaluate(sheet, ast, stack, work, memo, childDepth, checkpoint);
+      result = await this.evaluate(
+        sheet,
+        ast,
+        stack,
+        work,
+        memo,
+        childDepth,
+        checkpoint,
+        traversal,
+      );
     } catch (error) {
       if (work?.signal?.aborted || (error as { code?: string }).code === 'ABORTED') throw error;
       result = { error: error instanceof Error ? error.message : '#VALUE!' };
@@ -226,11 +236,13 @@ export class AsyncCalculation {
     memo?: ScalarMemo,
     depth?: { depth: number },
     checkpoint?: () => void,
+    traversal = { references: 0 },
   ) {
     const work = shared ?? { remaining: 10_000_000 };
     let textWork: { remaining: number } | undefined;
     const ref = async (r: Reference): Promise<CellValue> => {
-      if (work.remaining % 1024 === 0) {
+      if (++traversal.references >= 1024) {
+        traversal.references = 0;
         await new Promise<void>((resolve) => setTimeout(resolve, 0));
         checkpoint?.();
       }
@@ -238,7 +250,7 @@ export class AsyncCalculation {
       if (--work.remaining < 0) return { error: '#LIMIT!' };
       const target = r.sheet ? this.find(r.sheet) : sheet;
       return target
-        ? this.value(target, r.row, r.column, stack, shared, memo, depth, checkpoint)
+        ? this.value(target, r.row, r.column, stack, shared, memo, depth, checkpoint, traversal)
         : { error: '#REF!' };
     };
     const literal = (value: CellValue): AST => ({ kind: 'literal', value });
