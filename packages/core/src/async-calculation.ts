@@ -102,6 +102,7 @@ export class AsyncCalculation {
     work?: EvaluationWork,
     memo?: ScalarMemo,
     parent?: { depth: number },
+    checkpoint?: () => void,
   ): Promise<CellValue> {
     work?.signal?.throwIfAborted();
     if (work && --work.remaining < 0) return { error: '#LIMIT!' };
@@ -145,7 +146,7 @@ export class AsyncCalculation {
     try {
       const persisted = await this.persistedAST?.(sheet, row, column);
       ast = persisted ?? parseFormula(cell.input.expression);
-      result = await this.evaluate(sheet, ast, stack, work, memo, childDepth);
+      result = await this.evaluate(sheet, ast, stack, work, memo, childDepth, checkpoint);
     } catch (error) {
       if (work?.signal?.aborted || (error as { code?: string }).code === 'ABORTED') throw error;
       result = { error: error instanceof Error ? error.message : '#VALUE!' };
@@ -157,7 +158,7 @@ export class AsyncCalculation {
     return this.remember(id, sheet, row, column, ast, result, generation, depth);
   }
   /** Reuse bounded scalar references only for the lifetime of one caller-owned read. */
-  readSession(minimumScratchBytes = 0) {
+  readSession(minimumScratchBytes = 0, checkpoint?: () => void) {
     assert(
       Number.isSafeInteger(minimumScratchBytes) &&
         minimumScratchBytes >= 0 &&
@@ -170,7 +171,7 @@ export class AsyncCalculation {
       cache: new ByteCache(Math.max(minimumScratchBytes, Math.min(this.cache.budget, 64 * 1024))),
     };
     return (sheet: string, row: number, column: number) =>
-      this.value(sheet, row, column, new Set(), undefined, memo);
+      this.value(sheet, row, column, new Set(), undefined, memo, undefined, checkpoint);
   }
   /** A shared calculation budget for one immutable staged workbook view. */
   validationSession(signal?: AbortSignal, steps = 1_000_000) {
@@ -224,16 +225,20 @@ export class AsyncCalculation {
     shared?: EvaluationWork,
     memo?: ScalarMemo,
     depth?: { depth: number },
+    checkpoint?: () => void,
   ) {
     const work = shared ?? { remaining: 10_000_000 };
     let textWork: { remaining: number } | undefined;
     const ref = async (r: Reference): Promise<CellValue> => {
-      if (work.remaining % 1024 === 0) await new Promise<void>((resolve) => setTimeout(resolve, 0));
+      if (work.remaining % 1024 === 0) {
+        await new Promise<void>((resolve) => setTimeout(resolve, 0));
+        checkpoint?.();
+      }
       work.signal?.throwIfAborted();
       if (--work.remaining < 0) return { error: '#LIMIT!' };
       const target = r.sheet ? this.find(r.sheet) : sheet;
       return target
-        ? this.value(target, r.row, r.column, stack, shared, memo, depth)
+        ? this.value(target, r.row, r.column, stack, shared, memo, depth, checkpoint)
         : { error: '#REF!' };
     };
     const literal = (value: CellValue): AST => ({ kind: 'literal', value });

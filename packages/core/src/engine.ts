@@ -1592,7 +1592,11 @@ export class Engine {
         if (values) {
           const v =
             cell?.input.type === 'formula'
-              ? await (calculate ??= this.calculator.readSession(16 * 1024))(sheetId, row, column)
+              ? await (calculate ??= this.calculator.readSession(16 * 1024, () => this.check()))(
+                  sheetId,
+                  row,
+                  column,
+                )
               : cell
                 ? scalarValue(cell.input)
                 : null;
