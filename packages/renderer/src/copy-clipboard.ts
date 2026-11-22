@@ -92,9 +92,9 @@ export async function writeClipboard(range: Range) {
   const data = copyClipboard(range);
   const text = data.then(({ text }) => new Blob([text], { type: 'text/plain' }));
   const html = data.then(({ html }) => new Blob([html], { type: 'text/html' }));
-  try {
-    await clipboard.write([new ClipboardItem({ 'text/plain': text, 'text/html': html })]);
-  } finally {
-    await Promise.allSettled([text, html]);
-  }
+  // Observe both producers immediately, including after a rejected clipboard write.
+  // A failed permission request must not wait for a stalled workbook read.
+  const results = Promise.allSettled([text, html]);
+  await clipboard.write([new ClipboardItem({ 'text/plain': text, 'text/html': html })]);
+  for (const result of await results) if (result.status === 'rejected') throw result.reason;
 }
