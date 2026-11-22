@@ -375,7 +375,9 @@ export class ColumnPage {
         for (let i = 0; i <= n; i++) {
           const at = vview.getUint32(offsets + i * 4, true);
           assert(
-            at >= prev && arena + at <= vview.byteLength && (!wide || at % 2 === 0),
+            (i === 0 ? at === 0 : at >= prev) &&
+              arena + at <= vview.byteLength &&
+              (!wide || at % 2 === 0),
             'CORRUPT_STORAGE',
             'String offset',
           );
