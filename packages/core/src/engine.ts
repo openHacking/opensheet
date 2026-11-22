@@ -1616,6 +1616,7 @@ export class Engine {
                   );
         }
       }
+    this.check();
     return { sheetId, range, cells, calculated, display, revision: this.head.revision };
   }
   async readCells(sheetId: string, range: Rect, fields: import('./workbook.js').CellField[]) {

@@ -55,7 +55,7 @@ export function serveWorker(scope: {
     }
     if (method === 'cancelRequest') {
       const target = args[0];
-      if (requests.get(target) === 'search' || requests.get(target) === 'navigateData') {
+      if (['search', 'navigateData', 'readCells'].includes(requests.get(target) ?? '')) {
         if (activeRequest === target) engine?.cancel();
         else cancelledRequests.add(target);
       }

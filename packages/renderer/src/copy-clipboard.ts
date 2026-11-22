@@ -26,10 +26,15 @@ function css(style: CellStyle) {
     .join(';');
 }
 
-export async function copyClipboard(range: Range): Promise<{ text: string; html: string }> {
+export async function copyClipboard(
+  range: Range,
+  options: { signal?: AbortSignal } = {},
+): Promise<{ text: string; html: string }> {
   const book = range.sheet.workbook,
     bounds = { ...range.bounds };
   const revision = book.revision;
+  const signal = options.signal;
+  if (signal?.aborted) throw new OpenSheetError('ABORTED', 'Operation cancelled');
   if (
     book
       .sheetData(range.sheet.id)
@@ -45,9 +50,12 @@ export async function copyClipboard(range: Range): Promise<{ text: string; html:
   const rows: string[][] = [];
   let html = `<table data-opensheet-clipboard="1" data-row="${bounds.startRow}" data-column="${bounds.startColumn}">`;
   for (const batch of clipboardBatches(book, range.sheet.id, bounds)) {
+    if (signal?.aborted) throw new OpenSheetError('ABORTED', 'Operation cancelled');
     const data = await book.readCells(range.sheet.id, batch, {
       fields: ['input', 'value', 'display', 'style', 'numberFormat', 'note', 'link'],
+      signal,
     });
+    if (signal?.aborted) throw new OpenSheetError('ABORTED', 'Operation cancelled');
     if (data.revision !== revision || book.revision !== revision)
       throw new OpenSheetError('REVISION_CONFLICT', 'Workbook changed during copy');
     for (const cell of data.cells) {
@@ -89,12 +97,18 @@ export async function writeClipboard(range: Range) {
     await clipboard.writeText(await copyText(range));
     return;
   }
-  const data = copyClipboard(range);
+  const controller = new AbortController();
+  const data = copyClipboard(range, { signal: controller.signal });
   const text = data.then(({ text }) => new Blob([text], { type: 'text/plain' }));
   const html = data.then(({ html }) => new Blob([html], { type: 'text/html' }));
   // Observe both producers immediately, including after a rejected clipboard write.
   // A failed permission request must not wait for a stalled workbook read.
   const results = Promise.allSettled([text, html]);
-  await clipboard.write([new ClipboardItem({ 'text/plain': text, 'text/html': html })]);
+  try {
+    await clipboard.write([new ClipboardItem({ 'text/plain': text, 'text/html': html })]);
+  } catch (error) {
+    controller.abort();
+    throw error;
+  }
   for (const result of await results) if (result.status === 'rejected') throw result.reason;
 }

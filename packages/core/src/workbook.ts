@@ -851,7 +851,11 @@ export class Workbook {
     assert(data.revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during read');
     return data;
   }
-  async readCells(sheetId: string, range: Rect, options: { fields?: CellField[] } = {}) {
+  async readCells(
+    sheetId: string,
+    range: Rect,
+    options: { fields?: CellField[]; signal?: AbortSignal } = {},
+  ) {
     checkBounds(this.sheetData(sheetId), range);
     const fields = options.fields ?? ['input', 'value'];
     assert(
@@ -862,7 +866,7 @@ export class Workbook {
       'Unknown cell field',
     );
     const data: { revision: number; sheetId: string; range: Rect; cells: CellData[] } =
-      await this.rpc('readCells', [sheetId, range, fields]);
+      await this.rpc('readCells', [sheetId, range, fields], [], options.signal);
     assert(data.revision === this.revision, 'REVISION_CONFLICT', 'Workbook changed during read');
     return data;
   }
