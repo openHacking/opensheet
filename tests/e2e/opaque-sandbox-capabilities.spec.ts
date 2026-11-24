@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('reports initialization failures in an opaque sandbox without modifying a saved workbook', async ({
   page,
 }) => {
-  await page.route('**/*', async (route) => {
+  await page.route(/^https?:\/\//, async (route) => {
     const response = await route.fetch();
     await route.fulfill({
       response,
