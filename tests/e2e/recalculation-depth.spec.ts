@@ -19,7 +19,14 @@ test('depth exhaustion is not cached or hidden by IFERROR after reopening', asyn
     const limit = (await reopened.range('A130').getValues())[0][0];
     const withinLimit = (await reopened.range('A129').getValues())[0][0];
     const retried = (await reopened.range('A130').getValues())[0][0];
-    return { limit, withinLimit, retried };
+    await reopened.range('A2').setValues([[2]]);
+    const shortened = (await reopened.range('A130').getValues())[0][0];
+    return { limit, withinLimit, retried, shortened };
   });
-  expect(result).toEqual({ limit: { error: '#LIMIT!' }, withinLimit: 129, retried: 129 });
+  expect(result).toEqual({
+    limit: { error: '#LIMIT!' },
+    withinLimit: 129,
+    retried: { error: '#LIMIT!' },
+    shortened: 129,
+  });
 });
